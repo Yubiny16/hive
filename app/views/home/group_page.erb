@@ -1,0 +1,140 @@
+
+<h1><%= @group.name %></h1>
+<ul class="nav nav-pills">
+  <li role="presentation" class="active"><a href="/home/index">Home</a></li>
+  <li role="presentation"><a href="/home/profile">Profile</a></li>
+  <li role="presentation"><a href="/home/my_friends">Friends</a></li>
+  <li role="presentation"><a href="/users/edit">Chat</a></li>
+  <li role="presentation"><a href="/users/edit">Setting</a></li>
+  <li role="presentation"><a href="/users/sign_out">Log Out</a></li>
+</ul>
+<br>
+<div class ="container">
+  <ul class ="nav nav-pills nav-justified">
+    <li class="active"><a href="#Home" data-toggle="tab">Home</a></li>
+    <li><a href="#Network" data-toggle="tab">Network</a></li>
+  </ul>
+
+  <div class="tab-content">
+    <div class="tab-pane fade in active" id="Home">
+        <!-- Announcements -->
+      <div id="announcement_carousel" data-wrap="true"  class="carousel slide" data-interval="false" data-ride="carousel">
+       <ol class="carousel-indicators">
+         <li data-target="#announcement_carousel" data-slide-to="0" class="active"></li>
+         <li data-target="#announcement_carousel" data-slide-to="1"></li>
+         <li data-target="#announcement_carousel" data-slide-to="2"></li>
+       </ol>
+       <div class="carousel-inner">
+           <div class="item active">
+             <center><img class="img-responsive" align="middle" src="http://hdwallpaperbackgrounds.net/wp-content/uploads/2016/08/black-background-49.jpg" width="700" height="0" /></center>
+             <div class="carousel-caption">
+                <h3>4/13/17</h3>
+                 <p>"At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat."</p>
+             </div>
+           </div>
+           <div class="item">
+           <center><img class="img-responsive" align="middle" src="http://hdwallpaperbackgrounds.net/wp-content/uploads/2016/08/black-background-49.jpg" width="700" height="400"/></center>
+             <div class="carousel-caption">
+                <h3>4/13/17</h3>
+                 <p>"At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat."</p>
+             </div>
+           </div>
+           <div class="item">
+           <center><img class="img-responsive" src="http://hdwallpaperbackgrounds.net/wp-content/uploads/2016/08/black-background-49.jpg" width="700" height="400"/></center>
+             <div class="carousel-caption">
+                <h3>4/13/17</h3>
+                 <p>"At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat."</p>
+             </div>
+           </div>
+      </div>
+      <a href="#announcement_carousel" class="carousel-control left" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+      </a>
+      <a href="#announcement_carousel" class="carousel-control right" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right"></span>
+      </a>
+      </div>
+      <!-- Calendar -->
+      <div class="calendar"></div>
+
+    </div>
+    <div class="tab-pane fade in" id="Network">
+      <!-- Friend List + Friend Requests -->
+      <% GroupUser.where(group_id: @group.id).where.not(email: @user.email).find_each do |friends| %>
+      <% User.where(email: friends.email).find_each do |friends_info| %>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#user_profile_<%= friends_info.id %>"><%= friends_info.first_name %> <%= friends_info.last_name %></button>
+          <div class="modal fade" id="user_profile_<%= friends_info.id %>" tableindex="-1" role="dialog">
+           <div class="modal-dialog" role="document">
+             <div class="modal-content">
+               <div class="modal-header">
+                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                   <span aria-hidden="true">&times;</span>
+                 </button>
+                 <h5 class="modal-title"><%= friends_info.first_name %>'s profile</h5>
+               </div>
+               <div class="modal-body">
+                <ul class="list-group">
+                  <li class="list-group-item">Name: <%= friends_info.first_name %> <%= friends_info.last_name %></li>
+                  <li class="list-group-item">Email: <%= friends_info.email %></li>
+                  <li class="list-group-item">School: <%= friends_info.school %></li>
+                  <li class="list-group-item">Major: <%= friends_info.major %></li>
+                  <li class="list-group-item">Class of Year: <%= friends_info.class_year %></li>
+                  <li class="list-group-item">Company: <%= friends_info.company %> </li>
+                </ul>
+               </div>
+               <div class="modal-footer">
+                 <div class="input-box">
+                   <input type="text" class="input-box_text" id="message_input"/>
+                 </div>
+                 <form action="/rooms/new_chat" method="get">
+                  <input name= "group_id" type="hidden" value= "<%= @group.id %>">
+                  <button name="friend_email" value= "<%= friends_info.email %>" type="submit" class="btn btn-default reply_submit">Submit</button>
+                </form>
+               </div>
+             </div>
+           </div>
+         </div>
+         <br>
+      <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<!-- Create Group
+<div id="divResult"></div>
+
+
+<script type="text/javascript">
+$(document).ready(function() {
+  $("#connect").click(function() {
+    result = $('input[type="radio"]:checked');
+    email_two = this.value;
+    email_one = current_user.email;
+    group_name = <%= @group.name %>
+    if(result.length > 0) {
+      result.each(function() {
+        resultString = $(this).val();
+      });
+        $('#divResult').html(resultString);
+      message = resultString
+    }
+    else {
+      alert("Choose an Option")
+    }
+    $.ajax({
+      method: "get",
+      url: "/home/connect"
+      data: { email_one: email_one,
+              email_two: email_two,
+              group_name: group_name,
+              message: message },
+
+    success: function(){
+          alert("successful")
+        }
+    })
+  });
+});
+</script>
+-->

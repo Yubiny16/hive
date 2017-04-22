@@ -1,0 +1,89 @@
+<h1>My friends page</h1>
+<ul class="nav nav-pills">
+  <li role="presentation" class="active"><a href="/home/index">Home</a></li>
+  <li role="presentation"><a href="/home/profile">Profile</a></li>
+  <li role="presentation"><a href="/home/my_friends">Friends</a></li>
+  <li role="presentation"><a href="/users/edit">Chat</a></li>
+  <li role="presentation"><a href="/users/edit">Setting</a></li>
+  <li role="presentation"><a href="/users/sign_out">Log Out</a></li>
+</ul>
+<br>
+  <ul class="nav nav-pills nav-stacked" style="width: 10%">
+    <li class="active"><a href="#All" data-toggle="tab">All</a></li>
+    <% GroupUser.where(email: @user.email).find_each do |group_tab| %>
+      <li><a href= "#<%= group_tab.id %>" data-toggle="tab"><%= group_tab.name %></a></li>
+    <% end %>
+  </ul>
+    <div class="tab-content">
+      <div class="tab-pane fade in active" id="All">
+        <% GroupUser.where(email: @user.email).find_each do |user_groups| %>
+        <% GroupUser.where(group_id: user_groups.group_id).where.not(email: @user.email).find_each do |friends| %>
+        <% User.where(email: friends.email).find_each do |friends_info| %>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#user_profile_<%= friends_info.id %>"><%= friends_info.first_name %> <%= friends_info.last_name %></button>
+          <div class="modal fade" id="user_profile_<%= friends_info.id %>" tableindex="-1" role="dialog">
+           <div class="modal-dialog" role="document">
+             <div class="modal-content">
+               <div class="modal-header">
+                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                   <span aria-hidden="true">&times;</span>
+                 </button>
+                 <h5 class="modal-title"><%= friends_info.first_name %>'s profile</h5>
+               </div>
+               <div class="modal-body">
+                <ul class="list-group">
+                  <li class="list-group-item">Name: <%= friends_info.first_name %> <%= friends_info.last_name %></li>
+                  <li class="list-group-item">Email: <%= friends_info.email %></li>
+                  <li class="list-group-item">School: <%= friends_info.school %></li>
+                  <li class="list-group-item">Major: <%= friends_info.major %></li>
+                  <li class="list-group-item">Class of Year: <%= friends_info.class_year %></li>
+                  <li class="list-group-item">Company: <%= friends_info.company %> </li>
+                </ul>
+               </div>
+               <div class="modal-footer">
+                <a href="/home/accept/<%= friends_info.id%>">Chat</a><br>
+               </div>
+             </div>
+           </div>
+         </div>
+         <br>
+        <% end %>
+        <% end %>
+        <% end %>
+      </div>
+
+      <% GroupUser.where(email: @user.email).find_each do |group_tab| %>
+        <div class="tab-pane fade in" id="<%= group_tab.id %>">
+        <% GroupUser.where(group_id: group_tab.group_id).where.not(email: @user.email).find_each do |friends| %>
+        <% User.where(email: friends.email).find_each do |friends_info| %>
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#user_profile_<%= friends_info.id %>"><%= friends_info.first_name %> <%= friends_info.last_name %></button>
+            <div class="modal fade" id="user_profile_<%= friends_info.id %>" tableindex="-1" role="dialog">
+             <div class="modal-dialog" role="document">
+               <div class="modal-content">
+                 <div class="modal-header">
+                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                     <span aria-hidden="true">&times;</span>
+                   </button>
+                   <h5 class="modal-title"><%= friends_info.first_name %>'s profile</h5>
+                 </div>
+                 <div class="modal-body">
+                  <ul class="list-group">
+                    <li class="list-group-item">Name: <%= friends_info.first_name %> <%= friends_info.last_name %></li>
+                    <li class="list-group-item">Email: <%= friends_info.email %></li>
+                    <li class="list-group-item">School: <%= friends_info.school %></li>
+                    <li class="list-group-item">Major: <%= friends_info.major %></li>
+                    <li class="list-group-item">Class of Year: <%= friends_info.class_year %></li>
+                    <li class="list-group-item">Company: <%= friends_info.company %> </li>
+                  </ul>
+                 </div>
+                 <div class="modal-footer">
+                  <button>Send Message</button><br>
+                 </div>
+               </div>
+             </div>
+           </div>
+           <br>
+        <% end %>
+        <% end %>
+        </div>
+      <% end %>
+    </div>

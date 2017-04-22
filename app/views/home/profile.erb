@@ -1,0 +1,19 @@
+<h1>Profile</h1>
+<ul class="nav nav-pills">
+  <li role="presentation" class="active"><a href="/home/index">Home</a></li>
+  <li role="presentation"><a href="/home/profile">Profile</a></li>
+  <li role="presentation"><a href="/home/my_friends">Friends</a></li>
+  <li role="presentation"><a href="/users/edit">Chat</a></li>
+  <li role="presentation"><a href="/users/edit">Setting</a></li>
+  <li role="presentation"><a href="/users/sign_out">Log Out</a></li>
+</ul>
+<div class="container">
+  First Name: <%= @user.first_name %> <br>
+  Last Name: <%= @user.last_name %><br>
+  Email: <%= @user.email %><br>
+  School: <%= @user.school %><br>
+  Major: <%= @user.major %><br>
+  Class of Year: <%= @user.class_year %><br>
+  Company: <%= @user.company %> <br>
+  <a href="/users/edit">Edit Profile</a>
+</div>

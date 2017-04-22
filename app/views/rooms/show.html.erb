@@ -1,0 +1,26 @@
+
+<h1>Chat Room</h1>
+<!-- list of conversations -->
+<ul class ="nav nav-pills nav-stacked" style="width: 10%">
+  <% Conversation.where(userA_email: @user.email).or(Conversation.where(userB_email: @user.email)).find_each do |c| %>
+    <li><a href="#<%= c.id %>" data-toggle="tab"><%= c.id %></a></li>
+  <% end %>
+</ul>
+<!-- Messages -->
+<div class="tab-content">
+  <% Conversation.where(userA_email: @user.email).or(Conversation.where(userB_email: @user.email)).find_each do |c| %>
+  <div class="tab-pane " id="<%= c.id %>">
+    <p>sdaklfjkf <%= c.id %></p>
+  </div>
+  <% end %>
+</div>
+<div class="container">
+  <div class="message-history" id="messages">
+    <%= render @messages %>
+  </div>
+  <br>
+  <!-- type your messages here -->
+  <div class="input-box">
+    <input type="text" class="input-box_text" id="message_input"/>
+  </div>
+</div>

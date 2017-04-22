@@ -1,0 +1,54 @@
+<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<ul class="nav nav-pills">
+  <li role="presentation" class="active"><a href="/home/index">Home</a></li>
+  <li role="presentation"><a href="/home/profile">Profile</a></li>
+  <li role="presentation"><a href="/home/my_friends">Friends</a></li>
+  <li role="presentation"><a href="/users/edit">Chat</a></li>
+  <li role="presentation"><a href="/users/edit">Setting</a></li>
+  <li role="presentation"><a href="/users/sign_out">Log Out</a></li>
+</ul>
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+  <%= devise_error_messages! %>
+  <div>
+    <%= f.label :email %><br />
+    <%= f.email_field :email, autofocus: true %>
+  </div>
+  <div>
+  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+  <% end %>
+  </div>
+  <div>
+    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
+    <%= f.password_field :password, autocomplete: "off" %>
+    <% if @minimum_password_length %>
+      <br />
+      <em><%= @minimum_password_length %> characters minimum</em>
+    <% end %>
+  </div>
+  <div>
+    <%= f.label :password_confirmation %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "off" %>
+  </div>
+  <div>
+    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
+    <%= f.password_field :current_password, autocomplete: "off" %>
+  <div>
+
+  <input name="first_name", placeholder="First Name", value="<%= @user.first_name %>"/><br>
+  <input name="last_name", placeholder="Last Name", value="<%= @user.last_name %>"/><br>
+  <input name="school", placeholder="School", value="<%= @user.school %>"/><br>
+  <input name="major", placeholder="Major", value="<%= @user.major %>"/><br>
+  <input name="company", placeholder="Company", value="<%= @user.company %>"/><br>
+  <input name="class_year", placeholder="Class of Year", value="<%= @user.class_year%>"/><br>
+
+  <div class="actions">
+    <%= f.submit "Update" %>
+  </div>
+<% end %>
+
+<h3>Cancel my account</h3>
+
+<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
+
+<%= link_to "Back", :back %>
