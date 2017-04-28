@@ -1,26 +1,32 @@
 
-<h1>Chat Room</h1>
-<!-- list of conversations -->
-<ul class ="nav nav-pills nav-stacked" style="width: 10%">
-  <% Conversation.where(userA_email: @user.email).or(Conversation.where(userB_email: @user.email)).find_each do |c| %>
-    <li><a href="#<%= c.id %>" data-toggle="tab"><%= c.id %></a></li>
-  <% end %>
-</ul>
-<!-- Messages -->
-<div class="tab-content">
-  <% Conversation.where(userA_email: @user.email).or(Conversation.where(userB_email: @user.email)).find_each do |c| %>
-  <div class="tab-pane " id="<%= c.id %>">
-    <p>sdaklfjkf <%= c.id %></p>
+<div class="row">
+  <div class="col-md-3">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Conversations</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+          <% @user_conversations.each do |user_conversations| %>
+            <% if user_conversations.recipient_id == current_user.id %>
+              <% User.where(id: user_conversations.sender_id).find do |friend| %>
+                <li><%= link_to friend.first_name, conversations_path(user_id: friend.id), remote: true, method: :post %></li>
+              <% end %>
+            <% else %>
+              <% User.where(id: user_conversations.recipient_id).find do |friend| %>
+                <li><%= link_to friend.first_name, conversations_path(user_id: friend.id), remote: true, method: :post %></li>
+              <% end %>
+            <% end %>
+          <% end %>
+        </ul>
+      </div>
+    </div>
   </div>
-  <% end %>
-</div>
-<div class="container">
-  <div class="message-history" id="messages">
-    <%= render @messages %>
-  </div>
-  <br>
-  <!-- type your messages here -->
-  <div class="input-box">
-    <input type="text" class="input-box_text" id="message_input"/>
+  <div class="col-md-5">
+    <ul id="conversations-list">
+      <% @conversations.each do |conversation| %>
+        <%= render 'conversations/conversation', conversation: conversation, user: current_user %>
+      <% end %>
+    </ul>
   </div>
 </div>

@@ -1,16 +1,16 @@
 class RoomsController < ApplicationController
   before_action :require_login
   def show
-    @messages = Message.all
-    @user = current_user
+    session[:conversations] ||= []
+      @users = User.all.where.not(id: current_user)
+      @user_conversations = Conversation.all.where(recipient_id: current_user.id).or(Conversation.where(sender_id: current_user.id))
+      @conversations = Conversation.includes(:recipient, :messages)
+                                 .find(session[:conversations])
   end
   def new
-    puts params[:group_id]
-    puts params[:new_message]
     @new_conversation = Conversation.new
-    @new_conversation.userA_email = current_user.email
-    @new_conversation.userB_email = params[:friend_email]
-    @new_conversation.group_id = params[:group_id]
+    @new_conversation.recipient_id = current_user.id
+    @new_conversation.sender_id = params[:friend_id]
     @new_conversation.save
     redirect_to :back
   end

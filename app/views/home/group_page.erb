@@ -18,6 +18,7 @@
   <div class="tab-content">
     <div class="tab-pane fade in active" id="Home">
         <!-- Announcements -->
+        <h1>Announcement</h1>
       <div id="announcement_carousel" data-wrap="true"  class="carousel slide" data-interval="false" data-ride="carousel">
        <ol class="carousel-indicators">
          <li data-target="#announcement_carousel" data-slide-to="0" class="active"></li>
@@ -55,7 +56,72 @@
       </a>
       </div>
       <!-- Calendar -->
+      <h1>Calendar</h1>
       <div class="calendar"></div>
+
+      <!-- Budget Tracker -->
+      <h1>Budget Tracker</h1>
+      <form action= "/home/money_plus" method="POST">
+        <input name= "group_id" type="hidden" value= "<%= @group.id %>">
+        <div class="form-group">
+          <input name= "money_plus" type="number" class="form-control" placeholder="$00.00">
+        </div>
+        <div class="form-group">
+          <input name= "description_p" type="text" class="form-control" placeholder="Description">
+        </div>
+        <button type="submit" class="btn btn-default">Plus</button>
+      </form>
+      <form action= "/home/money_minus" method="POST">
+        <input name= "group_id" type="hidden" value= "<%= @group.id %>">
+        <div class="form-group">
+          <input name= "money_minus" type="number" class="form-control" placeholder="$00.00">
+        </div>
+        <div class="form-group">
+          <input name= "description_m" type="text" class="form-control" placeholder="Description">
+        </div>
+        <button type="submit" class="btn btn-default">Minus</button>
+      </form>
+      <% Budget.where(group_id: @group.id).find do |b| %>
+        <% Transaction.where(budget_id: b.id).find_each do |t| %>
+          <% if t.pos_neg == true %>
+            <p style="color: green"><%= t.value %></p>
+            <p><%= t.description %></p>
+          <% end %>
+          <% if t.pos_neg == false %>
+            <p style="color: red"><%= t.value %></p>
+            <p><%= t.description %></p>
+          <% end %>
+        <% end %>
+          <h3> <%= b.group_budget %> </h3>
+      <% end %>
+      <!-- Budget Tracker -->
+      <h1>Black Board</h1>
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#poll">Create Poll</button>
+        <div class="modal fade" id="poll" tableindex="-1" role="dialog">
+         <div class="modal-dialog" role="document">
+           <div class="modal-content">
+             <div class="modal-header">
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                 <span aria-hidden="true">&times;</span>
+               </button>
+               <h5 class="modal-title">Create New Poll</h5>
+             </div>
+             <div class="modal-body">
+               <form action="/home/new_poll" method="get">
+                <input name="poll_title" type="text" class="input-box_text" placeholder="Title"/>  <br>
+                <% for i in 1..$n %>
+                  <input name="option_content_<%= i %>"id="option_<%= i %>"type="text" class="input-box_text" placeholder="Option <%= i %>"/><br>
+                <% end %>
+                <button value= "<%= $n %>" type="submit" class="btn btn-default add_option">Add an Option</button>
+                <button name="group_id" value="<%= @group.id %>" type="submit" class="btn btn-default">Create!</button>
+               </form>
+             </div>
+           </div>
+         </div>
+       </div>
+       <% @poll.each do |p| %>
+        <%= p.title %>
+       <% end %>
 
     </div>
     <div class="tab-pane fade in" id="Network">
@@ -88,7 +154,7 @@
                  </div>
                  <form action="/rooms/new_chat" method="get">
                   <input name= "group_id" type="hidden" value= "<%= @group.id %>">
-                  <button name="friend_email" value= "<%= friends_info.email %>" type="submit" class="btn btn-default reply_submit">Submit</button>
+                  <button name="friend_id" value= "<%= friends_info.id %>" type="submit" class="btn btn-default reply_submit">Submit</button>
                 </form>
                </div>
              </div>
@@ -101,6 +167,21 @@
   </div>
 </div>
 
+
+<script>
+$(function() {
+    $(".add_option").click(function(){
+      $.ajax({
+        method: "post",
+        url: "/home/add_option",
+
+        success: function(){
+          $( "p" ).append("<p>"+ dsafdasf + "</p>");
+        }
+      })
+    });
+});
+</script>
 <!-- Create Group
 <div id="divResult"></div>
 

@@ -18,6 +18,11 @@ Rails.application.routes.draw do
   post '/home/search' => 'home#search'
   get '/home/join_group/:group_id' => 'home#join_group'
 
+  post '/home/money_plus' => 'home#money_plus'
+  post '/home/money_minus' => 'home#money_minus'
+  get '/home/new_poll' => 'home#new_poll'
+  post '/home/add_option' => 'home#add_option'
+
   get '/home/profile' => 'home#profile'
   get '/home/my_friends' => 'home#my_friends'
 
@@ -26,6 +31,12 @@ Rails.application.routes.draw do
   get '/rooms/show' => 'rooms#show'
   get '/rooms/new_chat' => 'rooms#new'
 
-  mount ActionCable.server => '/cable'
+  resources :conversations, only: [:create] do
+   member do
+     post :close
+   end
+
+   resources :messages, only: [:create]
+  end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
