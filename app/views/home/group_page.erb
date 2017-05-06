@@ -1,4 +1,4 @@
-
+<!-- Header -->
 <h1><%= @group.name %></h1>
 <ul class="nav nav-pills">
   <li role="presentation" class="active"><a href="/home/index">Home</a></li>
@@ -62,42 +62,53 @@
       <!-- Budget Tracker -->
       <h1>Budget Tracker</h1>
       <form action= "/home/money_plus" method="POST">
+        <!-- Pass current group id to controller -->
         <input name= "group_id" type="hidden" value= "<%= @group.id %>">
         <div class="form-group">
+          <!-- Pass the amount to be added to budget to controller -->
           <input name= "money_plus" type="number" class="form-control" placeholder="$00.00">
         </div>
         <div class="form-group">
+          <!-- Transaction Description, pass string to controller -->
           <input name= "description_p" type="text" class="form-control" placeholder="Description">
         </div>
         <button type="submit" class="btn btn-default">Plus</button>
       </form>
       <form action= "/home/money_minus" method="POST">
+        <!-- Pass current group id to controller -->
         <input name= "group_id" type="hidden" value= "<%= @group.id %>">
         <div class="form-group">
+          <!-- Pass the amount to be subtracted from budget to controller -->
           <input name= "money_minus" type="number" class="form-control" placeholder="$00.00">
         </div>
         <div class="form-group">
+          <!-- Transaction Description, pass string to controller -->
           <input name= "description_m" type="text" class="form-control" placeholder="Description">
         </div>
         <button type="submit" class="btn btn-default">Minus</button>
       </form>
+      <!-- Find Current Group's Budget -->
       <% Budget.where(group_id: @group.id).find do |b| %>
+      <!-- Transaction records for that budget -->
         <% Transaction.where(budget_id: b.id).find_each do |t| %>
+        <!-- If the transaction is revenue -->
           <% if t.pos_neg == true %>
             <p style="color: green"><%= t.value %></p>
             <p><%= t.description %></p>
           <% end %>
+          <!-- If the transaction is debt -->
           <% if t.pos_neg == false %>
             <p style="color: red"><%= t.value %></p>
             <p><%= t.description %></p>
           <% end %>
         <% end %>
+        <!-- Budget Balance -->
           <h3> <%= b.group_budget %> </h3>
       <% end %>
-      <!-- Budget Tracker -->
+      <!-- Black Board -->
       <h1>Black Board</h1>
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#poll">Create Poll</button>
-        <div class="modal fade" id="poll" tableindex="-1" role="dialog">
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#create_poll">Create Poll</button>
+        <div class="modal fade" id="create_poll" tableindex="-1" role="dialog">
          <div class="modal-dialog" role="document">
            <div class="modal-content">
              <div class="modal-header">
@@ -107,27 +118,119 @@
                <h5 class="modal-title">Create New Poll</h5>
              </div>
              <div class="modal-body">
-               <form action="/home/new_poll" method="get">
-                <input name="poll_title" type="text" class="input-box_text" placeholder="Title"/>  <br>
-                <% for i in 1..$n %>
-                  <input name="option_content_<%= i %>"id="option_<%= i %>"type="text" class="input-box_text" placeholder="Option <%= i %>"/><br>
-                <% end %>
-                <button value= "<%= $n %>" type="submit" class="btn btn-default add_option">Add an Option</button>
-                <button name="group_id" value="<%= @group.id %>" type="submit" class="btn btn-default">Create!</button>
-               </form>
+               <ul class ="nav nav-pills nav-justified">
+                 <li class="active"><a href="#Poll" data-toggle="tab">Poll</a></li>
+                 <li><a href="#Range" data-toggle="tab">Members</a></li>
+               </ul>
+               <div class="tab-content">
+                 <div class="tab-pane fade in active" id="Poll">
+                   <form id = "form_poll" action="/home/new_poll" method="get">
+                    <input name="poll_title" type="text" class="input-box_text" placeholder="Title"/><br>
+                    <!-- Add div to let the ajax script know where to append new input field. -->
+                    <div id = "option_div">
+                      <!-- 2 options default-->
+                      <% for i in 1..2 %>
+                        <input name="option_content_<%= i %>"id="option_<%= i %>"type="text" class="input-box_text" placeholder="Option <%= i %>"/><br>
+                      <% end %>
+                    </div>
+                    <button name="group_id" value="<%= @group.id %>" type="submit" class="btn btn-default">Create!</button>
+                   </form>
+                   <button value= "<%= $n %>" type="submit" class="btn btn-default add_option">Add an Option</button>
+                 </div>
+                 <div class="tab-pane fade in" id="Range">
+                  All <br>
+                  Current Members
+                 </div>
+               </div>
              </div>
            </div>
          </div>
        </div>
+       <!-- Polls -->
        <% @poll.each do |p| %>
-        <%= p.title %>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#poll_<%= p.id %>"><%= p.title %></button>
+        <!-- Create one Modal for each poll-->
+        <div class="modal fade" id="poll_<%= p.id %>" tableindex="-1" role="dialog">
+         <div class="modal-dialog" role="document">
+           <div class="modal-content">
+             <div class="modal-header">
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                 <span aria-hidden="true">&times;</span>
+               </button>
+               <h5 class="modal-title"><%= p.title %></h5>
+             </div>
+             <div class="modal-body">
+               <ul class ="nav nav-pills nav-justified">
+                 <li class="active"><a href="#one_poll_<%= p.id %>" data-toggle="tab">Poll</a></li>
+                 <li><a href="#Votes_<%= p.id %>" data-toggle="tab">Votes</a></li>
+               </ul>
+               <div class="tab-content">
+                 <div class="tab-pane fade in active" id="one_poll_<%= p.id %>">
+                   <!-- If user already voted -->
+                   <% if Polluser.where(user_id: @user.id).where(poll_id: p.id).where(voted: true).exists? %>
+                     <form action="/home/option_cancel" method="get">
+                     <% Option.where(poll_id: p.id).find_each do |o| %>
+                      <div class="radio">
+                        <label><input type="radio" name="optradio" value="<%= o.id %>"><%= o.content %></label> <strong><%= o.vote_number %></strong>
+                      </div>
+                     <% end %>
+                     <!-- user cancels his/her vote -->
+                     <button name="poll_id" value="<%= p.id %>" type="submit" class="btn btn-default">Cancel My Vote</button>
+                     </form>
+                     <form action="/home/delete_poll" method="get">
+                       <button name="poll_id" value="<%= p.id %>" type="submit" class="btn btn-default">Close Poll</button>
+                     </form>
+                   <% else %>
+                   <!-- If user has not voted or canceled -->
+                     <form action="/home/option_select" method="get">
+                       <% Option.where(poll_id: p.id).find_each do |o| %>
+                        <div class="radio">
+                          <label><input type="radio" name="optradio" value="<%= o.id %>"><%= o.content %></label> <strong><%= o.vote_number %></strong>
+                        </div>
+                       <% end %>
+                       <button name="poll_id" value="<%= p.id %>"type="submit" class="btn btn-default">Vote!</button>
+                     </form>
+                     <form action="/home/delete_poll" method="get">
+                       <button name="poll_id" value="<%= p.id %>" type="submit" class="btn btn-default">Close Poll</button>
+                     </form>
+                   <% end %>
+                 </div>
+                 <div class="tab-pane fade in" id="Votes_<%= p.id %>">
+                   <!-- Find Options in this poll -->
+                  <% Option.where(poll_id: p.id).find_each do |o| %>
+                    <strong><%= o.content %></strong> <br>
+                    <!-- Find the people who voted -->
+                    <% Polluser.where(option_id: o.id).where(voted: true).find_each do |pu| %>
+                      <% User.where(id: pu.user_id).find_each do |voted_user| %>
+                        <%= voted_user.first_name %> <%= voted_user.last_name %>
+                      <% end %>
+                      <br>
+                    <% end %>
+                    <% end %>
+                    <strong><p>Not Voted</p></strong>
+                    <% GroupUser.where(group_id: @group.id).find_each do |gr| %>
+                      <% User.where(id: gr.user_id).find_each do |not_voted_user| %>
+                        <% if !Polluser.where(user_id: not_voted_user.id).where(poll_id: p.id).exists? %>
+                          <%= not_voted_user.first_name %> <%= not_voted_user.last_name %>
+                        <% end %>
+                        <% if Polluser.where(user_id: not_voted_user.id).where(poll_id: p.id).where(voted: false).exists? %>
+                          <%= not_voted_user.first_name %> <%= not_voted_user.last_name %>
+                        <% end %>
+                      <% end %>
+                    <% end %>
+                 </div>
+               </div>
+             </div>
+           </div>
+         </div>
+       </div>
        <% end %>
 
     </div>
     <div class="tab-pane fade in" id="Network">
       <!-- Friend List + Friend Requests -->
-      <% GroupUser.where(group_id: @group.id).where.not(email: @user.email).find_each do |friends| %>
-      <% User.where(email: friends.email).find_each do |friends_info| %>
+      <% GroupUser.where(group_id: @group.id).where.not(user_id: @user.id).find_each do |friends| %>
+      <% User.where(id: friends.user_id).find_each do |friends_info| %>
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#user_profile_<%= friends_info.id %>"><%= friends_info.first_name %> <%= friends_info.last_name %></button>
           <div class="modal fade" id="user_profile_<%= friends_info.id %>" tableindex="-1" role="dialog">
            <div class="modal-dialog" role="document">
@@ -169,14 +272,24 @@
 
 
 <script>
+var i = 1;
 $(function() {
     $(".add_option").click(function(){
+     n = parseInt(this.value);// to use the value of '$n'
+     n = n + i;
+     i = i + 1;
       $.ajax({
-        method: "post",
+        method: "get",
         url: "/home/add_option",
 
         success: function(){
-          $( "p" ).append("<p>"+ dsafdasf + "</p>");
+
+          $("#option_div").append("<input name=\"option_content_"
+                                  + n + "\" id=\"option_" + n + "\"type=\"text\" class=\"input-box_text\" placeholder=\"Option "
+                                  + n + "\"/><br>");
+        },
+        error: function(){
+          alert("ERROR!");
         }
       })
     });

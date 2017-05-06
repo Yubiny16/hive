@@ -4,7 +4,7 @@ class CreateOptions < ActiveRecord::Migration[5.0]
 
       t.integer :poll_id
       t.string :content
-      t.boolean :selected, :default => false
+      t.integer :vote_number, :default => 0
 
       t.timestamps
     end

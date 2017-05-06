@@ -13,11 +13,14 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require bootstrap-sprockets
 //= require moment
 //= require fullcalendar
-//= require_tree .
+//= require daterangepicker
 //= require cable
-//= require jquery.turbolinks
+//= require_tree .
+
+
 
 (function() {
   $(document).on('click', '.toggle-window', function(e) {

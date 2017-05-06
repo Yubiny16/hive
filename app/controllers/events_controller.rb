@@ -1,7 +1,7 @@
 class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
 
-  def index
+  def group_page
     @events = Event.where(start: params[:start]..params[:end])
   end
 

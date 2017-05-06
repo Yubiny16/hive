@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170428022111) do
+ActiveRecord::Schema.define(version: 20170429015315) do
 
   create_table "budgets", force: :cascade do |t|
     t.integer  "group_id"
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 20170428022111) do
   end
 
   create_table "events", force: :cascade do |t|
+    t.integer  "group_id"
     t.string   "title"
     t.datetime "start"
     t.datetime "end"
@@ -40,8 +41,7 @@ ActiveRecord::Schema.define(version: 20170428022111) do
 
   create_table "group_users", force: :cascade do |t|
     t.integer  "group_id"
-    t.string   "email"
-    t.string   "name"
+    t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -49,7 +49,6 @@ ActiveRecord::Schema.define(version: 20170428022111) do
   create_table "groups", force: :cascade do |t|
     t.string   "name"
     t.string   "school"
-    t.integer  "group_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -67,9 +66,9 @@ ActiveRecord::Schema.define(version: 20170428022111) do
   create_table "options", force: :cascade do |t|
     t.integer  "poll_id"
     t.string   "content"
-    t.boolean  "selected",   default: false
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.integer  "vote_number", default: 0
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
   create_table "polls", force: :cascade do |t|
@@ -80,6 +79,15 @@ ActiveRecord::Schema.define(version: 20170428022111) do
     t.boolean  "anonymous",    default: false
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
+  end
+
+  create_table "pollusers", force: :cascade do |t|
+    t.integer  "poll_id"
+    t.integer  "user_id"
+    t.integer  "option_id"
+    t.boolean  "voted",      default: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
   create_table "transactions", force: :cascade do |t|

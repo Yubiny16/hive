@@ -12,15 +12,19 @@ Welcome to Hive, <%= @user.first_name %>!
 <br>
 <!-- Search Group -->
 <form action= "/home/search" method="post">
+  <!-- Pass search words to controller -->
   <input name= "search_group" type="text" class="form-control" placeholder="Search Your Group">
   <button type="submit" class="btn btn-default">Search!</button>
 </form>
  <div>
+   <!-- User inputs search words -->
    <% Group.where("name LIKE ?", "%#{@search}%").find_each do |g| %>
-   <% if GroupUser.where(group_id: g.id, email: @user.email).exists? %>
-   <h4>Already Joined <%= g.name %></h4>
+   <!-- Looks for already joined groups -->
+   <% if GroupUser.where(group_id: g.id, user_id: @user.id).exists? %>
+     <h4>Already Joined <%= g.name %></h4>
    <% else %>
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#join_button_<%= g.id %>"><%= g.name %></button>
+    <!-- Create modal for each group -->
     <div class="modal fade" id="join_button_<%= g.id %>" tableindex="-1" role="dialog">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -52,7 +56,7 @@ Welcome to Hive, <%= @user.first_name %>!
 
 <!-- Display Current User's Groups-->
 <div>
-  <% GroupUser.where(email: @user.email).find_each do |g| %>
+  <% GroupUser.where(user_id: @user.id).find_each do |g| %>
     <%= Group.where(id: g.group_id).find_each do |gp| %>
       <button><a href="/home/group_page/<%= gp.id %>"><%= gp.name %></a></button>
     <% end %>

@@ -14,8 +14,12 @@ initialize_calendar = function() {
       eventLimit: true,
 
       select: function(start, end) {
-        $.getScript('/events/new', function() {});
-
+        $.getScript('/events/new', function() {
+          $('#event_date_range').val(moment(start).format("MM/DD/YYYY HH:mm")+ ' - ' + moment(end).format("MM/DD/YYYY HH:mm"));
+          date_range_picker();
+          $('.start_hidden').val(moment(start).format("MM/DD/YYYY HH:mm"));
+          $('.end_hidden').val(moment(end).format("MM/DD/YYYY HH:mm"));
+        });
         calendar.fullCalendar('unselect');
       },
     });
