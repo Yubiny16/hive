@@ -35,7 +35,6 @@ Rails.application.routes.draw do
   get '/home/delete_poll' => 'home#delete_poll'
 
   #Calendar
-
   resources :events
 
   #Chat

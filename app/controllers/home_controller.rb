@@ -68,6 +68,8 @@ class HomeController < ApplicationController
 
   def group_page
     @group = Group.find(params[:group_id])
+    #global variable $group_id to be used in events controller
+    $group_id = @group.id
     @user = current_user
     @poll = Poll.where(group_id: @group.id)
   end

@@ -1,8 +1,8 @@
 class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
 
-  def group_page
-    @events = Event.where(start: params[:start]..params[:end])
+  def index
+    @events = Event.where(start: params[:start]..params[:end], group_id: $group_id)
   end
 
   def show
@@ -17,6 +17,7 @@ class EventsController < ApplicationController
 
   def create
     @event = Event.new(event_params)
+    @event.group_id = $group_id
     @event.save
   end
 
@@ -34,6 +35,6 @@ class EventsController < ApplicationController
     end
 
     def event_params
-      params.require(:event).permit(:title, :date_range, :start, :end, :color)
+      params.require(:event).permit(:title, :date_range, :start, :end, :color, :group_id)
     end
 end
