@@ -1,22 +1,31 @@
 <!-- Header -->
-<nav class="navbar navbar-default navbar-fixed-top">
-  <a class="navbar-brand" href="/home/index">Brand</a>
-  <ul class="nav navbar-nav">
-    <li class="active"><a href="/home/profile">Profile<span class="sr-only">(current)</span></a></li>
-    <li><a href="/home/my_friends">Friends</a></li>
-    <li><a href="/rooms/show">Chat</a></li>
-    <li><a href="/users/edit">Setting</a></li>
-    <li><a href="/users/sign_out">Log Out</a></li>
-  </ul>
+<nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/home/index">Brand</a>
+    <ul class="nav navbar-nav nav-icons">
+      <li class="current"><a href="/home/profile"><i class="fa fa-user fa-2x" aria-hidden="true"></i><span class="sr-only">(current)</span></a></li>
+      <li><a href="/home/my_friends"><i class="fa fa-users fa-2x" aria-hidden="true"></i></a></li>
+      <li><a href="/rooms/show"><i class="fa fa-comments-o fa-2x" aria-hidden="true"></i></a></li>
+      <li><a href="/users/edit"><i class="fa fa-cog fa-2x" aria-hidden="true"></i></a></li>
+      <li><a href="/users/sign_out"><i class="fa fa-sign-out fa-2x" aria-hidden="true"></i></a></li>
+    </ul>
+  </div>
 </nav>
-<br><br><br>
+<br>
 <div class="container">
-  First Name: <%= @user.first_name %> <br>
-  Last Name: <%= @user.last_name %><br>
-  Email: <%= @user.email %><br>
-  School: <%= @user.school %><br>
-  Major: <%= @user.major %><br>
-  Class of Year: <%= @user.class_year %><br>
-  Company: <%= @user.company %> <br>
-  <a href="/users/edit">Edit Profile</a>
+  <!--profile box-->
+  <div class="profile-content">
+    <a href="/users/edit"><i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i></a>
+    <!--profile image-->
+    <%= image_tag "hexagon.svg.png", class: "profile-image" %>
+    <p>
+      <%= @user.first_name %>
+      <%= @user.last_name %>
+    </p>
+    <p><%= @user.email %></p>
+    <p><%= @user.school %></p>
+    <p><%= @user.major %></p>
+    <p>Class of <%= @user.class_year %></p>
+    <!-- Company: <%= @user.company %> <br> removed for now. will add back in the future-->
+  </div>
 </div>

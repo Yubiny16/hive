@@ -1,16 +1,78 @@
-<h2>Forgot your password?</h2>
+<head>
+  <style>
+    body {
+      background-color: #FBF764;
+    }
+    .container {
+      padding-top: 10%;
+    }
+    .field, .actions, .links {
+      width: 300px;
+      margin: auto;
+    }
+    .large-text {
+      width: 300px;
+      margin: auto;
+      margin-bottom: 20px;
+    }
+    input.input-field {
+      border-radius: 20px;
+      width: 300px;
+      height: 40px;
+      margin-bottom: 15px;
+    }
+    input[type="submit"] {
+      border-radius: 20px;
+      width: 300px;
+      height: 40px;
+      margin-bottom: 15px;
+      background-color: #543B19;
+      color: white;
+      font-weight: bold;
+    }
+    input[type="submit"]:hover {
+      color: black;
+    }
+    div > a {
+      color: black;
+      font-weight: bold;
+    }
+    div > a:hover {
+      color: white;
+      text-decoration: none;
+    }
+    .logo-size {
+      display: block;
+      width: 100px;
+      margin: auto;
+      margin-bottom: 3em;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
 
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-  <%= devise_error_messages! %>
+    <!--logo-->
+    <%= image_tag "hexagon.svg.png", class: "logo-size" %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
+    <div class="large-text">
+      <h3>Forgot your password?</h3>
+    </div>
+
+    <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+      <%= devise_error_messages! %>
+
+      <div class="field">
+        <%= f.email_field :email, autofocus: true, placeholder: "Email", class: "form-control input-field" %>
+      </div>
+
+      <div class="actions">
+        <%= f.submit "Send me reset password instructions", class: "btn" %>
+      </div>
+    <% end %>
+
+    <div class="links">
+      <%= render "users/shared/links" %>
+    </div>
   </div>
-
-  <div class="actions">
-    <%= f.submit "Send me reset password instructions" %>
-  </div>
-<% end %>
-
-<%= render "users/shared/links" %>
+</body>

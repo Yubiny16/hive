@@ -1,98 +1,124 @@
-@import url(https://fonts.googleapis.com/css?family=Roboto:300);
-
-.login-page {
-  width: 360px;
-  padding: 8% 0 0;
-  margin: auto;
+nav.navbar-custom {
+  border: none;
+  background-image: none;
+  background-color: #FBF764;
 }
-.form {
-  position: relative;
-  z-index: 1;
-  background: #FFFFFF;
-  max-width: 360px;
-  margin: 0 auto 100px;
-  padding: 45px;
-  text-align: center;
-  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+ul.nav-icons {
+  float: right;
+  display: -webkit-flex;
+  display: flex;
+  flex-flow: nowrap;
+  margin: 0;
+  margin-right: -15px;
 }
-.form input {
-  font-family: "Roboto", sans-serif;
-  outline: 0;
-  background: #f2f2f2;
-  width: 100%;
-  border: 0;
-  margin: 0 0 15px;
-  padding: 15px;
-  box-sizing: border-box;
-  font-size: 14px;
+i {
+  color: #543B19;
 }
-.form button {
-  font-family: "Roboto", sans-serif;
-  text-transform: uppercase;
-  outline: 0;
-  background: #4CAF50;
-  width: 100%;
-  border: 0;
-  padding: 15px;
-  color: #FFFFFF;
-  font-size: 14px;
-  -webkit-transition: all 0.3 ease;
-  transition: all 0.3 ease;
-  cursor: pointer;
+/*navbar hover color*/
+.navbar-nav li:hover {
+  i {
+    color: black;
+  }
 }
-.form button:hover,.form button:active,.form button:focus {
-  background: #43A047;
+/*replaced class="active" for styling reason*/
+.current {
+  background-color: #FFF300;
 }
-.form .message {
-  margin: 15px 0 0;
-  color: #b3b3b3;
-  font-size: 12px;
-}
-.form .message a {
-  color: #4CAF50;
-  text-decoration: none;
-}
-
-.container {
-  position: relative;
-  z-index: 1;
-  max-width: 300px;
-  margin: 0 auto;
-}
-.container:before, .container:after {
-  content: "";
+/******************profile page styling********************/
+.profile-image {
   display: block;
-  clear: both;
+  width: 120px;
+  margin: 1em auto 3em;
 }
-.container .info {
-  margin: 50px auto;
+.profile-content {
   text-align: center;
+  font-weight: bold;
+  width: 300px;
+  margin: auto;
+  margin-top: 7em;
+  border: 1px solid black;
+  padding: 0.5em;
+  padding-bottom: 1em;
 }
-.container .info h1 {
-  margin: 0 0 15px;
-  padding: 0;
-  font-size: 36px;
-  font-weight: 300;
-  color: #1a1a1a;
+.profile-content a {
+  display: block;
+  float: right;
 }
-.container .info span {
-  color: #4d4d4d;
-  font-size: 12px;
+.profile-content img {
+  clear: right;
 }
-.container .info span a {
-  color: #000000;
-  text-decoration: none;
+/*edit button hover color*/
+.fa-pencil-square-o:hover {
+  color: black;
 }
-.container .info span .fa {
-  color: #EF3B3A;
+/*******************main page styling*****************/
+.welcome {
+  margin-top: 150px;
+  font-size: 30px;
+  color: #543B19;
 }
-body {
-  background: #76b852; /* fallback for old browsers */
-  background: -webkit-linear-gradient(right, #76b852, #8DC26F);
-  background: -moz-linear-gradient(right, #76b852, #8DC26F);
-  background: -o-linear-gradient(right, #76b852, #8DC26F);
-  background: linear-gradient(to left, #76b852, #8DC26F);
-  font-family: "Roboto", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.search-bar-custom input {
+  height: 43px;
+}
+.btn-search {
+  background-color: #FBF764;
+}
+.btn-search:hover {
+  background-color: #543B19;
+  i {
+    color: #FBF764;
+  }
+}
+#create-group-link {
+  display: block;
+  width: 300px;
+  height: 40px;
+  margin: 50px auto 30px;
+  background-color: #FBF764;
+  border-radius: 20px;
+  a {
+    text-decoration: none;
+    font-weight: bold;
+    color: #543B19;
+  }
+}
+#create-group-link:hover {
+  background-color: #543B19;
+  a {
+    color: #FBF764;
+  }
+}
+/******************create group page styling***********/
+.group-field {
+  /*div styling -> for center alignment*/
+  width: 300px;
+  margin: auto;
+  margin-bottom: 15px;
+}
+.group-field:first-child {
+  margin-top: 120px;
+}
+.group-field label {
+  color: #543B19;
+  padding-left: 10px;
+}
+#group-name, #group-school {
+  border-radius: 20px;
+  width: 300px;
+  height: 40px;
+}
+#create-group-btn {
+  display: block;
+  width: 300px;
+  height: 40px;
+  margin:auto;
+  margin-top: 35px;
+  background-color: #FBF764;
+  border-radius: 20px;
+  font-weight: bold;
+  color: #543B19;
+}
+#create-group-btn:hover {
+  background-color: #543B19;
+  color: #FBF764;
 }
