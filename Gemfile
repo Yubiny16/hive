@@ -5,13 +5,16 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+gem 'fog-aws'
+gem 'carrierwave'
+
 gem 'faker'
 gem 'simple_form'
 gem 'bootstrap-daterangepicker-rails'
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'momentjs-rails'
 gem 'fullcalendar-bootstrap-rails'
-gem 'bcrypt', platforms: :ruby
+gem 'bootstrap3-datetimepicker-rails', '~> 4.17.47'
 
 gem 'devise'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

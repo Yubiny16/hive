@@ -114,45 +114,62 @@
       <% end %>
       <!-- Black Board -->
       <h1>Black Board</h1>
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#create_poll">Create Poll</button>
-        <div class="modal fade" id="create_poll" tableindex="-1" role="dialog">
-         <div class="modal-dialog" role="document">
-           <div class="modal-content">
-             <div class="modal-header">
-               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                 <span aria-hidden="true">&times;</span>
-               </button>
-               <h5 class="modal-title">Create New Poll</h5>
-             </div>
-             <div class="modal-body">
-               <ul class ="nav nav-pills nav-justified">
-                 <li class="active"><a href="#Poll" data-toggle="tab">Poll</a></li>
-                 <li><a href="#Range" data-toggle="tab">Members</a></li>
-               </ul>
-               <div class="tab-content">
-                 <div class="tab-pane fade in active" id="Poll">
-                   <form id = "form_poll" action="/home/new_poll" method="get">
-                    <input name="poll_title" type="text" class="input-box_text" placeholder="Title"/><br>
-                    <!-- Add div to let the ajax script know where to append new input field. -->
-                    <div id = "option_div">
-                      <!-- 2 options default-->
-                      <% for i in 1..2 %>
-                        <input name="option_content_<%= i %>"id="option_<%= i %>"type="text" class="input-box_text" placeholder="Option <%= i %>"/><br>
-                      <% end %>
-                    </div>
-                    <button name="group_id" value="<%= @group.id %>" type="submit" class="btn btn-default">Create!</button>
-                   </form>
-                   <button value= "<%= $n %>" type="submit" class="btn btn-default add_option">Add an Option</button>
-                 </div>
-                 <div class="tab-pane fade in" id="Range">
-                  All <br>
-                  Current Members
-                 </div>
+     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#create_poll">Create Poll</button>
+       <div class="modal fade" id="create_poll" tableindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <h5 class="modal-title">Create New Poll</h5>
+            </div>
+            <div class="modal-body">
+             <form id = "form_poll" action="/home/new_poll" method="get">
+             <input name="poll_title" type="text" class="input-box_text" placeholder="Title"/><br>
+             <!-- Add div to let the ajax script know where to append new input field. -->
+               <div id = "option_div">
+               <!-- 2 options default-->
+                 <% for i in 1..2 %>
+                   <input name="option_content_<%= i %>" id="option_<%= i %>"type="text" class="input-box_text" placeholder="Option <%= i %>"/><br>
+                 <% end %>
                </div>
-             </div>
-           </div>
-         </div>
+
+               <!--Closing Time, Calls datetimepicker in script-->
+               <div class="container">
+                  <div class="row">
+                      <div class='col-sm-6'>
+                          <div class="form-group">
+                              <div class='input-group date' id='datetimepicker1'>
+                                  <input type='text' class="form-control" />
+                                  <span class="input-group-addon">
+                                      <span class="glyphicon glyphicon-calendar"></span>
+                                  </span>
+                              </div>
+                          </div>
+                      </div>
+                      <script type="text/javascript">
+                          $(function () {
+                              $('#datetimepicker1').datetimepicker();
+                          });
+                      </script>
+                  </div>
+              </div>
+               <!--anonymous checkbox-->
+               <div class="checkbox">
+                 <label><input name=anonymous type="checkbox" value="true">Anonymous?</label>
+               </div>
+               <button name="group_id" value="<%= @group.id %>" type="submit" class="btn btn-default">Create!</button>
+             </form>
+             <!--Add an Option, Used Ajax. Look at script-->
+             <button value= "<%= $n %>" type="submit" class="btn btn-default add_option">Add an Option</button>
+
+            </div>
+          </div>
        </div>
+     </div>
+
+
        <!-- Polls -->
        <% @poll.each do |p| %>
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#poll_<%= p.id %>"><%= p.title %></button>
@@ -203,7 +220,9 @@
                    <% end %>
                  </div>
                  <div class="tab-pane fade in" id="Votes_<%= p.id %>">
-                   <!-- Find Options in this poll -->
+                   <!-- Anonymous? -->
+                   <% if p.anonymous == nil %>
+                   <!-- if not, then find Options in this poll -->
                   <% Option.where(poll_id: p.id).find_each do |o| %>
                     <strong><%= o.content %></strong> <br>
                     <!-- Find the people who voted -->
@@ -224,6 +243,9 @@
                           <%= not_voted_user.first_name %> <%= not_voted_user.last_name %>
                         <% end %>
                       <% end %>
+                    <% end %>
+                    <% else %>
+                    <p>Anonymous</p>
                     <% end %>
                  </div>
                </div>
@@ -302,40 +324,3 @@ $(function() {
     });
 });
 </script>
-<!-- Create Group
-<div id="divResult"></div>
-
-
-<script type="text/javascript">
-$(document).ready(function() {
-  $("#connect").click(function() {
-    result = $('input[type="radio"]:checked');
-    email_two = this.value;
-    email_one = current_user.email;
-    group_name = <%= @group.name %>
-    if(result.length > 0) {
-      result.each(function() {
-        resultString = $(this).val();
-      });
-        $('#divResult').html(resultString);
-      message = resultString
-    }
-    else {
-      alert("Choose an Option")
-    }
-    $.ajax({
-      method: "get",
-      url: "/home/connect"
-      data: { email_one: email_one,
-              email_two: email_two,
-              group_name: group_name,
-              message: message },
-
-    success: function(){
-          alert("successful")
-        }
-    })
-  });
-});
-</script>
--->

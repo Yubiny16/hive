@@ -13,9 +13,11 @@
  *= require fullcalendar
  *= require_tree .
  *= require_self
+
  */
  @import "bootstrap-sprockets";
  @import "bootstrap";
+ @import 'bootstrap-datetimepicker';
 
 ul {
   padding-left: 0px;

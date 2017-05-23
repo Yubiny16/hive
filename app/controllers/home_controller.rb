@@ -32,23 +32,29 @@ class HomeController < ApplicationController
   end
 
   def join_group
-    user = current_user
-    one_group_user = GroupUser.new
-    one_group_user.group_id = params[:group_id]
-    one_group_user.user_id = user.id
+     user = current_user
+     this_group = Group.find_by(id: params[:group_id])
 
-    find_grp_nm = Group.find_by(id: params[:group_id])
+     if params[:group_pw] == this_group.password
+       one_group_user = GroupUser.new
+       one_group_user.group_id = params[:group_id]
+       one_group_user.user_id = user.id
+       one_group_user.save
+       
+       redirect_to controller: 'home', action: 'group_page', id: :group_id
+     else
+       redirect_to :back
+       #jquery로 패스워드 틀렸다 말하기
+     end
 
-    one_group_user.group_id = find_grp_nm.id
-    one_group_user.save
-    redirect_to controller: 'home', action: 'group_page', id: :group_id
-  end
+   end
 
   def create_group
 
     one_group = Group.new
     one_group.name = params[:group_name]
     one_group.school = params[:group_school]
+    one_group.password = params[:group_pw]
     one_group.save
 
     user = current_user
@@ -121,6 +127,8 @@ class HomeController < ApplicationController
     one_poll = Poll.new
     one_poll.group_id = params[:group_id]
     one_poll.title = params[:poll_title]
+    one_poll.anonymous = params[:anonymous]
+    #one_poll.closing_time = params[:closing_time].to_time.strftime("%m/%d/%Y %I:%M %p")
     one_poll.save
 
     # Create new Options

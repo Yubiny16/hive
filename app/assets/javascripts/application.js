@@ -16,7 +16,8 @@
 //= require moment
 //= require fullcalendar
 //= require daterangepicker
-= require cable
+//= require bootstrap-datetimepicker
+//= require cable
 //= require_tree .
 
 

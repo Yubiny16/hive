@@ -48,13 +48,12 @@
                 <h5 class="modal-title"><%= g.name %></h5>
               </div>
               <div class="modal-body">
-                <input name= "group_pw" type="text" class="form-control" placeholder="Type in Password for this Group to Join">
-              </div>
               <!-- Join Group -->
-              <div class="modal-footer">
-                <a href = "/home/join_group/<%= g.id %>">Join</a>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              </div> <!--modal-footer-->
+                <form action="/home/join_group/<%= g.id %>" method="post">
+                  <input name= "group_pw" type="text" class="form-control" placeholder="Type in Password for this Group to Join">
+                  <button type="submit" class="btn btn-default">Join</button>
+                </form>
+              </div>
             </div> <!--modal-content-->
           </div> <!--modal-dialog-->
         </div> <!--modal fade-->

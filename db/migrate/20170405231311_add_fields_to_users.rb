@@ -7,5 +7,6 @@ class AddFieldsToUsers < ActiveRecord::Migration[5.0]
     add_column :users, :class_year, :integer
     add_column :users, :major, :string
     add_column :users, :company, :string
+    add_column :users, :image_url, :string, :default => ""
   end
 end

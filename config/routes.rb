@@ -23,7 +23,7 @@ Rails.application.routes.draw do
   get '/home/create_group' => 'home#create_group'
   get '/home/group_page/:group_id' => 'home#group_page'
   post '/home/search' => 'home#search'
-  get '/home/join_group/:group_id' => 'home#join_group'
+  post '/home/join_group/:group_id' => 'home#join_group'
 
   #Gruop_Home_Functions
   post '/home/money_plus' => 'home#money_plus'
