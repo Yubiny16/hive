@@ -40,7 +40,7 @@ class HomeController < ApplicationController
        one_group_user.group_id = params[:group_id]
        one_group_user.user_id = user.id
        one_group_user.save
-       
+
        redirect_to controller: 'home', action: 'group_page', id: :group_id
      else
        redirect_to :back
@@ -104,7 +104,7 @@ class HomeController < ApplicationController
     @old_budget = Budget.find(params[:group_id]).group_budget
     #How much to subtract
     @money_minus = params[:money_minus]
-    # Change to integer
+    # Change to float
     @new_budget =  @old_budget.to_f - @money_minus.to_f
 
     Budget.update(params[:group_id], :group_budget => @new_budget)
