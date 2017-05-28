@@ -26,6 +26,8 @@ Rails.application.routes.draw do
   post '/home/join_group/:group_id' => 'home#join_group'
 
   #Gruop_Home_Functions
+  get '/home/announcement' => 'home#announcement'
+  get '/home/announcement_all' => 'home#announcement_all'
   post '/home/money_plus' => 'home#money_plus'
   post '/home/money_minus' => 'home#money_minus'
   get '/home/new_poll' => 'home#new_poll'

@@ -40,39 +40,66 @@
       <div id="announcement_carousel" data-wrap="true"  class="carousel slide" data-interval="false" data-ride="carousel">
        <ol class="carousel-indicators">
          <li data-target="#announcement_carousel" data-slide-to="0" class="active"></li>
-         <li data-target="#announcement_carousel" data-slide-to="1"></li>
-         <li data-target="#announcement_carousel" data-slide-to="2"></li>
+          <% @recent_announc.each do |a| %>
+            <li data-target="#announcement_carousel" data-slide-to="i"></li>
+          <% end %>
        </ol>
        <div class="carousel-inner">
-           <div class="item active">
+         <div class="item active">
              <center><img class="img-responsive" align="middle" src="http://hdwallpaperbackgrounds.net/wp-content/uploads/2016/08/black-background-49.jpg" width="700" height="0" /></center>
              <div class="carousel-caption">
-                <h3>4/13/17</h3>
-                 <p>"At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat."</p>
+                  Your Group's Announcements
              </div>
            </div>
-           <div class="item">
-           <center><img class="img-responsive" align="middle" src="http://hdwallpaperbackgrounds.net/wp-content/uploads/2016/08/black-background-49.jpg" width="700" height="400"/></center>
-             <div class="carousel-caption">
-                <h3>4/13/17</h3>
-                 <p>"At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat."</p>
-             </div>
-           </div>
-           <div class="item">
-           <center><img class="img-responsive" src="http://hdwallpaperbackgrounds.net/wp-content/uploads/2016/08/black-background-49.jpg" width="700" height="400"/></center>
-             <div class="carousel-caption">
-                <h3>4/13/17</h3>
-                 <p>"At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat."</p>
-             </div>
-           </div>
+          <% @recent_announc.each do |a| %>
+            <div class="item">
+              <center><img class="img-responsive" align="middle" src="http://hdwallpaperbackgrounds.net/wp-content/uploads/2016/08/black-background-49.jpg" width="700" height="400"/></center>
+                <div class="carousel-caption">
+                <%= a.created_at %><br>
+                <%= a.title %><br>
+                <%= a.content %>
+                </div>
+            </div>
+          <% end %>
+
+
       </div>
-      <a href="#announcement_carousel" class="carousel-control left" data-slide="prev">
-        <span class="glyphicon glyphicon-chevron-left"></span>
-      </a>
-      <a href="#announcement_carousel" class="carousel-control right" data-slide="next">
-        <span class="glyphicon glyphicon-chevron-right"></span>
-      </a>
+
+        <a href="#announcement_carousel" class="carousel-control left" data-slide="prev">
+          <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+        <a href="#announcement_carousel" class="carousel-control right" data-slide="next">
+          <span class="glyphicon glyphicon-chevron-right"></span>
+        </a>
       </div>
+      <!-- Make an announcement -->
+      <div>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#post_announc">New</button>
+          <div class="modal fade" id="post_announc" tableindex="-1" role="dialog">
+           <div class="modal-dialog" role="document">
+             <div class="modal-content">
+               <div class="modal-header">
+                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                   <span aria-hidden="true">&times;</span>
+                 </button>
+                 <h5 class="modal-title">Post New Announcement</h5>
+               </div>
+               <div class="modal-body">
+                 <form action="/home/announcement" method="get">
+                  <input name="announc_title" type="text"/>
+                  <textarea name="announc_content" type="text"></textarea>
+                  <button name="group_id" value= "<%= @group.id %>" type="submit" class="btn btn-default">Post</button>
+                 </form>
+               </div>
+             </div>
+           </div>
+         </div>
+      </div>
+      <!-- View all announcements -->
+      <form action="/home/announcement_all" method="get">
+        <input name= "group_id" type="hidden" value= "<%= @group.id %>"/>
+        <button type="submit" class="btn btn-default">View All Announcements</button>
+      </form>
       <!-- Calendar -->
       <h1 style="padding-top: 60px;"><a name="calendar">Calendar</a></h1>
       <div class="calendar">
@@ -146,6 +173,7 @@
                <!-- 2 options default-->
                  <% for i in 1..2 %>
                    <input name="option_content_<%= i %>" id="option_<%= i %>"type="text" class="input-box_text" placeholder="Option <%= i %>"/><br>
+
                  <% end %>
                </div>
 

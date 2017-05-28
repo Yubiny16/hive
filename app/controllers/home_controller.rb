@@ -78,6 +78,29 @@ class HomeController < ApplicationController
     $group_id = @group.id
     @user = current_user
     @poll = Poll.where(group_id: @group.id)
+
+    #@recent_seven_announc = Announcement.where(group_id: @group.id).where(:order => "created_at desc", :limit => 6)
+    @recent_announc = Announcement.where(group_id: @group.id).last(7).reverse
+
+  end
+
+  def announcement
+    one_announcement = Announcement.new
+    one_announcement.group_id = params[:group_id]
+    one_announcement.title = params[:announc_title]
+    one_announcement.content = params[:announc_content]
+    one_announcement.save
+    redirect_to :back
+  end
+
+  def announcement_all
+    puts params[:group_id]
+    puts params[:group_id]
+    puts params[:group_id]
+    puts params[:group_id]
+    @group = Group.find(params[:group_id])
+    @announcement_all = Announcement.where(group_id: @group.id)
+
   end
 
   def money_plus
