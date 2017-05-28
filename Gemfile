@@ -15,6 +15,7 @@ gem 'bootstrap-sass', '~> 3.3.6'
 gem 'momentjs-rails'
 gem 'fullcalendar-bootstrap-rails'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.17.47'
+gem 'bcrypt', platforms: :ruby
 
 gem 'devise'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

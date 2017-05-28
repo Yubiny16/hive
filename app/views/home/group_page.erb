@@ -13,17 +13,30 @@
 </nav>
 <br><br><br><br>
 
-<h1><%= @group.name %></h1>
-<div class ="container">
+<div class="sidebar">
+  <p class="sidebar-group-logo">Group Logo</p>
+  <ul class="menus">
+    <li><a href="#announcement">Annoucement</a></li>
+    <li><a href="#calendar">Calendar</a></li>
+    <li><a href="#budget">Budget Tracker</a></li>
+    <li><a href="#poll">Poll</a></li>
+    <li><a href="#contact">Contact Us</a></li>
+  </ul>
+</div>
+
+<div class ="container" id="container-group-page">
+  <h1><%= @group.name %></h1>
   <ul class ="nav nav-pills nav-justified">
     <li class="active"><a href="#Home" data-toggle="tab">Home</a></li>
     <li><a href="#Network" data-toggle="tab">Member</a></li>
   </ul>
 
+  <div></div>
+
   <div class="tab-content">
     <div class="tab-pane fade in active" id="Home">
         <!-- Announcements -->
-        <h1>Announcement</h1>
+        <h1 style="padding-top: 60px;"><a name="announcement">Announcement</a></h1>
       <div id="announcement_carousel" data-wrap="true"  class="carousel slide" data-interval="false" data-ride="carousel">
        <ol class="carousel-indicators">
          <li data-target="#announcement_carousel" data-slide-to="0" class="active"></li>
@@ -61,13 +74,13 @@
       </a>
       </div>
       <!-- Calendar -->
-      <h1>Calendar</h1>
+      <h1 style="padding-top: 60px;"><a name="calendar">Calendar</a></h1>
       <div class="calendar">
         <input name= "group_id" type="hidden" value= "<%= @group.id %>">
       </div>
 
       <!-- Budget Tracker -->
-      <h1>Budget Tracker</h1>
+      <h1 style="padding-top: 60px;"><a name="budget">Budget Tracker</a></h1>
       <form action= "/home/money_plus" method="POST">
         <!-- Pass current group id to controller -->
         <input name= "group_id" type="hidden" value= "<%= @group.id %>">
@@ -112,8 +125,9 @@
         <!-- Budget Balance -->
           <h3> <%= b.group_budget %> </h3>
       <% end %>
+
       <!-- Black Board -->
-      <h1>Black Board</h1>
+      <h1 style="padding-top: 60px;"><a name="poll">Black Board</a></h1>
      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#create_poll">Create Poll</button>
        <div class="modal fade" id="create_poll" tableindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
