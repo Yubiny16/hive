@@ -16,10 +16,10 @@
 <div class="sidebar">
   <p class="sidebar-group-logo">Group Logo</p>
   <ul class="menus">
-    <li><a id="ann_slide" href="#announcement" data-value="<%= @group_id %>">Annoucement</a>  <span id="ann_badge" class="badge"><%= @current_groupuser.ann_notification %></span></li>
-    <li><a id="cal_slide" href="#calendar" data-value="<%= @group_id %>">Calendar</a>         <span id="cal_badge" class="badge"><%= @current_groupuser.cal_notification %></span></li>
-    <li><a id="budget_slide" href="#budget" data-value="<%= @group_id %>">Budget Tracker</a>  <span id="budget_badge" class="badge"><%= @current_groupuser.budget_notification %></span></li>
-    <li><a id="poll_slide" href="#poll" data-value="<%= @group_id %>">Poll</a>                <span id="poll_badge" class="badge"><%= @current_groupuser.poll_notification %></span></li>
+    <li><a id="ann_slide" href="#announcement" data-value="<%= @group.id %>">Annoucement</a>  <span id="ann_badge" class="badge"><%= @current_groupuser.ann_notification %></span></li>
+    <li><a id="cal_slide" href="#calendar" data-value="<%= @group.id %>">Calendar</a>         <span id="cal_badge" class="badge"><%= @current_groupuser.cal_notification %></span></li>
+    <li><a id="budget_slide" href="#budget" data-value="<%= @group.id %>">Budget Tracker</a>  <span id="budget_badge" class="badge"><%= @current_groupuser.budget_notification %></span></li>
+    <li><a id="poll_slide" href="#poll" data-value="<%= @group.id %>">Poll</a>                <span id="poll_badge" class="badge"><%= @current_groupuser.poll_notification %></span></li>
     <li><a href="#contact">Contact Us</a></li>
   </ul>
 </div>
@@ -367,18 +367,51 @@ $(function() {
 </script>
 <script>
   $(function() {
-    $('#ann_notification').click(function(){
+    $('#ann_slide').click(function(){
+      group_id = parseInt($(this).data("value"));
 
-    //  group_id = $(this).data("value");
+      $.ajax({
+        method: "POST",
+        url: "/home/ann_read",
+        data: { group_id: group_id}
 
-    //  $.ajax({
-    //    method: "POST",
-    //    url: "/home/ann_read",
-    //    data: { group_id: group_id}
+      }).done(function() {
+        document.getElementById("ann_badge").innerHTML = "0";
+      });
 
-    //  }).done(function() {
-    //    document.getElementById("ann_badge").innerHTML = "0";
-    //  });
+    });
+  });
+</script>
+<script>
+  $(function() {
+    $('#budget_slide').click(function(){
+      group_id = parseInt($(this).data("value"));
+
+      $.ajax({
+        method: "POST",
+        url: "/home/budget_read",
+        data: { group_id: group_id}
+
+      }).done(function() {
+        document.getElementById("budget_badge").innerHTML = "0";
+      });
+
+    });
+  });
+</script>
+<script>
+  $(function() {
+    $('#poll_slide').click(function(){
+      group_id = parseInt($(this).data("value"));
+
+      $.ajax({
+        method: "POST",
+        url: "/home/poll_read",
+        data: { group_id: group_id}
+
+      }).done(function() {
+        document.getElementById("poll_badge").innerHTML = "0";
+      });
 
     });
   });

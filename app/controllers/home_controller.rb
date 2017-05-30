@@ -155,13 +155,14 @@ class HomeController < ApplicationController
       @notify = one_member.budget_notification + 1
       GroupUser.where(group_id: params[:group_id]).where.not(user_id: current_user.id).update(:budget_notification => @notify)
     end
-
     redirect_to :back
   end
+
   def add_option
     # add option to global variable $n
     $n = $n+1
   end
+
   def new_poll
     # Create new poll DB
     one_poll = Poll.new
@@ -190,6 +191,7 @@ class HomeController < ApplicationController
 
     redirect_to :back
   end
+
   def option_select
     # Is it the user's first time voting? if yes...
     if Polluser.where(user_id: current_user.id).where(poll_id: params[:poll_id]).exists?
@@ -215,6 +217,7 @@ class HomeController < ApplicationController
     end
     redirect_to :back
   end
+
   def option_cancel
     # find the user's vote
     Polluser.where(poll_id: params[:poll_id]).where(user_id: current_user.id).where(voted: true).find do |polluser|
@@ -227,6 +230,7 @@ class HomeController < ApplicationController
     end
     redirect_to :back
   end
+
   def delete_poll
     @one_poll = Poll.destroy_all(id: params[:poll_id])
     @pollusers = Polluser.destroy_all(poll_id: params[:poll_id])
@@ -234,15 +238,18 @@ class HomeController < ApplicationController
 
     redirect_to :back
   end
+
   def ann_read
     GroupUser.find_by(group_id: params[:group_id], user_id: current_user.id).update(:ann_notification => 0)
-    puts params[:group_id]
-    puts params[:group_id]
-    puts params[:group_id]
-    puts 1
-    puts 1
-    puts 1
-    puts 1
   end
+
+  def budget_read
+    GroupUser.find_by(group_id: params[:group_id], user_id: current_user.id).update(:budget_notification => 0)
+  end
+
+  def poll_read
+    GroupUser.find_by(group_id: params[:group_id], user_id: current_user.id).update(:poll_notification => 0)
+  end
+
 
 end
