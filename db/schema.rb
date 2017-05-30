@@ -50,8 +50,12 @@ ActiveRecord::Schema.define(version: 20170528044254) do
   create_table "group_users", force: :cascade do |t|
     t.integer  "group_id"
     t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "ann_notification",    default: 0
+    t.integer  "cal_notification",    default: 0
+    t.integer  "budget_notification", default: 0
+    t.integer  "poll_notification",   default: 0
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
   end
 
   create_table "groups", force: :cascade do |t|

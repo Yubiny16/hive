@@ -1,6 +1,7 @@
 class HomeController < ApplicationController
   before_action :require_login
   $n = 2
+
   def index
     @user = current_user
     # this is the search words came from search method
@@ -79,9 +80,10 @@ class HomeController < ApplicationController
     @user = current_user
     @poll = Poll.where(group_id: @group.id)
 
-    #@recent_seven_announc = Announcement.where(group_id: @group.id).where(:order => "created_at desc", :limit => 6)
     @recent_announc = Announcement.where(group_id: @group.id).last(7).reverse
 
+    #notification
+    @current_groupuser = GroupUser.find_by(group_id: @group.id, user_id: @user.id)
   end
 
   def announcement
@@ -90,14 +92,17 @@ class HomeController < ApplicationController
     one_announcement.title = params[:announc_title]
     one_announcement.content = params[:announc_content]
     one_announcement.save
+
+    #notify
+    GroupUser.where(group_id: params[:group_id]).where.not(user_id: current_user.id).find_each do |one_member|
+      @notify = one_member.ann_notification + 1
+      GroupUser.where(group_id: params[:group_id]).where.not(user_id: current_user.id).update(:ann_notification => @notify)
+    end
+
     redirect_to :back
   end
 
   def announcement_all
-    puts params[:group_id]
-    puts params[:group_id]
-    puts params[:group_id]
-    puts params[:group_id]
     @group = Group.find(params[:group_id])
     @announcement_all = Announcement.where(group_id: @group.id)
 
@@ -119,6 +124,12 @@ class HomeController < ApplicationController
     one_transaction.description = params[:description_p]
     one_transaction.save
 
+    #notify
+    GroupUser.where(group_id: params[:group_id]).where.not(user_id: current_user.id).find_each do |one_member|
+      @notify = one_member.budget_notification + 1
+      GroupUser.where(group_id: params[:group_id]).where.not(user_id: current_user.id).update(:budget_notification => @notify)
+    end
+
     redirect_to :back
   end
 
@@ -138,6 +149,12 @@ class HomeController < ApplicationController
     one_transaction.description = params[:description_m]
     one_transaction.pos_neg = false
     one_transaction.save
+
+    #notify
+    GroupUser.where(group_id: params[:group_id]).where.not(user_id: current_user.id).find_each do |one_member|
+      @notify = one_member.budget_notification + 1
+      GroupUser.where(group_id: params[:group_id]).where.not(user_id: current_user.id).update(:budget_notification => @notify)
+    end
 
     redirect_to :back
   end
@@ -164,6 +181,13 @@ class HomeController < ApplicationController
     end
     # return $n to 2 cuz that's the default number of options
     $n =2
+
+    #notify
+    GroupUser.where(group_id: params[:group_id]).where.not(user_id: current_user.id).find_each do |one_member|
+      @notify = one_member.poll_notification + 1
+      GroupUser.where(group_id: params[:group_id]).where.not(user_id: current_user.id).update(:poll_notification => @notify)
+    end
+
     redirect_to :back
   end
   def option_select
@@ -209,6 +233,16 @@ class HomeController < ApplicationController
     @options = Option.destroy_all(poll_id: params[:poll_id])
 
     redirect_to :back
+  end
+  def ann_read
+    GroupUser.find_by(group_id: params[:group_id], user_id: current_user.id).update(:ann_notification => 0)
+    puts params[:group_id]
+    puts params[:group_id]
+    puts params[:group_id]
+    puts 1
+    puts 1
+    puts 1
+    puts 1
   end
 
 end

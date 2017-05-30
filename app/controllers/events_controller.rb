@@ -19,6 +19,8 @@ class EventsController < ApplicationController
     @event = Event.new(event_params)
     @event.group_id = $group_id
     @event.save
+
+
   end
 
   def update

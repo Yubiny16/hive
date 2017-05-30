@@ -16,10 +16,10 @@
 <div class="sidebar">
   <p class="sidebar-group-logo">Group Logo</p>
   <ul class="menus">
-    <li><a href="#announcement">Annoucement</a></li>
-    <li><a href="#calendar">Calendar</a></li>
-    <li><a href="#budget">Budget Tracker</a></li>
-    <li><a href="#poll">Poll</a></li>
+    <li><a id="ann_slide" href="#announcement" data-value="<%= @group_id %>">Annoucement</a>  <span id="ann_badge" class="badge"><%= @current_groupuser.ann_notification %></span></li>
+    <li><a id="cal_slide" href="#calendar" data-value="<%= @group_id %>">Calendar</a>         <span id="cal_badge" class="badge"><%= @current_groupuser.cal_notification %></span></li>
+    <li><a id="budget_slide" href="#budget" data-value="<%= @group_id %>">Budget Tracker</a>  <span id="budget_badge" class="badge"><%= @current_groupuser.budget_notification %></span></li>
+    <li><a id="poll_slide" href="#poll" data-value="<%= @group_id %>">Poll</a>                <span id="poll_badge" class="badge"><%= @current_groupuser.poll_notification %></span></li>
     <li><a href="#contact">Contact Us</a></li>
   </ul>
 </div>
@@ -341,7 +341,6 @@
   </div>
 </div>
 
-
 <script>
 var i = 1;
 $(function() {
@@ -365,4 +364,22 @@ $(function() {
       })
     });
 });
+</script>
+<script>
+  $(function() {
+    $('#ann_notification').click(function(){
+
+    //  group_id = $(this).data("value");
+
+    //  $.ajax({
+    //    method: "POST",
+    //    url: "/home/ann_read",
+    //    data: { group_id: group_id}
+
+    //  }).done(function() {
+    //    document.getElementById("ann_badge").innerHTML = "0";
+    //  });
+
+    });
+  });
 </script>
