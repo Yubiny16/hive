@@ -100,6 +100,7 @@
         <input name= "group_id" type="hidden" value= "<%= @group.id %>"/>
         <button type="submit" class="btn btn-default">View All Announcements</button>
       </form>
+
       <!-- Calendar -->
       <h1 style="padding-top: 60px;"><a name="calendar">Calendar</a></h1>
       <div class="calendar">
@@ -108,50 +109,34 @@
 
       <!-- Budget Tracker -->
       <h1 style="padding-top: 60px;"><a name="budget">Budget Tracker</a></h1>
-      <form action= "/home/money_plus" method="POST">
-        <!-- Pass current group id to controller -->
-        <input name= "group_id" type="hidden" value= "<%= @group.id %>">
-        <div class="form-group">
-          <!-- Pass the amount to be added to budget to controller -->
-          <input name= "money_plus" type="number" class="form-control" placeholder="$00.00">
-        </div>
-        <div class="form-group">
-          <!-- Transaction Description, pass string to controller -->
-          <input name= "description_p" type="text" class="form-control" placeholder="Description">
-        </div>
-        <button type="submit" class="btn btn-default">Plus</button>
-      </form>
-      <form action= "/home/money_minus" method="POST">
-        <!-- Pass current group id to controller -->
-        <input name= "group_id" type="hidden" value= "<%= @group.id %>">
-        <div class="form-group">
-          <!-- Pass the amount to be subtracted from budget to controller -->
-          <input name= "money_minus" type="number" class="form-control" placeholder="$00.00">
-        </div>
-        <div class="form-group">
-          <!-- Transaction Description, pass string to controller -->
-          <input name= "description_m" type="text" class="form-control" placeholder="Description">
-        </div>
-        <button type="submit" class="btn btn-default">Minus</button>
-      </form>
-      <!-- Find Current Group's Budget -->
-      <% Budget.where(group_id: @group.id).find do |b| %>
-      <!-- Transaction records for that budget -->
-        <% Transaction.where(budget_id: b.id).find_each do |t| %>
-        <!-- If the transaction is revenue -->
-          <% if t.pos_neg == true %>
-            <p style="color: green"><%= t.value %></p>
-            <p><%= t.description %></p>
+        <!-- Money Gained -->
+        <input id= "money" type="number" class="form-control" placeholder="$00.00">
+        <input id= "description" type="text" class="form-control" placeholder="Description">
+        <button value = "<%= @group.id %>" type="submit" class="btn btn-default money_plus_button">Plus</button>
+        <button value = "<%= @group.id %>" type="submit" class="btn btn-default money_minus_button">Minus</button>
+
+
+      <!-- Add div to let the ajax script know where to append new input field. -->
+      <div id="transactions">
+        <!-- Find Current Group's Budget -->
+        <% Budget.where(group_id: @group.id).find do |b| %>
+        <!-- Transaction records for that budget -->
+          <% Transaction.where(budget_id: b.id).find_each do |t| %>
+          <!-- If the transaction is revenue -->
+            <% if t.pos_neg == true %>
+              <p style="color: green"><%= t.value %></p>
+              <p><%= t.description %></p>
+            <% end %>
+            <!-- If the transaction is debt -->
+            <% if t.pos_neg == false %>
+              <p style="color: red"><%= t.value %></p>
+              <p><%= t.description %></p>
+            <% end %>
           <% end %>
-          <!-- If the transaction is debt -->
-          <% if t.pos_neg == false %>
-            <p style="color: red"><%= t.value %></p>
-            <p><%= t.description %></p>
-          <% end %>
+          <!-- Budget Balance -->
+            <h3> <%= b.group_budget %> </h3>
         <% end %>
-        <!-- Budget Balance -->
-          <h3> <%= b.group_budget %> </h3>
-      <% end %>
+      </div>
 
       <!-- Black Board -->
       <h1 style="padding-top: 60px;"><a name="poll">Black Board</a></h1>
@@ -205,7 +190,6 @@
              </form>
              <!--Add an Option, Used Ajax. Look at script-->
              <button value= "<%= $n %>" type="submit" class="btn btn-default add_option">Add an Option</button>
-
             </div>
           </div>
        </div>
@@ -296,8 +280,8 @@
          </div>
        </div>
        <% end %>
-
     </div>
+    
     <div class="tab-pane fade in" id="Network">
       <!-- Friend List + Friend Requests -->
       <% GroupUser.where(group_id: @group.id).where.not(user_id: @user.id).find_each do |friends| %>
@@ -342,6 +326,51 @@
 </div>
 
 <script>
+  //Budget - plus
+  $(function() {
+    $('.money_plus_button').click(function(){
+
+      group_id = this.value;
+      money_plus = $('#money').val();
+      description_p = $('#description').val();
+
+      $.ajax({
+        method: "POST",
+        url: '/home/money_plus',
+        data: { group_id: group_id,
+                money_plus: money_plus,
+                description_p: description_p }
+
+      }).done(function() {
+        $("#transactions").append("<p style = \"color: green\">" + money_plus + "</p>");
+        $("#transactions").append("<p>" + description_p + "</p>");
+      });
+
+    });
+  });
+//Budget - minus
+  $(function() {
+    $('.money_minus_button').click(function(){
+
+      group_id = this.value;
+      money_minus = $('#money').val();
+      description_m = $('#description').val();
+
+      $.ajax({
+        method: "POST",
+        url: '/home/money_minus',
+        data: { group_id: group_id,
+                money_minus: money_minus,
+                description_m: description_m }
+
+      }).done(function() {
+        $("#transactions").append("<p style = \"color: red\">" + money_minus + "</p>");
+        $("#transactions").append("<p>" + description_m + "</p>");
+      });
+    });
+  });
+
+// Poll - add option
 var i = 1;
 $(function() {
     $(".add_option").click(function(){
@@ -364,8 +393,9 @@ $(function() {
       })
     });
 });
-</script>
-<script>
+
+
+//Announcement notification read
   $(function() {
     $('#ann_slide').click(function(){
       group_id = parseInt($(this).data("value"));
@@ -381,8 +411,8 @@ $(function() {
 
     });
   });
-</script>
-<script>
+
+//Budget notification read
   $(function() {
     $('#budget_slide').click(function(){
       group_id = parseInt($(this).data("value"));
@@ -398,8 +428,8 @@ $(function() {
 
     });
   });
-</script>
-<script>
+
+//Poll notification read
   $(function() {
     $('#poll_slide').click(function(){
       group_id = parseInt($(this).data("value"));
@@ -410,7 +440,7 @@ $(function() {
         data: { group_id: group_id}
 
       }).done(function() {
-        document.getElementById("poll_badge").innerHTML = "0";
+
       });
 
     });

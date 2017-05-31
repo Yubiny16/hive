@@ -113,7 +113,7 @@ class HomeController < ApplicationController
     @old_budget = Budget.find(params[:group_id]).group_budget
     #How much to add
     @money_plus = params[:money_plus]
-    # Change to integer
+    #Change to integer
     @new_budget = @money_plus.to_f + @old_budget.to_f
 
     Budget.update(params[:group_id], :group_budget => @new_budget)
@@ -130,7 +130,6 @@ class HomeController < ApplicationController
       GroupUser.where(group_id: params[:group_id]).where.not(user_id: current_user.id).update(:budget_notification => @notify)
     end
 
-    redirect_to :back
   end
 
   def money_minus
@@ -155,7 +154,7 @@ class HomeController < ApplicationController
       @notify = one_member.budget_notification + 1
       GroupUser.where(group_id: params[:group_id]).where.not(user_id: current_user.id).update(:budget_notification => @notify)
     end
-    redirect_to :back
+
   end
 
   def add_option
