@@ -72,8 +72,8 @@
           <span class="glyphicon glyphicon-chevron-right"></span>
         </a>
       </div>
-      <!-- Make an announcement -->
-      <div>
+      <!-- Make an announcement (visible only to admin) -->
+        <% if @current_groupuser.admin == true %>
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#post_announc">New</button>
           <div class="modal fade" id="post_announc" tableindex="-1" role="dialog">
            <div class="modal-dialog" role="document">
@@ -93,8 +93,9 @@
                </div>
              </div>
            </div>
-         </div>
-      </div>
+          </div>
+          <% end %>
+
       <!-- View all announcements -->
       <form action="/home/announcement_all" method="get">
         <input name= "group_id" type="hidden" value= "<%= @group.id %>"/>
@@ -103,18 +104,23 @@
 
       <!-- Calendar -->
       <h1 style="padding-top: 60px;"><a name="calendar">Calendar</a></h1>
-      <div class="calendar">
+      <div id="group_calendar" class="calendar">
         <input name= "group_id" type="hidden" value= "<%= @group.id %>">
       </div>
+      <div id="current_groupuser_admin">
+        <%= @current_groupuser_admin %>
+      </div>
+
 
       <!-- Budget Tracker -->
       <h1 style="padding-top: 60px;"><a name="budget">Budget Tracker</a></h1>
-        <!-- Money Gained -->
-        <input id= "money" type="number" class="form-control" placeholder="$00.00">
-        <input id= "description" type="text" class="form-control" placeholder="Description">
-        <button value = "<%= @group.id %>" type="submit" class="btn btn-default money_plus_button">Plus</button>
-        <button value = "<%= @group.id %>" type="submit" class="btn btn-default money_minus_button">Minus</button>
-
+        <!-- Add transaction (visible only to admin) -->
+        <% if @current_groupuser.admin == true %>
+          <input id= "money" type="number" class="form-control" placeholder="$00.00">
+          <input id= "description" type="text" class="form-control" placeholder="Description">
+          <button value = "<%= @group.id %>" type="submit" class="btn btn-default money_plus_button">Plus</button>
+          <button value = "<%= @group.id %>" type="submit" class="btn btn-default money_minus_button">Minus</button>
+        <% end %>
 
       <!-- Add div to let the ajax script know where to append new input field. -->
       <div id="transactions">
@@ -140,6 +146,8 @@
 
       <!-- Black Board -->
       <h1 style="padding-top: 60px;"><a name="poll">Black Board</a></h1>
+        <!-- Create Poll (visible only to admin) -->
+      <% if @current_groupuser.admin == true %>
      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#create_poll">Create Poll</button>
        <div class="modal fade" id="create_poll" tableindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
@@ -158,7 +166,6 @@
                <!-- 2 options default-->
                  <% for i in 1..2 %>
                    <input name="option_content_<%= i %>" id="option_<%= i %>"type="text" class="input-box_text" placeholder="Option <%= i %>"/><br>
-
                  <% end %>
                </div>
 
@@ -194,7 +201,7 @@
           </div>
        </div>
      </div>
-
+     <% end %>
 
        <!-- Polls -->
        <% @poll.each do |p| %>
@@ -281,12 +288,12 @@
        </div>
        <% end %>
     </div>
-    
+
     <div class="tab-pane fade in" id="Network">
       <!-- Friend List + Friend Requests -->
       <% GroupUser.where(group_id: @group.id).where.not(user_id: @user.id).find_each do |friends| %>
       <% User.where(id: friends.user_id).find_each do |friends_info| %>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#user_profile_<%= friends_info.id %>"><%= friends_info.first_name %> <%= friends_info.last_name %></button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#user_profile_<%= friends_info.id %>"><%= friends_info.first_name %> <%= friends_info.last_name %> </button>
           <div class="modal fade" id="user_profile_<%= friends_info.id %>" tableindex="-1" role="dialog">
            <div class="modal-dialog" role="document">
              <div class="modal-content">
@@ -411,6 +418,22 @@ $(function() {
 
     });
   });
+  //Announcement notification read
+    $(function() {
+      $('#cal_slide').click(function(){
+        group_id = parseInt($(this).data("value"));
+
+        $.ajax({
+          method: "POST",
+          url: "/home/cal_read",
+          data: { group_id: group_id}
+
+        }).done(function() {
+          document.getElementById("cal_badge").innerHTML = "0";
+        });
+
+      });
+    });
 
 //Budget notification read
   $(function() {
@@ -440,7 +463,8 @@ $(function() {
         data: { group_id: group_id}
 
       }).done(function() {
-
+        document.getElementById("poll_badge").innerHTML = "0";
+        document.getElementById("budget_badge").innerHTML = document.getElementById("current_groupuser_admin").innerHTML;
       });
 
     });

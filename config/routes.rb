@@ -37,6 +37,7 @@ Rails.application.routes.draw do
   get '/home/delete_poll' => 'home#delete_poll'
 
   post '/home/ann_read' => 'home#ann_read'
+  post '/home/cal_read' => 'home#cal_read'
   post '/home/budget_read' => 'home#budget_read'
   post '/home/poll_read' => 'home#poll_read'
   #Calendar

@@ -20,11 +20,19 @@ class EventsController < ApplicationController
     @event.group_id = $group_id
     @event.save
 
+    GroupUser.where(group_id: $group_id).where.not(user_id: current_user.id).find_each do |one_member|
+      @notify = one_member.ann_notification + 1
+      GroupUser.where(group_id: $group_id).where.not(user_id: current_user.id).update(:cal_notification => @notify)
+    end
 
   end
 
   def update
     @event.update(event_params)
+    GroupUser.where(group_id: $group_id).where.not(user_id: current_user.id).find_each do |one_member|
+      @notify = one_member.ann_notification + 1
+      GroupUser.where(group_id: $group_id).where.not(user_id: current_user.id).update(:cal_notification => @notify)
+    end
   end
 
   def destroy

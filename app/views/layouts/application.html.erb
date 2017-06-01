@@ -26,8 +26,14 @@
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+  </head>
+
+  <body>
+      <!-- Moved the script from head to body because it only worked after refreshing the page-->
     <script>
-      $(document).ready(function(){
+    $(function() {
         $('.menus li a').click(function(){
           $('html, body').animate({
             scrollTop: $('[name="' + $.attr(this, 'href').substr(1) + '"]').offset().top
@@ -37,9 +43,6 @@
       });
     </script>
 
-  </head>
-
-  <body>
     <%= yield %>
     <div id="remote_container"></div>
   </body>

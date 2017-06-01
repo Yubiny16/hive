@@ -63,6 +63,7 @@ class HomeController < ApplicationController
     one_group_user = GroupUser.new
     one_group_user.group_id = one_group.id
     one_group_user.user_id = user.id
+    one_group_user.admin = true
     one_group_user.save
 
     one_group_budget = Budget.new
@@ -84,6 +85,10 @@ class HomeController < ApplicationController
 
     #notification
     @current_groupuser = GroupUser.find_by(group_id: @group.id, user_id: @user.id)
+    #variable to pass to assets/javascripts/full_calendar.js.erb
+    @current_groupuser_admin = GroupUser.find_by(group_id: @group.id, user_id: @user.id).admin
+
+
   end
 
   def announcement
@@ -242,6 +247,10 @@ class HomeController < ApplicationController
     GroupUser.find_by(group_id: params[:group_id], user_id: current_user.id).update(:ann_notification => 0)
   end
 
+  def cal_read
+    GroupUser.find_by(group_id: params[:group_id], user_id: current_user.id).update(:cal_notification => 0)
+  end
+
   def budget_read
     GroupUser.find_by(group_id: params[:group_id], user_id: current_user.id).update(:budget_notification => 0)
   end
@@ -249,6 +258,7 @@ class HomeController < ApplicationController
   def poll_read
     GroupUser.find_by(group_id: params[:group_id], user_id: current_user.id).update(:poll_notification => 0)
   end
+
 
 
 end

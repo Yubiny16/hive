@@ -54,8 +54,9 @@ ActiveRecord::Schema.define(version: 20170528044254) do
     t.integer  "cal_notification",    default: 0
     t.integer  "budget_notification", default: 0
     t.integer  "poll_notification",   default: 0
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.boolean  "admin",               default: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
   end
 
   create_table "groups", force: :cascade do |t|
