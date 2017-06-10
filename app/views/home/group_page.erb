@@ -14,12 +14,21 @@
 <br><br><br><br>
 
 <div class="sidebar">
-  <p class="sidebar-group-logo">Group Logo</p>
+  <div class="group-prof-positioning">
+    <div class="orientation-correcter">
+      <div class="hex">
+        <div>
+          <img src="https://www.petfinder.com/wp-content/uploads/2012/11/91615172-find-a-lump-on-cats-skin-632x475.jpg" alt="group img">
+        </div>
+      </div>
+    </div>
+    <p>Group Name</p>
+  </div>
   <ul class="menus">
-    <li><a id="ann_slide" href="#announcement" data-value="<%= @group.id %>">Annoucement</a>  <span id="ann_badge" class="badge"><%= @current_groupuser.ann_notification %></span></li>
-    <li><a id="cal_slide" href="#calendar" data-value="<%= @group.id %>">Calendar</a>         <span id="cal_badge" class="badge"><%= @current_groupuser.cal_notification %></span></li>
-    <li><a id="budget_slide" href="#budget" data-value="<%= @group.id %>">Budget Tracker</a>  <span id="budget_badge" class="badge"><%= @current_groupuser.budget_notification %></span></li>
-    <li><a id="poll_slide" href="#poll" data-value="<%= @group.id %>">Poll</a>                <span id="poll_badge" class="badge"><%= @current_groupuser.poll_notification %></span></li>
+    <li><a id="ann_slide" href="#announcement" data-value="<%= @group.id %>">Annoucement  <span id="ann_badge" class="badge"><%= @current_groupuser.ann_notification %></span></a></li>
+    <li><a id="cal_slide" href="#calendar" data-value="<%= @group.id %>">Calendar  <span id="cal_badge" class="badge"><%= @current_groupuser.cal_notification %></span></a></li>
+    <li><a id="budget_slide" href="#budget" data-value="<%= @group.id %>">Budget Tracker  <span id="budget_badge" class="badge"><%= @current_groupuser.budget_notification %></span></a></li>
+    <li><a id="poll_slide" href="#poll" data-value="<%= @group.id %>">Poll  <span id="poll_badge" class="badge"><%= @current_groupuser.poll_notification %></span></a></li>
     <li><a href="#contact">Contact Us</a></li>
   </ul>
 </div>
@@ -290,47 +299,70 @@
     </div>
 
     <div class="tab-pane fade in" id="Network">
-      <!-- Friend List + Friend Requests -->
+    <!-- Member List -->
       <% GroupUser.where(group_id: @group.id).where.not(user_id: @user.id).find_each do |friends| %>
-      <% User.where(id: friends.user_id).find_each do |friends_info| %>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#user_profile_<%= friends_info.id %>"><%= friends_info.first_name %> <%= friends_info.last_name %> </button>
+        <% User.where(id: friends.user_id).find_each do |friends_info| %>
+          <button id="member-profile" type="button" class="btn" data-toggle="modal" data-target="#user_profile_<%= friends_info.id %>">
+            <div class="member-prof-positioning">
+              <div class="orientation-correcter">
+                <div class="hex" id="member-hex">
+                  <div>
+                    <!-- <% unless @user.image_url.nil? %> -->
+                      <img src="http://www.readersdigest.ca/wp-content/uploads/2011/01/4-ways-cheer-up-depressed-cat.jpg" alt="profile img">
+                    <!-- <% end %> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <%= friends_info.first_name %> <%= friends_info.last_name %>
+          </button>
           <div class="modal fade" id="user_profile_<%= friends_info.id %>" tableindex="-1" role="dialog">
-           <div class="modal-dialog" role="document">
-             <div class="modal-content">
-               <div class="modal-header">
-                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                   <span aria-hidden="true">&times;</span>
-                 </button>
-                 <h5 class="modal-title"><%= friends_info.first_name %>'s profile</h5>
-               </div>
-               <div class="modal-body">
-                <ul class="list-group">
-                  <li class="list-group-item">Name: <%= friends_info.first_name %> <%= friends_info.last_name %></li>
-                  <li class="list-group-item">Email: <%= friends_info.email %></li>
-                  <li class="list-group-item">School: <%= friends_info.school %></li>
-                  <li class="list-group-item">Major: <%= friends_info.major %></li>
-                  <li class="list-group-item">Class of Year: <%= friends_info.class_year %></li>
-                  <li class="list-group-item">Company: <%= friends_info.company %> </li>
-                </ul>
-               </div>
-               <div class="modal-footer">
-                 <div class="input-box">
-                   <input type="text" class="input-box_text" id="message_input"/>
-                 </div>
-                 <form action="/rooms/new_chat" method="get">
-                  <input name= "group_id" type="hidden" value= "<%= @group.id %>">
-                  <button name="friend_id" value= "<%= friends_info.id %>" type="submit" class="btn btn-default reply_submit">Submit</button>
-                </form>
-               </div>
-             </div>
-           </div>
-         </div>
-         <br>
+            <div class="modal-dialog" role="document">
+              <div class="modal-content member-profile-popup">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  <h4 class="modal-title"><%= friends_info.first_name %>'s profile</h4>
+                </div>
+                <div class="modal-body">
+                  <div class="member-prof-positioning">
+                    <div class="orientation-correcter">
+                      <div class="hex" id="member-hex">
+                        <div>
+                          <!-- <% unless @user.image_url.nil? %> -->
+                            <img src="http://www.readersdigest.ca/wp-content/uploads/2011/01/4-ways-cheer-up-depressed-cat.jpg" alt="profile img">
+                          <!-- <% end %> -->
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <ul class="list-group">
+                    <li class="list-group-item">Name: <%= friends_info.first_name %> <%= friends_info.last_name %></li>
+                    <li class="list-group-item">Email: <%= friends_info.email %></li>
+                    <li class="list-group-item">School: <%= friends_info.school %></li>
+                    <li class="list-group-item">Major: <%= friends_info.major %></li>
+                    <li class="list-group-item">Class Year: <%= friends_info.class_year %></li>
+                    <!-- <li class="list-group-item">Company: <%= friends_info.company %> </li> -->
+                  </ul>
+                </div>
+                <div class="modal-footer">
+                  <div class="input-box">
+                    <input type="text" class="input-box_text" id="message_input"/>
+                  </div>
+                  <form action="/rooms/new_chat" method="get">
+                    <input name= "group_id" type="hidden" value= "<%= @group.id %>">
+                    <button name="friend_id" value= "<%= friends_info.id %>" type="submit" class="btn btn-default reply_submit">Send Message</button>
+                  </form>
+                </div>
+              </div><!--modal content-->
+            </div><!--modal-dialog-->
+          </div><!--modal fade-->
+        <% end %>
       <% end %>
-      <% end %>
-    </div>
-  </div>
-</div>
+    </div><!--Network-->
+  </div><!--tab content-->
+</div><!--container-->
 
 <script>
   //Budget - plus

@@ -13,11 +13,24 @@
 </nav>
 <br>
 <div class="container">
+  <div class="user-prof-positioning">
+    <div class="orientation-correcter">
+      <div class="hex">
+        <div>
+          <% unless @user.image_url.nil? %>
+            <img src="<%= @user.image_url %>" alt="profile img">
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <form action="/uploadprofpic" method="POST" enctype="multipart/form-data" class="profile-pic-update-form">
+    <input type="file" name="pic" accept="image/*">
+    <button type="submit" class="btn btn-default">Submit</button>
+  </form>
   <!--profile box-->
   <div class="profile-content">
     <a href="/users/edit"><i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i></a>
-    <!--profile image-->
-    <%= image_tag "hexagon.svg.png", class: "profile-image" %>
     <p>
       <%= @user.first_name %>
       <%= @user.last_name %>

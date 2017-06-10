@@ -1,8 +1,5 @@
 <head>
   <style>
-    body {
-      background-color: #FBF764;
-    }
     .field, .actions, .links {
       width: 300px;
       margin: auto;
@@ -15,23 +12,37 @@
     }
     input[type="submit"] {
       border-radius: 20px;
+      border: 1.5px solid #543B19;
       width: 300px;
       height: 40px;
       margin-bottom: 15px;
-      background-color: #543B19;
-      color: white;
+      color: #543B19;
       font-weight: bold;
+      background: linear-gradient(to left, white 50%, #543B19 50%);
+      background-size: 200% 100%;
+      background-position: right bottom;
+      -webkit-transition: all 0.8s ease;
+      -ms-transition: all 0.8s ease;
+      transition:all 0.8s ease;
     }
     input[type="submit"]:hover {
-      color: black;
+      background-position:left bottom;
+      color: #FBF764;
     }
-    div > a {
-      color: black;
+    .links a {
+      color: #543B19;
       font-weight: bold;
-    }
-    div > a:hover {
-      color: white;
+      padding: 5px 8px;
+      display: inline-block;
+      margin-bottom: 2px;
+      border-radius: 16px;
       text-decoration: none;
+      -webkit-transition: background-color 0.5s ease;
+      -ms-transition: background-color 0.5s ease;
+      transition: background-color 0.5s ease;
+    }
+    .links a:hover {
+      background-color: #FBF764;
     }
     .checkbox1 {
       padding-left: 20px;

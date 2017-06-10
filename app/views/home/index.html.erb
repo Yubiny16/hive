@@ -62,15 +62,28 @@
   </div>
 
   <!-- Create Group -->
-  <button type="button" class="btn" id="create-group-link">
-    <a href="/home/create_group_view">Create Group!</a>
-  </button>
+  <div style="text-align: center;">
+    <a href="/home/create_group_view" id="create-group-link">Create Group!</a>
+  </div>
 
   <!-- Display Current User's Groups-->
-  <div>
+  <div class="my-groups">
     <% GroupUser.where(user_id: @user.id).find_each do |g| %>
       <%= Group.where(id: g.group_id).find_each do |gp| %>
-        <button><a href="/home/group_page/<%= gp.id %>"><%= gp.name %></a></button>
+      <button type="button" class="btn" id="group-link">
+        <a href="/home/group_page/<%= gp.id %>" style="text-decoration: none;">
+          <div class="group-prof-positioning">
+            <div class="orientation-correcter">
+              <div class="hex">
+                <div>
+                  <img src="https://www.petfinder.com/wp-content/uploads/2012/11/91615172-find-a-lump-on-cats-skin-632x475.jpg" alt="group img">
+                </div>
+              </div>
+            </div>
+            <p><%= gp.name %></p>
+          </div>
+        </a>
+      </button>
       <% end %>
     <% end %>
   </div>

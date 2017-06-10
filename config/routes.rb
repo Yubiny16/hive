@@ -17,6 +17,8 @@ Rails.application.routes.draw do
   get 'sign_in' => 'users/sessions#new'
   get 'sign_out' => 'users/sessions#destroy'
   get 'edit' => 'users/registrations#edit'
+  # uploading profile picture
+  post '/uploadprofpic' => 'home#uploadprofpic'
 
   #Group
   get '/home/create_group_view' => 'home#create_group_view'

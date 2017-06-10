@@ -24,6 +24,18 @@ class HomeController < ApplicationController
   def profile
     @user = current_user
   end
+
+  def uploadprofpic
+    uploader = UserprofileUploader.new
+    uploader.store!(params[:pic])
+
+    @user = current_user
+    @user.image_url = uploader.url
+    @user.save
+
+    redirect_to "/home/profile"
+  end
+
   def my_friends
     @user = current_user
   end
