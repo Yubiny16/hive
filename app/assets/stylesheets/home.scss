@@ -30,7 +30,8 @@ i {
   font-weight: bold;
   width: 300px;
   margin: 0 auto;
-  border: 1px solid black;
+  border: 2px solid #ECEBC6;
+  border-radius: 20px;
   padding: 0.5em;
   padding-bottom: 1em;
 }
@@ -186,42 +187,133 @@ i {
   color: #FBF764;
 }
 /************group page styling********/
-.sidebar {
-  background-color: #FBF764;
-  width: 200px;
+.selected-tab {
+  background-color: white;
+}
+.sidebar,
+.sidebar-members {
   height: 100%;
   position: fixed;
   color: #543B19;
   font-size: 20px;
-  border-radius: 0px 20px 20px 0px;
+  left: 0;
+  top: 100px;
 }
-.menus {
+.sidebar .hex {
+  width: 130px;
+  padding-bottom: 150.111069989px;
+}
+.sidebar-mini ul,
+.sidebar-expand ul {
   list-style: none;
-  padding-left: 0px;
+  padding: 0;
+  color: #543B19;
 }
-.menus li {
-  padding-bottom: 3px;
-  padding-top: 3px;
-  padding-left: 20px;
+.sidebar-mini,
+.sidebar-expand {
+  float: left;
+  height: 100%;
 }
-.menus li a {
+.sidebar-mini ul li a {
   text-decoration: none;
   color: #543B19;
   display: block;
 }
-.menus li:hover {
-  background-color: #FFF300;
+.sidebar-mini ul li,
+.sidebar-expand ul li {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  -webkit-transition: background-color 0.5s ease;
+  -ms-transition: background-color 0.5s ease;
+  transition: background-color 0.5s ease;
 }
-.sidebar .group-prof-positioning p {
-  font-weight: normal;
-  color: #543B19;
+/*mini sidebar styling*/
+.sidebar-mini {
+  width: 50px;
+  background-color: #FBF764;
+  text-align: center;
+  border-right: 2px solid #FBF764;
+}
+.sidebar-mini ul {
+  margin-top: 10px;
+}
+.sidebar-mini li {
+  border-radius: 10px;
+  position: relative;
+}
+.sidebar-mini li:hover {
+  background-color: white;
+}
+.sidebar-mini li span {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: black;
+  opacity: 0.6;
+}
+.sidebar-mini button {
+  background: none;
+  border: none;
+  outline: none;
+  margin-top: 10px;
+  position: absolute;
+  left: 7px;
+}
+/*notification description styling*/
+.sidebar-expand {
+  width: 230px;
+  border: 2px solid #FBF764;
+  border-radius: 0px 20px 20px 0px;
+  position: absolute;
+  padding-left: 60px;
+  padding-top: 40px;
+  display: none;
+  z-index: -1;
+}
+.sidebar-expand button {
+  position: absolute;
+  background: none;
+  border: none;
+  outline: none;
+  top: 10px;
+  right: 10px;
+  display: none;
+}
+/*group page main body styling*/
+#container-group-page {
+  margin: auto;
+  transition: padding-left .7s;
+  margin-top: 100px;
+  padding-left: 50px;
+}
+.group-page-header {
+  width: 100%;
+  border: 2px solid #ECEBC6;
+  border-radius: 20px;
+  padding: 10px;
+  float: left;
+  margin-bottom: 40px;
+}
+.group-page-header .group-prof-positioning {
+  float: left;
+  margin-bottom: -20px;
+}
+/**members page design**/
+#Network {
+  margin-top: 80px;
   text-align: center;
 }
-#container-group-page {
-  padding-left: 200px;
+#Network .hex,
+#friends-page-tab-content .hex {
+  width: 100px;
+  padding-bottom: 115.470053838px;
 }
-/*members page design*/
-#member-profile {
+.member-prof-positioning {
+  width:150px; height: 120px;
+  margin: 0 auto 10px;
+}
+#Network .member-profile,
+#friends-page-tab-content .member-profile {
   margin-right: 10px;
   margin-bottom: 13px;
   padding-left: 0px; padding-right: 0px;
@@ -236,23 +328,31 @@ i {
   transition: border 0.5s ease;
   color: #543B19;
 }
-#member-profile:hover {
+#Network .member-profile:hover,
+#friends-page-tab-content .member-profile:hover {
   border: 2px solid #543B19;
-}
-.member-prof-positioning {
-  width:150px; height: 120px;
-  margin: 0 auto 10px;
-}
-#Network {
-  margin-top: 20px;
-  text-align: center;
-}
-#member-hex {
-  width: 100px;
-  padding-bottom: 115.470053838px;
 }
 /*member's page pop-up design*/
 .member-profile-popup {
   width: 400px;
   margin: 0 auto;
+}
+/******************friend page styling*******************/
+.nav-friends {
+  width: 12%;
+  text-align: center;
+  font-weight: bold;
+  float: left;
+}
+.nav-friends li a {
+  color: #543B19;
+}
+#friends-page-tab-content {
+  width: 83%;
+  margin-left: 3%;
+  float: left;
+  padding: 2%;
+  text-align: center;
+  border: 2px solid #ECEBC6;
+  border-radius: 20px;
 }

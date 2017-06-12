@@ -1,0 +1,2 @@
+class Annnoti < ApplicationRecord
+end

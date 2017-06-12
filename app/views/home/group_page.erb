@@ -1,3 +1,4 @@
+
 <!-- Header -->
 <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
   <div class="container-fluid">
@@ -11,41 +12,104 @@
     </ul>
   </div>
 </nav>
-<br><br><br><br>
 
 <div class="sidebar">
-  <div class="group-prof-positioning">
-    <div class="orientation-correcter">
-      <div class="hex">
-        <div>
-          <img src="https://www.petfinder.com/wp-content/uploads/2012/11/91615172-find-a-lump-on-cats-skin-632x475.jpg" alt="group img">
-        </div>
-      </div>
-    </div>
-    <p>Group Name</p>
+  <div class="sidebar-mini">
+    <ul>
+      <li>
+        <a id="ann_slide" href="#announcement" data-turbolinks="false" data-value="<%= @group.id %>">
+          <i class="fa fa-bell" aria-hidden="true"></i>
+          <% unless @current_groupuser.ann_notification == 0 %>
+            <span id="ann_badge" class="badge"><%= @current_groupuser.ann_notification %></span>
+          <% end %>
+        </a>
+      </li>
+      <li>
+        <a id="cal_slide" href="#calendar" data-turbolinks="false" data-value="<%= @group.id %>">
+          <i class="fa fa-calendar" aria-hidden="true"></i>
+          <% unless @current_groupuser.cal_notification == 0 %>
+            <span id="cal_badge" class="badge"><%= @current_groupuser.cal_notification %></span>
+          <% end %>
+        </a>
+      </li>
+      <li>
+        <a id="budget_slide" href="#budget" data-turbolinks="false" data-value="<%= @group.id %>">
+          <i class="fa fa-usd" aria-hidden="true"></i>
+          <% unless @current_groupuser.budget_notification == 0 %>
+            <span id="budget_badge" class="badge"><%= @current_groupuser.budget_notification %></span>
+          <% end %>
+        </a>
+      </li>
+      <li>
+        <a id="poll_slide" href="#poll" data-turbolinks="false" data-value="<%= @group.id %>">
+          <i class="fa fa-bar-chart" aria-hidden="true"></i>
+          <% unless @current_groupuser.poll_notification == 0 %>
+            <span id="poll_badge" class="badge"><%= @current_groupuser.poll_notification %></span>
+          <% end %>
+        </a>
+      </li>
+      <li><a href="#contact"><i class="fa fa-envelope" aria-hidden="true"></i></a></li>
+    </ul>
   </div>
-  <ul class="menus">
-    <li><a id="ann_slide" href="#announcement" data-value="<%= @group.id %>">Annoucement  <span id="ann_badge" class="badge"><%= @current_groupuser.ann_notification %></span></a></li>
-    <li><a id="cal_slide" href="#calendar" data-value="<%= @group.id %>">Calendar  <span id="cal_badge" class="badge"><%= @current_groupuser.cal_notification %></span></a></li>
-    <li><a id="budget_slide" href="#budget" data-value="<%= @group.id %>">Budget Tracker  <span id="budget_badge" class="badge"><%= @current_groupuser.budget_notification %></span></a></li>
-    <li><a id="poll_slide" href="#poll" data-value="<%= @group.id %>">Poll  <span id="poll_badge" class="badge"><%= @current_groupuser.poll_notification %></span></a></li>
-    <li><a href="#contact">Contact Us</a></li>
-  </ul>
+  <!--notification description content-->
+  <div class="sidebar-expand" id="sidebar-announcement-tab">
+    <button><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+    <% Annnoti.where(group_id: @group.id).where(receiver: @user.id).find_each do |ann_notification| %>
+      <p><%= User.find(ann_notification.sender).first_name %> posted an announcement</p>
+      <p>Date: <%= ann_notification.created_at %></p>
+    <% end %>
+  </div>
+
+  <div class="sidebar-expand" id="sidebar-calendar-tab">
+    <button><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+    <!--보류-->
+  </div>
+  <div class="sidebar-expand" id="sidebar-budget-tab">
+    <button><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+    <% Budgetnoti.where(group_id: @group.id).where(receiver: @user.id).find_each do |budget_notification| %>
+      <p><%= User.find(budget_notification.sender).first_name %> updated the group's budget</p>
+      <p>Date: <%= budget_notification.created_at %></p>
+    <% end %>
+  </div>
+
+  <div class="sidebar-expand" id="sidebar-poll-tab">
+    <button><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+    <% Pollnoti.where(group_id: @group.id).where(receiver: @user.id).find_each do |poll_notification| %>
+      <p><%= User.find(poll_notification.sender).first_name %> started a new poll, "<%= poll_notification.content %>"</p>
+      <p>Date: <%= poll_notification.created_at %></p>
+    <% end %>
+  </div>
+</div>
+
+<div class="sidebar-members" style="display: none;">
+  <div class="sidebar-mini"></div>
 </div>
 
 <div class ="container" id="container-group-page">
-  <h1><%= @group.name %></h1>
+  <div class="group-page-header">
+    <div class="group-prof-positioning">
+      <div class="orientation-correcter">
+        <div class="hex">
+          <div>
+            <img src="https://www.petfinder.com/wp-content/uploads/2012/11/91615172-find-a-lump-on-cats-skin-632x475.jpg" alt="group img">
+          </div>
+        </div>
+      </div>
+    </div>
+    <h1><%= @group.name %></h1>
+    <p><%= @group.school %></p>
+    <p><%= @group.password %></p>
+  </div>
+
   <ul class ="nav nav-pills nav-justified">
-    <li class="active"><a href="#Home" data-toggle="tab">Home</a></li>
-    <li><a href="#Network" data-toggle="tab">Member</a></li>
+    <li class="active" id="home-tab"><a href="#Home" data-toggle="tab">Home</a></li>
+    <li id="members-tab"><a href="#Network" data-toggle="tab">Member</a></li>
   </ul>
 
-  <div></div>
-
   <div class="tab-content">
-    <div class="tab-pane fade in active" id="Home">
+    <div class="tab-pane active" id="Home">
         <!-- Announcements -->
-        <h1 style="padding-top: 60px;"><a name="announcement">Announcement</a></h1>
+        <h1 style="padding-top: 60px;">Announcement</h1>
       <div id="announcement_carousel" data-wrap="true"  class="carousel slide" data-interval="false" data-ride="carousel">
        <ol class="carousel-indicators">
          <li data-target="#announcement_carousel" data-slide-to="0" class="active"></li>
@@ -112,7 +176,7 @@
       </form>
 
       <!-- Calendar -->
-      <h1 style="padding-top: 60px;"><a name="calendar">Calendar</a></h1>
+      <h1 style="padding-top: 60px;">Calendar</h1>
       <div id="group_calendar" class="calendar">
         <input name= "group_id" type="hidden" value= "<%= @group.id %>">
       </div>
@@ -122,7 +186,7 @@
 
 
       <!-- Budget Tracker -->
-      <h1 style="padding-top: 60px;"><a name="budget">Budget Tracker</a></h1>
+      <h1 style="padding-top: 60px;">Budget Tracker</h1>
         <!-- Add transaction (visible only to admin) -->
         <% if @current_groupuser.admin == true %>
           <input id= "money" type="number" class="form-control" placeholder="$00.00">
@@ -154,7 +218,7 @@
       </div>
 
       <!-- Black Board -->
-      <h1 style="padding-top: 60px;"><a name="poll">Black Board</a></h1>
+      <h1 style="padding-top: 60px;">Black Board</h1>
         <!-- Create Poll (visible only to admin) -->
       <% if @current_groupuser.admin == true %>
      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#create_poll">Create Poll</button>
@@ -298,11 +362,11 @@
        <% end %>
     </div>
 
-    <div class="tab-pane fade in" id="Network">
+    <div class="tab-pane" id="Network">
     <!-- Member List -->
       <% GroupUser.where(group_id: @group.id).where.not(user_id: @user.id).find_each do |friends| %>
         <% User.where(id: friends.user_id).find_each do |friends_info| %>
-          <button id="member-profile" type="button" class="btn" data-toggle="modal" data-target="#user_profile_<%= friends_info.id %>">
+          <button type="button" class="btn member-profile" data-toggle="modal" data-target="#user_profile_<%= friends_info.id %>">
             <div class="member-prof-positioning">
               <div class="orientation-correcter">
                 <div class="hex" id="member-hex">
@@ -328,7 +392,7 @@
                 <div class="modal-body">
                   <div class="member-prof-positioning">
                     <div class="orientation-correcter">
-                      <div class="hex" id="member-hex">
+                      <div class="hex">
                         <div>
                           <!-- <% unless @user.image_url.nil? %> -->
                             <img src="http://www.readersdigest.ca/wp-content/uploads/2011/01/4-ways-cheer-up-depressed-cat.jpg" alt="profile img">
@@ -445,7 +509,7 @@ $(function() {
         data: { group_id: group_id}
 
       }).done(function() {
-        document.getElementById("ann_badge").innerHTML = "0";
+        $("#ann_badge").hide();
       });
 
     });
@@ -461,7 +525,7 @@ $(function() {
           data: { group_id: group_id}
 
         }).done(function() {
-          document.getElementById("cal_badge").innerHTML = "0";
+          $("#cal_badge").hide();
         });
 
       });
@@ -478,7 +542,7 @@ $(function() {
         data: { group_id: group_id}
 
       }).done(function() {
-        document.getElementById("budget_badge").innerHTML = "0";
+        $("#budget_badge").hide();
       });
 
     });
@@ -495,10 +559,8 @@ $(function() {
         data: { group_id: group_id}
 
       }).done(function() {
-        document.getElementById("poll_badge").innerHTML = "0";
-        document.getElementById("budget_badge").innerHTML = document.getElementById("current_groupuser_admin").innerHTML;
+        $("#poll_badge").hide();
       });
-
     });
   });
 </script>

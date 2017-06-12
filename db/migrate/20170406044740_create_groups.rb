@@ -5,6 +5,7 @@ class CreateGroups < ActiveRecord::Migration[5.0]
       t.string :name
       t.string :school
       t.string :password
+      t.string :description
       t.string :image_url, :default => ""
 
       t.timestamps

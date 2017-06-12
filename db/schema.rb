@@ -10,11 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170528044254) do
+ActiveRecord::Schema.define(version: 20170612073039) do
+
+  create_table "annnotis", force: :cascade do |t|
+    t.integer  "group_id"
+    t.integer  "sender"
+    t.integer  "receiver"
+    t.string   "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "announcements", force: :cascade do |t|
     t.integer  "group_id"
     t.string   "title"
+    t.string   "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "budgetnotis", force: :cascade do |t|
+    t.integer  "group_id"
+    t.integer  "sender"
+    t.integer  "receiver"
     t.string   "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -25,6 +43,15 @@ ActiveRecord::Schema.define(version: 20170528044254) do
     t.integer  "group_budget"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+  end
+
+  create_table "calnotis", force: :cascade do |t|
+    t.integer  "group_id"
+    t.integer  "sender"
+    t.integer  "receiver"
+    t.string   "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "conversations", force: :cascade do |t|
@@ -85,6 +112,15 @@ ActiveRecord::Schema.define(version: 20170528044254) do
     t.integer  "vote_number", default: 0
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+  end
+
+  create_table "pollnotis", force: :cascade do |t|
+    t.integer  "group_id"
+    t.integer  "sender"
+    t.integer  "receiver"
+    t.string   "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "polls", force: :cascade do |t|

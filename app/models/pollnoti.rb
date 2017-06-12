@@ -1,0 +1,2 @@
+class Pollnoti < ApplicationRecord
+end

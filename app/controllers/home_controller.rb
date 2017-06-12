@@ -110,8 +110,20 @@ class HomeController < ApplicationController
     one_announcement.content = params[:announc_content]
     one_announcement.save
 
+
+
     #notify
     GroupUser.where(group_id: params[:group_id]).where.not(user_id: current_user.id).find_each do |one_member|
+
+      #who when what
+      one_announcement_notification = Annnoti.new
+      one_announcement_notification.group_id = params[:group_id]
+      one_announcement_notification.sender = current_user.id
+      one_announcement_notification.receiver = one_member.user_id
+      one_announcement_notification.content = params[:announc_content]
+      one_announcement_notification.save
+
+      #number of notification
       @notify = one_member.ann_notification + 1
       GroupUser.where(group_id: params[:group_id]).where.not(user_id: current_user.id).update(:ann_notification => @notify)
     end
@@ -126,6 +138,10 @@ class HomeController < ApplicationController
   end
 
   def money_plus
+    puts 1
+    puts 1
+    puts 1
+    puts 1
     #Find the value of previous budget balance
     @old_budget = Budget.find(params[:group_id]).group_budget
     #How much to add
@@ -143,6 +159,15 @@ class HomeController < ApplicationController
 
     #notify
     GroupUser.where(group_id: params[:group_id]).where.not(user_id: current_user.id).find_each do |one_member|
+
+      #who when what
+      one_budget_notification = Budgetnoti.new
+      one_budget_notification.group_id = params[:group_id]
+      one_budget_notification.sender = current_user.id
+      one_budget_notification.receiver = one_member.user_id
+      one_budget_notification.content = params[:description_p]
+      one_budget_notification.save
+
       @notify = one_member.budget_notification + 1
       GroupUser.where(group_id: params[:group_id]).where.not(user_id: current_user.id).update(:budget_notification => @notify)
     end
@@ -168,6 +193,15 @@ class HomeController < ApplicationController
 
     #notify
     GroupUser.where(group_id: params[:group_id]).where.not(user_id: current_user.id).find_each do |one_member|
+
+      #who when what
+      one_budget_notification = Budgetnoti.new
+      one_budget_notification.group_id = params[:group_id]
+      one_budget_notification.sender = current_user.id
+      one_budget_notification.receiver = one_member.user_id
+      one_budget_notification.content = params[:description_m]
+      one_budget_notification.save
+
       @notify = one_member.budget_notification + 1
       GroupUser.where(group_id: params[:group_id]).where.not(user_id: current_user.id).update(:budget_notification => @notify)
     end
@@ -201,6 +235,15 @@ class HomeController < ApplicationController
 
     #notify
     GroupUser.where(group_id: params[:group_id]).where.not(user_id: current_user.id).find_each do |one_member|
+
+      #who when what
+      one_poll_notification = Pollnoti.new
+      one_poll_notification.group_id = params[:group_id]
+      one_poll_notification.sender = current_user.id
+      one_poll_notification.receiver = one_member.user_id
+      one_poll_notification.content = params[:poll_title]
+      one_poll_notification.save
+
       @notify = one_member.poll_notification + 1
       GroupUser.where(group_id: params[:group_id]).where.not(user_id: current_user.id).update(:poll_notification => @notify)
     end

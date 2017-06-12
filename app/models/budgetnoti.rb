@@ -1,0 +1,2 @@
+class Budgetnoti < ApplicationRecord
+end
