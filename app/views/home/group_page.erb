@@ -54,8 +54,8 @@
   <!--notification description content-->
   <div class="sidebar-expand" id="sidebar-announcement-tab">
     <button><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
-    <% Annnoti.where(group_id: @group.id).where(receiver: @user.id).find_each do |ann_notification| %>
-      <p><%= User.find(ann_notification.sender).first_name %> posted an announcement</p>
+    <% @ann_notification.each do |ann_notification| %>
+      <p><%= User.find(ann_notification.sender).first_name %> <%= User.find(ann_notification.sender).last_name %> posted an announcement</p>
       <p>Date: <%= ann_notification.created_at %></p>
     <% end %>
   </div>
@@ -66,16 +66,16 @@
   </div>
   <div class="sidebar-expand" id="sidebar-budget-tab">
     <button><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
-    <% Budgetnoti.where(group_id: @group.id).where(receiver: @user.id).find_each do |budget_notification| %>
-      <p><%= User.find(budget_notification.sender).first_name %> updated the group's budget</p>
+    <% @budget_notification.each do |budget_notification| %>
+      <p><%= User.find(budget_notification.sender).first_name %> <%= User.find(budget_notification.sender).last_name %> added a transaction to the group's budget</p>
       <p>Date: <%= budget_notification.created_at %></p>
     <% end %>
   </div>
 
   <div class="sidebar-expand" id="sidebar-poll-tab">
     <button><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
-    <% Pollnoti.where(group_id: @group.id).where(receiver: @user.id).find_each do |poll_notification| %>
-      <p><%= User.find(poll_notification.sender).first_name %> started a new poll, "<%= poll_notification.content %>"</p>
+    <% @poll_notification.each do |poll_notification| %>
+      <p><%= User.find(poll_notification.sender).first_name %> <%= User.find(poll_notification.sender).last_name %> started a new poll</p>
       <p>Date: <%= poll_notification.created_at %></p>
     <% end %>
   </div>
@@ -111,32 +111,36 @@
         <!-- Announcements -->
         <h1 style="padding-top: 60px;">Announcement</h1>
       <div id="announcement_carousel" data-wrap="true"  class="carousel slide" data-interval="false" data-ride="carousel">
-       <ol class="carousel-indicators">
-         <li data-target="#announcement_carousel" data-slide-to="0" class="active"></li>
-          <% @recent_announc.each do |a| %>
-            <li data-target="#announcement_carousel" data-slide-to="i"></li>
-          <% end %>
-       </ol>
+         <ol class="carousel-indicators">
+           <li data-target="#announcement_carousel" data-slide-to="0" class="active"></li>
+            <% for i in 1..(@recent_announc.count - 1) %>
+              <li data-target="#announcement_carousel" data-slide-to="i"></li>
+            <% end %>
+         </ol><!-- carousel-indicators-->
        <div class="carousel-inner">
          <div class="item active">
-             <center><img class="img-responsive" align="middle" src="http://hdwallpaperbackgrounds.net/wp-content/uploads/2016/08/black-background-49.jpg" width="700" height="0" /></center>
-             <div class="carousel-caption">
-                  Your Group's Announcements
-             </div>
-           </div>
-          <% @recent_announc.each do |a| %>
-            <div class="item">
-              <center><img class="img-responsive" align="middle" src="http://hdwallpaperbackgrounds.net/wp-content/uploads/2016/08/black-background-49.jpg" width="700" height="400"/></center>
-                <div class="carousel-caption">
-                <%= a.created_at %><br>
-                <%= a.title %><br>
-                <%= a.content %>
-                </div>
-            </div>
-          <% end %>
-
-
-      </div>
+           <center><img class="img-responsive" align="middle" src="https://images.designtrends.com/wp-content/uploads/2015/11/30152210/Plan-Photo-Background.jpg" width="50%" height="50%" /></center>
+           <div class="carousel-caption">
+            <span style="color:black">
+             <h3><%= @recent_announc[0].title %></h3><br>
+             <h5><%= @recent_announc[0].content %></h5><br>
+             <%= @recent_announc[0].created_at.strftime("%Y-%m-%d") %>
+            </span>
+           </div><!-- carousel-caption -->
+         </div><!-- item active-->
+         <% @recent_announc.drop(1).each do |a| %>
+           <div class="item">
+             <center><img class="img-responsive" align="middle" src="https://images.designtrends.com/wp-content/uploads/2015/11/30152210/Plan-Photo-Background.jpg" width="50%" height="50%"/></center>
+               <div class="carousel-caption">
+                 <span style="color:black">
+                  <h3><%= a.title %></h3><br>
+                  <h5><%= a.content %></h5><br>
+                  <%= a.created_at.strftime("%Y-%m-%d") %>
+                 </span>
+               </div><!-- carousel-caption -->
+           </div><!-- item -->
+         <% end %>
+       </div><!-- carousel-inner -->
 
         <a href="#announcement_carousel" class="carousel-control left" data-slide="prev">
           <span class="glyphicon glyphicon-chevron-left"></span>
@@ -159,10 +163,19 @@
                </div>
                <div class="modal-body">
                  <form action="/home/announcement" method="get">
+                  <label>Title</label>
                   <input name="announc_title" type="text"/>
+                  <label>Content</label>
                   <textarea name="announc_content" type="text"></textarea>
-                  <button name="group_id" value= "<%= @group.id %>" type="submit" class="btn btn-default">Post</button>
+                  <label>Group's Email</label>
+                  <input name="group_email" type="email"/>
+                  <input name="group_id" type="hidden" value="<%= @group.id %>">
+                  <button name="post" value= "no_email" type="submit" class="btn btn-default">Post</button>
+                  <button name="post" value= "send_email" type="submit" class="btn btn-default">Post and Send Email</button>
                  </form>
+
+
+
                </div>
              </div>
            </div>
@@ -360,71 +373,20 @@
          </div>
        </div>
        <% end %>
-    </div>
+    </div><!--home tab-->
 
     <div class="tab-pane" id="Network">
-    <!-- Member List -->
-      <% GroupUser.where(group_id: @group.id).where.not(user_id: @user.id).find_each do |friends| %>
-        <% User.where(id: friends.user_id).find_each do |friends_info| %>
-          <button type="button" class="btn member-profile" data-toggle="modal" data-target="#user_profile_<%= friends_info.id %>">
-            <div class="member-prof-positioning">
-              <div class="orientation-correcter">
-                <div class="hex" id="member-hex">
-                  <div>
-                    <!-- <% unless @user.image_url.nil? %> -->
-                      <img src="http://www.readersdigest.ca/wp-content/uploads/2011/01/4-ways-cheer-up-depressed-cat.jpg" alt="profile img">
-                    <!-- <% end %> -->
-                  </div>
-                </div>
-              </div>
-            </div>
-            <%= friends_info.first_name %> <%= friends_info.last_name %>
-          </button>
-          <div class="modal fade" id="user_profile_<%= friends_info.id %>" tableindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content member-profile-popup">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                  <h4 class="modal-title"><%= friends_info.first_name %>'s profile</h4>
-                </div>
-                <div class="modal-body">
-                  <div class="member-prof-positioning">
-                    <div class="orientation-correcter">
-                      <div class="hex">
-                        <div>
-                          <!-- <% unless @user.image_url.nil? %> -->
-                            <img src="http://www.readersdigest.ca/wp-content/uploads/2011/01/4-ways-cheer-up-depressed-cat.jpg" alt="profile img">
-                          <!-- <% end %> -->
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <ul class="list-group">
-                    <li class="list-group-item">Name: <%= friends_info.first_name %> <%= friends_info.last_name %></li>
-                    <li class="list-group-item">Email: <%= friends_info.email %></li>
-                    <li class="list-group-item">School: <%= friends_info.school %></li>
-                    <li class="list-group-item">Major: <%= friends_info.major %></li>
-                    <li class="list-group-item">Class Year: <%= friends_info.class_year %></li>
-                    <!-- <li class="list-group-item">Company: <%= friends_info.company %> </li> -->
-                  </ul>
-                </div>
-                <div class="modal-footer">
-                  <div class="input-box">
-                    <input type="text" class="input-box_text" id="message_input"/>
-                  </div>
-                  <form action="/rooms/new_chat" method="get">
-                    <input name= "group_id" type="hidden" value= "<%= @group.id %>">
-                    <button name="friend_id" value= "<%= friends_info.id %>" type="submit" class="btn btn-default reply_submit">Send Message</button>
-                  </form>
-                </div>
-              </div><!--modal content-->
-            </div><!--modal-dialog-->
-          </div><!--modal fade-->
-        <% end %>
-      <% end %>
-    </div><!--Network-->
+      <label>Search by Name</label>
+      <input type="text" class="text-input search_member_name" />
+
+      <label>Search by Class Year</label>
+      <input type="number" class="text-input search_member_year" />
+
+      <div id="members">
+        <%= render partial: "member", locals: { member: @members } %>
+      </div>
+
+    </div><!--Network tab-->
   </div><!--tab content-->
 </div><!--container-->
 
@@ -563,4 +525,46 @@ $(function() {
       });
     });
   });
+
+
+
+  $(".search_member_name").keyup(function(){
+
+        // Retrieve the input field text
+        var filter = $(this).val().toLowerCase();
+
+        $(".member-profile").hide();
+        // Loop through the comment list
+        $(".member .member-profile").each(function(){
+          //get the name of each member
+          var name = $(this).text().toLowerCase();
+
+          // If the value matched show all the matching results
+          if(name.indexOf(filter) != -1)
+          {
+            $(this).fadeIn();
+          }
+        });
+
+    });
+
+    $(".search_member_year").keyup(function(){
+
+          // Retrieve the input field text
+          var filter = $(this).val().toLowerCase();
+
+          $(".member-profile").hide();
+          // Loop through the comment list
+          $(".member .member-profile").each(function(){
+            //get the name of each member
+            var name = $(this).text().toLowerCase();
+
+            // If the value matched show all the matching results
+            if(name.indexOf(filter) != -1)
+            {
+              $(this).fadeIn();
+            }
+          });
+
+      });
 </script>

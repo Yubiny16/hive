@@ -1,3 +1,4 @@
+require 'mailgun'
 class HomeController < ApplicationController
   before_action :require_login
   $n = 2
@@ -13,6 +14,7 @@ class HomeController < ApplicationController
     else
       @search = flash[:search]
     end
+    @searched_groups = Group.where("name LIKE ?", "%#{@search}%")
   end
 
   def search
@@ -95,11 +97,17 @@ class HomeController < ApplicationController
 
     @recent_announc = Announcement.where(group_id: @group.id).last(7).reverse
 
-    #notification
+    #notifications
     @current_groupuser = GroupUser.find_by(group_id: @group.id, user_id: @user.id)
-    #variable to pass to assets/javascripts/full_calendar.js.erb
-    @current_groupuser_admin = GroupUser.find_by(group_id: @group.id, user_id: @user.id).admin
 
+    @ann_notification = Annnoti.where(group_id: @group.id).where(receiver: @user.id)
+    @budget_notification = Budgetnoti.where(group_id: @group.id).where(receiver: @user.id)
+    @poll_notification = Pollnoti.where(group_id: @group.id).where(receiver: @user.id)
+    #variable to pass to assets/javascripts/full_calendar.js.erb
+    #@current_groupuser_admin = GroupUser.find_by(group_id: @group.id, user_id: @user.id).admin
+
+    #Member
+    @members = GroupUser.where(group_id: @group.id).where.not(user_id: @user.id)
 
   end
 
@@ -109,8 +117,6 @@ class HomeController < ApplicationController
     one_announcement.title = params[:announc_title]
     one_announcement.content = params[:announc_content]
     one_announcement.save
-
-
 
     #notify
     GroupUser.where(group_id: params[:group_id]).where.not(user_id: current_user.id).find_each do |one_member|
@@ -128,20 +134,53 @@ class HomeController < ApplicationController
       GroupUser.where(group_id: params[:group_id]).where.not(user_id: current_user.id).update(:ann_notification => @notify)
     end
 
+    #if params[:post] == 'send_email'
+
+    #  @from = Group.find(params[:group_id]).name + params[:group_id] + '@hive.net'
+    #  @group_email = params[:group_email]
+    #  @title = params[:title]
+    #  @content = params[:content]
+
+    #  mg_client = Mailgun::Client.new("key-01cab085b877b33e7e23683b611974b2")
+
+    #  message_params =  {
+    #                     from: 'master@likelion.net',
+    #                     to:   'yubiny16@gmail.com',
+    #                     subject: '@title',
+    #                     text:    '@content'
+    #                    }
+
+    #  result = mg_client.send_message("sandbox3d5ecb84ef964c55a076e27ff9d3c2f5.mailgun.org", message_params).to_h!
+
+    #  message_id = result['id']
+    #  message = result['message']
+    #end
+
     redirect_to :back
   end
 
   def announcement_all
     @group = Group.find(params[:group_id])
     @announcement_all = Announcement.where(group_id: @group.id)
+  end
 
+  def send_email
+    mg_client = Mailgun::Client.new("your-api-key")
+
+    message_params =  {
+                       from: 'bob@example.com',
+                       to:   'sally@example.com',
+                       subject: 'The Ruby SDK is awesome!',
+                       text:    'It is really easy to send a message!'
+                      }
+
+    result = mg_client.send_message('example.com', message_params).to_h!
+
+    message_id = result['id']
+    message = result['message']
   end
 
   def money_plus
-    puts 1
-    puts 1
-    puts 1
-    puts 1
     #Find the value of previous budget balance
     @old_budget = Budget.find(params[:group_id]).group_budget
     #How much to add

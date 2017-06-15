@@ -24,6 +24,9 @@
   <% end %>
 </ul>
 
+<label>Search by Name</label>
+<input type="text" class="text-input search_member_name" />
+
 <!-- Members(friends) within each Group -->
 <div class="tab-content" id="friends-page-tab-content">
   <% GroupUser.where(user_id: @user.id).find_each do |group_tab| %>
@@ -44,6 +47,8 @@
             </div>
             <%= friends_info.first_name %> <%= friends_info.last_name %>
           </button>
+
+          <!-- modal -->
           <div class="modal fade" id="user_profile_<%= friends_info.id %>" tableindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
               <div class="modal-content member-profile-popup">
@@ -91,4 +96,24 @@
     $('.nav-friends li:first-child').addClass("active");
     $('#friends-page-tab-content div:first-child').addClass("active");
   });
+
+  $(".search_member_name").keyup(function(){
+
+        // Retrieve the input field text
+        var filter = $(this).val().toLowerCase();
+
+        $(".member-profile").hide();
+        // Loop through the comment list
+        $(".member-profile").each(function(){
+          //get the name of each member
+          var name = $(this).text().toLowerCase();
+
+          // If the value matched show all the matching results
+          if(name.indexOf(filter) != -1)
+          {
+            $(this).fadeIn();
+          }
+        });
+
+    });
 </script>

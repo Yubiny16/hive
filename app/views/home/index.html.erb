@@ -21,7 +21,7 @@
     <!-- Pass search words to controller -->
     <div class="row">
       <div class="input-group search-bar-custom col-md-6 col-md-offset-3 col-xs-6 col-xs-offset-3">
-        <input name= "search_group" type="text" class="form-control" placeholder="Search Your Group">
+        <input id="search_group" name= "search_group" type="text" class="form-control" data-autocomplete= "<%= Group.order(:name).map(&:name) %>" placeholder="Search Your Group">
         <span class="input-group-btn">
           <button type="submit" class="btn btn-search"><i class="fa fa-search fa-2x" aria-hidden="true"></i></button>
         </span>
@@ -30,8 +30,8 @@
   </form>
 
   <div>
-    <!-- User inputs search words -->
-    <% Group.where("name LIKE ?", "%#{@search}%").find_each do |g| %>
+    <!-- list of searched groups -->
+    <% @searched_groups.find_each do |g| %>
       <!-- Looks for already joined groups -->
       <% if GroupUser.where(group_id: g.id, user_id: @user.id).exists? %>
         <h4>Already Joined <%= g.name %></h4>
@@ -88,3 +88,10 @@
     <% end %>
   </div>
 </div>
+<script>
+$( function() {
+    $( "#search_group" ).autocomplete({
+      source: $( "#search_group" ).data('autocomplete')
+    });
+  });
+</script>
