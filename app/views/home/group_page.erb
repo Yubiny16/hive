@@ -122,9 +122,11 @@
            <center><img class="img-responsive" align="middle" src="https://images.designtrends.com/wp-content/uploads/2015/11/30152210/Plan-Photo-Background.jpg" width="50%" height="50%" /></center>
            <div class="carousel-caption">
             <span style="color:black">
+             <% unless @recent_announc[0] == nil %>
              <h3><%= @recent_announc[0].title %></h3><br>
              <h5><%= @recent_announc[0].content %></h5><br>
              <%= @recent_announc[0].created_at.strftime("%Y-%m-%d") %>
+             <% end %>
             </span>
            </div><!-- carousel-caption -->
          </div><!-- item active-->
