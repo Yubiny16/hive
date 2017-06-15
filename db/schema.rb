@@ -90,9 +90,10 @@ ActiveRecord::Schema.define(version: 20170612073039) do
     t.string   "name"
     t.string   "school"
     t.string   "password"
-    t.string   "image_url",  default: ""
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.string   "description"
+    t.string   "image_url",   default: ""
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
     t.index ["name"], name: "index_groups_on_name", unique: true
   end
 
