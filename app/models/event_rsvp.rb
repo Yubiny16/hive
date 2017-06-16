@@ -1,0 +1,2 @@
+class EventRsvp < ApplicationRecord
+end

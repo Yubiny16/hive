@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170612073039) do
+ActiveRecord::Schema.define(version: 20170616092144) do
 
   create_table "annnotis", force: :cascade do |t|
     t.integer  "group_id"
@@ -64,12 +64,22 @@ ActiveRecord::Schema.define(version: 20170612073039) do
     t.index ["sender_id"], name: "index_conversations_on_sender_id"
   end
 
+  create_table "event_rsvps", force: :cascade do |t|
+    t.integer  "group_id"
+    t.integer  "user_id"
+    t.integer  "event_id"
+    t.boolean  "rsvp",       default: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
   create_table "events", force: :cascade do |t|
     t.integer  "group_id"
     t.string   "title"
     t.datetime "start"
     t.datetime "end"
     t.string   "color"
+    t.string   "rsvp"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

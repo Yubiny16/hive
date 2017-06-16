@@ -100,9 +100,10 @@ class HomeController < ApplicationController
     #notifications
     @current_groupuser = GroupUser.find_by(group_id: @group.id, user_id: @user.id)
 
-    @ann_notification = Annnoti.where(group_id: @group.id).where(receiver: @user.id)
-    @budget_notification = Budgetnoti.where(group_id: @group.id).where(receiver: @user.id)
-    @poll_notification = Pollnoti.where(group_id: @group.id).where(receiver: @user.id)
+    @ann_notification = Annnoti.where(group_id: @group.id).where(receiver: @user.id).reverse
+    @cal_notification = Calnoti.where(group_id: @group.id).where(receiver: @user.id).reverse
+    @budget_notification = Budgetnoti.where(group_id: @group.id).where(receiver: @user.id).reverse
+    @poll_notification = Pollnoti.where(group_id: @group.id).where(receiver: @user.id).reverse
     #variable to pass to assets/javascripts/full_calendar.js.erb
     #@current_groupuser_admin = GroupUser.find_by(group_id: @group.id, user_id: @user.id).admin
 
@@ -131,7 +132,8 @@ class HomeController < ApplicationController
 
       #number of notification
       @notify = one_member.ann_notification + 1
-      GroupUser.where(group_id: params[:group_id]).where.not(user_id: current_user.id).update(:ann_notification => @notify)
+      one_member.update(:ann_notification => @notify)
+
     end
 
     #if params[:post] == 'send_email'
@@ -208,7 +210,7 @@ class HomeController < ApplicationController
       one_budget_notification.save
 
       @notify = one_member.budget_notification + 1
-      GroupUser.where(group_id: params[:group_id]).where.not(user_id: current_user.id).update(:budget_notification => @notify)
+      one_member.update(:budget_notification => @notify)
     end
 
   end
@@ -242,7 +244,7 @@ class HomeController < ApplicationController
       one_budget_notification.save
 
       @notify = one_member.budget_notification + 1
-      GroupUser.where(group_id: params[:group_id]).where.not(user_id: current_user.id).update(:budget_notification => @notify)
+      one_member.update(:budget_notification => @notify)
     end
 
   end
@@ -284,7 +286,7 @@ class HomeController < ApplicationController
       one_poll_notification.save
 
       @notify = one_member.poll_notification + 1
-      GroupUser.where(group_id: params[:group_id]).where.not(user_id: current_user.id).update(:poll_notification => @notify)
+      one_member.update(:poll_notification => @notify)
     end
 
     redirect_to :back
@@ -343,6 +345,7 @@ class HomeController < ApplicationController
 
   def cal_read
     GroupUser.find_by(group_id: params[:group_id], user_id: current_user.id).update(:cal_notification => 0)
+
   end
 
   def budget_read

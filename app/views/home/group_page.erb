@@ -62,7 +62,10 @@
 
   <div class="sidebar-expand" id="sidebar-calendar-tab">
     <button><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
-    <!--보류-->
+    <% @cal_notification.each do |cal_notification| %>
+      <p><%= User.find(cal_notification.sender).first_name %> <%= User.find(cal_notification.sender).last_name %> <%= cal_notification.content %></p>
+      <p>Date: <%= cal_notification.created_at %></p>
+    <% end %>
   </div>
   <div class="sidebar-expand" id="sidebar-budget-tab">
     <button><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
@@ -482,7 +485,7 @@ $(function() {
 
     });
   });
-  //Announcement notification read
+  //calendar notification read
     $(function() {
       $('#cal_slide').click(function(){
         group_id = parseInt($(this).data("value"));

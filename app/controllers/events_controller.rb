@@ -21,8 +21,18 @@ class EventsController < ApplicationController
     @event.save
 
     GroupUser.where(group_id: $group_id).where.not(user_id: current_user.id).find_each do |one_member|
-      @notify = one_member.ann_notification + 1
-      GroupUser.where(group_id: $group_id).where.not(user_id: current_user.id).update(:cal_notification => @notify)
+
+      #who when what
+      one_cal_notification = Calnoti.new
+      one_cal_notification.group_id = $group_id
+      one_cal_notification.sender = current_user.id
+      one_cal_notification.receiver = one_member.user_id
+      one_cal_notification.content = "created an event"
+      one_cal_notification.save
+
+      @notify = one_member.cal_notification + 1
+      one_member.update(:cal_notification => @notify)
+
     end
 
   end
@@ -30,8 +40,17 @@ class EventsController < ApplicationController
   def update
     @event.update(event_params)
     GroupUser.where(group_id: $group_id).where.not(user_id: current_user.id).find_each do |one_member|
-      @notify = one_member.ann_notification + 1
-      GroupUser.where(group_id: $group_id).where.not(user_id: current_user.id).update(:cal_notification => @notify)
+
+      #who when what
+      one_cal_notification = Calnoti.new
+      one_cal_notification.group_id = $group_id
+      one_cal_notification.sender = current_user.id
+      one_cal_notification.receiver = one_member.user_id
+      one_cal_notification.content = "updated an event"
+      one_cal_notification.save
+
+      @notify = one_member.cal_notification + 1
+      one_member.update(:cal_notification => @notify)
     end
   end
 
@@ -45,6 +64,6 @@ class EventsController < ApplicationController
     end
 
     def event_params
-      params.require(:event).permit(:title, :date_range, :start, :end, :color, :group_id)
+      params.require(:event).permit(:title, :date_range, :start, :end, :color, :group_id, :rsvp)
     end
 end
