@@ -293,10 +293,47 @@ i {
   padding: 10px;
   float: left;
   margin-bottom: 40px;
+  color: #543B19;
 }
 .group-page-header .group-prof-positioning {
   float: left;
   margin-bottom: -20px;
+}
+.group-page-header h1 {
+  display: inline;
+  margin-right: 10px;
+}
+.group-page-header span {
+  font-weight: bold;
+}
+#budget_item_input {
+  width: 100%;
+  white-space: nowrap;
+  font-size: 0;
+}
+#budget_item_input * {
+  vertical-align: middle;
+}
+#budget_item_input #description {
+  width: 70%;
+  display: inline-block;
+  margin-right: 3%;
+}
+#budget_item_input #money {
+  width: 18%;
+  display: inline-block;
+  border-radius: 4px 0 0 4px;
+}
+#budget_item_input button i {
+  color: white;
+}
+#budget_item_input button.money_plus_button {
+  background-color: #38DB1E;
+  border-radius: 0
+}
+#budget_item_input button.money_minus_button {
+  background-color: #F43716;
+  border-radius: 0 4px 4px 0;
 }
 /**members page design**/
 #Network {

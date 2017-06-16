@@ -96,9 +96,11 @@
         </div>
       </div>
     </div>
-    <h1><%= @group.name %></h1>
-    <p><%= @group.school %></p>
-    <p><%= @group.password %></p>
+    <p>
+      <h1><%= @group.name %></h1>
+      <span><%= @group.school %></span>
+    </p>
+    <p>Group password: <%= @group.password %></p>
   </div>
 
   <ul class ="nav nav-pills nav-justified">
@@ -202,13 +204,15 @@
 
       <!-- Budget Tracker -->
       <h1 style="padding-top: 60px;">Budget Tracker</h1>
-        <!-- Add transaction (visible only to admin) -->
-        <% if @current_groupuser.admin == true %>
-          <input id= "money" type="number" class="form-control" placeholder="$00.00">
-          <input id= "description" type="text" class="form-control" placeholder="Description">
-          <button value = "<%= @group.id %>" type="submit" class="btn btn-default money_plus_button">Plus</button>
-          <button value = "<%= @group.id %>" type="submit" class="btn btn-default money_minus_button">Minus</button>
-        <% end %>
+      <!-- Add transaction (visible only to admin) -->
+      <% if @current_groupuser.admin == true %>
+        <div id="budget_item_input">
+          <input id="description" type="text" class="form-control" placeholder="Description">
+          <input id="money" type="number" class="form-control" placeholder="$00.00">
+          <button value="<%= @group.id %>" type="submit" class="btn money_plus_button"><i class="fa fa-plus" aria-hidden="true"></i></button>
+          <button value="<%= @group.id %>" type="submit" class="btn money_minus_button"><i class="fa fa-minus" aria-hidden="true"></i></button>
+        </div>
+      <% end %>
 
       <!-- Add div to let the ajax script know where to append new input field. -->
       <div id="transactions">
@@ -228,7 +232,7 @@
             <% end %>
           <% end %>
           <!-- Budget Balance -->
-            <h3> <%= b.group_budget %> </h3>
+          <h3><%= b.group_budget %></h3>
         <% end %>
       </div>
 
