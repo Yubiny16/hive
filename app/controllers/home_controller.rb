@@ -357,12 +357,26 @@ class HomeController < ApplicationController
   end
 
   def event_rsvp
-    one_event_rsvp = EventRsvp.new
-    one_event_rsvp.group_id = params[:group_id]
-    one_event_rsvp.user_id = current_user.id
-    one_event_rsvp.event_id = params[:event_id]
-    one_event_rsvp.rsvp = params[:rsvp]
-    one_event_rsvp.save
+    if EventRsvp.where(group_id: params[:group_id]).where(user_id: current_user.id).where(event_id: params[:event_id]).exists?(1) == false
+      one_event_rsvp = EventRsvp.new
+      one_event_rsvp.group_id = params[:group_id]
+      one_event_rsvp.user_id = current_user.id
+      one_event_rsvp.event_id = params[:event_id]
+      one_event_rsvp.rsvp = params[:rsvp]
+      one_event_rsvp.save
+    end
+    if EventRsvp.where(group_id: params[:group_id]).where(user_id: current_user.id).where(event_id: params[:event_id]).first.rsvp == "Going"
+      this_event = EventRsvp.where(group_id: params[:group_id]).where(user_id: current_user.id).where(event_id: params[:event_id]).first
+      this_event.update(:rsvp => params[:rsvp])
+    end
+    if EventRsvp.where(group_id: params[:group_id]).where(user_id: current_user.id).where(event_id: params[:event_id]).first.rsvp == "Not Going"
+      this_event = EventRsvp.where(group_id: params[:group_id]).where(user_id: current_user.id).where(event_id: params[:event_id]).first
+      this_event.update(:rsvp => params[:rsvp])
+    end
+    if EventRsvp.where(group_id: params[:group_id]).where(user_id: current_user.id).where(event_id: params[:event_id]).first.rsvp == "Maybe"
+      this_event = EventRsvp.where(group_id: params[:group_id]).where(user_id: current_user.id).where(event_id: params[:event_id]).first
+      this_event.update(:rsvp => params[:rsvp])
+    end
 
     redirect_to :back
   end
