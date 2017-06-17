@@ -1,18 +1,28 @@
 
 <% if EventRsvp.where(group_id: @event.group_id).where(user_id: current_user.id).where(event_id: @event.id).exists?(1) == false %>
-  <form action="/home/event_rsvp" method="GET">
+  <% if @event.rsvp == "on" %>
+    <form action="/home/event_rsvp" method="GET">
+      <label>Title:</label>
+      <%= @event.title %><br>
+      <label>Start:</label>
+      <%= @event.start %><br>
+      <label>End:</label>
+      <%= @event.end %><br>
+      <input type="radio" name="rsvp" value="Going" checked> Going<br>
+      <input type="radio" name="rsvp" value="Not Going" > Not Going<br>
+      <input type="radio" name="rsvp" value="Maybe" > Maybe
+      <input type="hidden" name="group_id" value="<%= @event.group_id %>"><br>
+      <button name="event_id" value= "<%= @event.id %>" type="submit" class="btn btn-default">Submit</button>
+    </form>
+  <% end %>
+  <% if @event.rsvp == "off" %>
     <label>Title:</label>
     <%= @event.title %><br>
     <label>Start:</label>
     <%= @event.start %><br>
     <label>End:</label>
     <%= @event.end %><br>
-    <input type="radio" name="rsvp" value="Going" checked> Going<br>
-    <input type="radio" name="rsvp" value="Not Going" > Not Going<br>
-    <input type="radio" name="rsvp" value="Maybe" > Maybe
-    <input type="hidden" name="group_id" value="<%= @event.group_id %>"><br>
-    <button name="event_id" value= "<%= @event.id %>" type="submit" class="btn btn-default">Submit</button>
-  </form>
+  <% end %>
 <% end %>
 <% if EventRsvp.where(group_id: @event.group_id).where(user_id: current_user.id).where(event_id: @event.id).exists?(1) == true %>
   <% if EventRsvp.where(group_id: @event.group_id).where(user_id: current_user.id).where(event_id: @event.id).first.rsvp == "Going" %>
