@@ -5,8 +5,8 @@ class CreateEventRsvps < ActiveRecord::Migration[5.0]
       t.integer :group_id
       t.integer :user_id
       t.integer :event_id
-      t.boolean :rsvp, :default => false
-      
+      t.string :rsvp
+
       t.timestamps
     end
   end

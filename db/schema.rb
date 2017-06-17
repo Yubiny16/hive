@@ -68,9 +68,9 @@ ActiveRecord::Schema.define(version: 20170616092144) do
     t.integer  "group_id"
     t.integer  "user_id"
     t.integer  "event_id"
-    t.boolean  "rsvp",       default: false
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.string   "rsvp"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "events", force: :cascade do |t|

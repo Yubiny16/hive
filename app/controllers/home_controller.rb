@@ -356,6 +356,16 @@ class HomeController < ApplicationController
     GroupUser.find_by(group_id: params[:group_id], user_id: current_user.id).update(:poll_notification => 0)
   end
 
+  def event_rsvp
+    one_event_rsvp = EventRsvp.new
+    one_event_rsvp.group_id = params[:group_id]
+    one_event_rsvp.user_id = current_user.id
+    one_event_rsvp.event_id = params[:event_id]
+    one_event_rsvp.rsvp = params[:rsvp]
+    one_event_rsvp.save
+
+    redirect_to :back
+  end
 
 
 end

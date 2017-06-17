@@ -1,0 +1,9 @@
+<form action="/home/event_rsvp" method="GET">
+  <%= @event.title %>
+  <%= @event.start %>
+  <%= @event.end %>
+  <input type="radio" name="rsvp" value="Going" checked> Going<br>
+  <input type="radio" name="rsvp" value="Not Going" checked> Not Going<br>
+  <input type="radio" name="rsvp" value="Maybe" checked> Maybe
+  <button name="event_id" value= "<%= @event.id %>" type="submit" class="btn btn-default">Attend</button>
+</form>

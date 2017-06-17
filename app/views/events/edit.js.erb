@@ -1,2 +1,12 @@
-  $('#remote_container').html('<%= j render "edit" %>');
-  $('#edit_event').modal('show');
+var admin = $("#admin").data("admin");
+
+ if (admin == true)
+ {
+   $('#remote_container').html('<%= j render "edit" %>');
+   $('#edit_event').modal('show');
+ }
+ else
+  {
+    $('#remote_container').html('<%= j render "rsvp" %>');
+    $('#rsvp_event').modal('show');
+  }

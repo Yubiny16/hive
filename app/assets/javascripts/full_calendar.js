@@ -3,26 +3,17 @@ var initialize_calendar;
 initialize_calendar = function() {
   $('.calendar').each(function(){
     var calendar = $(this);
-    //var current_groupuser_admin = document.getElementById("current_groupuser_admin").innerHTML;
-    var current_groupuser_admin = "false";
-    var x = "false";
-    if(current_groupuser_admin === "true" )
-    {
-      x = "true";
-    }
-    else {
-      x = "false";
-    }
+
     calendar.fullCalendar({
       header: {
         left: 'prev, next, today',
         center: 'title',
         right: 'month, agendaWeek, agendaDay'
       },
-      selectable: x,
-      selectHelper: x,
-      editable: x,
-      eventLimit: x,
+      selectable: true,
+      selectHelper: true,
+      editable: true,
+      eventLimit: true,
       events: '/events.json',
       select: function(start, end) {
         $.getScript('/events/new', function() {

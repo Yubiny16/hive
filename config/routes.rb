@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   #Gruop_Home_Functions
   get '/home/announcement' => 'home#announcement'
   get '/home/announcement_all' => 'home#announcement_all'
+  get '/home/event_rsvp/' => 'home#event_rsvp'
   post '/home/money_plus' => 'home#money_plus'
   post '/home/money_minus' => 'home#money_minus'
   get '/home/new_poll' => 'home#new_poll'
@@ -42,8 +43,10 @@ Rails.application.routes.draw do
   post '/home/cal_read' => 'home#cal_read'
   post '/home/budget_read' => 'home#budget_read'
   post '/home/poll_read' => 'home#poll_read'
+
   #Calendar
   resources :events
+
 
   #Chat
   get '/rooms/show' => 'rooms#show'
