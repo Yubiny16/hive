@@ -79,7 +79,6 @@ ActiveRecord::Schema.define(version: 20170616092144) do
     t.datetime "start"
     t.datetime "end"
     t.string   "color"
-    t.string   "rsvp"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

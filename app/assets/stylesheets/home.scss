@@ -1,7 +1,7 @@
 nav.navbar-custom {
-  border: none;
   background-image: none;
-  background-color: #FBF764;
+  background-color: white;
+  border-bottom: 2px solid darkslategray;
 }
 ul.nav-icons {
   float: right;
@@ -11,18 +11,23 @@ ul.nav-icons {
   margin: 0;
   margin-right: -15px;
 }
-i {
-  color: #543B19;
+ul.nav-icons li {
+  i {color: darkslategray;}
+  transition: all 0.5s ease-out;
 }
 /*navbar hover color*/
 .navbar-nav li:hover {
+  background-color: darkslategray;
   i {
-    color: black;
+    color: #FFFF2C;
   }
 }
 /*replaced class="active" for styling reason*/
 .current {
-  background-color: #FFF300;
+  background-color: darkslategray;
+}
+ul.nav-icons .current a i {
+  color: white;
 }
 /******************profile page styling********************/
 .profile-content {
@@ -94,36 +99,41 @@ i {
 }
 /*******************main page styling*****************/
 .welcome {
-  margin-top: 150px;
   font-size: 30px;
-  color: #543B19;
+  color: white;
 }
 .search-bar-custom input {
   height: 43px;
 }
 .btn-search {
-  background-color: #FBF764;
+  background-color: darkslategray;
+}
+.btn-search i {
+  color: white;
 }
 .btn-search:hover {
-  background-color: #543B19;
-  i {
-    color: #FBF764;
-  }
+  color: white;
 }
 #create-group-link {
   display: inline-block;
   padding: 10px 102px;
   margin: 50px auto 30px;
   border-radius: 20px;
+  border: 1.5px solid darkslategray;
   text-decoration: none;
   font-weight: bold;
-  color: #543B19;
-  background-color: #FBF764;
+  color: darkslategray;
   text-align: center;
+  background: linear-gradient(to left, white 50%, darkslategray 50%);
+  background-size: 200% 100%;
+  background-position: right bottom;
+  -webkit-transition: all 0.8s ease;
+  -ms-transition: all 0.8s ease;
+  transition:all 0.8s ease;
 }
 #create-group-link:hover {
-  background-color: #543B19;
-  color: #FBF764;
+  background-position: left bottom;
+  color: white;
 }
 .group-prof-positioning {
   width:200px; height: 200px;
@@ -131,7 +141,7 @@ i {
 }
 .group-prof-positioning p {
   font-weight: bold;
-  color: #543B19;
+  color: white;
   text-align: center;
   font-size: 1.25em;
 }
@@ -142,7 +152,7 @@ i {
   background: none;
   outline: none;
   font-weight: bold;
-  border: 2px solid white;
+  border: 2px solid transparent;
   border-radius: 20px;
   -webkit-transition: border 0.5s ease;
   -ms-transition: border 0.5s ease;
@@ -150,7 +160,17 @@ i {
   color: #543B19;
 }
 #group-link:hover {
-  border: 2px solid #543B19;
+  border: 2px solid white;
+}
+.main-container {
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 120px;
+  padding-left: 15px;
+  padding-right: 15px;
+  height: 100%;
+  background-image: url("https://s-media-cache-ak0.pinimg.com/originals/af/e2/ba/afe2baacb56c97a2e8b87fc177e94055.jpg");
+  background-size: 100%;
 }
 /******************create group page styling***********/
 .group-field {
@@ -189,6 +209,7 @@ i {
 /************group page styling********/
 .selected-tab {
   background-color: white;
+  i {color: steelblue;}
 }
 .sidebar,
 .sidebar-members {
@@ -199,12 +220,7 @@ i {
   left: 0;
   top: 100px;
 }
-.sidebar .hex {
-  width: 130px;
-  padding-bottom: 150.111069989px;
-}
-.sidebar-mini ul,
-.sidebar-expand ul {
+.sidebar-mini ul {
   list-style: none;
   padding: 0;
   color: #543B19;
@@ -216,7 +232,7 @@ i {
 }
 .sidebar-mini ul li a {
   text-decoration: none;
-  color: #543B19;
+  color: white;
   display: block;
 }
 .sidebar-mini ul li,
@@ -230,9 +246,9 @@ i {
 /*mini sidebar styling*/
 .sidebar-mini {
   width: 50px;
-  background-color: #FBF764;
+  background-color: steelblue;
   text-align: center;
-  border-right: 2px solid #FBF764;
+  border-right: 2px solid steelblue;
 }
 .sidebar-mini ul {
   margin-top: 10px;
@@ -243,6 +259,7 @@ i {
 }
 .sidebar-mini li:hover {
   background-color: white;
+  i {color: steelblue;}
 }
 .sidebar-mini li span {
   position: absolute;
@@ -262,7 +279,7 @@ i {
 /*notification description styling*/
 .sidebar-expand {
   width: 230px;
-  border: 2px solid #FBF764;
+  border: 2px solid steelblue;
   border-radius: 0px 20px 20px 0px;
   position: absolute;
   padding-left: 60px;
