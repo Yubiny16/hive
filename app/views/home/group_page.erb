@@ -113,63 +113,63 @@
 
   <div class="tab-content">
     <div class="tab-pane active" id="Home">
-        <!-- Announcements -->
-        <h1 style="padding-top: 60px;">Announcement</h1>
+      <!-- Announcements -->
+      <h1 style="padding-top: 60px;">Announcement</h1>
       <div id="announcement_carousel" data-wrap="true"  class="carousel slide" data-interval="false" data-ride="carousel">
-         <ol class="carousel-indicators">
-           <li data-target="#announcement_carousel" data-slide-to="0" class="active"></li>
+        <ol class="carousel-indicators">
+          <li data-target="#announcement_carousel" data-slide-to="0" class="active"></li>
             <% for i in 1..(@recent_announc.count - 1) %>
               <li data-target="#announcement_carousel" data-slide-to="i"></li>
             <% end %>
-         </ol><!-- carousel-indicators-->
-       <div class="carousel-inner">
-         <div class="item active">
-           <center><img class="img-responsive" align="middle" src="https://images.designtrends.com/wp-content/uploads/2015/11/30152210/Plan-Photo-Background.jpg" style="height: 100%"/></center>
-           <div class="carousel-caption">
+        </ol><!-- carousel-indicators-->
+      <div class="carousel-inner">
+        <div class="item active">
+          <center><img class="img-responsive" align="middle" src="https://images.designtrends.com/wp-content/uploads/2015/11/30152210/Plan-Photo-Background.jpg" width="50%" height="50%" /></center>
+          <div class="carousel-caption">
             <span style="color:black">
-             <% unless @recent_announc[0] == nil %>
-             <h3><%= @recent_announc[0].title %></h3><br>
-             <h5><%= @recent_announc[0].content %></h5><br>
-             <%= @recent_announc[0].created_at.strftime("%Y-%m-%d") %>
-             <% end %>
+              <% unless @recent_announc[0] == nil %>
+                <h3><%= @recent_announc[0].title %></h3><br>
+                <h5><%= @recent_announc[0].content %></h5><br>
+                <%= @recent_announc[0].created_at.strftime("%Y-%m-%d") %>
+              <% end %>
             </span>
-           </div><!-- carousel-caption -->
-         </div><!-- item active-->
-         <% @recent_announc.drop(1).each do |a| %>
-           <div class="item">
-             <center><img class="img-responsive" align="middle" src="https://images.designtrends.com/wp-content/uploads/2015/11/30152210/Plan-Photo-Background.jpg" style="height: 100%"/></center>
-               <div class="carousel-caption">
-                 <span style="color:black">
-                  <h3><%= a.title %></h3><br>
-                  <h5><%= a.content %></h5><br>
-                  <%= a.created_at.strftime("%Y-%m-%d") %>
-                 </span>
-               </div><!-- carousel-caption -->
-           </div><!-- item -->
-         <% end %>
-       </div><!-- carousel-inner -->
+          </div><!-- carousel-caption -->
+        </div><!-- item active-->
+        <% @recent_announc.drop(1).each do |a| %>
+          <div class="item">
+            <center><img class="img-responsive" align="middle" src="https://images.designtrends.com/wp-content/uploads/2015/11/30152210/Plan-Photo-Background.jpg" width="50%" height="50%" /></center>
+            <div class="carousel-caption">
+              <span style="color:black">
+                <h3><%= a.title %></h3><br>
+                <h5><%= a.content %></h5><br>
+                <%= a.created_at.strftime("%Y-%m-%d") %>
+              </span>
+            </div><!-- carousel-caption -->
+          </div><!-- item -->
+        <% end %>
+      </div><!-- carousel-inner -->
 
-        <a href="#announcement_carousel" class="carousel-control left" data-slide="prev">
-          <span class="glyphicon glyphicon-chevron-left"></span>
-        </a>
-        <a href="#announcement_carousel" class="carousel-control right" data-slide="next">
-          <span class="glyphicon glyphicon-chevron-right"></span>
-        </a>
+      <a href="#announcement_carousel" class="carousel-control left" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+      </a>
+      <a href="#announcement_carousel" class="carousel-control right" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right"></span>
+      </a>
       </div>
       <!-- Make an announcement (visible only to admin) -->
-        <% if @current_groupuser.admin == true %>
+      <% if @current_groupuser.admin == true %>
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#post_announc">New</button>
-          <div class="modal fade" id="post_announc" tableindex="-1" role="dialog">
-           <div class="modal-dialog" role="document">
-             <div class="modal-content">
-               <div class="modal-header">
-                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                   <span aria-hidden="true">&times;</span>
-                 </button>
-                 <h5 class="modal-title">Post New Announcement</h5>
-               </div>
-               <div class="modal-body">
-                 <form action="/home/announcement" method="get">
+        <div class="modal fade" id="post_announc" tableindex="-1" role="dialog">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                <h5 class="modal-title">Post New Announcement</h5>
+              </div>
+              <div class="modal-body">
+                <form action="/home/announcement" method="get">
                   <label>Title</label>
                   <input name="announc_title" type="text"/>
                   <label>Content</label>
@@ -179,15 +179,12 @@
                   <input name="group_id" type="hidden" value="<%= @group.id %>">
                   <button name="post" value= "no_email" type="submit" class="btn btn-default">Post</button>
                   <button name="post" value= "send_email" type="submit" class="btn btn-default">Post and Send Email</button>
-                 </form>
-
-
-
-               </div>
-             </div>
-           </div>
+                </form>
+              </div>
+            </div>
           </div>
-          <% end %>
+        </div>
+      <% end %>
 
       <!-- View all announcements -->
       <form action="/home/announcement_all" method="get">

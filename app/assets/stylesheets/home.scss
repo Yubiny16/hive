@@ -99,8 +99,9 @@ ul.nav-icons .current a i {
 }
 /*******************main page styling*****************/
 .welcome {
+  margin-top: 120px;
   font-size: 30px;
-  color: white;
+  color: darkslategray;
 }
 .search-bar-custom input {
   height: 43px;
@@ -141,7 +142,7 @@ ul.nav-icons .current a i {
 }
 .group-prof-positioning p {
   font-weight: bold;
-  color: white;
+  color: darkslategray;
   text-align: center;
   font-size: 1.25em;
 }
@@ -160,17 +161,13 @@ ul.nav-icons .current a i {
   color: #543B19;
 }
 #group-link:hover {
-  border: 2px solid white;
+  border: 2px solid darkslategray;
 }
-.main-container {
-  margin-left: auto;
-  margin-right: auto;
-  padding-top: 120px;
-  padding-left: 15px;
-  padding-right: 15px;
-  height: 100%;
-  background-image: url("https://s-media-cache-ak0.pinimg.com/originals/af/e2/ba/afe2baacb56c97a2e8b87fc177e94055.jpg");
-  background-size: 100%;
+#main-container {
+  background-image: url("http://www.biotext.com.au/wp-content/uploads/2015/09/hexagon-flat.png");
+  background-size: 40% auto;
+  background-repeat: no-repeat;
+  background-position: 60% 50%;
 }
 /******************create group page styling***********/
 .group-field {
@@ -215,7 +212,7 @@ ul.nav-icons .current a i {
 .sidebar-members {
   height: 100%;
   position: fixed;
-  color: #543B19;
+  color: black;
   font-size: 20px;
   left: 0;
   top: 100px;
@@ -310,7 +307,7 @@ ul.nav-icons .current a i {
   padding: 10px;
   float: left;
   margin-bottom: 40px;
-  color: #543B19;
+  color: black;
 }
 .group-page-header .group-prof-positioning {
   float: left;
@@ -409,44 +406,4 @@ ul.nav-icons .current a i {
   text-align: center;
   border: 2px solid #ECEBC6;
   border-radius: 20px;
-}
-
-/* announcement */
-.carousel {
-    border-radius: 20px 20px 20px 20px;
-    height: 400px;
-    margin-bottom: 60px;
-    margin-top: 40px;
-    margin-left: 200px;
-    margin-right: 200px;
-    border: 2px solid;
-    overflow: hidden;
-
-}
-/* Since positioning the image, we need to help out the caption */
- .carousel-caption {
-    top: 0;
-    bottom: auto;
-    z-index: 10;
-}
-/* Declare heights because of positioning of img element */
- .carousel .item {
-    width: 100%;
-    height: 100%;
-}
-.carousel-inner > .item > img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    min-width: 100%;
-    height: 500px;
-}
-@media (min-width: 768px) {
-    height: auto;
-}
-.carousel-inner .item img {
-    border-radius: 20px 20px 20px 20px;
-}
-.carousel-control.left, .carousel-control.right {
-  background: none !important;
 }
