@@ -216,25 +216,22 @@
 
       <!-- Add div to let the ajax script know where to append new input field. -->
       <div id="transactions">
-        <!-- Find Current Group's Budget -->
-        <% Budget.where(group_id: @group.id).find do |b| %>
         <!-- Transaction records for that budget -->
-          <% Transaction.where(budget_id: b.id).find_each do |t| %>
+        <% Transaction.where(budget_id: @budget.id).find_each do |t| %>
           <!-- If the transaction is revenue -->
-            <% if t.pos_neg == true %>
-              <p style="color: green"><%= t.value %></p>
-              <p><%= t.description %></p>
-            <% end %>
-            <!-- If the transaction is debt -->
-            <% if t.pos_neg == false %>
-              <p style="color: red"><%= t.value %></p>
-              <p><%= t.description %></p>
-            <% end %>
+          <% if t.pos_neg == true %>
+            <p style="color: green"><%= t.value %></p>
+            <p><%= t.description %></p>
           <% end %>
-          <!-- Budget Balance -->
-          <h3><%= b.group_budget %></h3>
+          <!-- If the transaction is debt -->
+          <% if t.pos_neg == false %>
+            <p style="color: red"><%= t.value %></p>
+            <p><%= t.description %></p>
+          <% end %>
         <% end %>
       </div>
+      <!-- Budget Balance -->
+      <h3 id="total_budget"><%= @budget.group_budget %></h3>
 
       <!-- Black Board -->
       <h1 style="padding-top: 60px;">Black Board</h1>
@@ -260,7 +257,6 @@
                    <input name="option_content_<%= i %>" id="option_<%= i %>"type="text" class="input-box_text" placeholder="Option <%= i %>"/><br>
                  <% end %>
                </div>
-
                <!--Closing Time, Calls datetimepicker in script-->
                <div class="container">
                   <div class="row">
@@ -280,13 +276,14 @@
                           });
                       </script>
                   </div>
-              </div>
+               </div>
                <!--anonymous checkbox-->
                <div class="checkbox">
                  <label><input name=anonymous type="checkbox" value="true">Anonymous?</label>
                </div>
                <button name="group_id" value="<%= @group.id %>" type="submit" class="btn btn-default">Create!</button>
-             </form>
+             </form><!-- form_poll input-->
+
              <!--Add an Option, Used Ajax. Look at script-->
              <button value= "<%= $n %>" type="submit" class="btn btn-default add_option">Add an Option</button>
             </div>
@@ -413,8 +410,12 @@
                 description_p: description_p }
 
       }).done(function() {
+        var old_budget = document.getElementById("total_budget").innerHTML;
+        var new_budget = parseInt(old_budget) + parseInt(money_plus)
         $("#transactions").append("<p style = \"color: green\">" + money_plus + "</p>");
         $("#transactions").append("<p>" + description_p + "</p>");
+        $("#total_budget").empty();
+        $("#total_budget").append(new_budget);
       });
 
     });
@@ -435,8 +436,12 @@
                 description_m: description_m }
 
       }).done(function() {
+        var old_budget = document.getElementById("total_budget").innerHTML;
+        var new_budget = parseInt(old_budget) - parseInt(money_minus)
         $("#transactions").append("<p style = \"color: red\">" + money_minus + "</p>");
         $("#transactions").append("<p>" + description_m + "</p>");
+        $("#total_budget").empty();
+        $("#total_budget").append(new_budget);
       });
     });
   });

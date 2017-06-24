@@ -94,6 +94,7 @@ class HomeController < ApplicationController
     $group_id = @group.id
     @user = current_user
     @poll = Poll.where(group_id: @group.id)
+    @budget = Budget.find_by(group_id: @group.id)
 
     @recent_announc = Announcement.where(group_id: @group.id).last(7).reverse
 
