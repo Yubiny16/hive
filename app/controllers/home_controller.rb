@@ -15,6 +15,14 @@ class HomeController < ApplicationController
       @search = flash[:search]
     end
     @searched_groups = Group.where("name LIKE ?", "%#{@search}%")
+
+    @current_group_user = GroupUser.where(user_id: @user.id)
+
+    @ann_notification = Annnoti.where(receiver: @user.id).reverse
+    @cal_notification = Calnoti.where(receiver: @user.id).reverse
+    @budget_notification = Budgetnoti.where(receiver: @user.id).reverse
+    @poll_notification = Pollnoti.where(receiver: @user.id).reverse
+
   end
 
   def search

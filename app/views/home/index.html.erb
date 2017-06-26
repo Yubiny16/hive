@@ -12,7 +12,64 @@
   </div>
 </nav>
 <br>
+<br>
+<br>
+<br>
+
 <!-- Body -->
+<div class="row">
+  <!-- Left Bar -->
+  <div class="col-md-2">
+    <ul><h3><%= @user.first_name %></h3></ul>
+    <ul><a href="/home/index">Board</a></ul>
+    <ul>Calendar</ul>
+    <ul>Groups <a href="/home/create_group_view"><i class="fa fa-plus-circle" aria-hidden="true"></i></a></ul>
+    <% unless @current_group_user == nil %>
+      <% @current_group_user.each do |group_user| %>
+        <ul><a href="/home/group_page/<%= group_user.group_id %>"><%= Group.find(group_user.group_id).name %><a/></ul>
+      <% end %>
+    <% end %>
+  </div><!-- col-md-2 -->
+  <br><br>
+
+  <!-- Main/Board -->
+  <div class="col-md-3">
+    <h3>Announcement</h3>
+    <!-- Announcement Feed -->
+    <% @ann_notification.each do |ann_notification| %>
+      <p><%= User.find(ann_notification.sender).first_name %> <%= User.find(ann_notification.sender).last_name %> posted an announcement</p>
+      <p>Date: <%= ann_notification.created_at %></p>
+    <% end %>
+  </div>
+
+    <!-- Calendar Feed -->
+    <div class="col-md-3">
+      <h3>Calendar</h3>
+    <% @cal_notification.each do |cal_notification| %>
+      <p><%= User.find(cal_notification.sender).first_name %> <%= User.find(cal_notification.sender).last_name %> <%= cal_notification.content %></p>
+      <p>Date: <%= cal_notification.created_at %></p>
+    <% end %>
+    </div>
+
+    <!-- Budget Feed -->
+    <div class="col-md-2">
+      <h3>Budget</h3>
+    <% @budget_notification.each do |budget_notification| %>
+      <p><%= User.find(budget_notification.sender).first_name %> <%= User.find(budget_notification.sender).last_name %> added a transaction to the group's budget</p>
+      <p>Date: <%= budget_notification.created_at %></p>
+    <% end %>
+    </div>
+
+    <!-- Poll Feed -->
+    <div class="col-md-2">
+      <h3>Poll</h3>
+    <% @poll_notification.each do |poll_notification| %>
+      <p><%= User.find(poll_notification.sender).first_name %> <%= User.find(poll_notification.sender).last_name %> started a new poll</p>
+      <p>Date: <%= poll_notification.created_at %></p>
+    <% end %>
+    </div>
+
+</div><!-- row -->
 <div class="container" id="main-container">
   <p class="welcome col-md-offset-3 col-xs-offset-3">Welcome to Hive, <%= @user.first_name %>!</p>
   <br>
@@ -28,8 +85,7 @@
       </div> <!--grid system-->
     </div> <!--row-->
   </form>
-
-  <div>
+<div>
     <!-- list of searched groups -->
     <% @searched_groups.find_each do |g| %>
       <!-- Looks for already joined groups -->
@@ -61,7 +117,7 @@
     <% end %>
   </div>
 
-  <!-- Create Group -->
+  <!-- Create Group-->
   <div style="text-align: center;">
     <a href="/home/create_group_view" id="create-group-link">Create Group!</a>
   </div>
@@ -88,6 +144,7 @@
     <% end %>
   </div>
 </div>
+
 <script>
 $( function() {
     $( "#search_group" ).autocomplete({
