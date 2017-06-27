@@ -4,61 +4,110 @@
   width: 15px;
   height: 15px;
   border-radius: 50%;
+  display: inline-block;
 }
 .circle_blue {
   background: blue;
   width: 15px;
   height: 15px;
   border-radius: 50%;
+  display: inline-block;
 }
 .circle_red {
   background: red;
   width: 15px;
   height: 15px;
   border-radius: 50%;
+  display: inline-block;
 }
 .circle_green {
   background: green;
   width: 15px;
   height: 15px;
   border-radius: 50%;
+  display: inline-block;
+}
+//hive2 end
+//heading bar styling
+nav#navbar-custom {
+  background-image: none;
+  background-color: #e0e0e0;
+  border: none;
+  height: 40px;
+  min-height: initial;
+}
+nav#navbar-custom .container-fluid {
+  height: inherit;
+}
+nav#navbar-custom .row {
+  height: inherit;
+}
+nav#navbar-custom .navbar-brand {
+  padding: 10px 15px;
+  height: inherit;
+}
+nav#navbar-custom #dropdownMenuButton {
+  float: right;
+  outline: none;
+  border: none;
+  padding: 10px 12px;
+}
+nav#navbar-custom .dropdown-menu {
+  right: 10px;
+  left: initial;
+  min-width: initial;
+  margin-top: 0;
+  width: 90px;
+  background-color: #666666;
+  border: none;
+  padding: 0;
+  border-radius: initial;
+}
+nav#navbar-custom .dropdown-menu a {
+  display: block;
+  text-decoration: none;
+  color: white;
+  padding: 5px 0px 5px 10px;
+}
+nav#navbar-custom .dropdown-menu a:hover {
+  background-color: #7c7b7b;
+}
+nav#navbar-custom form {
+  margin-top: 3px;
+}
+nav#navbar-custom input {
+  height: 34px;
+  width: 80%;
+  display: inline-block;
+  float: left;
+  border-radius: 4px 0 0 4px;
+}
+nav#navbar-custom .btn-search {
+  background-color: #7c7b7b;
+  float: left;
+  border-radius: 0 4px 4px 0;
+}
+nav#navbar-custom .btn-search i {
+  color: white;
+}
+/*******************main page styling*****************/
+.container-body {
+  background-color: #f4f4f4;
+}
+.board {
+  background-color: white;
+}
+.leftbar,
+.board {
+  padding-top: 100px;
 }
 .main_feed {
   height: 400px;
+  width: 20%;
   overflow: auto;
   border-style: solid;
-}
-//hive2 end
-nav.navbar-custom {
-  background-image: none;
-  background-color: white;
-  border-bottom: 2px solid darkslategray;
-}
-ul.nav-icons {
-  float: right;
-  display: -webkit-flex;
-  display: flex;
-  flex-flow: nowrap;
-  margin: 0;
-  margin-right: -15px;
-}
-ul.nav-icons li {
-  i {color: darkslategray;}
-  transition: all 0.5s ease-out;
-}
-/*navbar hover color*/
-.navbar-nav li:hover {
-  background-color: darkslategray;
-  i {
-    color: #FFFF2C;
-  }
-}
-/*replaced class="active" for styling reason*/
-.current {
-  background-color: darkslategray;
-}
-ul.nav-icons .current a i {
-  color: white;
+  display: inline-block;
+  margin-left: 4%;
 }
 /******************profile page styling********************/
 .profile-content {
@@ -127,78 +176,6 @@ ul.nav-icons .current a i {
 .profile-pic-update-form {
   margin: 0 auto;
   width: 300px;
-}
-/*******************main page styling*****************/
-.welcome {
-  margin-top: 120px;
-  font-size: 30px;
-  color: darkslategray;
-}
-.search-bar-custom input {
-  height: 43px;
-}
-.btn-search {
-  background-color: darkslategray;
-}
-.btn-search i {
-  color: white;
-}
-.btn-search:hover {
-  color: white;
-}
-#create-group-link {
-  display: inline-block;
-  padding: 10px 102px;
-  margin: 50px auto 30px;
-  border-radius: 20px;
-  border: 1.5px solid darkslategray;
-  text-decoration: none;
-  font-weight: bold;
-  color: darkslategray;
-  text-align: center;
-  background: linear-gradient(to left, white 50%, darkslategray 50%);
-  background-size: 200% 100%;
-  background-position: right bottom;
-  -webkit-transition: all 0.8s ease;
-  -ms-transition: all 0.8s ease;
-  transition:all 0.8s ease;
-}
-#create-group-link:hover {
-  background-position: left bottom;
-  color: white;
-}
-.group-prof-positioning {
-  width:200px; height: 200px;
-  margin: 0 5px;
-}
-.group-prof-positioning p {
-  font-weight: bold;
-  color: darkslategray;
-  text-align: center;
-  font-size: 1.25em;
-}
-#group-link {
-  margin-right: 15px;
-  margin-bottom: 13px;
-  padding-left: 0px; padding-right: 0px;
-  background: none;
-  outline: none;
-  font-weight: bold;
-  border: 2px solid transparent;
-  border-radius: 20px;
-  -webkit-transition: border 0.5s ease;
-  -ms-transition: border 0.5s ease;
-  transition: border 0.5s ease;
-  color: #543B19;
-}
-#group-link:hover {
-  border: 2px solid darkslategray;
-}
-#main-container {
-  background-image: url("http://www.biotext.com.au/wp-content/uploads/2015/09/hexagon-flat.png");
-  background-size: 40% auto;
-  background-repeat: no-repeat;
-  background-position: 60% 50%;
 }
 /******************create group page styling***********/
 .group-field {
