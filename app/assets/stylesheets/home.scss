@@ -23,8 +23,12 @@
   height: 15px;
   border-radius: 50%;
 }
-
-
+.main_feed {
+  height: 400px;
+  overflow: auto;
+  border-style: solid;
+}
+//hive2 end
 nav.navbar-custom {
   background-image: none;
   background-color: white;
