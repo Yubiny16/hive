@@ -7,7 +7,7 @@
       </div>
       <!--search bar-->
       <div class="col-md-4" style="padding-left: 0;">
-        <form action="/home/search" method="post">
+        <form action="/home/search" method="get">
           <!-- Pass search words to controller -->
           <input id="search_group" name= "search_group" type="text" class="form-control" data-autocomplete= "<%= Group.order(:name).map(&:name) %>" placeholder="Search Your Group">
           <button type="submit" class="btn btn-search"><i class="fa fa-search" aria-hidden="true"></i></button>
@@ -27,10 +27,11 @@
       </div>
     </div>
   </div>
-</nav>
+</nav><!-- Header End -->
+
 <!-- Body -->
 <div class="container-fluid container-body">
-  <div class="row" style="text-align:center">
+  <div class="row">
     <!-- Left Bar -->
     <div class="col-md-2 leftbar">
       <ul>
@@ -47,7 +48,7 @@
           <% end %>
         <% end %>
       </ul>
-    </div><!-- col-md-2 -->
+    </div><!-- leftbar End-->
 
     <!-- Main/Board -->
     <div class="col-md-10 board" style="padding-left: 0;">
@@ -55,11 +56,13 @@
       <div class="main_feed">
         Announcement
         <% @ann_notification.each do |ann_notification| %>
-          <div class="circle_<%= @current_group_user.find_by(group_id: ann_notification.group_id).color %>"></div>
-          <h5 style="bold"><%= User.find(ann_notification.sender).first_name %> <%= User.find(ann_notification.sender).last_name %></h5>
-          <p><%= ann_notification.title %></p>
-          <p><%= ann_notification.content %></p>
-          <p><%= ann_notification.created_at.strftime("%m/%d/%y  %l:%M %p") %></p>
+          <div class="each_feed announcement">
+            <div class="circle_<%= @current_group_user.find_by(group_id: ann_notification.group_id).color %>"></div>
+            <h5 style="bold"><%= User.find(ann_notification.sender).first_name %> <%= User.find(ann_notification.sender).last_name %></h5>
+            <p><%= ann_notification.title %></p>
+            <p><%= ann_notification.content %></p>
+            <p><%= ann_notification.created_at.strftime("%m/%d/%y  %l:%M %p") %></p>
+          </div>
         <% end %>
       </div>
 
@@ -67,11 +70,13 @@
       <div class="main_feed">
         Calendar
         <% @cal_notification.each do |cal_notification| %>
-          <div class="circle_<%= @current_group_user.find_by(group_id: cal_notification.group_id).color %>"></div>
-          <h5 style="bold"><%= User.find(cal_notification.sender).first_name %> <%= User.find(cal_notification.sender).last_name %> invited you</h5>
-          <p><%= cal_notification.title %></p>
-          <p><%= cal_notification.content %></p>
-          <p><%= cal_notification.created_at.strftime("%m/%d/%y  %l:%M %p") %></p>
+          <div class="each_feed calendar">
+            <div class="circle_<%= @current_group_user.find_by(group_id: cal_notification.group_id).color %>"></div>
+            <h5 style="bold"><%= User.find(cal_notification.sender).first_name %> <%= User.find(cal_notification.sender).last_name %> invited you</h5>
+            <p><%= cal_notification.title %></p>
+            <p><%= cal_notification.content %></p>
+            <p><%= cal_notification.created_at.strftime("%m/%d/%y  %l:%M %p") %></p>
+          </div>
         <% end %>
       </div>
 
@@ -79,10 +84,12 @@
       <div class="main_feed">
         Budget
         <% @budget_notification.each do |budget_notification| %>
-          <div class="circle_<%= @current_group_user.find_by(group_id: budget_notification.group_id).color %>"></div>
-          <h5 style="bold"><%= User.find(budget_notification.sender).first_name %> <%= User.find(budget_notification.sender).last_name %> </h5>
-          <p><%= budget_notification.content %></p>
-          <p><%= budget_notification.created_at.strftime("%m/%d/%y  %l:%M %p") %></p>
+          <div class="each_feed budget">
+            <div class="circle_<%= @current_group_user.find_by(group_id: budget_notification.group_id).color %>"></div>
+            <h5 style="bold"><%= User.find(budget_notification.sender).first_name %> <%= User.find(budget_notification.sender).last_name %> </h5>
+            <p><%= budget_notification.content %></p>
+            <p><%= budget_notification.created_at.strftime("%m/%d/%y  %l:%M %p") %></p>
+          </div>
         <% end %>
       </div>
 
@@ -90,61 +97,17 @@
       <div class="main_feed">
         Poll
         <% @poll_notification.each do |poll_notification| %>
-          <div class="circle_<%= @current_group_user.find_by(group_id: poll_notification.group_id).color %>"></div>
-          <h5 style="bold"><%= User.find(poll_notification.sender).first_name %> <%= User.find(poll_notification.sender).last_name %> started the poll: </h5>
-          <p><%= poll_notification.title %></p>
-          <p><%= poll_notification.created_at.strftime("%m/%d/%y  %l:%M %p") %></p>
+          <div class="each_feed poll">
+            <div class="circle_<%= @current_group_user.find_by(group_id: poll_notification.group_id).color %>"></div>
+            <h5 style="bold"><%= User.find(poll_notification.sender).first_name %> <%= User.find(poll_notification.sender).last_name %> started the poll: </h5>
+            <p><%= poll_notification.title %></p>
+            <p><%= poll_notification.created_at.strftime("%m/%d/%y  %l:%M %p") %></p>
+          </div>
         <% end %>
       </div>
     </div>
   </div><!-- row -->
-
-  <div id="main-container">
-    <!-- Search Group -->
-    <form action="/home/search" method="post">
-      <!-- Pass search words to controller -->
-      <div class="row">
-        <div class="input-group search-bar-custom col-md-6 col-md-offset-3 col-xs-6 col-xs-offset-3">
-          <input id="search_group" name= "search_group" type="text" class="form-control" data-autocomplete= "<%= Group.order(:name).map(&:name) %>" placeholder="Search Your Group">
-          <span class="input-group-btn">
-            <button type="submit" class="btn btn-search"><i class="fa fa-search fa-2x" aria-hidden="true"></i></button>
-          </span>
-        </div> <!--grid system-->
-      </div> <!--row-->
-    </form>
-  <div>
-      <!-- list of searched groups -->
-      <% @searched_groups.find_each do |g| %>
-        <!-- Looks for already joined groups -->
-        <% if GroupUser.where(group_id: g.id, user_id: @user.id).exists? %>
-          <h4>Already Joined <%= g.name %></h4>
-        <% else %>
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#join_button_<%= g.id %>"><%= g.name %></button>
-          <!-- Create modal for each group -->
-          <div class="modal fade" id="join_button_<%= g.id %>" tableindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                  <h5 class="modal-title"><%= g.name %></h5>
-                </div>
-                <div class="modal-body">
-                <!-- Join Group -->
-                  <form action="/home/join_group/<%= g.id %>" method="post">
-                    <input name= "group_pw" type="text" class="form-control" placeholder="Type in Password for this Group to Join">
-                    <button type="submit" class="btn btn-default">Join</button>
-                  </form>
-                </div>
-              </div> <!--modal-content-->
-            </div> <!--modal-dialog-->
-          </div> <!--modal fade-->
-        <% end %>
-      <% end %>
-    </div>
-  </div>
-</div>
+</div><!-- container-fluid container-body -->
 
 <script>
 $( function() {

@@ -5,16 +5,6 @@ class HomeController < ApplicationController
 
   def index
     @user = current_user
-    # this is the search words came from search method
-    @search = flash[:search]
-
-    # if user enters a blank string @search becomes dlksfjalkdfjwgvd to stop any group from being searched
-    if @search == nil
-      @search = "dlksfjalkdfjwgvd"
-    else
-      @search = flash[:search]
-    end
-    @searched_groups = Group.where("name LIKE ?", "%#{@search}%")
 
     @current_group_user = GroupUser.where(user_id: @user.id)
 
@@ -26,9 +16,8 @@ class HomeController < ApplicationController
   end
 
   def search
-    # use flash to pass search words to index method
-    flash[:search] = params[:search_group]
-    redirect_to "/home/index"
+    @search = params[:search_group]
+    @searched_groups = Group.where("name LIKE ?", "%#{@search}%")
   end
 
   def profile
