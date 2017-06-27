@@ -10,6 +10,7 @@ class EventsController < ApplicationController
 
   def new
     @event = Event.new
+
   end
 
   def edit
@@ -27,12 +28,12 @@ class EventsController < ApplicationController
       one_cal_notification.group_id = $group_id
       one_cal_notification.sender = current_user.id
       one_cal_notification.receiver = one_member.user_id
+      #one_cal_notification.title = params[:title]
       one_cal_notification.content = "created an event"
       one_cal_notification.save
 
       @notify = one_member.cal_notification + 1
       one_member.update(:cal_notification => @notify)
-
     end
 
   end

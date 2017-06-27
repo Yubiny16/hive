@@ -5,8 +5,9 @@ class CreateCalnotis < ActiveRecord::Migration[5.0]
       t.integer :group_id
       t.integer :sender
       t.integer :receiver
+      t.string :title
       t.string :content
-      
+
       t.timestamps
     end
   end

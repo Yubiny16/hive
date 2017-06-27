@@ -146,6 +146,7 @@ class HomeController < ApplicationController
       one_announcement_notification.group_id = params[:group_id]
       one_announcement_notification.sender = current_user.id
       one_announcement_notification.receiver = one_member.user_id
+      one_announcement_notification.title = params[:announc_title]
       one_announcement_notification.content = params[:announc_content]
       one_announcement_notification.save
 
@@ -301,7 +302,7 @@ class HomeController < ApplicationController
       one_poll_notification.group_id = params[:group_id]
       one_poll_notification.sender = current_user.id
       one_poll_notification.receiver = one_member.user_id
-      one_poll_notification.content = params[:poll_title]
+      one_poll_notification.title = params[:poll_title]
       one_poll_notification.save
 
       @notify = one_member.poll_notification + 1

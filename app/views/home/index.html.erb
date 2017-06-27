@@ -36,24 +36,27 @@
   <br><br>
 
   <!-- Main/Board -->
-  <div class="col-md-3">
+  <div class="col-md-2">
     <!-- Announcement Feed -->
     <h3>Announcement</h3>
     <% @ann_notification.each do |ann_notification| %>
       <div class="circle_<%= @current_group_user.find_by(group_id: ann_notification.group_id).color %>"></div>
-      <p><%= User.find(ann_notification.sender).first_name %> <%= User.find(ann_notification.sender).last_name %> posted an announcement</p>
-      <p>Date: <%= ann_notification.created_at %></p>
+      <h5 style="bold"><%= User.find(ann_notification.sender).first_name %> <%= User.find(ann_notification.sender).last_name %></h5>
+      <p><%= ann_notification.title %></p>
+      <p><%= ann_notification.content %></p>
+      <p><%= ann_notification.created_at.strftime("%m/%d/%y  %l:%M %p") %></p>
     <% end %>
   </div>
-
 
     <div class="col-md-2">
       <!-- Calendar Feed -->
       <h3>Calendar</h3>
       <% @cal_notification.each do |cal_notification| %>
         <div class="circle_<%= @current_group_user.find_by(group_id: cal_notification.group_id).color %>"></div>
-        <p><%= User.find(cal_notification.sender).first_name %> <%= User.find(cal_notification.sender).last_name %> <%= cal_notification.content %></p>
-        <p>Date: <%= cal_notification.created_at %></p>
+        <h5 style="bold"><%= User.find(cal_notification.sender).first_name %> <%= User.find(cal_notification.sender).last_name %> invited you</h5>
+        <p><%= cal_notification.title %></p>
+        <p><%= cal_notification.content %></p>
+        <p><%= cal_notification.created_at.strftime("%m/%d/%y  %l:%M %p") %></p>
       <% end %>
     </div>
 
@@ -62,8 +65,9 @@
       <h3>Budget</h3>
       <% @budget_notification.each do |budget_notification| %>
         <div class="circle_<%= @current_group_user.find_by(group_id: budget_notification.group_id).color %>"></div>
-        <p><%= User.find(budget_notification.sender).first_name %> <%= User.find(budget_notification.sender).last_name %> added a transaction to the group's budget</p>
-        <p>Date: <%= budget_notification.created_at %></p>
+        <h5 style="bold"><%= User.find(budget_notification.sender).first_name %> <%= User.find(budget_notification.sender).last_name %> </h5>
+        <p><%= budget_notification.content %></p>
+        <p><%= budget_notification.created_at.strftime("%m/%d/%y  %l:%M %p") %></p>
       <% end %>
     </div>
 
@@ -72,10 +76,15 @@
       <h3>Poll</h3>
       <% @poll_notification.each do |poll_notification| %>
         <div class="circle_<%= @current_group_user.find_by(group_id: poll_notification.group_id).color %>"></div>
-        <p><%= User.find(poll_notification.sender).first_name %> <%= User.find(poll_notification.sender).last_name %> started a new poll</p>
-        <p>Date: <%= poll_notification.created_at %></p>
+        <h5 style="bold"><%= User.find(poll_notification.sender).first_name %> <%= User.find(poll_notification.sender).last_name %> started the poll: </h5>
+        <p><%= poll_notification.title %></p>
+        <p><%= poll_notification.created_at.strftime("%m/%d/%y  %l:%M %p") %></p>
       <% end %>
     </div>
+
+    <!-- right side bar -->
+    <div class="col-md-1">
+    </div><!-- col-md-1 -->
 
 </div><!-- row -->
 <div class="container" id="main-container">

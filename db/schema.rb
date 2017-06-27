@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(version: 20170616092144) do
     t.integer  "group_id"
     t.integer  "sender"
     t.integer  "receiver"
+    t.string   "title"
     t.string   "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -49,6 +50,7 @@ ActiveRecord::Schema.define(version: 20170616092144) do
     t.integer  "group_id"
     t.integer  "sender"
     t.integer  "receiver"
+    t.string   "title"
     t.string   "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -130,7 +132,7 @@ ActiveRecord::Schema.define(version: 20170616092144) do
     t.integer  "group_id"
     t.integer  "sender"
     t.integer  "receiver"
-    t.string   "content"
+    t.string   "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

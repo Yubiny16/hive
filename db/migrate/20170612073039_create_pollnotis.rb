@@ -5,8 +5,8 @@ class CreatePollnotis < ActiveRecord::Migration[5.0]
       t.integer :group_id
       t.integer :sender
       t.integer :receiver
-      t.string :content
-      
+      t.string :title
+
       t.timestamps
     end
   end
