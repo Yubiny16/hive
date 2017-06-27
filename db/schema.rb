@@ -91,9 +91,10 @@ ActiveRecord::Schema.define(version: 20170616092144) do
     t.integer  "cal_notification",    default: 0
     t.integer  "budget_notification", default: 0
     t.integer  "poll_notification",   default: 0
+    t.string   "color",               default: "black"
     t.boolean  "admin",               default: false
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
   end
 
   create_table "groups", force: :cascade do |t|

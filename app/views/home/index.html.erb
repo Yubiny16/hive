@@ -6,7 +6,7 @@
       <li><a href="/home/profile"><i class="fa fa-user fa-2x" aria-hidden="true"></i><span class="sr-only">(current)</span></a></li>
       <li><a href="/home/my_friends"><i class="fa fa-users fa-2x" aria-hidden="true"></i></a></li>
       <li><a href="/rooms/show"><i class="fa fa-comments-o fa-2x" aria-hidden="true"></i></a></li>
-      <li><a href="/users/edit"><i class="fa fa-cog fa-2x" aria-hidden="true"></i></a></li>
+      <li><a href="/home/setting"><i class="fa fa-cog fa-2x" aria-hidden="true"></i></a></li>
       <li><a href="/users/sign_out"><i class="fa fa-sign-out fa-2x" aria-hidden="true"></i></a></li>
     </ul>
   </div>
@@ -18,6 +18,9 @@
 
 <!-- Body -->
 <div class="row">
+  <div class="col-md-1">
+  </div><!-- col-md-1 -->
+
   <!-- Left Bar -->
   <div class="col-md-2">
     <ul><h3><%= @user.first_name %></h3></ul>
@@ -26,7 +29,7 @@
     <ul>Groups <a href="/home/create_group_view"><i class="fa fa-plus-circle" aria-hidden="true"></i></a></ul>
     <% unless @current_group_user == nil %>
       <% @current_group_user.each do |group_user| %>
-        <ul><a href="/home/group_page/<%= group_user.group_id %>"><%= Group.find(group_user.group_id).name %><a/></ul>
+        <ul> <div class="circle_<%= group_user.color %>"></div> <a href="/home/group_page/<%= group_user.group_id %>"><%= Group.find(group_user.group_id).name %><a/> </ul>
       <% end %>
     <% end %>
   </div><!-- col-md-2 -->
@@ -34,39 +37,44 @@
 
   <!-- Main/Board -->
   <div class="col-md-3">
-    <h3>Announcement</h3>
     <!-- Announcement Feed -->
+    <h3>Announcement</h3>
     <% @ann_notification.each do |ann_notification| %>
+      <div class="circle_<%= @current_group_user.find_by(group_id: ann_notification.group_id).color %>"></div>
       <p><%= User.find(ann_notification.sender).first_name %> <%= User.find(ann_notification.sender).last_name %> posted an announcement</p>
       <p>Date: <%= ann_notification.created_at %></p>
     <% end %>
   </div>
 
-    <!-- Calendar Feed -->
-    <div class="col-md-3">
+
+    <div class="col-md-2">
+      <!-- Calendar Feed -->
       <h3>Calendar</h3>
-    <% @cal_notification.each do |cal_notification| %>
-      <p><%= User.find(cal_notification.sender).first_name %> <%= User.find(cal_notification.sender).last_name %> <%= cal_notification.content %></p>
-      <p>Date: <%= cal_notification.created_at %></p>
-    <% end %>
+      <% @cal_notification.each do |cal_notification| %>
+        <div class="circle_<%= @current_group_user.find_by(group_id: cal_notification.group_id).color %>"></div>
+        <p><%= User.find(cal_notification.sender).first_name %> <%= User.find(cal_notification.sender).last_name %> <%= cal_notification.content %></p>
+        <p>Date: <%= cal_notification.created_at %></p>
+      <% end %>
     </div>
 
     <!-- Budget Feed -->
     <div class="col-md-2">
       <h3>Budget</h3>
-    <% @budget_notification.each do |budget_notification| %>
-      <p><%= User.find(budget_notification.sender).first_name %> <%= User.find(budget_notification.sender).last_name %> added a transaction to the group's budget</p>
-      <p>Date: <%= budget_notification.created_at %></p>
-    <% end %>
+      <% @budget_notification.each do |budget_notification| %>
+        <div class="circle_<%= @current_group_user.find_by(group_id: budget_notification.group_id).color %>"></div>
+        <p><%= User.find(budget_notification.sender).first_name %> <%= User.find(budget_notification.sender).last_name %> added a transaction to the group's budget</p>
+        <p>Date: <%= budget_notification.created_at %></p>
+      <% end %>
     </div>
 
     <!-- Poll Feed -->
     <div class="col-md-2">
       <h3>Poll</h3>
-    <% @poll_notification.each do |poll_notification| %>
-      <p><%= User.find(poll_notification.sender).first_name %> <%= User.find(poll_notification.sender).last_name %> started a new poll</p>
-      <p>Date: <%= poll_notification.created_at %></p>
-    <% end %>
+      <% @poll_notification.each do |poll_notification| %>
+        <div class="circle_<%= @current_group_user.find_by(group_id: poll_notification.group_id).color %>"></div>
+        <p><%= User.find(poll_notification.sender).first_name %> <%= User.find(poll_notification.sender).last_name %> started a new poll</p>
+        <p>Date: <%= poll_notification.created_at %></p>
+      <% end %>
     </div>
 
 </div><!-- row -->

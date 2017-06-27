@@ -8,6 +8,7 @@ class CreateGroupUsers < ActiveRecord::Migration[5.0]
       t.integer :cal_notification, :default => 0
       t.integer :budget_notification, :default => 0
       t.integer :poll_notification, :default => 0
+      t.string :color, :default => "black"
       t.boolean :admin, :default => false
 
       t.timestamps

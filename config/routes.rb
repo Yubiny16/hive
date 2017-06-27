@@ -6,6 +6,10 @@ Rails.application.routes.draw do
   get 'home/index'
   get '/home/profile' => 'home#profile'
   get '/home/my_friends' => 'home#my_friends'
+  get '/home/setting' => 'home#setting'
+
+  #profile
+  post 'home/group_color' => 'home#group_color'
 
   # user
   devise_for :users, :controllers => {

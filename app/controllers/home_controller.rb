@@ -33,6 +33,16 @@ class HomeController < ApplicationController
 
   def profile
     @user = current_user
+    @current_group_user = GroupUser.where(user_id: @user.id)
+  end
+
+  def group_color
+    GroupUser.where(user_id: current_user.id).where(group_id: params[:group_id]).update(:color => params[:new_color])
+  end
+
+  def setting
+
+
   end
 
   def uploadprofpic
