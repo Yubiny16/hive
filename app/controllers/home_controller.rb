@@ -104,6 +104,7 @@ class HomeController < ApplicationController
     @budget = Budget.find_by(group_id: @group.id)
 
     @recent_announc = Announcement.where(group_id: @group.id).last(7).reverse
+    @current_group_user = GroupUser.where(user_id: @user.id)
 
     #notifications
     @current_groupuser = GroupUser.find_by(group_id: @group.id, user_id: @user.id)

@@ -170,6 +170,94 @@ body {
   -webkit-box-orient: vertical;
   padding-left: 5px;
 }
+/************group page styling********/
+ul#feature-tabs {
+  margin-bottom: 50px;
+}
+ul#feature-tabs li a {
+  color: black;
+  border-radius: 0;
+  padding: 0;
+  width: 150px;
+  padding-bottom: 5px;
+  margin: 0px 25px;
+}
+ul#feature-tabs li a:hover {
+  background-color: transparent;
+  border-bottom: 1px solid black;
+}
+ul#feature-tabs > li.active > a {
+  background-color: transparent;
+  border-bottom: 1px solid black;
+}
+#budget_item_input {
+  width: 100%;
+  white-space: nowrap;
+  font-size: 0;
+}
+#budget_item_input * {
+  vertical-align: middle;
+}
+#budget_item_input #description {
+  width: 70%;
+  display: inline-block;
+  margin-right: 3%;
+}
+#budget_item_input #money {
+  width: 18%;
+  display: inline-block;
+  border-radius: 4px 0 0 4px;
+}
+#budget_item_input button i {
+  color: white;
+}
+#budget_item_input button.money_plus_button {
+  background-color: #38DB1E;
+  border-radius: 0
+}
+#budget_item_input button.money_minus_button {
+  background-color: #F43716;
+  border-radius: 0 4px 4px 0;
+}
+/**members page design**/
+#Network {
+  margin-top: 80px;
+  text-align: center;
+}
+#Network .hex,
+#friends-page-tab-content .hex {
+  width: 100px;
+  padding-bottom: 115.470053838px;
+}
+.member-prof-positioning {
+  width:150px; height: 120px;
+  margin: 0 auto 10px;
+}
+#Network .member-profile,
+#friends-page-tab-content .member-profile {
+  margin-right: 10px;
+  margin-bottom: 13px;
+  padding-left: 0px; padding-right: 0px;
+  padding-bottom: 15px;
+  background: none;
+  outline: none;
+  font-weight: bold;
+  border: 2px solid #FBF764;
+  border-radius: 20px;
+  -webkit-transition: border 0.5s ease;
+  -ms-transition: border 0.5s ease;
+  transition: border 0.5s ease;
+  color: #543B19;
+}
+#Network .member-profile:hover,
+#friends-page-tab-content .member-profile:hover {
+  border: 2px solid #543B19;
+}
+/*member's page pop-up design*/
+.member-profile-popup {
+  width: 400px;
+  margin: 0 auto;
+}
 /******************profile page styling********************/
 .profile-content {
   text-align: center;
@@ -271,191 +359,6 @@ body {
 #create-group-btn:hover {
   background-color: #543B19;
   color: #FBF764;
-}
-/************group page styling********/
-.selected-tab {
-  background-color: white;
-  i {color: steelblue;}
-}
-.sidebar,
-.sidebar-members {
-  height: 100%;
-  position: fixed;
-  color: black;
-  font-size: 20px;
-  left: 0;
-  top: 100px;
-}
-.sidebar-mini ul {
-  list-style: none;
-  padding: 0;
-  color: #543B19;
-}
-.sidebar-mini,
-.sidebar-expand {
-  float: left;
-  height: 100%;
-}
-.sidebar-mini ul li a {
-  text-decoration: none;
-  color: white;
-  display: block;
-}
-.sidebar-mini ul li,
-.sidebar-expand ul li {
-  padding-top: 5px;
-  padding-bottom: 5px;
-  -webkit-transition: background-color 0.5s ease;
-  -ms-transition: background-color 0.5s ease;
-  transition: background-color 0.5s ease;
-}
-/*mini sidebar styling*/
-.sidebar-mini {
-  width: 50px;
-  background-color: steelblue;
-  text-align: center;
-  border-right: 2px solid steelblue;
-}
-.sidebar-mini ul {
-  margin-top: 10px;
-}
-.sidebar-mini li {
-  border-radius: 10px;
-  position: relative;
-}
-.sidebar-mini li:hover {
-  background-color: white;
-  i {color: steelblue;}
-}
-.sidebar-mini li span {
-  position: absolute;
-  top: 0;
-  right: 0;
-  background-color: black;
-  opacity: 0.6;
-}
-.sidebar-mini button {
-  background: none;
-  border: none;
-  outline: none;
-  margin-top: 10px;
-  position: absolute;
-  left: 7px;
-}
-/*notification description styling*/
-.sidebar-expand {
-  width: 230px;
-  border: 2px solid steelblue;
-  border-radius: 0px 20px 20px 0px;
-  position: absolute;
-  padding-left: 60px;
-  padding-top: 40px;
-  display: none;
-  z-index: -1;
-}
-.sidebar-expand button {
-  position: absolute;
-  background: none;
-  border: none;
-  outline: none;
-  top: 10px;
-  right: 10px;
-  display: none;
-}
-/*group page main body styling*/
-#container-group-page {
-  margin: auto;
-  transition: padding-left .7s;
-  margin-top: 100px;
-  padding-left: 50px;
-}
-.group-page-header {
-  width: 100%;
-  border: 2px solid #ECEBC6;
-  border-radius: 20px;
-  padding: 10px;
-  float: left;
-  margin-bottom: 40px;
-  color: black;
-}
-.group-page-header .group-prof-positioning {
-  float: left;
-  margin-bottom: -20px;
-}
-.group-page-header h1 {
-  display: inline;
-  margin-right: 10px;
-}
-.group-page-header span {
-  font-weight: bold;
-}
-#budget_item_input {
-  width: 100%;
-  white-space: nowrap;
-  font-size: 0;
-}
-#budget_item_input * {
-  vertical-align: middle;
-}
-#budget_item_input #description {
-  width: 70%;
-  display: inline-block;
-  margin-right: 3%;
-}
-#budget_item_input #money {
-  width: 18%;
-  display: inline-block;
-  border-radius: 4px 0 0 4px;
-}
-#budget_item_input button i {
-  color: white;
-}
-#budget_item_input button.money_plus_button {
-  background-color: #38DB1E;
-  border-radius: 0
-}
-#budget_item_input button.money_minus_button {
-  background-color: #F43716;
-  border-radius: 0 4px 4px 0;
-}
-/**members page design**/
-#Network {
-  margin-top: 80px;
-  text-align: center;
-}
-#Network .hex,
-#friends-page-tab-content .hex {
-  width: 100px;
-  padding-bottom: 115.470053838px;
-}
-.member-prof-positioning {
-  width:150px; height: 120px;
-  margin: 0 auto 10px;
-}
-#Network .member-profile,
-#friends-page-tab-content .member-profile {
-  margin-right: 10px;
-  margin-bottom: 13px;
-  padding-left: 0px; padding-right: 0px;
-  padding-bottom: 15px;
-  background: none;
-  outline: none;
-  font-weight: bold;
-  border: 2px solid #FBF764;
-  border-radius: 20px;
-  -webkit-transition: border 0.5s ease;
-  -ms-transition: border 0.5s ease;
-  transition: border 0.5s ease;
-  color: #543B19;
-}
-#Network .member-profile:hover,
-#friends-page-tab-content .member-profile:hover {
-  border: 2px solid #543B19;
-}
-/*member's page pop-up design*/
-.member-profile-popup {
-  width: 400px;
-  margin: 0 auto;
 }
 /******************friend page styling*******************/
 .nav-friends {
