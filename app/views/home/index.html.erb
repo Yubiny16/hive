@@ -54,58 +54,72 @@
     <div class="col-md-10 board" style="padding-left: 0;">
       <!-- Announcement Feed -->
       <div class="main_feed">
-        Announcement
-        <% @ann_notification.each do |ann_notification| %>
-          <div class="each_feed announcement">
-            <div class="circle_<%= @current_group_user.find_by(group_id: ann_notification.group_id).color %>"></div>
-            <h5 style="bold"><%= User.find(ann_notification.sender).first_name %> <%= User.find(ann_notification.sender).last_name %></h5>
-            <p><%= ann_notification.title %></p>
-            <p><%= ann_notification.content %></p>
-            <p><%= ann_notification.created_at.strftime("%m/%d/%y  %l:%M %p") %></p>
-          </div>
-        <% end %>
+        <h4>Announcement</h4>
+        <div class="main_feed_content">
+          <% @ann_notification.each do |ann_notification| %>
+            <div class="each_feed">
+              <div class="each_feed_title">
+                <div class="circle_<%= @current_group_user.find_by(group_id: ann_notification.group_id).color %>"></div>
+                <p><%= ann_notification.title %></p>
+              </div>
+              <p class="feed_date"><%= ann_notification.created_at.strftime("%m/%d/%y  %l:%M %p") %></p>
+              <p class="each_feed_content"><%= ann_notification.content %></p>
+            </div>
+          <% end %>
+        </div>
       </div>
 
       <!-- Calendar Feed -->
       <div class="main_feed">
-        Calendar
-        <% @cal_notification.each do |cal_notification| %>
-          <div class="each_feed calendar">
-            <div class="circle_<%= @current_group_user.find_by(group_id: cal_notification.group_id).color %>"></div>
-            <h5 style="bold"><%= User.find(cal_notification.sender).first_name %> <%= User.find(cal_notification.sender).last_name %> invited you</h5>
-            <p><%= cal_notification.title %></p>
-            <p><%= cal_notification.content %></p>
-            <p><%= cal_notification.created_at.strftime("%m/%d/%y  %l:%M %p") %></p>
-          </div>
-        <% end %>
+        <h4>Calendar</h4>
+        <div class="main_feed_content">
+          <% @cal_notification.each do |cal_notification| %>
+            <div class="each_feed">
+              <div class="each_feed_title">
+                <div class="circle_<%= @current_group_user.find_by(group_id: cal_notification.group_id).color %>"></div>
+                <p><%= cal_notification.title %></p>
+              </div>
+              <p class="feed_date"><%= cal_notification.created_at.strftime("%m/%d/%y  %l:%M %p") %></p>
+              <p class="each_feed_content"><%= cal_notification.content %></p>
+            </div>
+          <% end %>
+        </div>
       </div>
 
       <!-- Budget Feed -->
       <div class="main_feed">
-        Budget
-        <% @budget_notification.each do |budget_notification| %>
-          <div class="each_feed budget">
-            <div class="circle_<%= @current_group_user.find_by(group_id: budget_notification.group_id).color %>"></div>
-            <h5 style="bold"><%= User.find(budget_notification.sender).first_name %> <%= User.find(budget_notification.sender).last_name %> </h5>
-            <p><%= budget_notification.content %></p>
-            <p><%= budget_notification.created_at.strftime("%m/%d/%y  %l:%M %p") %></p>
-          </div>
-        <% end %>
+        <h4>Budget</h4>
+        <div class="main_feed_content">
+          <% @budget_notification.each do |budget_notification| %>
+            <div class="each_feed">
+              <div class="each_feed_title">
+                <div class="circle_<%= @current_group_user.find_by(group_id: budget_notification.group_id).color %>"></div>
+                <p><%= budget_notification.content %></p>
+              </div>
+              <p class="feed_date"><%= budget_notification.created_at.strftime("%m/%d/%y  %l:%M %p") %></p>
+              <p class="each_feed_content">Paid?</p>
+            </div>
+          <% end %>
+        </div>
       </div>
 
       <!-- Poll Feed -->
       <div class="main_feed">
-        Poll
-        <% @poll_notification.each do |poll_notification| %>
-          <div class="each_feed poll">
-            <div class="circle_<%= @current_group_user.find_by(group_id: poll_notification.group_id).color %>"></div>
-            <h5 style="bold"><%= User.find(poll_notification.sender).first_name %> <%= User.find(poll_notification.sender).last_name %> started the poll: </h5>
-            <p><%= poll_notification.title %></p>
-            <p><%= poll_notification.created_at.strftime("%m/%d/%y  %l:%M %p") %></p>
-          </div>
-        <% end %>
+        <h4>Poll</h4>
+        <div class="main_feed_content">
+          <% @poll_notification.each do |poll_notification| %>
+            <div class="each_feed">
+              <div class="each_feed_title">
+                <div class="circle_<%= @current_group_user.find_by(group_id: poll_notification.group_id).color %>"></div>
+                <p><%= poll_notification.title %></p>
+              </div>
+              <p class="feed_date"><%= poll_notification.created_at.strftime("%m/%d/%y  %l:%M %p") %></p>
+              <p class="each_feed_content"><%= User.find(poll_notification.sender).first_name %> <%= User.find(poll_notification.sender).last_name %> started the poll: </p>
+            </div>
+          <% end %>
+        </div>
       </div>
-    </div>
+    </div><!--col-md-10-->
   </div><!-- row -->
 </div><!-- container-fluid container-body -->
 
