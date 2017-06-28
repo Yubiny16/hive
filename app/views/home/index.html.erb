@@ -58,21 +58,17 @@
         <div class="main_feed_content">
           <% @ann_notification.each do |ann_notification| %>
             <% if ann_notification.read == false %>
-            <div class="each_announcement_feed_<%= ann_notification.id %>">
-              <div data-toggle="modal" data-target="#announcement_modal_<%= ann_notification.id %>">
-                <div class="each_feed">
-                  <div class="each_feed_title">
-                    <div class="circle_<%= @current_group_user.find_by(group_id: ann_notification.group_id).color %>"></div>
-                    <p><%= ann_notification.title %></p>
-                  </div>
-                  <p class="feed_date"><%= ann_notification.created_at.strftime("%m/%d/%y  %l:%M %p") %></p>
-                  <p class="each_feed_content"><%= ann_notification.content %></p>
-                </div><!-- each_feed -->
-              </div>
-            </div>
+              <div class="each_feed announcement_id_<%= ann_notification.id %>" data-toggle="modal" data-target="#announcement_modal_<%= ann_notification.id %>">
+                <div class="each_feed_title">
+                  <div class="circle_<%= @current_group_user.find_by(group_id: ann_notification.group_id).color %>"></div>
+                  <p><%= ann_notification.title %></p>
+                </div>
+                <p class="feed_date"><%= ann_notification.created_at.strftime("%m/%d/%y  %l:%M %p") %></p>
+                <p class="each_feed_content"><%= ann_notification.content %></p>
+              </div><!-- each_feed -->
             <script>
               $(function() {
-                $('.each_announcement_feed_<%= ann_notification.id %>').click(function(){
+                $('.announcement_id_<%= ann_notification.id %>').click(function(){
                   var ann_notification_id = <%= ann_notification.id %>;
 
                   $.ajax({
@@ -89,16 +85,14 @@
 
             <!-- unread -->
             <% else %>
-              <div data-toggle="modal" data-target="#announcement_modal_<%= ann_notification.id %>">
-                <div class="each_feed">
-                  <div class="each_feed_title_read">
-                    <div class="circle_<%= @current_group_user.find_by(group_id: ann_notification.group_id).color %>"></div>
-                    <p><%= ann_notification.title %></p>
-                  </div>
-                  <p class="feed_date"><%= ann_notification.created_at.strftime("%m/%d/%y  %l:%M %p") %></p>
-                  <p class="each_feed_content"><%= ann_notification.content %></p>
-                </div><!-- each_feed -->
-              </div>
+              <div class="each_feed" data-toggle="modal" data-target="#announcement_modal_<%= ann_notification.id %>">
+                <div class="each_feed_title_read">
+                  <div class="circle_<%= @current_group_user.find_by(group_id: ann_notification.group_id).color %>"></div>
+                  <p><%= ann_notification.title %></p>
+                </div>
+                <p class="feed_date"><%= ann_notification.created_at.strftime("%m/%d/%y  %l:%M %p") %></p>
+                <p class="each_feed_content"><%= ann_notification.content %></p>
+              </div><!-- each_feed -->
             <% end %>
 
             <!-- Modal -->
@@ -151,15 +145,13 @@
         <h4>Budget</h4>
         <div class="main_feed_content">
           <% @budget_notification.each do |budget_notification| %>
-            <div data-toggle="modal" data-target="#budget_modal_<%= budget_notification.id %>">
-              <div class="each_feed">
-                <div class="each_feed_title">
-                  <div class="circle_<%= @current_group_user.find_by(group_id: budget_notification.group_id).color %>"></div>
-                  <p><%= budget_notification.content %></p>
-                </div>
-                <p class="feed_date"><%= budget_notification.created_at.strftime("%m/%d/%y  %l:%M %p") %></p>
-                <p class="each_feed_content">Paid?</p>
+            <div class="each_feed" data-toggle="modal" data-target="#budget_modal_<%= budget_notification.id %>" >
+              <div class="each_feed_title">
+                <div class="circle_<%= @current_group_user.find_by(group_id: budget_notification.group_id).color %>"></div>
+                <p><%= budget_notification.content %></p>
               </div>
+              <p class="feed_date"><%= budget_notification.created_at.strftime("%m/%d/%y  %l:%M %p") %></p>
+              <p class="each_feed_content">Paid?</p>
             </div>
 
             <!-- Modal -->
@@ -197,21 +189,17 @@
         <div class="main_feed_content">
           <% @poll_notification.each do |poll_notification| %>
             <% if poll_notification.read == false %>
-            <div data-toggle="modal" data-target="#poll_modal_<%= poll_notification.id %>">
-              <div class="each_poll_feed_<%= poll_notification.id %>">
-                <div class="each_feed">
-                  <div class="each_feed_title">
-                    <div class="circle_<%= @current_group_user.find_by(group_id: poll_notification.group_id).color %>"></div>
-                    <p><%= poll_notification.title %></p>
-                  </div>
-                  <p class="feed_date"><%= poll_notification.created_at.strftime("%m/%d/%y  %l:%M %p") %></p>
-                  <p class="each_feed_content"><%= User.find(poll_notification.sender).first_name %> <%= User.find(poll_notification.sender).last_name %> started the poll: </p>
-                </div>
+            <div class="each_feed poll_id_<%= poll_notification.id %>" data-toggle="modal" data-target="#poll_modal_<%= poll_notification.id %>">
+              <div class="each_feed_title">
+                <div class="circle_<%= @current_group_user.find_by(group_id: poll_notification.group_id).color %>"></div>
+                <p><%= poll_notification.title %></p>
               </div>
+              <p class="feed_date"><%= poll_notification.created_at.strftime("%m/%d/%y  %l:%M %p") %></p>
+              <p class="each_feed_content"><%= User.find(poll_notification.sender).first_name %> <%= User.find(poll_notification.sender).last_name %> started the poll: </p>
             </div>
             <script>
               $(function() {
-                $('.each_poll_feed_<%= poll_notification.id %>').click(function(){
+                $('.poll_id_<%= poll_notification.id %>').click(function(){
                   var poll_notification_id = <%= poll_notification.id %>;
 
                   $.ajax({
@@ -228,16 +216,14 @@
 
             <!-- read -->
             <% else %>
-              <div data-toggle="modal" data-target="#poll_modal_<%= poll_notification.id %>">
-                <div class="each_feed">
-                  <div class="each_feed_title_read">
-                    <div class="circle_<%= @current_group_user.find_by(group_id: poll_notification.group_id).color %>"></div>
-                    <p><%= poll_notification.title %></p>
-                  </div>
-                  <p class="feed_date"><%= poll_notification.created_at.strftime("%m/%d/%y  %l:%M %p") %></p>
-                  <p class="each_feed_content"><%= User.find(poll_notification.sender).first_name %> <%= User.find(poll_notification.sender).last_name %> started the poll: </p>
-                </div><!-- each_feed -->
-              </div>
+              <div class="each_feed" data-toggle="modal" data-target="#poll_modal_<%= poll_notification.id %>">
+                <div class="each_feed_title_read">
+                  <div class="circle_<%= @current_group_user.find_by(group_id: poll_notification.group_id).color %>"></div>
+                  <p><%= poll_notification.title %></p>
+                </div>
+                <p class="feed_date"><%= poll_notification.created_at.strftime("%m/%d/%y  %l:%M %p") %></p>
+                <p class="each_feed_content"><%= User.find(poll_notification.sender).first_name %> <%= User.find(poll_notification.sender).last_name %> started the poll: </p>
+              </div><!-- each_feed -->
             <% end %>
 
             <!-- Modal -->
