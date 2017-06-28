@@ -18,8 +18,9 @@ ActiveRecord::Schema.define(version: 20170616092144) do
     t.integer  "receiver"
     t.string   "title"
     t.string   "content"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.boolean  "read",       default: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
   create_table "announcements", force: :cascade do |t|
@@ -35,8 +36,9 @@ ActiveRecord::Schema.define(version: 20170616092144) do
     t.integer  "sender"
     t.integer  "receiver"
     t.string   "content"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.boolean  "read",       default: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
   create_table "budgets", force: :cascade do |t|
@@ -52,18 +54,9 @@ ActiveRecord::Schema.define(version: 20170616092144) do
     t.integer  "receiver"
     t.string   "title"
     t.string   "content"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "conversations", force: :cascade do |t|
-    t.integer  "recipient_id"
-    t.integer  "sender_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.index ["recipient_id", "sender_id"], name: "index_conversations_on_recipient_id_and_sender_id", unique: true
-    t.index ["recipient_id"], name: "index_conversations_on_recipient_id"
-    t.index ["sender_id"], name: "index_conversations_on_sender_id"
+    t.boolean  "read",       default: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
   create_table "event_rsvps", force: :cascade do |t|
@@ -89,14 +82,10 @@ ActiveRecord::Schema.define(version: 20170616092144) do
   create_table "group_users", force: :cascade do |t|
     t.integer  "group_id"
     t.integer  "user_id"
-    t.integer  "ann_notification",    default: 0
-    t.integer  "cal_notification",    default: 0
-    t.integer  "budget_notification", default: 0
-    t.integer  "poll_notification",   default: 0
-    t.string   "color",               default: "black"
-    t.boolean  "admin",               default: false
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
+    t.string   "color",      default: "black"
+    t.boolean  "admin",      default: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
   end
 
   create_table "groups", force: :cascade do |t|
@@ -110,16 +99,6 @@ ActiveRecord::Schema.define(version: 20170616092144) do
     t.index ["name"], name: "index_groups_on_name", unique: true
   end
 
-  create_table "messages", force: :cascade do |t|
-    t.text     "body"
-    t.integer  "user_id"
-    t.integer  "conversation_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-    t.index ["conversation_id"], name: "index_messages_on_conversation_id"
-    t.index ["user_id"], name: "index_messages_on_user_id"
-  end
-
   create_table "options", force: :cascade do |t|
     t.integer  "poll_id"
     t.string   "content"
@@ -130,11 +109,13 @@ ActiveRecord::Schema.define(version: 20170616092144) do
 
   create_table "pollnotis", force: :cascade do |t|
     t.integer  "group_id"
+    t.integer  "poll_id"
     t.integer  "sender"
     t.integer  "receiver"
     t.string   "title"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.boolean  "read",       default: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
   create_table "polls", force: :cascade do |t|

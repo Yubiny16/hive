@@ -1,4 +1,4 @@
-<div id="admin" data-admin="<%= @current_groupuser.admin %>"></div>
+
 <!-- Header -->
 <nav class="navbar navbar-default navbar-fixed-top" id="navbar-custom">
   <div class="container-fluid">
@@ -41,8 +41,8 @@
       <hr>
       <p>Groups <a href="/home/create_group_view"><i class="fa fa-plus-circle" aria-hidden="true"></i></a></p>
       <ul>
-        <% unless @current_group_user == nil %>
-          <% @current_group_user.each do |group_user| %>
+        <% unless @admin_user == nil %>
+          <% @admin_user.each do |group_user| %>
             <li><div class="circle_<%= group_user.color %>"></div><a href="/home/group_page/<%= group_user.group_id %>"><%= Group.find(group_user.group_id).name %></a></li>
           <% end %>
         <% end %>
@@ -147,9 +147,7 @@
         <div class="tab-pane" id="Calendar">
           <div id="group_calendar" class="calendar">
             <input name= "group_id" type="hidden" value= "<%= @group.id %>">
-          </div>
-          <div id="current_groupuser_admin">
-            <%= @current_groupuser_admin %>
+            <div id="admin" data-admin="<%= @current_groupuser.admin %>"></div>
           </div>
         </div>
 
@@ -423,75 +421,6 @@ $(function() {
     });
 });
 
-
-//Announcement notification read
-  $(function() {
-    $('#ann_slide').click(function(){
-      group_id = parseInt($(this).data("value"));
-
-      $.ajax({
-        method: "POST",
-        url: "/home/ann_read",
-        data: { group_id: group_id}
-
-      }).done(function() {
-        $("#ann_badge").hide();
-      });
-
-    });
-  });
-  //calendar notification read
-    $(function() {
-      $('#cal_slide').click(function(){
-        group_id = parseInt($(this).data("value"));
-
-        $.ajax({
-          method: "POST",
-          url: "/home/cal_read",
-          data: { group_id: group_id}
-
-        }).done(function() {
-          $("#cal_badge").hide();
-        });
-
-      });
-    });
-
-//Budget notification read
-  $(function() {
-    $('#budget_slide').click(function(){
-      group_id = parseInt($(this).data("value"));
-
-      $.ajax({
-        method: "POST",
-        url: "/home/budget_read",
-        data: { group_id: group_id}
-
-      }).done(function() {
-        $("#budget_badge").hide();
-      });
-
-    });
-  });
-
-//Poll notification read
-  $(function() {
-    $('#poll_slide').click(function(){
-      group_id = parseInt($(this).data("value"));
-
-      $.ajax({
-        method: "POST",
-        url: "/home/poll_read",
-        data: { group_id: group_id}
-
-      }).done(function() {
-        $("#poll_badge").hide();
-      });
-    });
-  });
-
-
-
   $(".search_member_name").keyup(function(){
 
         // Retrieve the input field text
@@ -531,4 +460,9 @@ $(function() {
           });
 
       });
+
+      //shown.bs.tab (on the newly-active just-shown tab, the same one as for the show.bs.tab event)
+      $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+    $('.calendar').fullCalendar('render');
+});
 </script>

@@ -43,26 +43,10 @@ Rails.application.routes.draw do
   get '/home/option_cancel' => 'home#option_cancel'
   get '/home/delete_poll' => 'home#delete_poll'
 
-  post '/home/ann_read' => 'home#ann_read'
-  post '/home/cal_read' => 'home#cal_read'
-  post '/home/budget_read' => 'home#budget_read'
-  post '/home/poll_read' => 'home#poll_read'
-
+  get '/home/ann_read' => 'home#ann_read'
+  get '/home/poll_read' => 'home#poll_read'
   #Calendar
   resources :events
-
-
-  #Chat
-  get '/rooms/show' => 'rooms#show'
-  get '/rooms/new_chat' => 'rooms#new'
-
-  resources :conversations, only: [:create] do
-   member do
-     post :close
-   end
-
-   resources :messages, only: [:create]
-  end
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

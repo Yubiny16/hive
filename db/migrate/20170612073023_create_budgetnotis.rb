@@ -6,6 +6,7 @@ class CreateBudgetnotis < ActiveRecord::Migration[5.0]
       t.integer :sender
       t.integer :receiver
       t.string :content
+      t.boolean :read, :default => false
 
       t.timestamps
     end

@@ -1,4 +1,3 @@
-//hive2 css
 .circle_black {
   background: black;
   width: 20px;
@@ -27,7 +26,6 @@
   border-radius: 50%;
   display: inline-block;
 }
-//hive2 end
 //heading bar styling
 nav#navbar-custom {
   background-image: none;
@@ -138,6 +136,11 @@ body {
 }
 .each_feed_title {
   background-color: #e0e0e0;
+  height: 30px;
+  position: relative;
+}
+.each_feed_title_read {
+  background-color: blue;
   height: 30px;
   position: relative;
 }

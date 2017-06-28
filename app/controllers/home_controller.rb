@@ -104,7 +104,7 @@ class HomeController < ApplicationController
     @budget = Budget.find_by(group_id: @group.id)
 
     @recent_announc = Announcement.where(group_id: @group.id).last(7).reverse
-    @current_group_user = GroupUser.where(user_id: @user.id)
+    @admin_user = GroupUser.where(user_id: @user.id)
 
     #notifications
     @current_groupuser = GroupUser.find_by(group_id: @group.id, user_id: @user.id)
@@ -139,10 +139,6 @@ class HomeController < ApplicationController
       one_announcement_notification.title = params[:announc_title]
       one_announcement_notification.content = params[:announc_content]
       one_announcement_notification.save
-
-      #number of notification
-      @notify = one_member.ann_notification + 1
-      one_member.update(:ann_notification => @notify)
 
     end
 
@@ -219,8 +215,6 @@ class HomeController < ApplicationController
       one_budget_notification.content = params[:description_p]
       one_budget_notification.save
 
-      @notify = one_member.budget_notification + 1
-      one_member.update(:budget_notification => @notify)
     end
 
   end
@@ -253,8 +247,6 @@ class HomeController < ApplicationController
       one_budget_notification.content = params[:description_m]
       one_budget_notification.save
 
-      @notify = one_member.budget_notification + 1
-      one_member.update(:budget_notification => @notify)
     end
 
   end
@@ -290,13 +282,12 @@ class HomeController < ApplicationController
       #who when what
       one_poll_notification = Pollnoti.new
       one_poll_notification.group_id = params[:group_id]
+      one_poll_notification.poll_id = one_poll.id
       one_poll_notification.sender = current_user.id
       one_poll_notification.receiver = one_member.user_id
       one_poll_notification.title = params[:poll_title]
       one_poll_notification.save
 
-      @notify = one_member.poll_notification + 1
-      one_member.update(:poll_notification => @notify)
     end
 
     redirect_to :back
@@ -349,23 +340,6 @@ class HomeController < ApplicationController
     redirect_to :back
   end
 
-  def ann_read
-    GroupUser.find_by(group_id: params[:group_id], user_id: current_user.id).update(:ann_notification => 0)
-  end
-
-  def cal_read
-    GroupUser.find_by(group_id: params[:group_id], user_id: current_user.id).update(:cal_notification => 0)
-
-  end
-
-  def budget_read
-    GroupUser.find_by(group_id: params[:group_id], user_id: current_user.id).update(:budget_notification => 0)
-  end
-
-  def poll_read
-    GroupUser.find_by(group_id: params[:group_id], user_id: current_user.id).update(:poll_notification => 0)
-  end
-
   def event_rsvp
     if EventRsvp.where(group_id: params[:group_id]).where(user_id: current_user.id).where(event_id: params[:event_id]).exists?(1) == false
       one_event_rsvp = EventRsvp.new
@@ -391,5 +365,12 @@ class HomeController < ApplicationController
     redirect_to :back
   end
 
+  def ann_read
+    Annnoti.find(params[:ann_notification_id]).update(:read => true)
+  end
+
+  def poll_read
+    Pollnoti.find(params[:poll_notification_id]).update(:read => true)
+  end
 
 end
