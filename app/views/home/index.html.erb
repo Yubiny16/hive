@@ -77,7 +77,7 @@
                     data: { ann_notification_id: ann_notification_id }
 
                   }).done(function() {
-                    //change color to "read" color
+                    $(".announcement_id_<%= ann_notification.id %>").css("background-color", "blue");
                   });
                 });
               });
