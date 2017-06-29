@@ -20,6 +20,10 @@ class HomeController < ApplicationController
     @searched_groups = Group.where("name LIKE ?", "%#{@search}%")
   end
 
+  def my_calendar
+    @current_group_user = GroupUser.where(user_id: current_user.id)
+  end
+
   def profile
     @user = current_user
     @current_group_user = GroupUser.where(user_id: @user.id)
@@ -367,6 +371,14 @@ class HomeController < ApplicationController
 
   def ann_read
     Annnoti.find(params[:ann_notification_id]).update(:read => true)
+  end
+
+  def cal_read
+    Calnoti.find(params[:cal_notification_id]).update(:read => true)
+  end
+
+  def budget_read
+    Budgetnoti.find(params[:budget_notification_id]).update(:read => true)
   end
 
   def poll_read

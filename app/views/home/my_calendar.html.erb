@@ -1,0 +1,61 @@
+<!-- Header -->
+<nav class="navbar navbar-default navbar-fixed-top" id="navbar-custom">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-2">
+        <a class="navbar-brand" href="/home/index">H I V E</a>
+      </div>
+      <!--search bar-->
+      <div class="col-md-4" style="padding-left: 0;">
+        <form action="/home/search" method="get">
+          <!-- Pass search words to controller -->
+          <input id="search_group" name= "search_group" type="text" class="form-control" data-autocomplete= "<%= Group.order(:name).map(&:name) %>" placeholder="Search Your Group">
+          <button type="submit" class="btn btn-search"><i class="fa fa-search" aria-hidden="true"></i></button>
+        </form>
+      </div>
+      <div class="col-md-5">
+      </div>
+      <div class="col-md-1">
+        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <%= current_user.first_name %> <%= current_user.last_name%>
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a href="/home/profile" class="dropdown-item">Edit Profile</a>
+          <a href="/home/setting" class="dropdown-item">Setting</a>
+          <a href="/users/sign_out" class="dropdown-item">Sign Out</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav><!-- Header End -->
+
+
+<!-- Body -->
+<div class="container-fluid container-body">
+  <div class="row">
+    <!-- Left Bar -->
+    <div class="col-md-2 leftbar">
+      <ul>
+        <li><%= current_user.first_name %></li>
+        <li><a href="/home/index">Board</a></li>
+        <li><a href="/home/my_calendar">Calendar</a></li>
+      </ul>
+      <hr>
+      <p>Groups <a href="/home/create_group_view"><i class="fa fa-plus-circle" aria-hidden="true"></i></a></p>
+      <ul>
+        <% unless @current_group_user == nil %>
+          <% @current_group_user.each do |group_user| %>
+            <li><div class="circle_<%= group_user.color %>"></div><a href="/home/group_page/<%= group_user.group_id %>"><%= Group.find(group_user.group_id).name %></a></li>
+          <% end %>
+        <% end %>
+      </ul>
+    </div><!-- leftbar End-->
+
+    <!-- Main/Board -->
+    <div class="col-md-10 board" style="padding-left: 0;">
+      <div class="my_calendar"></div>
+
+
+    </div><!--col-md-10-->
+  </div><!-- row -->
+</div><!-- container-fluid container-body -->

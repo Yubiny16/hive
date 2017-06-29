@@ -42,8 +42,11 @@ Rails.application.routes.draw do
   get '/home/option_select' => 'home#option_select'
   get '/home/option_cancel' => 'home#option_cancel'
   get '/home/delete_poll' => 'home#delete_poll'
+  get '/home/my_calendar' => 'home#my_calendar'
 
   get '/home/ann_read' => 'home#ann_read'
+  get '/home/cal_read' => 'home#cal_read'
+  get '/home/budget_read' => 'home#budget_read'
   get '/home/poll_read' => 'home#poll_read'
   #Calendar
   resources :events
