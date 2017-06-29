@@ -54,93 +54,97 @@
 
   <div class="tab-pane" id="preferences">
     <% @current_group_user.each do |group_user| %>
-      <ul><%= Group.find(group_user.group_id).name %><div class="circle_<%= group_user.color %> my_color"></div></ul>
+      <ul><%= Group.find(group_user.group_id).name %><div id="<%= group_user.group_id %>_color" class="circle_<%= group_user.color %>"></div></ul>
         <div class="change_color">
-          <div class="circle_black" data-groupid ="<%= group_user.group_id %>"></div>
-          <div class="circle_blue" data-groupid ="<%= group_user.group_id %>"></div>
-          <div class="circle_red" data-groupid ="<%= group_user.group_id %>"></div>
-          <div class="circle_green" data-groupid ="<%= group_user.group_id %>"></div>
-
-          <!--group_id used in script-->
-          <input class="group_id" type="hidden" value="<%= group_user.group_id %>"/>
+          <div class="circle_black circle_black_id_<%= group_user.group_id %>"></div>
+          <div class="circle_blue circle_blue_id_<%= group_user.group_id %>"></div>
+          <div class="circle_red circle_red_id_<%= group_user.group_id %>"></div>
+          <div class="circle_green circle_green_id_<%= group_user.group_id %>"></div>
         </div>
+
+        <script>
+        //Change group_color to blue
+          $(function() {
+            $('.circle_blue_id_<%= group_user.group_id %>').click(function(){
+              var new_color = "blue";
+              var group_id = <%= group_user.group_id %>;
+
+              $.ajax({
+                method: "POST",
+                url: '/home/group_color',
+                data: { new_color: new_color,
+                        group_id: group_id }
+
+              }).done(function() {
+                $("#<%= group_user.group_id %>_color").attr('class', 'circle_blue');
+              });
+
+            });
+          });
+
+          //Change group_color to black
+          $(function() {
+            $('.circle_black_id_<%= group_user.group_id %>').click(function(){
+              var new_color = "black";
+              var group_id = <%= group_user.group_id %>;
+
+              $.ajax({
+                method: "POST",
+                url: '/home/group_color',
+                data: { new_color: new_color,
+                        group_id: group_id }
+
+              }).done(function() {
+                $("#<%= group_user.group_id %>_color").attr('class', 'circle_black');
+              });
+
+            });
+          });
+
+          //Change group_color to red
+          $(function() {
+            $('.circle_red_id_<%= group_user.group_id %>').click(function(){
+              var new_color = "red";
+              var group_id = <%= group_user.group_id %>;
+
+              $.ajax({
+                method: "POST",
+                url: '/home/group_color',
+                data: { new_color: new_color,
+                        group_id: group_id }
+
+              }).done(function() {
+                $("#<%= group_user.group_id %>_color").attr('class', 'circle_red');
+              });
+
+            });
+          });
+
+          //Change group_color to green
+          $(function() {
+            $('.circle_green_id_<%= group_user.group_id %>').click(function(){
+              var new_color = "green";
+              var group_id = <%= group_user.group_id %>;
+
+              $.ajax({
+                method: "POST",
+                url: '/home/group_color',
+                data: { new_color: new_color,
+                        group_id: group_id }
+
+              }).done(function() {
+                $("#<%= group_user.group_id %>_color").attr('class', 'circle_green');
+              });
+
+            });
+          });
+        </script>
     <% end %>
   </div><!--preferences tab-->
 </div><!--tab content-->
 
 <script>
-//Change group_color to blue
-$(function() {
-  $('.change_color .circle_blue').click(function(){
-    var new_color = "blue";
-    var group_id = this.getAttribute("data-groupid");
 
-    $.ajax({
-      method: "POST",
-      url: '/home/group_color',
-      data: { new_color: new_color,
-              group_id: group_id }
 
-    }).done(function() {
 
-    });
-
-  });
-});
-//Change group_color to black
-$(function() {
-  $('.change_color .circle_black').click(function(){
-    var new_color = "black";
-    var group_id = this.getAttribute("data-groupid");
-
-    $.ajax({
-      method: "POST",
-      url: '/home/group_color',
-      data: { new_color: new_color,
-              group_id: group_id }
-
-    }).done(function() {
-
-    });
-
-  });
-});
-
-//Change group_color to red
-$(function() {
-  $('.change_color .circle_red').click(function(){
-    var new_color = "red";
-    var group_id = this.getAttribute("data-groupid");
-
-    $.ajax({
-      method: "POST",
-      url: '/home/group_color',
-      data: { new_color: new_color,
-              group_id: group_id }
-
-    }).done(function() {
-
-    });
-
-  });
-});
-
-//Change group_color to green
-$(function() {
-  $('.change_color .circle_green').click(function(){
-    var new_color = "green";
-    var group_id = this.getAttribute("data-groupid");
-
-    $.ajax({
-      method: "POST",
-      url: '/home/group_color',
-      data: { new_color: new_color,
-              group_id: group_id }
-
-    }).done(function() {
-      
-    });
-
-  });
-});
 </script>
