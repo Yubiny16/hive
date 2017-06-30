@@ -105,6 +105,37 @@ body {
 .board {
   padding-top: 80px;
 }
+.leftbar {
+  font-size: 18px;
+  color: black;
+  font-weight: bold;
+}
+.leftbar > p {
+  text-align: center;
+}
+.leftbar .leftbar-personal li:first-child {
+  padding-left: 0;
+  font-size: 20px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+.leftbar .leftbar-personal li {
+  padding-left: 15px;
+  margin-bottom: 10px;
+}
+.leftbar .leftbar-personal li a,
+.leftbar .leftbar-groups li a {
+  color: black;
+  text-decoration: none;
+}
+.leftbar .leftbar-groups li {
+  padding-left: 15px;
+  margin-bottom: 10px;
+}
+.leftbar .leftbar-groups li a {
+  position:relative;
+  bottom: 3px;
+}
 .main_feed {
   width: 22%;
   display: inline-block;
@@ -174,16 +205,48 @@ body {
   padding-left: 5px;
 }
 /************group page styling********/
+#group_profile {
+  position: relative;
+  width: 730px;
+  margin: 0 auto;
+  display: block;
+}
+#group_profile .group_profile_heading {
+  display: inline-block;
+  position: absolute;
+  margin-left: 20px;
+  top: 0;
+}
+#group_profile .group_profile_heading h3 {
+  display: inline-block;
+  margin: 0;
+}
+#group_profile .group_profile_heading p {
+  display: inline-block;
+  margin: 0;
+  margin-left: 15px;
+}
+#group_profile > p {
+  padding-left: 80px;
+  padding-right: 20px;
+  margin-top: -30px;
+}
 ul#feature-tabs {
-  margin-bottom: 50px;
+  margin-bottom: 40px;
+  display: flex;
+  justify-content: center;
+}
+ul#feature-tabs li {
+  margin: 0;
 }
 ul#feature-tabs li a {
   color: black;
   border-radius: 0;
   padding: 0;
-  width: 150px;
   padding-bottom: 5px;
+  width: 100px;
   margin: 0px 25px;
+  text-align: center;
 }
 ul#feature-tabs li a:hover {
   background-color: transparent;
@@ -224,7 +287,6 @@ ul#feature-tabs > li.active > a {
 }
 /**members page design**/
 #Network {
-  margin-top: 80px;
   text-align: center;
 }
 #Network .hex,

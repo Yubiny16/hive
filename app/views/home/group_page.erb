@@ -32,29 +32,35 @@
 <div class ="container-fluid container-body">
   <div class="row">
     <div class="col-md-2 leftbar">
-      <ul>
-        <li><%= @user.first_name %></li>
-        <li><a href="/home/index">Board</a></li>
-        <li>Calendar</li>
+      <ul class="leftbar-personal">
+        <li id="user_name"><%= @user.first_name %> <%= @user.last_name %></li>
+        <li><a href="/home/index"><i class="fa fa-server" aria-hidden="true"></i> Board</a></li>
+        <li><i class="fa fa-calendar" aria-hidden="true"></i> Calendar</li>
       </ul>
       <hr>
       <p>Groups <a href="/home/create_group_view"><i class="fa fa-plus-circle" aria-hidden="true"></i></a></p>
-      <ul>
+      <ul class="leftbar-groups">
         <% unless @user_groups == nil %>
           <% @user_groups.each do |user_groups| %>
-            <li><div class="circle_<%= user_groups.color %>"></div><a href="/home/group_page/<%= user_groups.group_id %>"><%= Group.find(user_groups.group_id).name %></a></li>
+            <li><div class="circle_<%= user_groups.color %>"></div> <a href="/home/group_page/<%= user_groups.group_id %>"><%= Group.find(user_groups.group_id).name %></a></li>
           <% end %>
         <% end %>
       </ul>
     </div><!-- leftbar End-->
 
     <!-- Features-->
-    <div class="col-md-8 board" style="padding-left: 0;">
-      <p><%= @group.name %></p>
-      <p><%= @group.school %></p>
-      <p>Group password: <%= @group.password %></p>
+    <div class="col-md-8 board">
+      <div id="group_profile">
+        <div class="circle_<%= @user_groups.find_by(group_id: @group.id).color %>" style="width: 60px; height: 60px;"></div>
+        <div class="group_profile_heading">
+          <h3><%= @group.name %></h3>
+          <p><%= @group.school %></p>
+        </div>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas facilisis id nibh ut semper. Donec mollis ligula sit amet bibendum ultricies. Donec nulla lacus, dapibus id ex id, molestie tempus enim. Duis eget mi vestibulum, interdum elit eu, mattis sapien. Nam ac massa dui. Aenean in malesuada augue.</p>
+      </div>
+      <hr>
 
-      <ul class ="nav nav-pills nav-justified" id="feature-tabs">
+      <ul class ="nav nav-pills" id="feature-tabs">
         <li class="active" style="border-right: 1px solid black;"><a href="#Announcement" data-toggle="tab">Announcement</a></li>
         <li style="border-right: 1px solid black;"><a href="#Calendar" data-toggle="tab">Calendar</a></li>
         <li style="border-right: 1px solid black;"><a href="#Budget" data-toggle="tab">Budget</a></li>
@@ -96,8 +102,6 @@
               </div>
             </div>
             <% end %>
-
-          <br><br>
 
             <div class="announcement_accordion">
               <% @announcements.each do |announcements| %>
@@ -343,7 +347,6 @@
     </div><!--col-md-8-->
 
     <div class="col-md-2">
-
     </div>
 
   </div><!--row-->
