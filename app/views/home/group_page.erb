@@ -1,4 +1,3 @@
-
 <!-- Header -->
 <nav class="navbar navbar-default navbar-fixed-top" id="navbar-custom">
   <div class="container-fluid">
@@ -41,15 +40,16 @@
       <hr>
       <p>Groups <a href="/home/create_group_view"><i class="fa fa-plus-circle" aria-hidden="true"></i></a></p>
       <ul>
-        <% unless @admin_user == nil %>
-          <% @admin_user.each do |group_user| %>
-            <li><div class="circle_<%= group_user.color %>"></div><a href="/home/group_page/<%= group_user.group_id %>"><%= Group.find(group_user.group_id).name %></a></li>
+        <% unless @user_groups == nil %>
+          <% @user_groups.each do |user_groups| %>
+            <li><div class="circle_<%= user_groups.color %>"></div><a href="/home/group_page/<%= user_groups.group_id %>"><%= Group.find(user_groups.group_id).name %></a></li>
           <% end %>
         <% end %>
       </ul>
     </div><!-- leftbar End-->
 
-    <div class="col-md-10 board" style="padding-left: 0;">
+    <!-- Features-->
+    <div class="col-md-8 board" style="padding-left: 0;">
       <p><%= @group.name %></p>
       <p><%= @group.school %></p>
       <p>Group password: <%= @group.password %></p>
@@ -63,53 +63,14 @@
       </ul>
 
       <div class="tab-content">
+        <!-- Announcements -->
         <div class="tab-pane active" id="Announcement">
-          <!-- Announcements -->
-          <div id="announcement_carousel" data-wrap="true"  class="carousel slide" data-interval="false" data-ride="carousel">
-            <ol class="carousel-indicators">
-              <li data-target="#announcement_carousel" data-slide-to="0" class="active"></li>
-                <% for i in 1..(@recent_announc.count - 1) %>
-                  <li data-target="#announcement_carousel" data-slide-to="i"></li>
-                <% end %>
-            </ol><!-- carousel-indicators-->
-            <div class="carousel-inner">
-              <div class="item active">
-                <center><img class="img-responsive" align="middle" src="https://images.designtrends.com/wp-content/uploads/2015/11/30152210/Plan-Photo-Background.jpg" width="50%" height="50%" /></center>
-                <div class="carousel-caption">
-                  <span style="color:black">
-                    <% unless @recent_announc[0] == nil %>
-                      <h3><%= @recent_announc[0].title %></h3><br>
-                      <h5><%= @recent_announc[0].content %></h5><br>
-                      <%= @recent_announc[0].created_at.strftime("%Y-%m-%d") %>
-                    <% end %>
-                  </span>
-                </div><!-- carousel-caption -->
-              </div><!-- item active-->
-              <% @recent_announc.drop(1).each do |a| %>
-                <div class="item">
-                  <center><img class="img-responsive" align="middle" src="https://images.designtrends.com/wp-content/uploads/2015/11/30152210/Plan-Photo-Background.jpg" width="50%" height="50%" /></center>
-                  <div class="carousel-caption">
-                    <span style="color:black">
-                      <h3><%= a.title %></h3><br>
-                      <h5><%= a.content %></h5><br>
-                      <%= a.created_at.strftime("%Y-%m-%d") %>
-                    </span>
-                  </div><!-- carousel-caption -->
-                </div><!-- item -->
-              <% end %>
-            </div><!-- carousel-inner -->
-
-            <a href="#announcement_carousel" class="carousel-control left" data-slide="prev">
-              <span class="glyphicon glyphicon-chevron-left"></span>
-            </a>
-            <a href="#announcement_carousel" class="carousel-control right" data-slide="next">
-              <span class="glyphicon glyphicon-chevron-right"></span>
-            </a>
-          </div>
           <!-- Make an announcement (visible only to admin) -->
-          <% if @current_groupuser.admin == true %>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#post_announc">New</button>
-            <div class="modal fade" id="post_announc" tableindex="-1" role="dialog">
+            <% if @admin_user.admin == true %>
+            <button data-toggle="modal" data-target="#post_announcement">Post New Announcement</button>
+
+            <!-- New Announcement Modal -->
+            <div class="modal fade" id="post_announcement" tableindex="-1" role="dialog">
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
@@ -134,27 +95,32 @@
                 </div>
               </div>
             </div>
-          <% end %>
+            <% end %>
 
-          <!-- View all announcements -->
-          <form action="/home/announcement_all" method="get">
-            <input name= "group_id" type="hidden" value= "<%= @group.id %>"/>
-            <button type="submit" class="btn btn-default">View All Announcements</button>
-          </form>
+          <br><br>
+
+            <div class="announcement_accordion">
+              <% @announcements.each do |announcements| %>
+                <h3 class="group_announcement_title">
+                  <%= announcements.title %> <%= announcements.created_at.strftime("%m/%d/%y  %l:%M %p") %>
+                </h3>
+                <p><%= announcements.content %></p>
+              <% end %>
+            </div>
         </div><!--Announcement tab-->
 
         <!-- Calendar -->
         <div class="tab-pane" id="Calendar">
           <div id="group_calendar" class="calendar">
             <input name= "group_id" type="hidden" value= "<%= @group.id %>">
-            <div id="admin" data-admin="<%= @current_groupuser.admin %>"></div>
+            <div id="admin" data-admin="<%= @admin_user.admin %>"></div>
           </div>
         </div>
 
         <!-- Budget Tracker -->
         <div class="tab-pane" id="Budget">
           <!-- Add transaction (visible only to admin) -->
-          <% if @current_groupuser.admin == true %>
+          <% if @admin_user.admin == true %>
             <div id="budget_item_input">
               <input id="description" type="text" class="form-control" placeholder="Description">
               <input id="money" type="number" class="form-control" placeholder="$00.00">
@@ -186,8 +152,10 @@
         <!-- Black Board -->
         <div class="tab-pane" id="Poll">
           <!-- Create Poll (visible only to admin) -->
-          <% if @current_groupuser.admin == true %>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#create_poll">Create Poll</button>
+          <% if @admin_user.admin == true %>
+            <button data-toggle="modal" data-target="#create_poll">Create A New Poll</button>
+
+            <!-- Create Poll Modal -->
             <div class="modal fade" id="create_poll" tableindex="-1" role="dialog">
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -240,61 +208,32 @@
                 </div>
               </div>
             </div>
-          <% end %>
+          <% end %><!-- admin? -->
 
           <!-- Polls -->
-          <% @poll.each do |p| %>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#poll_<%= p.id %>"><%= p.title %></button>
-            <!-- Create one Modal for each poll-->
-            <div class="modal fade" id="poll_<%= p.id %>" tableindex="-1" role="dialog">
-              <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                    <h5 class="modal-title"><%= p.title %></h5>
-                  </div>
-                  <div class="modal-body">
-                    <ul class ="nav nav-pills nav-justified">
-                      <li class="active"><a href="#one_poll_<%= p.id %>" data-toggle="tab">Poll</a></li>
-                      <li><a href="#Votes_<%= p.id %>" data-toggle="tab">Votes</a></li>
-                    </ul>
-                    <div class="tab-content">
-                      <div class="tab-pane fade in active" id="one_poll_<%= p.id %>">
-                        <!-- If user already voted -->
-                        <% if Polluser.where(user_id: @user.id).where(poll_id: p.id).where(voted: true).exists? %>
-                          <form action="/home/option_cancel" method="get">
-                            <% Option.where(poll_id: p.id).find_each do |o| %>
-                              <div class="radio">
-                                <label><input type="radio" name="optradio" value="<%= o.id %>"><%= o.content %></label> <strong><%= o.vote_number %></strong>
-                              </div>
-                            <% end %>
-                            <!-- user cancels his/her vote -->
-                            <button name="poll_id" value="<%= p.id %>" type="submit" class="btn btn-default">Cancel My Vote</button>
-                          </form>
-                          <form action="/home/delete_poll" method="get">
-                            <button name="poll_id" value="<%= p.id %>" type="submit" class="btn btn-default">Close Poll</button>
-                          </form>
-                        <% else %>
-                        <!-- If user has not voted or canceled -->
-                          <form action="/home/option_select" method="get">
-                            <% Option.where(poll_id: p.id).find_each do |o| %>
-                              <div class="radio">
-                                <label><input type="radio" name="optradio" value="<%= o.id %>"><%= o.content %></label> <strong><%= o.vote_number %></strong>
-                              </div>
-                            <% end %>
-                            <button name="poll_id" value="<%= p.id %>"type="submit" class="btn btn-default">Vote!</button>
-                          </form>
-                          <form action="/home/delete_poll" method="get">
-                            <button name="poll_id" value="<%= p.id %>" type="submit" class="btn btn-default">Close Poll</button>
-                          </form>
-                        <% end %>
+          <div class="poll_accordion">
+            <!-- Call all the polls in this group -->
+            <% @poll.each do |p| %>
+              <h3 class="group_poll_title">
+                <%= p.title %> <%= p.created_at.strftime("%m/%d/%y  %l:%M %p") %>
+              </h3>
+              <div class="group_poll_content">
+                <!-- Already voted? -->
+                <% if Polluser.where(user_id: @user.id).where(poll_id: p.id).where(voted: true).exists? %>
+                  <form action="/home/option_cancel" method="get">
+                    <% Option.where(poll_id: p.id).find_each do |o| %>
+                      <div class="radio">
+                        <!-- Options -->
+                        <label><input type="radio" name="optradio" value="<%= o.id %>"><%= o.content %></label> <strong><%= o.vote_number %></strong>
                       </div>
-                      <div class="tab-pane fade in" id="Votes_<%= p.id %>">
-                      <!-- Anonymous? -->
-                      <% if p.anonymous == nil %>
-                      <!-- if not, then find Options in this poll -->
+                    <% end %>
+                    <!-- user cancels his/her vote -->
+                    <button name="poll_id" value="<%= p.id %>" type="submit" class="btn btn-default">Cancel My Vote</button>
+                  </form>
+
+                    <!-- view stat -->
+                    <button class="view_poll_stat_<%= p.id %>">View Detailed Stat</button>
+                      <div class="poll_stat_<%= p.id %>">
                         <% Option.where(poll_id: p.id).find_each do |o| %>
                           <strong><%= o.content %></strong> <br>
                           <!-- Find the people who voted -->
@@ -302,9 +241,61 @@
                             <% User.where(id: pu.user_id).find_each do |voted_user| %>
                               <%= voted_user.first_name %> <%= voted_user.last_name %>
                             <% end %>
-                            <br>
                           <% end %>
                         <% end %>
+
+                        <!-- Find the people who have not voted -->
+                          <strong><p>Not Voted</p></strong>
+                          <% GroupUser.where(group_id: @group.id).find_each do |gr| %>
+                            <% User.where(id: gr.user_id).find_each do |not_voted_user| %>
+                              <% if !Polluser.where(user_id: not_voted_user.id).where(poll_id: p.id).exists? %>
+                                <%= not_voted_user.first_name %> <%= not_voted_user.last_name %>
+                              <% end %>
+                              <% if Polluser.where(user_id: not_voted_user.id).where(poll_id: p.id).where(voted: false).exists? %>
+                                <%= not_voted_user.first_name %> <%= not_voted_user.last_name %>
+                              <% end %>
+                            <% end %>
+                          <% end %>
+                      </div><!-- poll_stat -->
+
+                      <script>
+                        $(".poll_stat_<%= p.id %>").hide();
+
+                        //view poll stat
+                        $( function() {
+                          $(".view_poll_stat_<%= p.id %>").click(function(){
+                             $(".poll_stat_<%= p.id %>").toggle();
+                         });
+                         } );
+                      </script>
+
+                <% else %><!-- Already voted? NO -->
+
+                  <!-- then Vote -->
+                  <form action="/home/option_select" method="get">
+                    <% Option.where(poll_id: p.id).find_each do |o| %>
+                      <div class="radio">
+                        <!-- Options -->
+                        <label><input type="radio" name="optradio" value="<%= o.id %>"><%= o.content %></label> <strong><%= o.vote_number %></strong>
+                      </div>
+                    <% end %>
+                    <button name="poll_id" value="<%= p.id %>"type="submit" class="btn btn-default">Vote!</button>
+                  </form><!-- Vote -->
+
+                  <!-- view stat -->
+                  <button class="view_poll_stat_<%= p.id %>">View Detailed Stat</button>
+                    <div class="poll_stat_<%= p.id %>">
+                      <% Option.where(poll_id: p.id).find_each do |o| %>
+                        <strong><%= o.content %></strong> <br>
+                        <!-- Find the people who voted -->
+                        <% Polluser.where(option_id: o.id).where(voted: true).find_each do |pu| %>
+                          <% User.where(id: pu.user_id).find_each do |voted_user| %>
+                            <%= voted_user.first_name %> <%= voted_user.last_name %>
+                          <% end %>
+                        <% end %>
+                      <% end %>
+
+                      <!-- Find the people who have not voted -->
                         <strong><p>Not Voted</p></strong>
                         <% GroupUser.where(group_id: @group.id).find_each do |gr| %>
                           <% User.where(id: gr.user_id).find_each do |not_voted_user| %>
@@ -316,17 +307,25 @@
                             <% end %>
                           <% end %>
                         <% end %>
-                        <% else %>
-                        <p>Anonymous</p>
-                        <% end %>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          <% end %>
-        </div>
+                    </div><!-- poll_stat -->
+
+                    <script>
+                      $(".poll_stat_<%= p.id %>").hide();
+
+                      //view poll stat
+                      $( function() {
+                        $(".view_poll_stat_<%= p.id %>").click(function(){
+                           $(".poll_stat_<%= p.id %>").toggle();
+                       });
+                       } );
+                    </script>
+
+                <% end %><!-- Polluser exists? -->
+
+            </div><!-- group_poll_content -->
+            <% end %><!-- Each Poll -->
+        </div><!-- poll accordion -->
+      </div><!-- poll tab -->
 
         <div class="tab-pane" id="Network">
           <label>Search by Name</label>
@@ -339,12 +338,35 @@
             <%= render partial: "member", locals: { member: @members } %>
           </div>
         </div><!--Network tab-->
+
       </div><!--tab content-->
-    </div><!--col-md-10-->
+    </div><!--col-md-8-->
+
+    <div class="col-md-2">
+
+    </div>
+
   </div><!--row-->
 </div><!--container-->
 
+
+
+
 <script>
+  //announcement accordion
+  $( function() {
+     $( ".announcement_accordion" ).accordion();
+   } );
+
+  //poll accordion
+  $( function() {
+    $( ".poll_accordion" ).accordion({
+      heightStyle: "content"
+    });
+   } );
+
+
+
   //Budget - plus
   $(function() {
     $('.money_plus_button').click(function(){

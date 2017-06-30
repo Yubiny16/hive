@@ -104,19 +104,15 @@ class HomeController < ApplicationController
     #global variable $group_id to be used in events controller
     $group_id = @group.id
     @user = current_user
-    @poll = Poll.where(group_id: @group.id)
+    @poll = Poll.where(group_id: @group.id).reverse
     @budget = Budget.find_by(group_id: @group.id)
 
-    @recent_announc = Announcement.where(group_id: @group.id).last(7).reverse
-    @admin_user = GroupUser.where(user_id: @user.id)
+    @announcements = Announcement.where(group_id: @group.id).reverse
+    @user_groups = GroupUser.where(user_id: @user.id)
 
     #notifications
-    @current_groupuser = GroupUser.find_by(group_id: @group.id, user_id: @user.id)
+    @admin_user = GroupUser.find_by(group_id: @group.id, user_id: @user.id)
 
-    @ann_notification = Annnoti.where(group_id: @group.id).where(receiver: @user.id).reverse
-    @cal_notification = Calnoti.where(group_id: @group.id).where(receiver: @user.id).reverse
-    @budget_notification = Budgetnoti.where(group_id: @group.id).where(receiver: @user.id).reverse
-    @poll_notification = Pollnoti.where(group_id: @group.id).where(receiver: @user.id).reverse
     #variable to pass to assets/javascripts/full_calendar.js.erb
     #@current_groupuser_admin = GroupUser.find_by(group_id: @group.id, user_id: @user.id).admin
 
