@@ -134,12 +134,16 @@ body {
   color: #6a646b;
   text-decoration: none;
 }
+.leftbar .leftbar-personal li a i,
+.leftbar .leftbar-groups li > div {
+  margin-right: 5px;
+}
 .leftbar .leftbar-groups li {
-  padding-left: 15px;
   margin-bottom: 10px;
 }
 .leftbar .leftbar-groups li a {
-
+  position: relative;
+  bottom: 3px;
 }
 .main_feed {
   width: 22%;
