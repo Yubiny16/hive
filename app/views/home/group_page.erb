@@ -2,9 +2,14 @@
 <nav class="navbar navbar-default navbar-fixed-top" id="navbar-custom">
   <div class="container-fluid">
     <div class="row">
+
+      <div class="col-md-1">
+      </div>
+
       <div class="col-md-2">
         <a class="navbar-brand" href="/home/index">H I V E</a>
       </div>
+
       <!--search bar-->
       <div class="col-md-4" style="padding-left: 0;">
         <form action="/home/search" method="get">
@@ -13,9 +18,8 @@
           <button type="submit" class="btn btn-search"><i class="fa fa-search" aria-hidden="true"></i></button>
         </form>
       </div>
-      <div class="col-md-5">
-      </div>
-      <div class="col-md-1">
+
+      <div class="col-md-3">
         <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <%= @user.first_name %> <%= @user.last_name%>
         </button>
@@ -25,17 +29,23 @@
           <a href="/users/sign_out" class="dropdown-item">Sign Out</a>
         </div>
       </div>
+
+      <div class="col-md-2">
+      </div>
     </div>
   </div>
 </nav><!-- Header End -->
 
 <div class ="container-fluid container-body">
   <div class="row">
+
+    <div class="col-md-1">
+    </div>
+
     <div class="col-md-2 leftbar">
       <ul class="leftbar-personal">
-        <li id="user_name"><%= @user.first_name %> <%= @user.last_name %></li>
-        <li><a href="/home/index"><i class="fa fa-server" aria-hidden="true"></i> Board</a></li>
-        <li><i class="fa fa-calendar" aria-hidden="true"></i> Calendar</li>
+        <li><a href="/home/index"><i class="fa fa-server" aria-hidden="true"></i>Board</a></li>
+        <li><a href="/home/my_calendar"><i class="fa fa-calendar" aria-hidden="true"></i>Calendar</li>
       </ul>
       <hr>
       <p>Groups <a href="/home/create_group_view"><i class="fa fa-plus-circle" aria-hidden="true"></i></a></p>
@@ -49,7 +59,7 @@
     </div><!-- leftbar End-->
 
     <!-- Features-->
-    <div class="col-md-8 board">
+    <div class="col-md-7 board">
       <div id="group_profile">
         <div class="circle_<%= @user_groups.find_by(group_id: @group.id).color %>" style="width: 60px; height: 60px;"></div>
         <div class="group_profile_heading">

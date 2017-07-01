@@ -1,32 +1,41 @@
+/*******************Declare the fonts*****************/
+@font-face {
+  font-family: "Source Sans Pro Light";
+  src: url('/assets/SourceSansPro-Light.otf');
+
+  font-family: "Source Sans Pro Regular";
+  src: url('/assets/SourceSansPro-Regular.otf');
+}
+/*******************Group Color*****************/
 .circle_black {
-  background: black;
+  background: #2c2c2c;
   width: 20px;
   height: 20px;
   border-radius: 50%;
   display: inline-block;
 }
 .circle_blue {
-  background: blue;
+  background: #2f77c0;
   width: 20px;
   height: 20px;
   border-radius: 50%;
   display: inline-block;
 }
 .circle_red {
-  background: red;
+  background: #d4624c;
   width: 20px;
   height: 20px;
   border-radius: 50%;
   display: inline-block;
 }
 .circle_green {
-  background: green;
+  background: #77b756;
   width: 20px;
   height: 20px;
   border-radius: 50%;
   display: inline-block;
 }
-//heading bar styling
+/*******************Heading*****************/
 nav#navbar-custom {
   background-image: none;
   background-color: #f5f5f5;
@@ -44,6 +53,7 @@ nav#navbar-custom .row {
 nav#navbar-custom .navbar-brand {
   padding: 10px 15px;
   height: inherit;
+  font-family: "Source Sans Pro Regular";
 }
 nav#navbar-custom #dropdownMenuButton {
   float: right;
@@ -51,6 +61,7 @@ nav#navbar-custom #dropdownMenuButton {
   border: none;
   padding: 10px 12px;
   background-color: #f5f5f5;
+  font-family: "Source Sans Pro Regular";
 }
 nav#navbar-custom .dropdown-menu {
   right: 10px;
@@ -91,8 +102,10 @@ nav#navbar-custom .btn-search i {
   color: white;
 }
 /*******************main page styling*****************/
+
 body {
   // overflow: hidden; add this later
+  height:100%;
 }
 .container-body {
   background-color: #f9f9f9;
@@ -104,28 +117,21 @@ body {
 .leftbar,
 .board {
   padding-top: 80px;
+  height: 100%;
 }
 .leftbar {
   font-size: 18px;
-  color: black;
-  font-weight: bold;
+  font-family: "Source Sans Pro Regular";
 }
 .leftbar > p {
   text-align: center;
 }
-.leftbar .leftbar-personal li:first-child {
-  padding-left: 0;
-  font-size: 20px;
-  text-align: center;
-  margin-bottom: 20px;
-}
 .leftbar .leftbar-personal li {
-  padding-left: 15px;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 .leftbar .leftbar-personal li a,
 .leftbar .leftbar-groups li a {
-  color: black;
+  color: #6a646b;
   text-decoration: none;
 }
 .leftbar .leftbar-groups li {
@@ -133,8 +139,7 @@ body {
   margin-bottom: 10px;
 }
 .leftbar .leftbar-groups li a {
-  position:relative;
-  bottom: 3px;
+
 }
 .main_feed {
   width: 22%;
