@@ -92,12 +92,10 @@ nav#navbar-custom input {
   width: 80%;
   display: inline-block;
   float: left;
-  border-radius: 4px 0 0 4px;
 }
 nav#navbar-custom .btn-search {
   background-color: #2867aa;
   float: left;
-  border-radius: 0 4px 4px 0;
 }
 nav#navbar-custom .btn-search i {
   color: white;
@@ -230,7 +228,7 @@ body {
 /************group page styling********/
 #group_profile {
   position: relative;
-  width: 730px;
+  width: 90%;
   margin: 0 auto;
   display: block;
 }
@@ -267,14 +265,10 @@ ul#feature-tabs li a {
   border-radius: 0;
   padding: 0;
   padding-bottom: 5px;
-  width: 100px;
   margin: 0px 25px;
   text-align: center;
 }
-ul#feature-tabs li a:hover {
-  background-color: transparent;
-  border-bottom: 1px solid black;
-}
+ul#feature-tabs li a:hover,
 ul#feature-tabs > li.active > a {
   background-color: transparent;
   border-bottom: 1px solid black;
