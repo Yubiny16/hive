@@ -51,6 +51,7 @@ class HomeController < ApplicationController
 
   def create_group_view
     @user_groups = GroupUser.where(user_id: current_user.id)
+
   end
 
   def join_group
@@ -76,6 +77,8 @@ class HomeController < ApplicationController
     one_group = Group.new
     one_group.name = params[:group_name]
     one_group.school = params[:group_school]
+    one_group.description = params[:group_description]
+    one_group.email = params[:group_email]
     one_group.password = params[:group_pw]
     one_group.save
 

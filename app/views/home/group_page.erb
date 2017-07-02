@@ -66,7 +66,7 @@
           <h3><%= @group.name %></h3>
           <p><%= @group.school %></p>
         </div>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas facilisis id nibh ut semper. Donec mollis ligula sit amet bibendum ultricies. Donec nulla lacus, dapibus id ex id, molestie tempus enim. Duis eget mi vestibulum, interdum elit eu, mattis sapien. Nam ac massa dui. Aenean in malesuada augue.</p>
+        <p><%= @group.description %></p>
       </div>
       <hr>
 
@@ -102,7 +102,7 @@
                       <label>Content</label>
                       <textarea name="announc_content" type="text"></textarea>
                       <label>Group's Email</label>
-                      <input name="group_email" type="email"/>
+                      <input name="group_email" type="email" value="<%= @group.email %>"/>
                       <input name="group_id" type="hidden" value="<%= @group.id %>">
                       <button name="post" value= "no_email" type="submit" class="btn btn-default">Post</button>
                       <button name="post" value= "send_email" type="submit" class="btn btn-default">Post and Send Email</button>

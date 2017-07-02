@@ -93,6 +93,7 @@ ActiveRecord::Schema.define(version: 20170616092144) do
     t.string   "school"
     t.string   "password"
     t.string   "description"
+    t.string   "email"
     t.string   "image_url",   default: ""
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
