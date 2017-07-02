@@ -9,36 +9,36 @@
 /*******************Group Color*****************/
 .circle_black {
   background: #2c2c2c;
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   border-radius: 50%;
   display: inline-block;
 }
 .circle_blue {
   background: #2f77c0;
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   border-radius: 50%;
   display: inline-block;
 }
 .circle_red {
   background: #d4624c;
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   border-radius: 50%;
   display: inline-block;
 }
 .circle_green {
   background: #77b756;
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   border-radius: 50%;
   display: inline-block;
 }
 /*******************Heading*****************/
 nav#navbar-custom {
   background-image: none;
-  background-color: #2867aa;
+  background-color: #DA413D;
   border: none;
   height: 40px;
   min-height: initial;
@@ -60,7 +60,7 @@ nav#navbar-custom #dropdownMenuButton {
   outline: none;
   border: none;
   padding: 10px 12px;
-  background-color: #2867aa;
+  background-color: #DA413D;
   color: white;
   font-family: "Source Sans Pro Regular";
 }
@@ -81,7 +81,7 @@ nav#navbar-custom .dropdown-menu a {
   color: white;
   padding: 5px 0px 5px 10px;
 }
-nav#navbar-custom .dropdown-menu a:hover {
+nav#navbar-custom .dropdown-menu :hover {
   background-color: #7c7b7b;
 }
 nav#navbar-custom form {
@@ -92,10 +92,12 @@ nav#navbar-custom input {
   width: 80%;
   display: inline-block;
   float: left;
+  border-radius: 0px;
 }
 nav#navbar-custom .btn-search {
-  background-color: #2867aa;
+  background-color: #de5854;
   float: left;
+  border-radius: 0px;
 }
 nav#navbar-custom .btn-search i {
   color: white;
@@ -130,7 +132,7 @@ body {
 }
 .leftbar .leftbar-personal li a,
 .leftbar .leftbar-groups li a {
-  color: #6a646b;
+  color: black;
   text-decoration: none;
 }
 .leftbar .leftbar-personal li a i,
@@ -148,19 +150,21 @@ body {
   width: 22%;
   display: inline-block;
   margin-left: 2%;
-
 }
 .main_feed h4 {
   text-align: center;
   margin-top: 0;
   font-family: "Source Sans Pro Regular";
+  border-bottom: 3px solid #DA413D;
+  position: relative;
+  padding-bottom: 6px;
 }
 .main_feed_content {
-  background-color: #f9f9f9;
+  background-color: #e4e4e6;
   height: 450px;
   overflow: auto;
   padding: 5px;
-  border: 2px solid #f9f9f9;
+  border: 2px solid #e4e4e6;
   border-radius: 5px 0px 0px 5px;
 }
 .each_feed {
@@ -203,6 +207,7 @@ body {
   overflow: hidden;
   display: inline-block;
   text-overflow: ellipsis;
+  font-weight: bold;
 }
 .each_feed .feed_date,
 .each_feed_read .feed_date {
@@ -218,6 +223,7 @@ body {
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   padding-left: 5px;
+  color: #6a646b;
 }
 .fa-times {
   color:red;
@@ -227,6 +233,7 @@ body {
 }
 /************group page styling********/
 #group_profile {
+  font-family: "Source Sans Pro Regular";
   position: relative;
   width: 90%;
   margin: 0 auto;
@@ -253,15 +260,17 @@ body {
   margin-top: -30px;
 }
 ul#feature-tabs {
+  font-family: "Source Sans Pro Regular";
   margin-bottom: 40px;
   display: flex;
   justify-content: center;
+  font-size: 18px;
 }
 ul#feature-tabs li {
   margin: 0;
 }
 ul#feature-tabs li a {
-  color: black;
+  color: #6a646b;
   border-radius: 0;
   padding: 0;
   padding-bottom: 5px;
@@ -271,7 +280,17 @@ ul#feature-tabs li a {
 ul#feature-tabs li a:hover,
 ul#feature-tabs > li.active > a {
   background-color: transparent;
-  border-bottom: 1px solid black;
+  border-bottom: 5px solid #DA413D;
+  color: black;
+}
+.announcement_accordion {
+  width: 100%;
+}
+.announcement_accordion :hover {
+  background-color: none;
+}
+.announcement_accordion :after {
+  background-color: none;
 }
 #budget_item_input {
   width: 100%;
@@ -407,6 +426,19 @@ ul#feature-tabs > li.active > a {
 .profile-pic-update-form {
   margin: 0 auto;
   width: 300px;
+}
+/*Preferences*/
+#preferences .preference_group_name {
+  font-family: "Source Sans Pro Regular";
+  font-size: 30px;
+  position: relative;
+  left: 75px;
+  bottom: 57px;
+}
+#preferences .preference_choose_color_label {
+  font-family: "Source Sans Pro Regular";
+  color: #6a646b;
+  font-size: 13px;
 }
 /******************create group page styling***********/
 .group-field {

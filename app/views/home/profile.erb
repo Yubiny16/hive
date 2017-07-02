@@ -1,150 +1,205 @@
 <!-- Header -->
-<nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+<nav class="navbar navbar-default navbar-fixed-top" id="navbar-custom">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/home/index">Brand</a>
-    <ul class="nav navbar-nav nav-icons">
-      <li class="current"><a href="/home/profile"><i class="fa fa-user fa-2x" aria-hidden="true"></i><span class="sr-only">(current)</span></a></li>
-      <li><a href="/home/my_friends"><i class="fa fa-users fa-2x" aria-hidden="true"></i></a></li>
-      <li><a href="/rooms/show"><i class="fa fa-comments-o fa-2x" aria-hidden="true"></i></a></li>
-      <li><a href="/users/edit"><i class="fa fa-cog fa-2x" aria-hidden="true"></i></a></li>
-      <li><a href="/users/sign_out"><i class="fa fa-sign-out fa-2x" aria-hidden="true"></i></a></li>
-    </ul>
+    <div class="row">
+
+      <div class="col-md-1">
+      </div>
+
+      <div class="col-md-2">
+        <a class="navbar-brand" href="/home/index">H I V E</a>
+      </div>
+
+      <!--search bar-->
+      <div class="col-md-4" style="padding-left: 0;">
+        <form action="/home/search" method="get">
+          <!-- Pass search words to controller -->
+          <input id="search_group" name= "search_group" type="text" class="form-control" data-autocomplete= "<%= Group.order(:name).map(&:name) %>" placeholder="Search Your Group">
+          <button type="submit" class="btn btn-search"><i class="fa fa-search" aria-hidden="true"></i></button>
+        </form>
+      </div>
+
+      <div class="col-md-3">
+        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <%= @user.first_name %> <%= @user.last_name%>
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a href="/home/profile" class="dropdown-item">Edit Profile</a>
+          <a href="/users/edit" class="dropdown-item">Setting</a>
+          <a href="/users/sign_out" class="dropdown-item">Sign Out</a>
+        </div>
+      </div>
+
+      <div class="col-md-2">
+      </div>
+    </div>
   </div>
-</nav>
-<br><br><br><br>
+</nav><!-- Header End -->
 
-<ul class ="nav nav-pills nav-justified">
-  <li class="active" id="profile-tab"><a href="#profile" data-toggle="tab">Profile</a></li>
-  <li id="preferences-tab"><a href="#preferences" data-toggle="tab">Preferences</a></li>
-</ul>
+<div class ="container-fluid container-body">
+  <div class="row">
 
-<div class="tab-content">
-  <div class="tab-pane active" id="profile">
-    <div class="container">
-      <div class="user-prof-positioning">
-        <div class="orientation-correcter">
-          <div class="hex">
-            <div>
-              <% unless @user.image_url.nil? %>
-                <img src="<%= @user.image_url %>" alt="profile img">
-              <% end %>
+    <div class="col-md-1">
+    </div>
+
+    <div class="col-md-2 leftbar">
+      <ul class="leftbar-personal">
+        <li><a href="/home/index"><i class="fa fa-server" aria-hidden="true"></i>Board</a></li>
+        <li><a href="/home/my_calendar"><i class="fa fa-calendar" aria-hidden="true"></i>Calendar</a></li>
+      </ul>
+      <hr>
+      <p>Groups <a href="/home/create_group_view"><i class="fa fa-plus-circle" aria-hidden="true"></i></a></p>
+      <ul class="leftbar-groups">
+        <% unless @user_groups == nil %>
+          <% @user_groups.each do |user_groups| %>
+            <li><div class="circle_<%= user_groups.color %>"></div> <a href="/home/group_page/<%= user_groups.group_id %>"><%= Group.find(user_groups.group_id).name %></a></li>
+          <% end %>
+        <% end %>
+      </ul>
+    </div><!-- leftbar End-->
+
+    <div class="col-md-7 board">
+      <ul class ="nav nav-pills" id="feature-tabs">
+        <li class="active" id="profile-tab"><a href="#profile" data-toggle="tab">Profile</a></li>
+        <li id="preferences-tab"><a href="#preferences" data-toggle="tab">Preferences</a></li>
+      </ul>
+
+      <div class="tab-content">
+        <div class="tab-pane active" id="profile">
+          <div class="container">
+            <div class="user-prof-positioning">
+              <div class="orientation-correcter">
+                <div class="hex">
+                  <div>
+                    <% unless @user.image_url.nil? %>
+                      <img src="<%= @user.image_url %>" alt="profile img">
+                    <% end %>
+                  </div>
+                </div>
+              </div>
             </div>
+            <form action="/uploadprofpic" method="POST" enctype="multipart/form-data" class="profile-pic-update-form">
+              <input type="file" name="pic" accept="image/*">
+              <button type="submit" class="btn btn-default">Submit</button>
+            </form>
+            <!--profile box-->
+            <div class="profile-content">
+              <a href="/users/edit"><i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i></a>
+              <p>
+                <%= @user.first_name %>
+                <%= @user.last_name %>
+              </p>
+              <p><%= @user.email %></p>
+              <p><%= @user.school %></p>
+              <p><%= @user.major %></p>
+              <p>Class of <%= @user.class_year %></p>
+              <!-- Company: <%= @user.company %> <br> removed for now. will add back in the future-->
+            </div>
+          </div><!--container-->
+        </div><!--profile tab-->
+
+        <div class="tab-pane" id="preferences">
+          <div class="preference_choose_color_label">
+              CHOOSE COLORS TO REPRESENT YOUR GROUPS
           </div>
-        </div>
-      </div>
-      <form action="/uploadprofpic" method="POST" enctype="multipart/form-data" class="profile-pic-update-form">
-        <input type="file" name="pic" accept="image/*">
-        <button type="submit" class="btn btn-default">Submit</button>
-      </form>
-      <!--profile box-->
-      <div class="profile-content">
-        <a href="/users/edit"><i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i></a>
-        <p>
-          <%= @user.first_name %>
-          <%= @user.last_name %>
-        </p>
-        <p><%= @user.email %></p>
-        <p><%= @user.school %></p>
-        <p><%= @user.major %></p>
-        <p>Class of <%= @user.class_year %></p>
-        <!-- Company: <%= @user.company %> <br> removed for now. will add back in the future-->
-      </div>
-    </div><!--container-->
-  </div><!--profile tab-->
+          <hr>
+          <% @user_groups.each do |group_user| %>
+            <div id="<%= group_user.group_id %>_color" class="circle_<%= group_user.color %>" style="width: 60px; height: 60px;"></div>
+            <div class="preference_group_name"><%= Group.find(group_user.group_id).name %></div>
+            <div class="change_color">
+              <div class="circle_black circle_black_id_<%= group_user.group_id %>"></div>
+              <div class="circle_blue circle_blue_id_<%= group_user.group_id %>"></div>
+              <div class="circle_red circle_red_id_<%= group_user.group_id %>"></div>
+              <div class="circle_green circle_green_id_<%= group_user.group_id %>"></div>
+            </div>
 
-  <div class="tab-pane" id="preferences">
-    <% @current_group_user.each do |group_user| %>
-      <ul><%= Group.find(group_user.group_id).name %><div id="<%= group_user.group_id %>_color" class="circle_<%= group_user.color %>"></div></ul>
-        <div class="change_color">
-          <div class="circle_black circle_black_id_<%= group_user.group_id %>"></div>
-          <div class="circle_blue circle_blue_id_<%= group_user.group_id %>"></div>
-          <div class="circle_red circle_red_id_<%= group_user.group_id %>"></div>
-          <div class="circle_green circle_green_id_<%= group_user.group_id %>"></div>
-        </div>
+              <hr>
 
-        <script>
-        //Change group_color to blue
-          $(function() {
-            $('.circle_blue_id_<%= group_user.group_id %>').click(function(){
-              var new_color = "blue";
-              var group_id = <%= group_user.group_id %>;
+              <script>
+              //Change group_color to blue
+                $(function() {
+                  $('.circle_blue_id_<%= group_user.group_id %>').click(function(){
+                    var new_color = "blue";
+                    var group_id = <%= group_user.group_id %>;
 
-              $.ajax({
-                method: "POST",
-                url: '/home/group_color',
-                data: { new_color: new_color,
-                        group_id: group_id }
+                    $.ajax({
+                      method: "POST",
+                      url: '/home/group_color',
+                      data: { new_color: new_color,
+                              group_id: group_id }
 
-              }).done(function() {
-                $("#<%= group_user.group_id %>_color").attr('class', 'circle_blue');
-              });
+                    }).done(function() {
+                      $("#<%= group_user.group_id %>_color").attr('class', 'circle_blue');
+                    });
 
-            });
-          });
+                  });
+                });
 
-          //Change group_color to black
-          $(function() {
-            $('.circle_black_id_<%= group_user.group_id %>').click(function(){
-              var new_color = "black";
-              var group_id = <%= group_user.group_id %>;
+                //Change group_color to black
+                $(function() {
+                  $('.circle_black_id_<%= group_user.group_id %>').click(function(){
+                    var new_color = "black";
+                    var group_id = <%= group_user.group_id %>;
 
-              $.ajax({
-                method: "POST",
-                url: '/home/group_color',
-                data: { new_color: new_color,
-                        group_id: group_id }
+                    $.ajax({
+                      method: "POST",
+                      url: '/home/group_color',
+                      data: { new_color: new_color,
+                              group_id: group_id }
 
-              }).done(function() {
-                $("#<%= group_user.group_id %>_color").attr('class', 'circle_black');
-              });
+                    }).done(function() {
+                      $("#<%= group_user.group_id %>_color").attr('class', 'circle_black');
+                    });
 
-            });
-          });
+                  });
+                });
 
-          //Change group_color to red
-          $(function() {
-            $('.circle_red_id_<%= group_user.group_id %>').click(function(){
-              var new_color = "red";
-              var group_id = <%= group_user.group_id %>;
+                //Change group_color to red
+                $(function() {
+                  $('.circle_red_id_<%= group_user.group_id %>').click(function(){
+                    var new_color = "red";
+                    var group_id = <%= group_user.group_id %>;
 
-              $.ajax({
-                method: "POST",
-                url: '/home/group_color',
-                data: { new_color: new_color,
-                        group_id: group_id }
+                    $.ajax({
+                      method: "POST",
+                      url: '/home/group_color',
+                      data: { new_color: new_color,
+                              group_id: group_id }
 
-              }).done(function() {
-                $("#<%= group_user.group_id %>_color").attr('class', 'circle_red');
-              });
+                    }).done(function() {
+                      $("#<%= group_user.group_id %>_color").attr('class', 'circle_red');
+                    });
 
-            });
-          });
+                  });
+                });
 
-          //Change group_color to green
-          $(function() {
-            $('.circle_green_id_<%= group_user.group_id %>').click(function(){
-              var new_color = "green";
-              var group_id = <%= group_user.group_id %>;
+                //Change group_color to green
+                $(function() {
+                  $('.circle_green_id_<%= group_user.group_id %>').click(function(){
+                    var new_color = "green";
+                    var group_id = <%= group_user.group_id %>;
 
-              $.ajax({
-                method: "POST",
-                url: '/home/group_color',
-                data: { new_color: new_color,
-                        group_id: group_id }
+                    $.ajax({
+                      method: "POST",
+                      url: '/home/group_color',
+                      data: { new_color: new_color,
+                              group_id: group_id }
 
-              }).done(function() {
-                $("#<%= group_user.group_id %>_color").attr('class', 'circle_green');
-              });
+                    }).done(function() {
+                      $("#<%= group_user.group_id %>_color").attr('class', 'circle_green');
+                    });
 
-            });
-          });
-        </script>
-    <% end %>
-  </div><!--preferences tab-->
-</div><!--tab content-->
+                  });
+                });
+              </script>
+          <% end %>
+        </div><!--preferences tab-->
+      </div><!--tab content-->
 
-<script>
+    </div><!--col-md-8-->
 
+    <div class="col-md-2">
+    </div>
 
-
-</script>
+  </div><!--row-->
+</div><!--container-->

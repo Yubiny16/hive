@@ -25,7 +25,7 @@
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
           <a href="/home/profile" class="dropdown-item">Edit Profile</a>
-          <a href="/home/setting" class="dropdown-item">Setting</a>
+          <a href="/users/edit" class="dropdown-item">Setting</a>
           <a href="/users/sign_out" class="dropdown-item">Sign Out</a>
         </div>
       </div>
@@ -55,14 +55,14 @@
       <ul class="leftbar-groups">
         <% unless @current_group_user == nil %>
           <% @current_group_user.each do |group_user| %>
-            <li><div class="circle_<%= group_user.color %>"></div><a href="/home/group_page/<%= group_user.group_id %>"><%= Group.find(group_user.group_id).name %></a></li>
+            <li><div class="circle_<%= group_user.color %>"></div> <a href="/home/group_page/<%= group_user.group_id %>"><%= Group.find(group_user.group_id).name %></a></li>
           <% end %>
         <% end %>
       </ul>
     </div><!-- leftbar End-->
 
     <!-- Main/Board -->
-    <div class="col-md-7 board" style="padding-left: 0;">
+    <div class="col-md-7 board" style="padding-left: 20px;">
       <!-- Announcement Feed -->
       <div class="main_feed">
         <h4>Announcement</h4>
@@ -205,78 +205,6 @@
         </div><!-- main_feed_content -->
       </div><!-- main_feed -->
 
-      <!-- Budget Feed -->
-      <div class="main_feed">
-        <h4>Budget</h4>
-        <div class="main_feed_content">
-          <% @budget_notification.each do |budget_notification| %>
-            <% if budget_notification.read == false %>
-              <div class="each_feed budget_id_<%= budget_notification.id %>" data-toggle="modal" data-target="#budget_modal_<%= budget_notification.id %>">
-                <div class="each_feed_title">
-                  <div class="circle_<%= @current_group_user.find_by(group_id: budget_notification.group_id).color %>"></div>
-                  <p><%= budget_notification.content %></p>
-                </div>
-                <p class="each_feed_content">Paid?</p>
-                <p class="feed_date"><%= budget_notification.created_at.strftime("%m/%d/%y  %l:%M %p") %></p>
-              </div>
-
-              <script>
-                $(function() {
-                  $('.budget_id_<%= budget_notification.id %>').click(function(){
-                    var budget_notification_id = <%= budget_notification.id %>;
-
-                    $.ajax({
-                      method: "GET",
-                      url: '/home/budget_read',
-                      data: { budget_notification_id: budget_notification_id }
-
-                    }).done(function() {
-                      //not read --> read
-                      $(".budget_id_<%= budget_notification.id %>").css("background-color", "#d9d9d9");
-                    });
-                  });
-                });
-              </script>
-            <% else %>
-              <div class="each_feed_read" data-toggle="modal" data-target="#budget_modal_<%= budget_notification.id %>">
-                <div class="each_feed_title">
-                  <div class="circle_<%= @current_group_user.find_by(group_id: budget_notification.group_id).color %>"></div>
-                  <p><%= budget_notification.content %></p>
-                </div>
-                <p class="each_feed_content">Paid?</p>
-                <p class="feed_date"><%= budget_notification.created_at.strftime("%m/%d/%y  %l:%M %p") %></p>
-              </div><!-- each_feed -->
-            <% end %>
-
-            <!-- Modal -->
-            <div id="budget_modal_<%= budget_notification.id %>" class="modal fade">
-              <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-
-                  <!-- Header -->
-                  <div class="modal-header">
-                    <div class="circle_<%= @current_group_user.find_by(group_id: budget_notification.group_id).color %>"></div>
-                    <p><%= budget_notification.content %></p>
-                    <p class="feed_date"><%= budget_notification.created_at.strftime("%m/%d/%y  %l:%M %p") %></p>
-                  </div>
-
-                  <!-- Body -->
-                  <div class="modal-body">
-                    <p class="each_feed_content"><%= budget_notification.content %></p>
-                  </div>
-
-                  <!-- Footer -->
-                  <div class="modal-footer modal-footer--mine">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          <% end %>
-        </div>
-      </div>
-
       <!-- Poll Feed -->
       <div class="main_feed">
         <h4>Poll</h4>
@@ -374,6 +302,79 @@
           <% end %>
         </div>
       </div>
+
+      <!-- Budget Feed -->
+      <div class="main_feed">
+        <h4>Budget</h4>
+        <div class="main_feed_content">
+          <% @budget_notification.each do |budget_notification| %>
+            <% if budget_notification.read == false %>
+              <div class="each_feed budget_id_<%= budget_notification.id %>" data-toggle="modal" data-target="#budget_modal_<%= budget_notification.id %>">
+                <div class="each_feed_title">
+                  <div class="circle_<%= @current_group_user.find_by(group_id: budget_notification.group_id).color %>"></div>
+                  <p><%= budget_notification.content %></p>
+                </div>
+                <p class="each_feed_content">Paid?</p>
+                <p class="feed_date"><%= budget_notification.created_at.strftime("%m/%d/%y  %l:%M %p") %></p>
+              </div>
+
+              <script>
+                $(function() {
+                  $('.budget_id_<%= budget_notification.id %>').click(function(){
+                    var budget_notification_id = <%= budget_notification.id %>;
+
+                    $.ajax({
+                      method: "GET",
+                      url: '/home/budget_read',
+                      data: { budget_notification_id: budget_notification_id }
+
+                    }).done(function() {
+                      //not read --> read
+                      $(".budget_id_<%= budget_notification.id %>").css("background-color", "#d9d9d9");
+                    });
+                  });
+                });
+              </script>
+            <% else %>
+              <div class="each_feed_read" data-toggle="modal" data-target="#budget_modal_<%= budget_notification.id %>">
+                <div class="each_feed_title">
+                  <div class="circle_<%= @current_group_user.find_by(group_id: budget_notification.group_id).color %>"></div>
+                  <p><%= budget_notification.content %></p>
+                </div>
+                <p class="each_feed_content">Paid?</p>
+                <p class="feed_date"><%= budget_notification.created_at.strftime("%m/%d/%y  %l:%M %p") %></p>
+              </div><!-- each_feed -->
+            <% end %>
+
+            <!-- Modal -->
+            <div id="budget_modal_<%= budget_notification.id %>" class="modal fade">
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+
+                  <!-- Header -->
+                  <div class="modal-header">
+                    <div class="circle_<%= @current_group_user.find_by(group_id: budget_notification.group_id).color %>"></div>
+                    <p><%= budget_notification.content %></p>
+                    <p class="feed_date"><%= budget_notification.created_at.strftime("%m/%d/%y  %l:%M %p") %></p>
+                  </div>
+
+                  <!-- Body -->
+                  <div class="modal-body">
+                    <p class="each_feed_content"><%= budget_notification.content %></p>
+                  </div>
+
+                  <!-- Footer -->
+                  <div class="modal-footer modal-footer--mine">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          <% end %>
+        </div>
+      </div>
+
     </div><!--col-md-9-->
 
     <div class="col-md-2">
