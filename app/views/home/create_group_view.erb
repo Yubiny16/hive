@@ -1,32 +1,97 @@
 <!-- Header -->
-<nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+<nav class="navbar navbar-default navbar-fixed-top" id="navbar-custom">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/home/index">Brand</a>
-    <ul class="nav navbar-nav nav-icons">
-      <li><a href="/home/profile"><i class="fa fa-user fa-2x" aria-hidden="true"></i><span class="sr-only">(current)</span></a></li>
-      <li><a href="/home/my_friends"><i class="fa fa-users fa-2x" aria-hidden="true"></i></a></li>
-      <li><a href="/rooms/show"><i class="fa fa-comments-o fa-2x" aria-hidden="true"></i></a></li>
-      <li><a href="/users/edit"><i class="fa fa-cog fa-2x" aria-hidden="true"></i></a></li>
-      <li><a href="/users/sign_out"><i class="fa fa-sign-out fa-2x" aria-hidden="true"></i></a></li>
-    </ul>
-  </div>
-</nav>
-<br>
+    <div class="row">
 
-<div class="container">
-  <form action= "/home/create_group" method="get">
-    <div class="group-field">
-      <label for="group-name">Your Group Name</label><br>
-      <input name= "group_name", type="text", class="form-control" id="group-name">
+      <div class="col-md-1">
+      </div>
+
+      <div class="col-md-2">
+        <a class="navbar-brand" href="/home/index">H I V E</a>
+      </div>
+
+      <!--search bar-->
+      <div class="col-md-4" style="padding-left: 0;">
+        <form action="/home/search" method="get">
+          <!-- Pass search words to controller -->
+          <input id="search_group" name= "search_group" type="text" class="form-control" data-autocomplete= "<%= Group.order(:name).map(&:name) %>" placeholder="Search Your Group">
+          <button type="submit" class="btn btn-search"><i class="fa fa-search" aria-hidden="true"></i></button>
+        </form>
+      </div>
+
+      <div class="col-md-3">
+        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <%= current_user.first_name %> <%= current_user.last_name%>
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a href="/home/profile" class="dropdown-item">Edit Profile</a>
+          <a href="/users/edit" class="dropdown-item">Setting</a>
+          <a href="/users/sign_out" class="dropdown-item">Sign Out</a>
+        </div>
+      </div>
+
+      <div class="col-md-2">
+      </div>
     </div>
-    <div class="group-field">
-      <label for="group-school">Your School</label><br>
-      <input name= "group_school", type="text", class="form-control" id="group-school">
+  </div>
+</nav><!-- Header End -->
+<div class ="container-fluid container-body">
+  <div class="row">
+
+    <div class="col-md-1">
     </div>
-    <div class="group-field">
-      <label for="group-school">Password for this Group</label><br>
-      <input name= "group_pw", type="text", class="form-control" id="group-pw">
+
+    <div class="col-md-2 leftbar">
+      <ul class="leftbar-personal">
+        <li><a href="/home/index"><i class="fa fa-server" aria-hidden="true"></i>Board</a></li>
+        <li><a href="/home/my_calendar"><i class="fa fa-calendar" aria-hidden="true"></i>Calendar</a></li>
+      </ul>
+      <hr>
+      <p>Groups <a href="/home/create_group_view"><i class="fa fa-plus-circle" aria-hidden="true"></i></a></p>
+      <ul class="leftbar-groups">
+        <% unless @user_groups == nil %>
+          <% @user_groups.each do |user_groups| %>
+            <li><div class="circle_<%= user_groups.color %>"></div> <a href="/home/group_page/<%= user_groups.group_id %>"><%= Group.find(user_groups.group_id).name %></a></li>
+          <% end %>
+        <% end %>
+      </ul>
+    </div><!-- leftbar End-->
+
+    <div class="col-md-7 board">
+      <div class="create_group-header">
+        <h3>Create A Group</h3>
+      </div>
+
+      <hr>
+
+      <form action= "/home/create_group" method="get">
+        <div class="group-field">
+          <label for="group-name">Your Group Name</label><br>
+          <input name= "group_name", type="text", class="form-control" id="group-name">
+        </div>
+        <div class="group-field">
+          <label for="group-school">Your School</label><br>
+          <input name= "group_school", type="text", class="form-control" id="group-school">
+        </div>
+        <div class="group-field">
+          <label for="group-Description">Description (optional)</label><br>
+          <input name= "group_description", type="text", class="form-control" id="group-description">
+        </div>
+        <div class="group-field">
+          <label for="group-email">Group Email (optional)</label><br>
+          <input name= "group_description", type="email", class="form-control" id="group-email">
+        </div>
+        <div class="group-field">
+          <label for="group-password">Password for this Group</label><br>
+          <input name= "group_pw", type="text", class="form-control" id="group-pw">
+        </div>
+        <button type="submit" class="btn" id="create-group-btn">Create Group!</button>
+      </form>
     </div>
-    <button type="submit" class="btn" id="create-group-btn">Create Group!</button>
-  </form>
+  </div>
+
+  <div class="col-md-2">
+  </div>
+
+  </div><!--row-->
 </div>

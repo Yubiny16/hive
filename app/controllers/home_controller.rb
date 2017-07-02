@@ -16,6 +16,7 @@ class HomeController < ApplicationController
   end
 
   def search
+    @user_groups = GroupUser.where(user_id: current_user.id)
     @search = params[:search_group]
     @searched_groups = Group.where("name LIKE ?", "%#{@search}%")
   end
@@ -49,7 +50,7 @@ class HomeController < ApplicationController
   end
 
   def create_group_view
-
+    @user_groups = GroupUser.where(user_id: current_user.id)
   end
 
   def join_group

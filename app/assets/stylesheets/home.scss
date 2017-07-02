@@ -441,38 +441,17 @@ ul#feature-tabs > li.active > a {
   font-size: 13px;
 }
 /******************create group page styling***********/
+.create_group-header,
 .group-field {
-  /*div styling -> for center alignment*/
-  width: 300px;
-  margin: auto;
-  margin-bottom: 15px;
+  font-family: "Source Sans Pro Regular";
+  width: 50%;
 }
-.group-field:first-child {
-  margin-top: 120px;
-}
-.group-field label {
-  color: #543B19;
-  padding-left: 10px;
-}
-#group-name, #group-school {
-  border-radius: 20px;
-  width: 300px;
-  height: 40px;
-}
-#create-group-btn {
-  display: block;
-  width: 300px;
-  height: 40px;
-  margin:auto;
-  margin-top: 35px;
-  background-color: #FBF764;
-  border-radius: 20px;
+.create_group-header {
   font-weight: bold;
-  color: #543B19;
+  position: relative;
 }
-#create-group-btn:hover {
-  background-color: #543B19;
-  color: #FBF764;
+.group-field {
+  padding-bottom: 15px;
 }
 /******************friend page styling*******************/
 .nav-friends {

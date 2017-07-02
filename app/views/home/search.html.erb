@@ -51,8 +51,8 @@
       <hr>
       <p>Groups <a href="/home/create_group_view"><i class="fa fa-plus-circle" aria-hidden="true"></i></a></p>
       <ul class="leftbar-groups">
-        <% unless @current_group_user == nil %>
-          <% @current_group_user.each do |group_user| %>
+        <% unless @user_groups == nil %>
+          <% @user_groups.each do |group_user| %>
             <li><div class="circle_<%= group_user.color %>"></div> <a href="/home/group_page/<%= group_user.group_id %>"><%= Group.find(group_user.group_id).name %></a></li>
           <% end %>
         <% end %>
@@ -95,7 +95,7 @@
         No Searched Group
       <% end %>
     </div><!-- Main/Board End -->
-    
+
     <div class="col-md-2">
     </div>
 
