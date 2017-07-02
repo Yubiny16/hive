@@ -51,7 +51,7 @@
         <li><a href="/home/my_calendar"><i class="fa fa-calendar" aria-hidden="true"></i>Calendar</a></li>
       </ul>
       <hr>
-      <p>Groups <a href="/home/create_group_view"><i class="fa fa-plus-circle" aria-hidden="true"></i></a></p>
+
       <ul class="leftbar-groups">
         <% unless @current_group_user == nil %>
           <% @current_group_user.each do |group_user| %>
@@ -59,6 +59,7 @@
           <% end %>
         <% end %>
       </ul>
+      <p><a href="/home/create_group_view"><i class="fa fa-plus-circle" aria-hidden="true"></i></a> Create Group </p>
     </div><!-- leftbar End-->
 
     <!-- Main/Board -->

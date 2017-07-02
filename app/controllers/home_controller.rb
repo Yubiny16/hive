@@ -109,7 +109,6 @@ class HomeController < ApplicationController
     @announcements = Announcement.where(group_id: @group.id).reverse
     @user_groups = GroupUser.where(user_id: @user.id)
 
-    #notifications
     @admin_user = GroupUser.find_by(group_id: @group.id, user_id: @user.id)
 
     #variable to pass to assets/javascripts/full_calendar.js.erb
@@ -120,6 +119,19 @@ class HomeController < ApplicationController
 
   end
 
+  def group_profile
+    @user_groups = GroupUser.where(user_id: current_user.id)
+    @group = Group.find_by_id(params[:group_id])
+    @admin_user = GroupUser.find_by(group_id: @group.id, user_id: current_user.id)
+  end
+
+  def group_edit
+    Group.update(params[:group_id], :name => params[:group_name])
+    Group.update(params[:group_id], :school => params[:group_school])
+    Group.update(params[:group_id], :description => params[:group_description])
+    Group.update(params[:group_id], :password => params[:group_pw])
+    redirect_to :back
+  end
   def announcement
     one_announcement = Announcement.new
     one_announcement.group_id = params[:group_id]

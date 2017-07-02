@@ -125,14 +125,15 @@ body {
   font-family: "Source Sans Pro Regular";
 }
 .leftbar > p {
-  text-align: center;
+  text-align: left;
+  color: #454b54;
 }
 .leftbar .leftbar-personal li {
   margin-bottom: 15px;
 }
 .leftbar .leftbar-personal li a,
 .leftbar .leftbar-groups li a {
-  color: black;
+  color: #454b54;
   text-decoration: none;
 }
 .leftbar .leftbar-personal li a i,
@@ -258,6 +259,13 @@ body {
   padding-left: 80px;
   padding-right: 20px;
   margin-top: -30px;
+}
+#group_profile .group-profile-edit-button {
+  position: absolute;
+  left: 698px;
+  bottom: 25px;
+  background: transparent;
+  border: none;
 }
 ul#feature-tabs {
   font-family: "Source Sans Pro Regular";
@@ -451,6 +459,19 @@ ul#feature-tabs > li.active > a {
   position: relative;
 }
 .group-field {
+  padding-bottom: 15px;
+}
+/******************Group Profile Edit Page***********/
+.group-edit-header,
+.group-profile-field {
+  font-family: "Source Sans Pro Regular";
+  width: 50%;
+}
+.group-edit-header {
+  font-weight: bold;
+  position: relative;
+}
+.group-profile-field {
   padding-bottom: 15px;
 }
 /******************friend page styling*******************/

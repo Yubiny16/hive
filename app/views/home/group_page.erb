@@ -21,7 +21,7 @@
 
       <div class="col-md-3">
         <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <%= @user.first_name %> <%= @user.last_name%>
+          <%= current_user.first_name %> <%= current_user.last_name%>
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
           <a href="/home/profile" class="dropdown-item">Edit Profile</a>
@@ -48,7 +48,6 @@
         <li><a href="/home/my_calendar"><i class="fa fa-calendar" aria-hidden="true"></i>Calendar</a></li>
       </ul>
       <hr>
-      <p>Groups <a href="/home/create_group_view"><i class="fa fa-plus-circle" aria-hidden="true"></i></a></p>
       <ul class="leftbar-groups">
         <% unless @user_groups == nil %>
           <% @user_groups.each do |user_groups| %>
@@ -56,9 +55,10 @@
           <% end %>
         <% end %>
       </ul>
+      <p><a href="/home/create_group_view"><i class="fa fa-plus-circle" aria-hidden="true"></i></a> Create Group </p>
     </div><!-- leftbar End-->
 
-    <!-- Features-->
+    <!-- Body-->
     <div class="col-md-7 board">
       <div id="group_profile">
         <div class="circle_<%= @user_groups.find_by(group_id: @group.id).color %>" style="width: 60px; height: 60px;"></div>
@@ -66,7 +66,12 @@
           <h3><%= @group.name %></h3>
           <p><%= @group.school %></p>
         </div>
+
         <p><%= @group.description %></p>
+
+        <form action="/home/group_profile/<%= @group.id %>" method="get">
+          <button class="group-profile-edit-button" type="submit"><i class="fa fa-cog" aria-hidden="true"></i></button>
+        </form>
       </div>
       <hr>
 
@@ -345,9 +350,6 @@
           <label>Search by Name</label>
           <input type="text" class="text-input search_member_name" />
 
-          <label>Search by Class Year</label>
-          <input type="number" class="text-input search_member_year" />
-
           <div id="members">
             <%= render partial: "member", locals: { member: @members } %>
           </div>
@@ -475,26 +477,6 @@ $(function() {
         });
 
     });
-
-    $(".search_member_year").keyup(function(){
-
-          // Retrieve the input field text
-          var filter = $(this).val().toLowerCase();
-
-          $(".member-profile").hide();
-          // Loop through the comment list
-          $(".member .member-profile").each(function(){
-            //get the name of each member
-            var name = $(this).text().toLowerCase();
-
-            // If the value matched show all the matching results
-            if(name.indexOf(filter) != -1)
-            {
-              $(this).fadeIn();
-            }
-          });
-
-      });
 
       //shown.bs.tab (on the newly-active just-shown tab, the same one as for the show.bs.tab event)
       $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {

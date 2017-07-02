@@ -35,6 +35,7 @@
     </div>
   </div>
 </nav><!-- Header End -->
+
 <div class ="container-fluid container-body">
   <div class="row">
 
@@ -57,41 +58,66 @@
       <p><a href="/home/create_group_view"><i class="fa fa-plus-circle" aria-hidden="true"></i></a> Create Group </p>
     </div><!-- leftbar End-->
 
+    <!-- Body-->
     <div class="col-md-7 board">
-      <div class="create_group-header">
-        <h3>Create A Group</h3>
+      <div class="group-edit-header">
+        <h3>Group Settings</h3>
       </div>
 
       <hr>
 
-      <form action= "/home/create_group" method="get">
-        <div class="group-field">
-          <label for="group-name">Your Group Name</label><br>
-          <input name= "group_name", type="text", class="form-control" id="group-name">
-        </div>
-        <div class="group-field">
-          <label for="group-school">Your School</label><br>
-          <input name= "group_school", type="text", class="form-control" id="group-school">
-        </div>
-        <div class="group-field">
-          <label for="group-Description">Description (optional)</label><br>
-          <input name= "group_description", type="text", class="form-control" id="group-description">
-        </div>
-        <div class="group-field">
-          <label for="group-email">Group Email (optional)</label><br>
-          <input name= "group_email", type="email", class="form-control" id="group-email">
-        </div>
-        <div class="group-field">
-          <label for="group-password">Password for this Group</label><br>
-          <input name= "group_pw", type="text", class="form-control" id="group-pw">
-        </div>
-        <button type="submit" class="btn" id="create-group-btn">Create Group!</button>
-      </form>
-    </div>
-  </div>
+      <% if @admin_user.admin == true %>
+        <form action= "/home/group_edit" method="get">
+          <div class="group-profile-field">
+            <label for="group-name">Group Name</label><br>
+            <input name= "group_name", type="text", class="form-control" value="<%= @group.name %>">
+          </div>
+          <div class="group-profile-field">
+            <label for="group-school">School</label><br>
+            <input name= "group_school", type="text", class="form-control" value="<%= @group.school %>">
+          </div>
+          <div class="group-profile-field">
+            <label for="group-Description">Description</label><br>
+            <input name= "group_description", type="text", class="form-control" value="<%= @group.description %>">
+          </div>
+          <div class="group-profile-field">
+            <label for="group-email">Group Email</label><br>
+            <input name= "group_email", type="email", class="form-control" value="<%= @group.email %>">
+          </div>
+          <div class="group-profile-field">
+            <label for="group-password">Group Password</label><br>
+            <input name= "group_pw", type="text", class="form-control" value="<%= @group.password %>">
+          </div>
+          <input name="group_id" type="hidden" value="<%= @group.id %>"/>
+          <button type="submit" class="btn" >Save Changes</button>
+        </form>
+      <% else %>
 
-  <div class="col-md-2">
-  </div>
+        <div class="group-profile-field">
+          <label for="group-name">Group Name</label><br>
+          <%= @group.name %>
+        </div>
+        <div class="group-profile-field">
+          <label for="group-school">School</label><br>
+          <%= @group.school %>
+        </div>
+        <div class="group-profile-field">
+          <label for="group-Description">Description</label><br>
+          <%= @group.description %>
+        </div>
+        <div class="group-profile-field">
+          <label for="group-email">Group Email</label><br>
+          <%= @group.email %>
+        </div>
+        <div class="group-profile-field">
+          <label for="group-password">Group Password</label><br>
+          <%= @group.password %>
+        </div>
+      <% end %>
+    </div><!--col-md-7-->
+
+    <div class="col-md-2">
+    </div>
 
   </div><!--row-->
-</div>
+</div><!--container-->
