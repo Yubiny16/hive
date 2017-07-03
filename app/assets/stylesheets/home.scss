@@ -132,12 +132,17 @@ body {
   margin-bottom: 15px;
 }
 .leftbar .leftbar-personal li a,
-.leftbar .leftbar-groups li a {
+.leftbar .leftbar-groups li a,
+.leftbar > p a {
   color: #454b54;
   text-decoration: none;
 }
+.leftbar > p a i {
+  color: #337ab7;
+}
 .leftbar .leftbar-personal li a i,
-.leftbar .leftbar-groups li > div {
+.leftbar .leftbar-groups li > div,
+.leftbar > p a i {
   margin-right: 5px;
 }
 .leftbar .leftbar-groups li {
@@ -145,7 +150,7 @@ body {
 }
 .leftbar .leftbar-groups li a {
   position: relative;
-  bottom: 3px;
+  bottom: 2px;
 }
 .main_feed {
   width: 22%;
@@ -368,73 +373,7 @@ ul#feature-tabs > li.active > a {
   margin: 0 auto;
 }
 /******************profile page styling********************/
-.profile-content {
-  text-align: center;
-  font-weight: bold;
-  width: 300px;
-  margin: 0 auto;
-  border: 2px solid #ECEBC6;
-  border-radius: 20px;
-  padding: 0.5em;
-  padding-bottom: 1em;
-}
-.profile-content a {
-  display: block;
-  float: right;
-}
-.profile-content p {
-  clear: right;
-}
-/*edit button hover color*/
-.fa-pencil-square-o:hover {
-  color: black;
-}
-/*hexagon design*/
-.hex {
-  width: 150px;
-  padding-bottom: 173.205080757px; /* =  width /0.866 */
-  overflow:hidden;
-  visibility:hidden;
-  margin: 0 auto;
 
-  -webkit-transform: rotate(-60deg) skewY(30deg);
-  -ms-transform: rotate(-60deg) skewY(30deg);
-  transform: rotate(60deg) skewY(-30deg);
-}
-.hex * {
-  position: absolute;
-  visibility: visible;
-}
-.hex > div {
-  width:100%;
-  height:100%;
-  overflow:hidden;
-  background-color: black;
-
-  -webkit-transform: skewY(-30deg) rotate(60deg);
-  -ms-transform: skewY(-30deg) rotate(60deg);
-  transform: skewY(30deg) rotate(-60deg);
-
-	-webkit-backface-visibility:hidden;
-}
-.hex div img {
-  left:-100%; right:-100%;
-  width: auto; height: 100%;
-  margin:0 auto;
-  transform: rotate(30deg);
-}
-.orientation-correcter {
-  transform: rotate(-30deg);
-}
-.user-prof-positioning {
-  width:200px; height: 175px;
-  display: block;
-  margin: 80px auto 0px;
-}
-.profile-pic-update-form {
-  margin: 0 auto;
-  width: 300px;
-}
 /*Preferences*/
 #preferences .preference_group_name {
   font-family: "Source Sans Pro Regular";
@@ -449,17 +388,27 @@ ul#feature-tabs > li.active > a {
   font-size: 13px;
 }
 /******************create group page styling***********/
-.create_group-header,
 .group-field {
   font-family: "Source Sans Pro Regular";
   width: 50%;
+  margin-bottom: 15px;
+  margin-left: 5%;
+}
+.group-field:last-child {
+  text-align: right;
 }
 .create_group-header {
-  font-weight: bold;
-  position: relative;
+  margin-bottom: 35px;
+  margin-left: 5%;
 }
-.group-field {
-  padding-bottom: 15px;
+.create_group-header h3 {
+  margin-top: 0;
+}
+#create-group-btn {
+  margin-top: 15px;
+  background-color: #DA413D;
+  color: white;
+  font-weight: bold;
 }
 /******************Group Profile Edit Page***********/
 .group-edit-header,

@@ -66,36 +66,24 @@
 
       <div class="tab-content">
         <div class="tab-pane active" id="profile">
-          <div class="container">
-            <div class="user-prof-positioning">
-              <div class="orientation-correcter">
-                <div class="hex">
-                  <div>
-                    <% unless @user.image_url.nil? %>
-                      <img src="<%= @user.image_url %>" alt="profile img">
-                    <% end %>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <form action="/uploadprofpic" method="POST" enctype="multipart/form-data" class="profile-pic-update-form">
-              <input type="file" name="pic" accept="image/*">
-              <button type="submit" class="btn btn-default">Submit</button>
-            </form>
-            <!--profile box-->
-            <div class="profile-content">
-              <a href="/users/edit"><i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i></a>
-              <p>
-                <%= @user.first_name %>
-                <%= @user.last_name %>
-              </p>
-              <p><%= @user.email %></p>
-              <p><%= @user.school %></p>
-              <p><%= @user.major %></p>
-              <p>Class of <%= @user.class_year %></p>
-              <!-- Company: <%= @user.company %> <br> removed for now. will add back in the future-->
-            </div>
-          </div><!--container-->
+          <% if @user.image_url=="" %>
+            <img src="http://www.sessionlogs.com/media/icons/defaultIcon.png" alt="profile img" title="default profile image" style="border-radius: 50%;" width="100">
+          <% else %>
+            <img src="<%= @user.image_url %>" alt="profile img">
+          <% end %>
+          <form action="/uploadprofpic" method="POST" enctype="multipart/form-data" class="profile-pic-update-form">
+            <input type="file" name="pic" accept="image/*">
+            <button type="submit" class="btn">Submit</button>
+          </form>
+          <p>
+            <%= @user.first_name %>
+            <%= @user.last_name %>
+          </p>
+          <p><%= @user.email %></p>
+          <p><%= @user.school %></p>
+          <p><%= @user.major %></p>
+          <p>Class of <%= @user.class_year %></p>
+          <!-- Company: <%= @user.company %> <br> removed for now. will add back in the future-->
         </div><!--profile tab-->
 
         <div class="tab-pane" id="preferences">

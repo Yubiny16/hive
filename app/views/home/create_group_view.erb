@@ -50,11 +50,11 @@
       <ul class="leftbar-groups">
         <% unless @user_groups == nil %>
           <% @user_groups.each do |user_groups| %>
-            <li><div class="circle_<%= user_groups.color %>"></div> <a href="/home/group_page/<%= user_groups.group_id %>"><%= Group.find(user_groups.group_id).name %></a></li>
+            <li><div class="circle_<%= user_groups.color %>"></div><a href="/home/group_page/<%= user_groups.group_id %>"><%= Group.find(user_groups.group_id).name %></a></li>
           <% end %>
         <% end %>
       </ul>
-      <p><a href="/home/create_group_view"><i class="fa fa-plus-circle" aria-hidden="true"></i></a> Create Group </p>
+      <p><a href="/home/create_group_view"><i class="fa fa-plus-circle" aria-hidden="true"></i>Create Group</a></p>
     </div><!-- leftbar End-->
 
     <div class="col-md-7 board">
@@ -62,30 +62,30 @@
         <h3>Create A Group</h3>
       </div>
 
-      <hr>
-
       <form action= "/home/create_group" method="get">
         <div class="group-field">
           <label for="group-name">Your Group Name</label><br>
-          <input name= "group_name", type="text", class="form-control" id="group-name">
+          <input name= "group_name" type="text" class="form-control" id="group-name">
         </div>
         <div class="group-field">
           <label for="group-school">Your School</label><br>
-          <input name= "group_school", type="text", class="form-control" id="group-school">
+          <input name= "group_school" type="text" class="form-control" id="group-school">
         </div>
         <div class="group-field">
           <label for="group-Description">Description (optional)</label><br>
-          <input name= "group_description", type="text", class="form-control" id="group-description">
+          <textarea name="group_description" type="text" class="form-control" id="group-description" row="5"></textarea>
         </div>
         <div class="group-field">
           <label for="group-email">Group Email (optional)</label><br>
-          <input name= "group_email", type="email", class="form-control" id="group-email">
+          <input name= "group_email" type="email" class="form-control" id="group-email">
         </div>
         <div class="group-field">
           <label for="group-password">Password for this Group</label><br>
-          <input name= "group_pw", type="text", class="form-control" id="group-pw">
+          <input name= "group_pw" type="text" class="form-control" id="group-pw">
         </div>
-        <button type="submit" class="btn" id="create-group-btn">Create Group!</button>
+        <div class="group-field">
+          <button type="submit" class="btn" id="create-group-btn">Create Group</button>
+        </div>
       </form>
     </div>
   </div>
