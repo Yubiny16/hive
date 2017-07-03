@@ -147,7 +147,7 @@
                   <div class="circle_<%= @current_group_user.find_by(group_id: cal_notification.group_id).color %>"></div>
                   <p><%= cal_notification.title %></p>
                 </div>
-                <p class="each_feed_content"><%= cal_notification.content %></p>
+                <p class="each_feed_content"><%= cal_notification.description %></p>
                 <p class="feed_date"><%= cal_notification.created_at.strftime("%m/%d/%y  %l:%M %p") %></p>
               </div>
               <script>
@@ -173,7 +173,7 @@
                   <div class="circle_<%= @current_group_user.find_by(group_id: cal_notification.group_id).color %>"></div>
                   <p><%= cal_notification.title %></p>
                 </div>
-                <p class="each_feed_content"><%= cal_notification.content %></p>
+                <p class="each_feed_content"><%= cal_notification.description %></p>
                 <p class="feed_date"><%= cal_notification.created_at.strftime("%m/%d/%y  %l:%M %p") %></p>
               </div><!-- each_feed -->
             <% end %>
@@ -192,7 +192,7 @@
 
                   <!-- Body -->
                   <div class="modal-body">
-                    <p class="each_feed_content"><%= cal_notification.content %></p>
+                    <p class="each_feed_content"><%= cal_notification.description %></p>
                   </div>
 
                   <!-- Footer -->

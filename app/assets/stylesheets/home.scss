@@ -424,7 +424,25 @@ ul#feature-tabs > li.active > a {
   margin: 0 auto;
 }
 /******************profile page styling********************/
-
+/*Profile*/
+#profile .profile-label{
+  position: relative;
+  color: #6a646b;
+  font-size: 13px;
+  font-family: "Source Sans Pro Regular";
+  margin-left: 5%;
+}
+#profile .profile-content{
+  font-family: "Source Sans Pro Regular";
+  margin-left: 5%;
+}
+#profile .user-profile-field {
+  margin-bottom: 15px;
+  width: 50%;
+}
+.tab-content #profile button {
+  margin-left: 5%;
+}
 /*Preferences*/
 #preferences .preference_group_name {
   font-family: "Source Sans Pro Regular";
@@ -432,11 +450,16 @@ ul#feature-tabs > li.active > a {
   position: relative;
   left: 75px;
   bottom: 57px;
+  margin-left: 5%;
 }
 #preferences .preference_choose_color_label {
   font-family: "Source Sans Pro Regular";
   color: #6a646b;
   font-size: 13px;
+  margin-left: 5%;
+}
+#preferences .change_color {
+  margin-left: 5%;
 }
 /******************create group page styling***********/
 .group-field {

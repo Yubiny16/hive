@@ -6,8 +6,8 @@ class CreateEvents < ActiveRecord::Migration[5.0]
     t.string   "title"
     t.datetime "start"
     t.datetime "end"
-    t.string   "color"
-    t.string "rsvp"
+    t.string   "color", default: "black"
+    t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
 

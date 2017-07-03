@@ -66,25 +66,56 @@
 
       <div class="tab-content">
         <div class="tab-pane active" id="profile">
-          <% if @user.image_url=="" %>
-            <img src="http://www.sessionlogs.com/media/icons/defaultIcon.png" alt="profile img" title="default profile image" style="border-radius: 50%;" width="100">
-          <% else %>
-            <img src="<%= @user.image_url %>" alt="profile img">
-          <% end %>
-          <form action="/uploadprofpic" method="POST" enctype="multipart/form-data" class="profile-pic-update-form">
-            <input type="file" name="pic" accept="image/*">
-            <button type="submit" class="btn">Submit</button>
+
+          <div class="profile-label">
+            UPDATE YOUR PROFILE
+          </div>
+          <hr>
+
+          <form action="/home/profile_update" method="post" enctype="multipart/form-data" class="profile-pic-update-form">
+            <div class="profile-content">
+
+              <div class="profile-image-update">
+                <% if @user.image_url=="" %>
+                  <img src="http://www.sessionlogs.com/media/icons/defaultIcon.png" alt="profile img" title="default profile image" style="border-radius: 50%;" width="100">
+                <% else %>
+                  <img src="<%= @user.image_url %>" alt="profile img">
+                <% end %>
+                <input type="file" name="pic" accept="image/*">
+
+                <br /><!-- brbrbrbrbrbrbrbrbr -->
+              </div>
+
+              <div class="user-profile-field">
+                <label for="user-first-name">First name</label><br>
+                <input name= "user_first_name" type="text" class="form-control" value="<%= current_user.first_name %>">
+              </div>
+
+              <div class="user-profile-field">
+                <label for="user-last-name">Last name</label><br>
+                <input name= "user_last_name", type="text", class="form-control" value="<%= current_user.last_name %>">
+              </div>
+
+              <div class="user-profile-field">
+                <label for="user-school">School</label><br>
+                <input name= "user_school", type="text", class="form-control" value="<%= current_user.school %>">
+              </div>
+
+              <div class="user-profile-field">
+                <label for="user-major">Major</label><br>
+                <input name= "user_major", type="text", class="form-control" value="<%= current_user.major %>">
+              </div>
+
+              <div class="user-profile-field">
+                <label for="user-classyear">Class of Year</label><br>
+                <input name= "user_class_year", type="text", class="form-control" value="<%= current_user.class_year %>">
+              </div>
+            </div> <!-- profile-content -->
+
+            <button type="submit" class="btn">Save Changes</button>
           </form>
-          <p>
-            <%= @user.first_name %>
-            <%= @user.last_name %>
-          </p>
-          <p><%= @user.email %></p>
-          <p><%= @user.school %></p>
-          <p><%= @user.major %></p>
-          <p>Class of <%= @user.class_year %></p>
-          <!-- Company: <%= @user.company %> <br> removed for now. will add back in the future-->
-        </div><!--profile tab-->
+
+        </div><!-- Profile tab -->
 
         <div class="tab-pane" id="preferences">
           <div class="preference_choose_color_label">
@@ -92,7 +123,7 @@
           </div>
           <hr>
           <% @user_groups.each do |group_user| %>
-            <div id="<%= group_user.group_id %>_color" class="circle_<%= group_user.color %>" style="width: 60px; height: 60px;"></div>
+            <div id="<%= group_user.group_id %>_color" class="circle_<%= group_user.color %>" style="width: 60px; height: 60px; margin-left: 5%"></div>
             <div class="preference_group_name"><%= Group.find(group_user.group_id).name %></div>
             <div class="change_color">
               <div class="circle_black circle_black_id_<%= group_user.group_id %>"></div>
