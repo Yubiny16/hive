@@ -103,10 +103,8 @@ nav#navbar-custom .btn-search i {
   color: white;
 }
 /*******************main page styling*****************/
-
 body {
   // overflow: hidden; add this later
-
 }
 .container-body {
   background-color: #f9f9f9;
@@ -265,12 +263,11 @@ body {
   padding-right: 20px;
   margin-top: -30px;
 }
-#group_profile .group-profile-edit-button {
+#group_profile > a {
   position: absolute;
-  left: 698px;
-  bottom: 25px;
-  background: transparent;
-  border: none;
+  right: 20px;
+  top: 0;
+  font-size: 18px;
 }
 ul#feature-tabs {
   font-family: "Source Sans Pro Regular";
@@ -304,6 +301,39 @@ ul#feature-tabs > li.active > a {
 }
 .announcement_accordion :after {
   background-color: none;
+}
+#ann_popup,
+#poll_popup {
+  width: 500px;
+  margin: auto;
+}
+#ann_popup .modal-body * {
+  display: block;
+  font-family: "Source Sans Pro Regular";
+}
+#poll_popup .modal-body {
+  font-family: "Source Sans Pro Regular";
+}
+#ann_popup .modal-body input,
+#ann_popup .modal-body textarea,
+#poll_popup .modal-body input {
+  margin-bottom: 15px;
+}
+#ann_popup .modal-body .popup-buttons button,
+#poll_popup .modal-body button {
+  display: inline-block;
+  margin-top: 15px;
+  background-color: #DA413D;
+  color: white;
+  font-weight: bold;
+}
+#ann_popup .modal-body .popup-buttons {
+  text-align: right;
+}
+#poll_popup .modal-body .add_option {
+  position: absolute;
+  right: 15px;
+  bottom: 60px;
 }
 #budget_item_input {
   width: 100%;
@@ -411,34 +441,25 @@ ul#feature-tabs > li.active > a {
   font-weight: bold;
 }
 /******************Group Profile Edit Page***********/
-.group-edit-header,
 .group-profile-field {
   font-family: "Source Sans Pro Regular";
   width: 50%;
+  margin-bottom: 15px;
+  margin-left: 5%;
+}
+.group-profile-field:last-child {
+  text-align: right;
 }
 .group-edit-header {
+  margin-bottom: 35px;
+  margin-left: 5%;
+}
+.group-edit-header h3 {
+  margin-top: 0;
+}
+#group-profile-change-button {
+  margin-top: 15px;
+  background-color: #DA413D;
+  color: white;
   font-weight: bold;
-  position: relative;
-}
-.group-profile-field {
-  padding-bottom: 15px;
-}
-/******************friend page styling*******************/
-.nav-friends {
-  width: 12%;
-  text-align: center;
-  font-weight: bold;
-  float: left;
-}
-.nav-friends li a {
-  color: #543B19;
-}
-#friends-page-tab-content {
-  width: 83%;
-  margin-left: 3%;
-  float: left;
-  padding: 2%;
-  text-align: center;
-  border: 2px solid #ECEBC6;
-  border-radius: 20px;
 }

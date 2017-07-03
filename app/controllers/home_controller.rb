@@ -126,12 +126,14 @@ class HomeController < ApplicationController
   end
 
   def group_edit
+    group_id = params[:group_id]
     Group.update(params[:group_id], :name => params[:group_name])
     Group.update(params[:group_id], :school => params[:group_school])
     Group.update(params[:group_id], :description => params[:group_description])
     Group.update(params[:group_id], :password => params[:group_pw])
-    redirect_to :back
+    redirect_to "/home/group_page/#{group_id}"
   end
+
   def announcement
     one_announcement = Announcement.new
     one_announcement.group_id = params[:group_id]

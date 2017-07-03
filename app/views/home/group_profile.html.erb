@@ -51,11 +51,11 @@
       <ul class="leftbar-groups">
         <% unless @user_groups == nil %>
           <% @user_groups.each do |user_groups| %>
-            <li><div class="circle_<%= user_groups.color %>"></div> <a href="/home/group_page/<%= user_groups.group_id %>"><%= Group.find(user_groups.group_id).name %></a></li>
+            <li><div class="circle_<%= user_groups.color %>"></div><a href="/home/group_page/<%= user_groups.group_id %>"><%= Group.find(user_groups.group_id).name %></a></li>
           <% end %>
         <% end %>
       </ul>
-      <p><a href="/home/create_group_view"><i class="fa fa-plus-circle" aria-hidden="true"></i></a> Create Group </p>
+      <p><a href="/home/create_group_view"><i class="fa fa-plus-circle" aria-hidden="true"></i>Create Group</a></p>
     </div><!-- leftbar End-->
 
     <!-- Body-->
@@ -63,8 +63,6 @@
       <div class="group-edit-header">
         <h3>Group Settings</h3>
       </div>
-
-      <hr>
 
       <% if @admin_user.admin == true %>
         <form action= "/home/group_edit" method="get">
@@ -78,7 +76,7 @@
           </div>
           <div class="group-profile-field">
             <label for="group-Description">Description</label><br>
-            <input name= "group_description", type="text", class="form-control" value="<%= @group.description %>">
+            <textarea name= "group_description" type="text" class="form-control" rows="4"><%= @group.description %></textarea>
           </div>
           <div class="group-profile-field">
             <label for="group-email">Group Email</label><br>
@@ -89,7 +87,9 @@
             <input name= "group_pw", type="text", class="form-control" value="<%= @group.password %>">
           </div>
           <input name="group_id" type="hidden" value="<%= @group.id %>"/>
-          <button type="submit" class="btn" >Save Changes</button>
+          <div class="group-profile-field">
+            <button type="submit" class="btn" id="group-profile-change-button">Save Changes</button>
+          </div>
         </form>
       <% else %>
 

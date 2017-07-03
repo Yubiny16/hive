@@ -51,11 +51,11 @@
       <ul class="leftbar-groups">
         <% unless @user_groups == nil %>
           <% @user_groups.each do |user_groups| %>
-            <li><div class="circle_<%= user_groups.color %>"></div> <a href="/home/group_page/<%= user_groups.group_id %>"><%= Group.find(user_groups.group_id).name %></a></li>
+            <li><div class="circle_<%= user_groups.color %>"></div><a href="/home/group_page/<%= user_groups.group_id %>"><%= Group.find(user_groups.group_id).name %></a></li>
           <% end %>
         <% end %>
       </ul>
-      <p><a href="/home/create_group_view"><i class="fa fa-plus-circle" aria-hidden="true"></i></a> Create Group </p>
+      <p><a href="/home/create_group_view"><i class="fa fa-plus-circle" aria-hidden="true"></i>Create Group</a></p>
     </div><!-- leftbar End-->
 
     <!-- Body-->
@@ -66,12 +66,8 @@
           <h3><%= @group.name %></h3>
           <p><%= @group.school %></p>
         </div>
-
         <p><%= @group.description %></p>
-
-        <form action="/home/group_profile/<%= @group.id %>" method="get">
-          <button class="group-profile-edit-button" type="submit"><i class="fa fa-cog" aria-hidden="true"></i></button>
-        </form>
+        <a href="/home/group_profile/<%= @group.id %>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
       </div>
       <hr>
 
@@ -88,29 +84,31 @@
         <div class="tab-pane active" id="Announcement">
           <!-- Make an announcement (visible only to admin) -->
             <% if @admin_user.admin == true %>
-            <button data-toggle="modal" data-target="#post_announcement">Post New Announcement</button>
+            <button data-toggle="modal" data-target="#post_announcement" class="btn">Add Announcement</button>
 
             <!-- New Announcement Modal -->
             <div class="modal fade" id="post_announcement" tableindex="-1" role="dialog">
               <div class="modal-dialog" role="document">
-                <div class="modal-content">
+                <div class="modal-content" id="ann_popup">
                   <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
-                    <h5 class="modal-title">Post New Announcement</h5>
+                    <h4 class="modal-title">Post New Announcement</h4>
                   </div>
                   <div class="modal-body">
                     <form action="/home/announcement" method="get">
                       <label>Title</label>
-                      <input name="announc_title" type="text"/>
+                      <input name="announc_title" type="text" class="form-control"/>
                       <label>Content</label>
-                      <textarea name="announc_content" type="text"></textarea>
+                      <textarea name="announc_content" type="text" class="form-control"></textarea>
                       <label>Group's Email</label>
-                      <input name="group_email" type="email" value="<%= @group.email %>"/>
+                      <input name="group_email" type="email" value="<%= @group.email %>" class="form-control"/>
                       <input name="group_id" type="hidden" value="<%= @group.id %>">
-                      <button name="post" value= "no_email" type="submit" class="btn btn-default">Post</button>
-                      <button name="post" value= "send_email" type="submit" class="btn btn-default">Post and Send Email</button>
+                      <div class="popup-buttons">
+                        <button name="post" value= "no_email" type="submit" class="btn">Post</button>
+                        <button name="post" value= "send_email" type="submit" class="btn">Post and Send Email</button>
+                      </div>
                     </form>
                   </div>
                 </div>
@@ -172,57 +170,39 @@
         <div class="tab-pane" id="Poll">
           <!-- Create Poll (visible only to admin) -->
           <% if @admin_user.admin == true %>
-            <button data-toggle="modal" data-target="#create_poll">Create A New Poll</button>
+            <button data-toggle="modal" data-target="#create_poll" class="btn">Create A New Poll</button>
 
             <!-- Create Poll Modal -->
             <div class="modal fade" id="create_poll" tableindex="-1" role="dialog">
               <div class="modal-dialog" role="document">
-                <div class="modal-content">
+                <div class="modal-content" id="poll_popup">
                   <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
-                    <h5 class="modal-title">Create New Poll</h5>
+                    <h4 class="modal-title">Create New Poll</h4>
                   </div>
                   <div class="modal-body">
                     <form id = "form_poll" action="/home/new_poll" method="get">
-                      <input name="poll_title" type="text" class="input-box_text" placeholder="Title"/><br>
+                      <label>Title</label>
+                      <input name="poll_title" type="text" class="input-box_text form-control"/>
                       <!-- Add div to let the ajax script know where to append new input field. -->
                       <div id = "option_div">
                       <!-- 2 options default-->
                         <% for i in 1..2 %>
-                          <input name="option_content_<%= i %>" id="option_<%= i %>"type="text" class="input-box_text" placeholder="Option <%= i %>"/><br>
+                          <label for="option_<%= i %>">Option <%= i %></label>
+                          <input name="option_content_<%= i %>" id="option_<%= i %>"type="text" class="input-box_text form-control"/>
                         <% end %>
-                      </div>
-                      <!--Closing Time, Calls datetimepicker in script-->
-                      <div class="container">
-                        <div class="row">
-                          <div class='col-sm-6'>
-                            <div class="form-group">
-                              <div class='input-group date' id='datetimepicker1'>
-                                <input type='text' class="form-control" />
-                                <span class="input-group-addon">
-                                  <span class="glyphicon glyphicon-calendar"></span>
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                          <script type="text/javascript">
-                            $(function () {
-                              $('#datetimepicker1').datetimepicker();
-                            });
-                          </script>
-                        </div>
                       </div>
                       <!--anonymous checkbox-->
                       <div class="checkbox">
                         <label><input name=anonymous type="checkbox" value="true">Anonymous?</label>
                       </div>
-                      <button name="group_id" value="<%= @group.id %>" type="submit" class="btn btn-default">Create!</button>
+                      <button name="group_id" value="<%= @group.id %>" type="submit" class="btn">Create!</button>
                     </form><!-- form_poll input-->
 
                     <!--Add an Option, Used Ajax. Look at script-->
-                    <button value= "<%= $n %>" type="submit" class="btn btn-default add_option">Add an Option</button>
+                    <button value= "<%= $n %>" type="submit" class="btn add_option">Add an Option</button>
                   </div>
                 </div>
               </div>
@@ -448,8 +428,8 @@ $(function() {
         success: function(){
 
           $("#option_div").append("<input name=\"option_content_"
-                                  + n + "\" id=\"option_" + n + "\"type=\"text\" class=\"input-box_text\" placeholder=\"Option "
-                                  + n + "\"/><br>");
+                                  + n + "\" id=\"option_" + n + "\"type=\"text\" class=\"input-box_text form-control\" placeholder=\"Option "
+                                  + n + "\"/>");
         },
         error: function(){
           alert("ERROR!");
