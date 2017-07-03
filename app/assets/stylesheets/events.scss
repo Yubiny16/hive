@@ -13,16 +13,21 @@
   width: 500px;
   margin: auto;
 }
-#new_event .event_title abbr {
+#new_event .event_title abbr,
+#edit_event .event_title abbr {
   display: none;
 }
-#new_event .modal-body {
+#new_event .modal-body,
+#edit_event .modal-body {
   font-family: "Source Sans Pro Regular";
 }
-#new_event .modal-body .form-actions {
+#new_event .modal-body .form-actions,
+#edit_event .modal-body .form-actions {
   text-align: right;
 }
-#new_event .modal-body .form-actions input {
+#new_event .modal-body .form-actions input,
+#edit_event .modal-body .form-actions input,
+#edit_event .modal-body .form-actions a {
   margin-top: 15px;
   background-color: #DA413D;
   color: white;

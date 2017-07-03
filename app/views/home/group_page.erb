@@ -84,7 +84,7 @@
         <div class="tab-pane active" id="Announcement">
           <!-- Make an announcement (visible only to admin) -->
             <% if @admin_user.admin == true %>
-            <button data-toggle="modal" data-target="#post_announcement" class="btn" id="add_ann_btn"><i class="fa fa-plus" aria-hidden="true"></i>Add Announcement</button>
+            <button data-toggle="modal" data-target="#post_announcement" class="btn" id="add_ann_btn"><i class="fa fa-plus" aria-hidden="true"></i>New Announcement</button>
 
             <!-- New Announcement Modal -->
             <div class="modal fade" id="post_announcement" tableindex="-1" role="dialog">
@@ -116,7 +116,7 @@
             </div>
             <% end %>
 
-            <div class="announcement_accordion">
+            <div class="announcement_accordion" id="announcement_accordion">
               <% @announcements.each do |announcements| %>
                 <h3 class="group_announcement_title">
                   <%= announcements.title %> <%= announcements.created_at.strftime("%m/%d/%y  %l:%M %p") %>
@@ -170,7 +170,7 @@
         <div class="tab-pane" id="Poll">
           <!-- Create Poll (visible only to admin) -->
           <% if @admin_user.admin == true %>
-            <button data-toggle="modal" data-target="#create_poll" class="btn">Create A New Poll</button>
+            <button data-toggle="modal" data-target="#create_poll" class="btn" id="add_poll_btn"><i class="fa fa-plus" aria-hidden="true"></i>New Poll</button>
 
             <!-- Create Poll Modal -->
             <div class="modal fade" id="create_poll" tableindex="-1" role="dialog">
@@ -213,7 +213,7 @@
           <% end %><!-- admin? -->
 
           <!-- Polls -->
-          <div class="poll_accordion">
+          <div class="poll_accordion" id="poll_accordion">
             <!-- Call all the polls in this group -->
             <% @poll.each do |p| %>
               <h3 class="group_poll_title">
