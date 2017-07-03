@@ -1,14 +1,3 @@
 
-
-var admin = $("#admin").data("admin");
-
- if (admin == true)
- {
-   $('#remote_container').html('<%= j render "new" %>');
-   $('#new_event').modal('show');
- }
- else
-  {
-    $('#remote_container').html('<%= j render "member" %>');
-    $('#member_event').modal('show');
-  }
+  $('#remote_container').html('<%= j render "new" %>');
+  $('#new_event').modal('show');
