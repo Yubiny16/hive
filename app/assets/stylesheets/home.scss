@@ -293,6 +293,17 @@ ul#feature-tabs > li.active > a {
   border-bottom: 5px solid #DA413D;
   color: black;
 }
+#add_ann_btn {
+  width: 100%;
+  text-align: left;
+  background-color: #f6f6f6;
+  border: 1px solid #c5c5c5;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+#add_ann_btn i {
+  margin-right: 7px;
+}
 .announcement_accordion {
   width: 100%;
 }
@@ -319,8 +330,7 @@ ul#feature-tabs > li.active > a {
 #poll_popup .modal-body input {
   margin-bottom: 15px;
 }
-#ann_popup .modal-body .popup-buttons button,
-#poll_popup .modal-body button {
+#ann_popup .modal-body .popup-buttons button {
   display: inline-block;
   margin-top: 15px;
   background-color: #DA413D;
@@ -330,10 +340,21 @@ ul#feature-tabs > li.active > a {
 #ann_popup .modal-body .popup-buttons {
   text-align: right;
 }
+#poll_popup .modal-body button {
+  margin-top: 10px;
+  background-color: #DA413D;
+  color: white;
+  font-weight: bold;
+}
+#poll_popup .create_poll_btn {
+  margin-top: 20px;
+  text-align: right;
+  border-top: 1px solid #e5e5e5;
+}
 #poll_popup .modal-body .add_option {
   position: absolute;
   right: 15px;
-  bottom: 60px;
+  bottom: 70px;
 }
 #budget_item_input {
   width: 100%;

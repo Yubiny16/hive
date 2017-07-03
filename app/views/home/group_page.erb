@@ -84,7 +84,7 @@
         <div class="tab-pane active" id="Announcement">
           <!-- Make an announcement (visible only to admin) -->
             <% if @admin_user.admin == true %>
-            <button data-toggle="modal" data-target="#post_announcement" class="btn">Add Announcement</button>
+            <button data-toggle="modal" data-target="#post_announcement" class="btn" id="add_ann_btn"><i class="fa fa-plus" aria-hidden="true"></i>Add Announcement</button>
 
             <!-- New Announcement Modal -->
             <div class="modal fade" id="post_announcement" tableindex="-1" role="dialog">
@@ -188,7 +188,7 @@
                       <input name="poll_title" type="text" class="input-box_text form-control"/>
                       <!-- Add div to let the ajax script know where to append new input field. -->
                       <% $n = 2 %>
-                      <div id = "option_div">
+                      <div id="option_div">
                       <!-- 2 options default-->
                         <% for i in 1..2 %>
                           <label for="option_<%= i %>">Option <%= i %></label>
@@ -199,7 +199,9 @@
                       <div class="checkbox">
                         <label><input name=anonymous type="checkbox" value="true">Anonymous?</label>
                       </div>
-                      <button name="group_id" value="<%= @group.id %>" type="submit" class="btn">Create!</button>
+                      <div class="create_poll_btn">
+                        <button name="group_id" value="<%= @group.id %>" type="submit" class="btn">Create!</button>
+                      </div>
                     </form><!-- form_poll input-->
 
                     <!--Add an Option, Used Ajax. Look at script-->
@@ -428,10 +430,9 @@ $(function() {
         url: "/home/add_option",
 
         success: function(){
-
+          $("#option_div").append("<label for=\"option_" + n + "\">Option " + n + "</label>");
           $("#option_div").append("<input name=\"option_content_"
-                                  + n + "\" id=\"option_" + n + "\"type=\"text\" class=\"input-box_text form-control\" placeholder=\"Option "
-                                  + n + "\"/>");
+                                  + n + "\" id=\"option_" + n + "\"type=\"text\" class=\"input-box_text form-control\"/>");
         },
         error: function(){
           alert("ERROR!");

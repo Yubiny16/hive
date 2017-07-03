@@ -1,3 +1,30 @@
 // Place all the styles related to the events controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+/*******************Declare the fonts*****************/
+@font-face {
+  font-family: "Source Sans Pro Light";
+  src: url('/assets/SourceSansPro-Light.otf');
+
+  font-family: "Source Sans Pro Regular";
+  src: url('/assets/SourceSansPro-Regular.otf');
+}
+#new_event .modal-content {
+  width: 500px;
+  margin: auto;
+}
+#new_event .event_title abbr {
+  display: none;
+}
+#new_event .modal-body {
+  font-family: "Source Sans Pro Regular";
+}
+#new_event .modal-body .form-actions {
+  text-align: right;
+}
+#new_event .modal-body .form-actions input {
+  margin-top: 15px;
+  background-color: #DA413D;
+  color: white;
+  font-weight: bold;
+}
