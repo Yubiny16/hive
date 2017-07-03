@@ -187,6 +187,7 @@
                       <label>Title</label>
                       <input name="poll_title" type="text" class="input-box_text form-control"/>
                       <!-- Add div to let the ajax script know where to append new input field. -->
+                      <% $n = 2 %>
                       <div id = "option_div">
                       <!-- 2 options default-->
                         <% for i in 1..2 %>
@@ -418,6 +419,7 @@
 var i = 1;
 $(function() {
     $(".add_option").click(function(){
+
      n = parseInt(this.value);// to use the value of '$n'
      n = n + i;
      i = i + 1;
