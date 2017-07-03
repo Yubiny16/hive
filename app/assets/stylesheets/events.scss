@@ -9,7 +9,8 @@
   font-family: "Source Sans Pro Regular";
   src: url('/assets/SourceSansPro-Regular.otf');
 }
-#new_event .modal-content {
+#new_event .modal-content,
+#edit_event .modal-content {
   width: 500px;
   margin: auto;
 }

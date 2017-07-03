@@ -3,16 +3,12 @@
       <% member.where(admin: true).each do |members| %>
         <% User.where(id: members.user_id).find_each do |friends_info| %>
           <button type="button" class="btn member-profile" data-toggle="modal" data-target="#user_profile_<%= friends_info.id %>">
-            <div class="member-prof-positioning">
-              <div class="orientation-correcter">
-                <div class="hex" id="member-hex">
-                  <div>
-                    <!-- <% unless @user.image_url.nil? %> -->
-                      <img src="http://www.readersdigest.ca/wp-content/uploads/2011/01/4-ways-cheer-up-depressed-cat.jpg" alt="profile img">
-                    <!-- <% end %> -->
-                  </div>
-                </div>
-              </div>
+            <div>
+              <% if @user.image_url=="" %>
+                <img src="http://www.sessionlogs.com/media/icons/defaultIcon.png" alt="profile img" title="default profile image" style="border-radius: 50%;" width="100">
+              <% else %>
+                <img src="<%= @user.image_url %>" alt="profile img" style="border-radius: 50%;" width="100">
+              <% end %>
             </div>
             <%= friends_info.first_name %> <%= friends_info.last_name %>
             <%= friends_info.class_year %>
@@ -28,16 +24,12 @@
                   <h4 class="modal-title"><%= friends_info.first_name %>'s profile</h4>
                 </div>
                 <div class="modal-body">
-                  <div class="member-prof-positioning">
-                    <div class="orientation-correcter">
-                      <div class="hex">
-                        <div>
-                          <!-- <% unless @user.image_url.nil? %> -->
-                            <img src="http://www.readersdigest.ca/wp-content/uploads/2011/01/4-ways-cheer-up-depressed-cat.jpg" alt="profile img">
-                          <!-- <% end %> -->
-                        </div>
-                      </div>
-                    </div>
+                  <div>
+                    <% if @user.image_url=="" %>
+                      <img src="http://www.sessionlogs.com/media/icons/defaultIcon.png" alt="profile img" title="default profile image" style="border-radius: 50%;" width="100">
+                    <% else %>
+                      <img src="<%= @user.image_url %>" alt="profile img" style="border-radius: 50%;" width="100">
+                    <% end %>
                   </div>
                   <ul class="list-group">
                     <li class="list-group-item">Name: <%= friends_info.first_name %> <%= friends_info.last_name %></li>
@@ -67,16 +59,12 @@
       <% member.where(admin: false).each do |members| %>
         <% User.where(id: members.user_id).find_each do |friends_info| %>
           <button type="button" class="btn member-profile" data-toggle="modal" data-target="#user_profile_<%= friends_info.id %>">
-            <div class="member-prof-positioning">
-              <div class="orientation-correcter">
-                <div class="hex" id="member-hex">
-                  <div>
-                    <!-- <% unless @user.image_url.nil? %> -->
-                      <img src="http://www.readersdigest.ca/wp-content/uploads/2011/01/4-ways-cheer-up-depressed-cat.jpg" alt="profile img">
-                    <!-- <% end %> -->
-                  </div>
-                </div>
-              </div>
+            <div>
+              <% if @user.image_url=="" %>
+                <img src="http://www.sessionlogs.com/media/icons/defaultIcon.png" alt="profile img" title="default profile image" style="border-radius: 50%;" width="100">
+              <% else %>
+                <img src="<%= @user.image_url %>" alt="profile img" style="border-radius: 50%;" width="100">
+              <% end %>
             </div>
             <%= friends_info.first_name %> <%= friends_info.last_name %>
             <%= friends_info.class_year %>
@@ -91,16 +79,12 @@
                   <h4 class="modal-title"><%= friends_info.first_name %>'s profile</h4>
                 </div>
                 <div class="modal-body">
-                  <div class="member-prof-positioning">
-                    <div class="orientation-correcter">
-                      <div class="hex">
-                        <div>
-                          <!-- <% unless @user.image_url.nil? %> -->
-                            <img src="http://www.readersdigest.ca/wp-content/uploads/2011/01/4-ways-cheer-up-depressed-cat.jpg" alt="profile img">
-                          <!-- <% end %> -->
-                        </div>
-                      </div>
-                    </div>
+                  <div>
+                    <% if @user.image_url=="" %>
+                      <img src="http://www.sessionlogs.com/media/icons/defaultIcon.png" alt="profile img" title="default profile image" style="border-radius: 50%;" width="100">
+                    <% else %>
+                      <img src="<%= @user.image_url %>" alt="profile img" style="border-radius: 50%;" width="100">
+                    <% end %>
                   </div>
                   <ul class="list-group">
                     <li class="list-group-item">Name: <%= friends_info.first_name %> <%= friends_info.last_name %></li>
