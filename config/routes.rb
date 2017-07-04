@@ -50,8 +50,9 @@ Rails.application.routes.draw do
 
   get '/home/group_profile/:group_id' => 'home#group_profile'
   get '/home/group_edit' => 'home#group_edit'
+
   #Calendar
   resources :events
-
+  resources :home
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

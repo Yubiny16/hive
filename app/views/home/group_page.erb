@@ -89,21 +89,23 @@
             <!-- New Announcement Modal -->
             <div class="modal fade" id="post_announcement" tableindex="-1" role="dialog">
               <div class="modal-dialog" role="document">
-                <div class="modal-content" id="ann_popup">
+                <div class="modal-content" id="ann_popup_new">
+
                   <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
                     <h4 class="modal-title">Post New Announcement</h4>
                   </div>
+
                   <div class="modal-body">
                     <form action="/home/announcement" method="get">
                       <label>Title</label>
-                      <input name="announc_title" type="text" class="form-control"/>
+                      <input name="announcement_title" type="text" class="form-control"/>
                       <label>Content</label>
-                      <textarea name="announc_content" type="text" class="form-control"></textarea>
-                      <label>Group's Email</label>
-                      <input name="group_email" type="email" value="<%= @group.email %>" class="form-control"/>
+                      <textarea name="announcement_content" type="text" class="form-control"></textarea>
+                      <label>Email</label>
+                      <input name="announcement_email" type="email" value="<%= @group.email %>" class="form-control"/>
                       <input name="group_id" type="hidden" value="<%= @group.id %>">
                       <div class="popup-buttons">
                         <button name="post" value= "no_email" type="submit" class="btn">Post</button>
@@ -111,6 +113,7 @@
                       </div>
                     </form>
                   </div>
+
                 </div>
               </div>
             </div>
@@ -121,9 +124,11 @@
                 <h3 class="group_announcement_title">
                   <%= announcements.title %> <%= announcements.created_at.strftime("%m/%d/%y  %l:%M %p") %>
                 </h3>
+
+                <!--Announcement Content-->
                 <p><%= announcements.content %></p>
               <% end %>
-            </div>
+            </div><!--Announcement accordion-->
         </div><!--Announcement tab-->
 
         <!-- Calendar -->
@@ -351,7 +356,8 @@
 
 
 <script>
-//Calendar
+
+//Group Calendar
 var admin = $("#admin").data("admin");
 var initialize_calendar;
 

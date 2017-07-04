@@ -21,7 +21,7 @@
 
       <div class="col-md-3">
         <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <%= @user.first_name %> <%= @user.last_name%>
+          <%= current_user.first_name %> <%= current_user.last_name%>
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
           <a href="/home/profile" class="dropdown-item">Edit Profile</a>
@@ -376,7 +376,7 @@
         </div>
       </div>
 
-    </div><!--col-md-9-->
+    </div><!--col-md-7-->
 
     <div class="col-md-2">
     </div>

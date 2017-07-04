@@ -21,7 +21,7 @@ class EventsController < ApplicationController
     @event.group_id = $group_id
     @event.save
 
-    GroupUser.where(group_id: $group_id).where.not(user_id: current_user.id).find_each do |one_member|
+    GroupUser.where(group_id: $group_id).find_each do |one_member|
 
       #Cal Feed
       one_cal_notification = Calnoti.new
@@ -37,7 +37,7 @@ class EventsController < ApplicationController
 
   def update
     @event.update(event_params)
-    GroupUser.where(group_id: $group_id).where.not(user_id: current_user.id).find_each do |one_member|
+    GroupUser.where(group_id: $group_id).find_each do |one_member|
 
       #Cal Feed
       one_cal_notification = Calnoti.new

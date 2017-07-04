@@ -5,6 +5,7 @@ class CreateAnnouncements < ActiveRecord::Migration[5.0]
       t.integer :group_id
       t.string :title
       t.string :content
+      t.string :email
 
       t.timestamps
     end

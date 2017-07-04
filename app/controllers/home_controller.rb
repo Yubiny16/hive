@@ -1,6 +1,7 @@
 require 'mailgun'
 class HomeController < ApplicationController
   before_action :require_login
+  before_action :set_event, only: [:show, :edit, :update, :destroy]
   $n = 2
 
   def index
@@ -21,10 +22,6 @@ class HomeController < ApplicationController
     @searched_groups = Group.where("name LIKE ?", "%#{@search}%")
   end
 
-  def my_calendar
-    @current_group_user = GroupUser.where(user_id: current_user.id)
-  end
-
   def profile
     @user = current_user
     @user_groups = GroupUser.where(user_id: @user.id)
@@ -43,10 +40,6 @@ class HomeController < ApplicationController
     @user.save
 
     redirect_to "/home/profile"
-  end
-
-  def my_friends
-    @user = current_user
   end
 
   def create_group_view
@@ -115,8 +108,7 @@ class HomeController < ApplicationController
     #@current_groupuser_admin = GroupUser.find_by(group_id: @group.id, user_id: @user.id).admin
 
     #Member
-    @members = GroupUser.where(group_id: @group.id).where.not(user_id: @user.id)
-
+    @members = GroupUser.where(group_id: @group.id)
   end
 
   def group_profile
@@ -137,20 +129,22 @@ class HomeController < ApplicationController
   def announcement
     one_announcement = Announcement.new
     one_announcement.group_id = params[:group_id]
-    one_announcement.title = params[:announc_title]
-    one_announcement.content = params[:announc_content]
+    one_announcement.title = params[:announcement_title]
+    one_announcement.content = params[:announcement_content]
+    one_announcement.email = params[:announcement_email]
     one_announcement.save
 
     #notify
-    GroupUser.where(group_id: params[:group_id]).where.not(user_id: current_user.id).find_each do |one_member|
+    GroupUser.where(group_id: params[:group_id]).find_each do |one_member|
 
       #who when what
       one_announcement_notification = Annnoti.new
+      one_announcement_notification.announcement_id = one_announcement.id
       one_announcement_notification.group_id = params[:group_id]
       one_announcement_notification.sender = current_user.id
       one_announcement_notification.receiver = one_member.user_id
-      one_announcement_notification.title = params[:announc_title]
-      one_announcement_notification.content = params[:announc_content]
+      one_announcement_notification.title = params[:announcement_title]
+      one_announcement_notification.content = params[:announcement_content]
       one_announcement_notification.save
 
     end
@@ -218,7 +212,7 @@ class HomeController < ApplicationController
     one_transaction.save
 
     #notify
-    GroupUser.where(group_id: params[:group_id]).where.not(user_id: current_user.id).find_each do |one_member|
+    GroupUser.where(group_id: params[:group_id]).find_each do |one_member|
 
       #who when what
       one_budget_notification = Budgetnoti.new
@@ -250,7 +244,7 @@ class HomeController < ApplicationController
     one_transaction.save
 
     #notify
-    GroupUser.where(group_id: params[:group_id]).where.not(user_id: current_user.id).find_each do |one_member|
+    GroupUser.where(group_id: params[:group_id]).find_each do |one_member|
 
       #who when what
       one_budget_notification = Budgetnoti.new
@@ -290,7 +284,7 @@ class HomeController < ApplicationController
     $n =2
 
     #notify
-    GroupUser.where(group_id: params[:group_id]).where.not(user_id: current_user.id).find_each do |one_member|
+    GroupUser.where(group_id: params[:group_id]).find_each do |one_member|
 
       #who when what
       one_poll_notification = Pollnoti.new
@@ -393,5 +387,12 @@ class HomeController < ApplicationController
   def poll_read
     Pollnoti.find(params[:poll_notification_id]).update(:read => true)
   end
+
+  #####my_calendar
+
+  def my_calendar
+    @current_group_user = GroupUser.where(user_id: current_user.id)
+  end
+
 
 end

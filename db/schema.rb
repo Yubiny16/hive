@@ -13,20 +13,22 @@
 ActiveRecord::Schema.define(version: 20170616092144) do
 
   create_table "annnotis", force: :cascade do |t|
+    t.integer  "announcement_id"
     t.integer  "group_id"
     t.integer  "sender"
     t.integer  "receiver"
     t.string   "title"
     t.string   "content"
-    t.boolean  "read",       default: false
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.boolean  "read",            default: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
   end
 
   create_table "announcements", force: :cascade do |t|
     t.integer  "group_id"
     t.string   "title"
     t.string   "content"
+    t.string   "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -69,6 +71,7 @@ ActiveRecord::Schema.define(version: 20170616092144) do
   end
 
   create_table "events", force: :cascade do |t|
+    t.integer  "user_id"
     t.integer  "group_id"
     t.string   "title"
     t.datetime "start"

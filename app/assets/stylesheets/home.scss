@@ -323,31 +323,31 @@ ul#feature-tabs > li.active > a {
 #poll_accordion .ui-state-active .ui-icon {
   background-image: url("http://code.jquery.com/ui/1.12.1/themes/base/images/ui-icons_444444_256x240.png");
 }
-#ann_popup,
+#ann_popup_new,
 #poll_popup {
   width: 500px;
   margin: auto;
 }
-#ann_popup .modal-body * {
+#ann_popup_new .modal-body * {
   display: block;
   font-family: "Source Sans Pro Regular";
 }
 #poll_popup .modal-body {
   font-family: "Source Sans Pro Regular";
 }
-#ann_popup .modal-body input,
-#ann_popup .modal-body textarea,
+#ann_popup_new .modal-body input,
+#ann_popup_new .modal-body textarea,
 #poll_popup .modal-body input {
   margin-bottom: 15px;
 }
-#ann_popup .modal-body .popup-buttons button {
+#ann_popup_new .modal-body .popup-buttons button {
   display: inline-block;
   margin-top: 15px;
   background-color: #DA413D;
   color: white;
   font-weight: bold;
 }
-#ann_popup .modal-body .popup-buttons {
+#ann_popup_new .modal-body .popup-buttons {
   text-align: right;
 }
 #poll_popup .modal-body button {
