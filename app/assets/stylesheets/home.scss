@@ -443,15 +443,35 @@ ul#feature-tabs > li.active > a {
   margin-left: 5%;
 }
 #profile .profile-content{
-  font-family: "Source Sans Pro Regular";
   margin-left: 5%;
+  font-family: "Source Sans Pro Regular";
+  width: 50%;
+  float: left;
 }
 #profile .user-profile-field {
   margin-bottom: 15px;
-  width: 50%;
 }
-.tab-content #profile button {
-  margin-left: 5%;
+#profile .profile-image-update {
+  float: left;
+  width: 40%;
+  text-align: center;
+}
+#profile .profile-image-update input {
+  position: absolute;
+  left: -99999rem;
+}
+#profile .profile-image-update label {
+  font-family: 'Source Sans Pro Regular';
+  margin-top: 15px;
+  background-color: #DA413D;
+  color: white;
+  font-weight: bold;
+}
+#user-profile-update-btn {
+  margin-top: 15px;
+  background-color: #DA413D;
+  color: white;
+  font-weight: bold;
 }
 /*Preferences*/
 #preferences .preference_group_name {

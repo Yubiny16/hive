@@ -73,46 +73,43 @@
           <hr>
 
           <form action="/home/profile_update" method="post" enctype="multipart/form-data" class="profile-pic-update-form">
+            <div class="profile-image-update">
+              <% if @user.image_url=="" %>
+                <img src="http://www.sessionlogs.com/media/icons/defaultIcon.png" alt="profile img" title="default profile image" style="border-radius: 50%;" width="100">
+              <% else %>
+                <img src="<%= @user.image_url %>" alt="profile img">
+              <% end %>
+              <br>
+              <label class="btn" for="profile-image-upload"><i class="fa fa-upload" aria-hidden="true"></i> Upload Photo</label>
+              <input type="file" name="pic" accept="image/*" id="profile-image-upload">
+            </div>
             <div class="profile-content">
-
-              <div class="profile-image-update">
-                <% if @user.image_url=="" %>
-                  <img src="http://www.sessionlogs.com/media/icons/defaultIcon.png" alt="profile img" title="default profile image" style="border-radius: 50%;" width="100">
-                <% else %>
-                  <img src="<%= @user.image_url %>" alt="profile img">
-                <% end %>
-                <input type="file" name="pic" accept="image/*">
-
-                <br /><!-- brbrbrbrbrbrbrbrbr -->
-              </div>
-
               <div class="user-profile-field">
                 <label for="user-first-name">First name</label><br>
-                <input name= "user_first_name" type="text" class="form-control" value="<%= current_user.first_name %>">
+                <input name= "user_first_name" id="user_first_name" type="text" class="form-control" value="<%= current_user.first_name %>">
               </div>
 
               <div class="user-profile-field">
                 <label for="user-last-name">Last name</label><br>
-                <input name= "user_last_name", type="text", class="form-control" value="<%= current_user.last_name %>">
+                <input name= "user_last_name" id="user_last_name" type="text" class="form-control" value="<%= current_user.last_name %>">
               </div>
 
               <div class="user-profile-field">
                 <label for="user-school">School</label><br>
-                <input name= "user_school", type="text", class="form-control" value="<%= current_user.school %>">
+                <input name= "user_school" id="user_school" type="text" class="form-control" value="<%= current_user.school %>">
               </div>
 
               <div class="user-profile-field">
                 <label for="user-major">Major</label><br>
-                <input name= "user_major", type="text", class="form-control" value="<%= current_user.major %>">
+                <input name= "user_major" id="user_major" type="text" class="form-control" value="<%= current_user.major %>">
               </div>
 
               <div class="user-profile-field">
                 <label for="user-classyear">Class of Year</label><br>
-                <input name= "user_class_year", type="text", class="form-control" value="<%= current_user.class_year %>">
+                <input name= "user_class_year" id="user_class_year" type="text" class="form-control" value="<%= current_user.class_year %>">
               </div>
+              <button type="submit" class="btn" id="user-profile-update-btn">Save Changes</button>
             </div> <!-- profile-content -->
-
-            <button type="submit" class="btn">Save Changes</button>
           </form>
 
         </div><!-- Profile tab -->
@@ -222,3 +219,15 @@
 
   </div><!--row-->
 </div><!--container-->
+<script>
+  $(function(){
+    $('#profile-image-upload').change(function() {
+      var i = $(this).prev('label').clone();
+      var file = $('#profile-image-upload')[0].files[0].name;
+      if (file.length > 20) {
+        file = file.substr(0, 10) + "..." + file.substr(file.length-6, file.length);
+      }
+      $(this).prev('label').text(file);
+    });
+  });
+</script>
