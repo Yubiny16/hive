@@ -2,7 +2,11 @@ class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
 
   def index
-    @events = Event.where(start: params[:start]..params[:end], group_id: $group_id)
+    if $type
+      @events = Event.where(start: params[:start]..params[:end], user_id: $group_id)
+    else
+      @events = Event.where(start: params[:start]..params[:end], user_id: current_user.id)
+    end
   end
 
   def show
@@ -18,7 +22,12 @@ class EventsController < ApplicationController
 
   def create
     @event = Event.new(event_params)
-    @event.group_id = $group_id
+    if $type# group
+      @event.user_id = $group_id
+    else# user
+      @event.user_id = current_user.id
+    end
+    @event.calendar_type = $type
     @event.save
 
     GroupUser.where(group_id: $group_id).find_each do |one_member|
