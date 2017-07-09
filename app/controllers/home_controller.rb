@@ -3,7 +3,8 @@ class HomeController < ApplicationController
   before_action :require_login
   before_action :set_event, only: [:show, :edit, :update, :destroy]
   $n = 2
-
+  $type
+  
   def index
     @user = current_user
 
@@ -95,6 +96,7 @@ class HomeController < ApplicationController
     @group = Group.find(params[:group_id])
     #global variable $group_id to be used in events controller
     $group_id = @group.id
+    $type = 1
     @user = current_user
     @poll = Poll.where(group_id: @group.id).reverse
     @budget = Budget.find_by(group_id: @group.id)
@@ -392,6 +394,7 @@ class HomeController < ApplicationController
 
   def my_calendar
     @current_group_user = GroupUser.where(user_id: current_user.id)
+    $type = 0
   end
 
 

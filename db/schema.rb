@@ -71,15 +71,15 @@ ActiveRecord::Schema.define(version: 20170616092144) do
   end
 
   create_table "events", force: :cascade do |t|
+    t.integer  "calendar_type"
     t.integer  "user_id"
-    t.integer  "group_id"
     t.string   "title"
     t.datetime "start"
     t.datetime "end"
-    t.string   "color",       default: "black"
+    t.string   "color",         default: "black"
     t.string   "description"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
   end
 
   create_table "group_users", force: :cascade do |t|

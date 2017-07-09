@@ -2,8 +2,8 @@ class CreateEvents < ActiveRecord::Migration[5.0]
   def change
     create_table :events do |t|
 
+    t.integer "calendar_type"# 0: user, 1: group
     t.integer "user_id"
-    t.integer "group_id"
     t.string   "title"
     t.datetime "start"
     t.datetime "end"
