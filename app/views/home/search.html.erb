@@ -66,24 +66,55 @@
         <% @searched_groups.find_each do |g| %>
           <!-- Looks for already joined groups -->
           <% if GroupUser.where(group_id: g.id, user_id: current_user.id).exists? %>
-            <h4>Already Joined <%= g.name %></h4>
+            <div class="searched_groups_profile">
+              <% if g.image_url=="" %>
+                <img src="https://i1.sndcdn.com/artworks-000078815478-g59cab-t500x500.jpg" alt="group profile img" title="default profile image" style="border-radius: 50%;" width="100">
+              <% else %>
+                <img src="<%= g.image_url %>" alt="group profile img" style="border-radius: 50%;" width="100">
+              <% end %>
+              <div class="group_profile_heading">
+                <h3><%= g.name %></h3>
+                <p><%= g.school %></p>
+              </div>
+              <p><%= g.description %></p>
+              <u>Joined</u>
+            </div>
+            <hr>
           <% else %>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#join_button_<%= g.id %>"><%= g.name %></button>
+            <div class="searched_groups_profile">
+              <% if g.image_url=="" %>
+                <img src="https://i1.sndcdn.com/artworks-000078815478-g59cab-t500x500.jpg" alt="group profile img" title="default profile image" style="border-radius: 50%;" width="100">
+              <% else %>
+                <img src="<%= g.image_url %>" alt="group profile img" style="border-radius: 50%;" width="100">
+              <% end %>
+              <div class="group_profile_heading">
+                <h3><%= g.name %></h3>
+                <p><%= g.school %></p>
+              </div>
+              <p><%= g.description %></p>
+              <button class="btn" type="button" data-toggle="modal" data-target="#join_button_<%= g.id %>" style="outline: none;">
+                Join
+              </button>
+            </div>
+            <hr>
             <!-- Create modal for each group -->
             <div class="modal fade" id="join_button_<%= g.id %>" tableindex="-1" role="dialog">
               <div class="modal-dialog" role="document">
-                <div class="modal-content">
+                <div class="modal-content" id="join_group_popup">
                   <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
-                    <h5 class="modal-title"><%= g.name %></h5>
+                    <h4 class="modal-title">Join <%= g.name %></h4>
                   </div>
                   <div class="modal-body">
                   <!-- Join Group -->
                     <form action="/home/join_group/<%= g.id %>" method="post">
-                      <input name= "group_pw" type="text" class="form-control" placeholder="Type in Password for this Group to Join">
-                      <button type="submit" class="btn btn-default">Join</button>
+                      <label for="join-pw">Enter Password</label>
+                      <input id="join-pw" name= "group_pw" type="text" class="form-control">
+                      <div class="popup-buttons">
+                        <button type="submit" class="btn">Join</button>
+                      </div>
                     </form>
                   </div>
                 </div> <!--modal-content-->

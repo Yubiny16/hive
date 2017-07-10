@@ -367,7 +367,7 @@ ul#feature-tabs > li.active > a {
   bottom: 70px;
 }
 #budget_item_input {
-  width: 100%;
+  width: 90%;
   white-space: nowrap;
   font-size: 0;
 }
@@ -536,4 +536,70 @@ ul#feature-tabs > li.active > a {
   background-color: #DA413D;
   color: white;
   font-weight: bold;
+}
+/****************Search page design********************/
+#join_group_popup {
+  width: 500px;
+  margin: auto;
+}
+#join_group_popup .modal-body * {
+  font-family: "Source Sans Pro Regular";
+}
+.modal-title {
+  font-family: "Source Sans Pro Regular";
+}
+#join_group_popup input {
+  margin-bottom: 15px;
+}
+#join_group_popup .modal-body button {
+  margin-top: 15px;
+  background-color: #DA413D;
+  color: white;
+  font-weight: bold;
+}
+#join_group_popup .popup-buttons {
+  text-align: right;
+}
+.searched_groups_profile {
+  font-family: "Source Sans Pro Regular";
+  position: relative;
+  width: 90%;
+  margin: 0 auto;
+  display: block;
+  height: 100px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+.searched_groups_profile .group_profile_heading {
+  display: inline-block;
+  position: absolute;
+  margin-left: 20px;
+  top: 0;
+}
+.searched_groups_profile .group_profile_heading h3 {
+  display: inline-block;
+  margin: 0;
+}
+.searched_groups_profile .group_profile_heading p {
+  display: inline-block;
+  margin: 0;
+  margin-left: 15px;
+}
+.searched_groups_profile > p {
+  padding-left: 120px;
+  margin-top: -65px;
+  margin-bottom: 0;
+}
+.searched_groups_profile > button {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 2px 5px 2px 5px;
+}
+.searched_groups_profile > u {
+  position: absolute;
+  right: 0;
+  top: 0;
 }
