@@ -4,7 +4,7 @@ class HomeController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
   $n = 2
   $type
-  
+
   def index
     @user = current_user
 
@@ -395,6 +395,7 @@ class HomeController < ApplicationController
   def my_calendar
     @current_group_user = GroupUser.where(user_id: current_user.id)
     $type = 0
+
   end
 
 

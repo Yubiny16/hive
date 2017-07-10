@@ -65,8 +65,12 @@
 
     <!-- Main/Board -->
     <div class="col-md-7 board" style="padding-left: 20px;">
-      <div class="my_calendar"></div>
+      <div class="my_calendar">
+        <div id="event_type" data-type="<%= $type %>"></div>
+      </div>
     </div><!--col-md-7-->
+
+
 
     <div class="col-md-2">
     </div>
@@ -93,9 +97,9 @@ var initialize_calendar;
         editable: true,
         eventLimit: true,
         droppable: true,
-        events: '/my_event.json',
+        events: '/events.json',
         select: function(start, end) {
-          $.getScript('/home/new', function() {
+          $.getScript('/events/new', function() {
             $('#event_date_range').val(moment(start).format("MM/DD/YYYY HH:mm") + ' - ' + moment(end).format("MM/DD/YYYY HH:mm"));
             date_range_picker();
             $('.start_hidden').val(moment(start).format('YYYY-MM-DD HH:mm'));

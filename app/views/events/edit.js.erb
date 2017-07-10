@@ -1,6 +1,7 @@
 var admin = $("#admin").data("admin");
+var event_type = $("#event_type").data("type");
 
- if (admin == true)
+ if (admin == true || event_type == 0)
  {
    $('#remote_container').html('<%= j render "edit" %>');
    $('#edit_event').modal('show');

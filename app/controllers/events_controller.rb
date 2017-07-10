@@ -2,11 +2,16 @@ class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
 
   def index
-    if $type
-      @events = Event.where(start: params[:start]..params[:end], user_id: $group_id)
-    else
-      @events = Event.where(start: params[:start]..params[:end], user_id: current_user.id)
+    if $type == 1
+      @events = Event.where(start: params[:start]..params[:end], user_id: $group_id, calendar_type: 1)
+
     end
+
+    if $type == 0
+      @events = Event.where(start: params[:start]..params[:end], user_id: current_user.id, calendar_type: 0)
+
+    end
+
   end
 
   def show
@@ -22,7 +27,7 @@ class EventsController < ApplicationController
 
   def create
     @event = Event.new(event_params)
-    if $type# group
+    if $type == 1# group
       @event.user_id = $group_id
     else# user
       @event.user_id = current_user.id
@@ -30,33 +35,38 @@ class EventsController < ApplicationController
     @event.calendar_type = $type
     @event.save
 
-    GroupUser.where(group_id: $group_id).find_each do |one_member|
+    if $type == 1
+      GroupUser.where(group_id: $group_id).find_each do |one_member|
 
-      #Cal Feed
-      one_cal_notification = Calnoti.new
-      one_cal_notification.group_id = $group_id
-      one_cal_notification.sender = current_user.id
-      one_cal_notification.receiver = one_member.user_id
-      one_cal_notification.title = @event.title
-      one_cal_notification.description = @event.description
-      one_cal_notification.save
+        #Cal Feed
+        one_cal_notification = Calnoti.new
+        one_cal_notification.group_id = $group_id
+        one_cal_notification.sender = current_user.id
+        one_cal_notification.receiver = one_member.user_id
+        one_cal_notification.title = @event.title
+        one_cal_notification.description = @event.description
+        one_cal_notification.save
 
+      end
     end
   end
 
   def update
     @event.update(event_params)
-    GroupUser.where(group_id: $group_id).find_each do |one_member|
 
-      #Cal Feed
-      one_cal_notification = Calnoti.new
-      one_cal_notification.group_id = $group_id
-      one_cal_notification.sender = current_user.id
-      one_cal_notification.receiver = one_member.user_id
-      one_cal_notification.title = @event.title
-      one_cal_notification.description = @event.description
-      one_cal_notification.save
+    if $type == 1
+      GroupUser.where(group_id: $group_id).find_each do |one_member|
 
+        #Cal Feed
+        one_cal_notification = Calnoti.new
+        one_cal_notification.group_id = $group_id
+        one_cal_notification.sender = current_user.id
+        one_cal_notification.receiver = one_member.user_id
+        one_cal_notification.title = @event.title
+        one_cal_notification.description = @event.description
+        one_cal_notification.save
+
+      end
     end
   end
 

@@ -65,22 +65,7 @@
       <% unless @searched_groups == nil %>
         <% @searched_groups.find_each do |g| %>
           <!-- Looks for already joined groups -->
-          <% if GroupUser.where(group_id: g.id, user_id: current_user.id).exists? %>
-            <div class="searched_groups_profile">
-              <% if g.image_url=="" %>
-                <img src="https://i1.sndcdn.com/artworks-000078815478-g59cab-t500x500.jpg" alt="group profile img" title="default profile image" style="border-radius: 50%;" width="100">
-              <% else %>
-                <img src="<%= g.image_url %>" alt="group profile img" style="border-radius: 50%;" width="100">
-              <% end %>
-              <div class="group_profile_heading">
-                <h3><%= g.name %></h3>
-                <p><%= g.school %></p>
-              </div>
-              <p><%= g.description %></p>
-              <u>Joined</u>
-            </div>
-            <hr>
-          <% else %>
+          <% unless GroupUser.where(group_id: g.id, user_id: current_user.id).exists? %>
             <div class="searched_groups_profile">
               <% if g.image_url=="" %>
                 <img src="https://i1.sndcdn.com/artworks-000078815478-g59cab-t500x500.jpg" alt="group profile img" title="default profile image" style="border-radius: 50%;" width="100">
@@ -95,6 +80,21 @@
               <button class="btn" type="button" data-toggle="modal" data-target="#join_button_<%= g.id %>" style="outline: none;">
                 Join
               </button>
+            </div>
+            <hr>
+          <% else %>
+            <div class="searched_groups_profile">
+              <% if g.image_url=="" %>
+                <img src="https://i1.sndcdn.com/artworks-000078815478-g59cab-t500x500.jpg" alt="group profile img" title="default profile image" style="border-radius: 50%;" width="100">
+              <% else %>
+                <img src="<%= g.image_url %>" alt="group profile img" style="border-radius: 50%;" width="100">
+              <% end %>
+              <div class="group_profile_heading">
+                <h3><%= g.name %></h3>
+                <p><%= g.school %></p>
+              </div>
+              <p><%= g.description %></p>
+              <u>Joined</u>
             </div>
             <hr>
             <!-- Create modal for each group -->
