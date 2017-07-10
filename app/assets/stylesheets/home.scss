@@ -257,7 +257,7 @@ nav#navbar-custom .btn-search i {
   margin-left: 15px;
 }
 #group_profile > p {
-  padding-left: 80px;
+  padding-left: 120px;
   padding-right: 20px;
   margin-top: -30px;
 }
@@ -515,9 +515,11 @@ ul#feature-tabs > li.active > a {
   font-weight: bold;
 }
 /******************Group Profile Edit Page***********/
+
 .group-profile-field {
   font-family: "Source Sans Pro Regular";
   width: 50%;
+  float: left;
   margin-bottom: 15px;
   margin-left: 5%;
 }
