@@ -63,9 +63,12 @@
       <div class="group-edit-header">
         <h3>Group Settings</h3>
       </div>
-
+      <div class="group-update-label">
+        UPDATE GROUP PROFILE
+      </div>
+      <hr>
       <% if @admin_user.admin == true %>
-        <div class="profile-image-update">
+        <div class="group-image-update">
           <% if current_user.image_url=="" %>
             <img src="http://www.sessionlogs.com/media/icons/defaultIcon.png" alt="profile img" title="default profile image" style="border-radius: 50%;" width="100">
           <% else %>

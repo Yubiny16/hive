@@ -1,0 +1,2 @@
+class Groupfile < ApplicationRecord
+end

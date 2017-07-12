@@ -7,6 +7,8 @@ class CreateCalnotis < ActiveRecord::Migration[5.0]
       t.integer :receiver
       t.string :title
       t.string :description
+      t.datetime :start
+      t.datetime :end
       t.boolean :read, :default => false
 
       t.timestamps

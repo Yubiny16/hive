@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170616092144) do
+ActiveRecord::Schema.define(version: 20170711000256) do
 
   create_table "annnotis", force: :cascade do |t|
     t.integer  "announcement_id"
@@ -56,6 +56,8 @@ ActiveRecord::Schema.define(version: 20170616092144) do
     t.integer  "receiver"
     t.string   "title"
     t.string   "description"
+    t.datetime "start"
+    t.datetime "end"
     t.boolean  "read",        default: false
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
@@ -89,6 +91,15 @@ ActiveRecord::Schema.define(version: 20170616092144) do
     t.boolean  "admin",      default: false
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
+  end
+
+  create_table "groupfiles", force: :cascade do |t|
+    t.integer  "group_id"
+    t.integer  "user_id"
+    t.string   "name"
+    t.string   "type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "groups", force: :cascade do |t|

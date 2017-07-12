@@ -62,9 +62,9 @@
     <!-- Main/Board -->
     <div class="col-md-7 board" style="padding-left: 0;">
       <!-- list of searched groups -->
-      <% unless @searched_groups == nil %>
+      <% unless @searched_groups.first == nil %>
         <% @searched_groups.find_each do |g| %>
-          <!-- Looks for already joined groups -->
+          <!-- Looks for not already joined groups -->
           <% unless GroupUser.where(group_id: g.id, user_id: current_user.id).exists? %>
             <div class="searched_groups_profile">
               <% if g.image_url=="" %>
@@ -82,21 +82,7 @@
               </button>
             </div>
             <hr>
-          <% else %>
-            <div class="searched_groups_profile">
-              <% if g.image_url=="" %>
-                <img src="https://i1.sndcdn.com/artworks-000078815478-g59cab-t500x500.jpg" alt="group profile img" title="default profile image" style="border-radius: 50%;" width="100">
-              <% else %>
-                <img src="<%= g.image_url %>" alt="group profile img" style="border-radius: 50%;" width="100">
-              <% end %>
-              <div class="group_profile_heading">
-                <h3><%= g.name %></h3>
-                <p><%= g.school %></p>
-              </div>
-              <p><%= g.description %></p>
-              <u>Joined</u>
-            </div>
-            <hr>
+
             <!-- Create modal for each group -->
             <div class="modal fade" id="join_button_<%= g.id %>" tableindex="-1" role="dialog">
               <div class="modal-dialog" role="document">
@@ -120,10 +106,41 @@
                 </div> <!--modal-content-->
               </div> <!--modal-dialog-->
             </div> <!--modal fade-->
+
+          <% else %>
+
+            <div class="searched_groups_profile">
+              <% if g.image_url=="" %>
+                <img src="https://i1.sndcdn.com/artworks-000078815478-g59cab-t500x500.jpg" alt="group profile img" title="default profile image" style="border-radius: 50%;" width="100">
+              <% else %>
+                <img src="<%= g.image_url %>" alt="group profile img" style="border-radius: 50%;" width="100">
+              <% end %>
+              <div class="group_profile_heading">
+                <h3><%= g.name %></h3>
+                <p><%= g.school %></p>
+              </div>
+              <p><%= g.description %></p>
+              <u>Joined</u>
+            </div>
+            <hr>
+
           <% end %>
+
         <% end %><!--@searched_groups.find_each do |g|-->
       <% else %><!-- unless @searched_groups == nil -->
-        No Searched Group
+        <% if @search == "dldksjflk;asjfldsjfcmvlkxvnl9reut" %>
+        <div class ="no_result_message">
+          <p>
+            we couldn't find any group named " "
+          </p>
+        </div>
+        <% else %>
+          <div class ="no_result_message">
+            <p>
+              we couldn't find any group named "<%=@search %>"
+            </p>
+        </div>
+        <% end %>
       <% end %>
     </div><!-- Main/Board End -->
 

@@ -169,6 +169,12 @@ nav#navbar-custom .btn-search i {
   border: 2px solid #e4e4e6;
   border-radius: 5px;
 }
+.no_feed_message > p{
+  font-family: "Source Sans Pro Regular";
+  text-align: center;
+  margin-top: 200px;
+  font-size: 15px;
+}
 .each_feed {
   background-color: white;
   overflow: hidden;
@@ -177,6 +183,7 @@ nav#navbar-custom .btn-search i {
   border-radius: 2px;
   box-shadow: 0px 0.5px 0.5px #888888;
   cursor: pointer; cursor: hand;
+
 }
 .each_feed_read {
   background-color: #d9d9d9;
@@ -260,12 +267,20 @@ nav#navbar-custom .btn-search i {
   padding-left: 120px;
   padding-right: 20px;
   margin-top: -30px;
+  word-wrap: break-word;
 }
 #group_profile > a {
   position: absolute;
   right: 20px;
   top: 0;
   font-size: 18px;
+}
+#Announcement .group_page_no_announcement > p,
+#Poll .group_page_no_poll > p,{
+  font-family: "Source Sans Pro Regular";
+  margin-left: 30px;
+  margin-top: 30px;
+  font-size: 15px;
 }
 ul#feature-tabs {
   font-family: "Source Sans Pro Regular";
@@ -395,6 +410,12 @@ ul#feature-tabs > li.active > a {
   background-color: #F43716;
   border-radius: 0 4px 4px 0;
 }
+#transactions .each_transaction .revenue {
+  background-color: #a1e184;
+}
+#transactions .each_transaction .expense {
+  background-color: #ff6666;
+}
 /**members page design**/
 #Network {
   text-align: center;
@@ -519,19 +540,43 @@ ul#feature-tabs > li.active > a {
 .group-profile-field {
   font-family: "Source Sans Pro Regular";
   width: 50%;
-  float: left;
+  float: right;
   margin-bottom: 15px;
-  margin-left: 5%;
+  margin-right: 5%;
 }
 .group-profile-field:last-child {
-  text-align: right;
+  text-align: left;
 }
 .group-edit-header {
+  font-family: "Source Sans Pro Regular";
   margin-bottom: 35px;
   margin-left: 5%;
 }
 .group-edit-header h3 {
   margin-top: 0;
+}
+.group-image-update {
+  float: left;
+  width: 40%;
+  text-align: center;
+}
+.group-image-update input {
+  position: absolute;
+  left: -99999rem;
+}
+.group-image-update label {
+  font-family: 'Source Sans Pro Regular';
+  margin-top: 15px;
+  background-color: #DA413D;
+  color: white;
+  font-weight: bold;
+}
+.group-update-label{
+  position: relative;
+  color: #6a646b;
+  font-size: 13px;
+  font-family: "Source Sans Pro Regular";
+  margin-left: 5%;
 }
 #group-profile-change-button {
   margin-top: 15px;
@@ -593,6 +638,7 @@ ul#feature-tabs > li.active > a {
   padding-left: 120px;
   margin-top: -65px;
   margin-bottom: 0;
+  word-wrap: break-word;
 }
 .searched_groups_profile > button {
   position: absolute;
@@ -604,4 +650,9 @@ ul#feature-tabs > li.active > a {
   position: absolute;
   right: 0;
   top: 0;
+}
+.no_result_message > p {
+  margin-left: 30px;
+  font-family: "Source Sans Pro Regular";
+  font-size: 16px;
 }

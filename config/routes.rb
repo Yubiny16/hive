@@ -51,6 +51,8 @@ Rails.application.routes.draw do
   get '/home/group_profile/:group_id' => 'home#group_profile'
   get '/home/group_edit' => 'home#group_edit'
 
+  post '/home/add_event' => 'home#add_event'
+
   #Calendar
   resources :events
   resources :home

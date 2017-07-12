@@ -45,8 +45,10 @@ class EventsController < ApplicationController
         one_cal_notification.receiver = one_member.user_id
         one_cal_notification.title = @event.title
         one_cal_notification.description = @event.description
+        one_cal_notification.start = @event.start
+        one_cal_notification.end = @event.end
         one_cal_notification.save
-
+        
       end
     end
   end

@@ -19,8 +19,15 @@ class HomeController < ApplicationController
 
   def search
     @user_groups = GroupUser.where(user_id: current_user.id)
-    @search = params[:search_group]
+    if params[:search_group] == ""
+      @search = "dldksjflk;asjfldsjfcmvlkxvnl9reut"
+
+    else
+      @search = params[:search_group]
+
+    end
     @searched_groups = Group.where("name LIKE ?", "%#{@search}%")
+
   end
 
   def profile
@@ -395,8 +402,21 @@ class HomeController < ApplicationController
   def my_calendar
     @current_group_user = GroupUser.where(user_id: current_user.id)
     $type = 0
-
   end
 
+  def add_event
+    one_event = Event.new
+    one_event.calendar_type = 0
+    one_event.user_id = current_user.id
+    one_event.title = params[:title]
+    one_event.description = params[:description]
+    one_event.start = params[:start]
+    one_event.end = params[:end]
+    one_event.save
+    puts 1
+    puts 1
+    puts 1
+    redirect_to :back
+  end
 
 end
