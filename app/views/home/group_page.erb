@@ -367,7 +367,7 @@
                 <tr>
                   <td></td>
                   <td style="text-align: center; font-weight: bold;">Total</td>
-                  <td><%= @budget.group_budget %></td>
+                  <td id="total_budget"><%= @budget.group_budget %></td>
                 </tr>
               </tfoot>
               <tbody class= "each_transaction">
@@ -387,6 +387,9 @@
                       <td>- <%= t.value %></td>
                     </tr>
                   <% end %>
+                  <script>
+
+                  </script>
                 <% end %>
               </tbody>
             </table>
@@ -491,7 +494,20 @@ $(document).on('turbolinks:load', initialize_calendar);
     });
    } );
 
+   var today = new Date();
+   var dd = today.getDate();
+   var mm = today.getMonth()+1; //January is 0!
+   var yyyy = today.getFullYear();
 
+   if(dd<10) {
+       dd = '0'+dd
+   }
+
+   if(mm<10) {
+       mm = '0'+mm
+   }
+
+   today = mm + '-' + dd + '-' + yyyy;
 
   //Budget - plus
   $(function() {
@@ -511,11 +527,12 @@ $(document).on('turbolinks:load', initialize_calendar);
       }).done(function() {
         var old_budget = document.getElementById("total_budget").innerHTML;
         var new_budget = parseInt(old_budget) + parseInt(money_plus)
-        $(".each_transaction").append("<tr class= 'revenue'> <td>" + description_p + "</td> <td>" + money_plus + "</td> <tr>");
+        $(".each_transaction").append("<tr class= 'revenue'> <td>" + today + "</td> <td>" + description_p + "</td> <td> + " + money_plus + "</td> <tr>");
         $("#total_budget").empty();
         $("#total_budget").append(new_budget);
         $("#description").val("");
         $("#money").val("");
+
       });
 
 
@@ -540,7 +557,7 @@ $(document).on('turbolinks:load', initialize_calendar);
       }).done(function() {
         var old_budget = document.getElementById("total_budget").innerHTML;
         var new_budget = parseInt(old_budget) - parseInt(money_minus)
-        $(".each_transaction").append("<tr class= 'expense'> <td>" + description_m + "</td> <td>" + money_minus + "</td> <tr>");
+        $(".each_transaction").append("<tr class= 'expense'> <td>" + today + "</td> <td>" + description_m + "</td> <td> - " + money_minus + "</td> <tr>");
         $("#total_budget").empty();
         $("#total_budget").append(new_budget);
         $("#description").val("");

@@ -26,6 +26,7 @@ class HomeController < ApplicationController
       @search = params[:search_group]
 
     end
+
     @searched_groups = Group.where("name LIKE ?", "%#{@search}%")
 
   end

@@ -3,9 +3,8 @@ Rails.application.routes.draw do
   root to: 'home#index'
 
   # header
-  get 'home/index'
+  get 'home/index' => 'home#index'
   get '/home/profile' => 'home#profile'
-  get '/home/my_friends' => 'home#my_friends'
 
   #profile
   post 'home/group_color' => 'home#group_color'
@@ -53,8 +52,9 @@ Rails.application.routes.draw do
 
   post '/home/add_event' => 'home#add_event'
 
+  get '/landing/landing_page' => 'landing#landing_page'
+  get '/landing/index' => 'landing#index'
   #Calendar
   resources :events
-  resources :home
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
