@@ -73,10 +73,10 @@
 
       <ul class ="nav nav-pills" id="feature-tabs">
         <li class="active" ><a href="#Announcement" data-toggle="tab">Announcement</a></li>
-        <li ><a href="#Calendar" data-toggle="tab">Calendar</a></li>
-        <li ><a style="margin: 0px 35px;" href="#Poll" data-toggle="tab">Poll</a></li>
-        <li ><a href="#Files" data-toggle="tab">Files</a></li>
-        <li ><a href="#Budget" data-toggle="tab">Budget</a></li>
+        <li><a href="#Calendar" data-toggle="tab">Calendar</a></li>
+        <li><a href="#Poll" data-toggle="tab">Poll</a></li>
+        <li><a href="#Files" data-toggle="tab">Files</a></li>
+        <li><a href="#Budget" data-toggle="tab">Budget</a></li>
         <li><a href="#Members" data-toggle="tab">Member</a></li>
       </ul>
 
@@ -358,32 +358,39 @@
             <table class="table table-hover">
               <thead>
                 <tr>
+                  <th>Date</th>
                   <th>Description</th>
                   <th>Amount</th>
                 </tr>
               </thead>
+              <tfoot>
+                <tr>
+                  <td></td>
+                  <td style="text-align: center; font-weight: bold;">Total</td>
+                  <td><%= @budget.group_budget %></td>
+                </tr>
+              </tfoot>
               <tbody class= "each_transaction">
                 <!-- Transaction records for this group -->
                 <% Transaction.where(budget_id: @budget.id).find_each do |t| %>
                   <% if t.pos_neg == true %>
                     <tr class="revenue">
+                      <td><%= t.created_at.strftime("%Y-%m-%d") %></td>
                       <td><%= t.description %></td>
-                      <td><%= t.value %></td>
+                      <td>+ <%= t.value %></td>
                     </tr>
                   <% end %>
                   <% if t.pos_neg == false %>
                     <tr class="expense">
+                      <td><%= t.created_at.strftime("%Y-%m-%d") %></td>
                       <td><%= t.description %></td>
-                      <td><%= t.value %></td>
+                      <td>- <%= t.value %></td>
                     </tr>
                   <% end %>
                 <% end %>
               </tbody>
             </table>
           </div>
-
-          <!-- Budget Balance -->
-          <h3 id="total_budget"><%= @budget.group_budget %></h3>
         </div>
 
         <!-- Members -->
@@ -504,9 +511,11 @@ $(document).on('turbolinks:load', initialize_calendar);
       }).done(function() {
         var old_budget = document.getElementById("total_budget").innerHTML;
         var new_budget = parseInt(old_budget) + parseInt(money_plus)
-        $(".each_transaction").prepend("<tr class= 'revenue'> <td>" + description_p + "</td> <td>" + money_plus + "</td> <tr>");
+        $(".each_transaction").append("<tr class= 'revenue'> <td>" + description_p + "</td> <td>" + money_plus + "</td> <tr>");
         $("#total_budget").empty();
         $("#total_budget").append(new_budget);
+        $("#description").val("");
+        $("#money").val("");
       });
 
 
@@ -531,9 +540,11 @@ $(document).on('turbolinks:load', initialize_calendar);
       }).done(function() {
         var old_budget = document.getElementById("total_budget").innerHTML;
         var new_budget = parseInt(old_budget) - parseInt(money_minus)
-        $(".each_transaction").prepend("<tr class= 'expense'> <td>" + description_m + "</td> <td>" + money_minus + "</td> <tr>");
+        $(".each_transaction").append("<tr class= 'expense'> <td>" + description_m + "</td> <td>" + money_minus + "</td> <tr>");
         $("#total_budget").empty();
         $("#total_budget").append(new_budget);
+        $("#description").val("");
+        $("#money").val("");
       });
     });
   });
