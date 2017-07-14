@@ -315,6 +315,9 @@ ul#feature-tabs > li.active > a {
   border: 1px solid #c5c5c5;
   padding-top: 4px;
   padding-bottom: 4px;
+  border-radius: 0;
+  font-size: 16px;
+  font-weight: bold;
 }
 #add_ann_btn i,
 #add_poll_btn i {
@@ -331,13 +334,24 @@ ul#feature-tabs > li.active > a {
 }
 #announcement_accordion .ui-state-active,
 #poll_accordion .ui-state-active {
-  border: 1px solid #c5c5c5;
+  // border: 1px solid #c5c5c5;
+  border: 1px solid #DA413D;
   background-color: #f6f6f6;
-  color: #454545;
+  // color: #454545;
+  color: white;
+  background-color: #DA413D;
 }
-#announcement_accordion .ui-state-active .ui-icon,
-#poll_accordion .ui-state-active .ui-icon {
-  background-image: url("http://code.jquery.com/ui/1.12.1/themes/base/images/ui-icons_444444_256x240.png");
+// #announcement_accordion .ui-state-active .ui-icon,
+// #poll_accordion .ui-state-active .ui-icon {
+//   background-image: url("http://code.jquery.com/ui/1.12.1/themes/base/images/ui-icons_444444_256x240.png");
+// }
+#announcement_accordion .group_announcement_title {
+  margin: 0;
+  border-radius: 0;
+  border-top: 0px;
+}
+#announcement_accordion .ui-accordion-content {
+  border-radius: 0;
 }
 #ann_popup_new,
 #poll_popup {

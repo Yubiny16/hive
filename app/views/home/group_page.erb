@@ -123,8 +123,8 @@
             <% unless @announcements.first == nil %>
               <div class="announcement_accordion" id="announcement_accordion">
                 <% @announcements.each do |announcements| %>
-                  <h3 class="group_announcement_title">
-                    <%= announcements.title %> <%= announcements.created_at.strftime("%m/%d/%y  %l:%M %p") %>
+                  <h3 class="group_announcement_title" style="font-family: 'Source Sans Pro Regular'; outline: none;">
+                    <span style="text-transform: capitalize; font-size: 16px; font-weight: bold;"><%= announcements.title %></span><span style="float: right;"><%= announcements.created_at.strftime("%Y-%m-%d") %></span>
                   </h3>
 
                   <!--Announcement Content-->
