@@ -28,6 +28,12 @@ h6 {
     font-size: 14px;
 }
 
+.topnav .navbar-header > a {
+    color: #DA413D;
+}
+.navbar-right > a:active {
+  background-color: white;
+}
 .lead {
     font-size: 18px;
     font-weight: 400;
@@ -53,11 +59,15 @@ h6 {
     text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
     font-size: 5em;
 }
+.intro-message > a {
+    background-color: #DA413D;
+    color: white;
+}
 
 .intro-divider {
     width: 400px;
-    border-top: 1px solid #f8f8f8;
-    border-bottom: 1px solid rgba(0,0,0,0.2);
+    border-top: 1px solid #DA413D;
+    border-bottom: 1px solid #DA413D;
 }
 
 .intro-message > h3 {
@@ -113,13 +123,13 @@ h6 {
 .section-heading-spacer {
     float: left;
     width: 200px;
-    border-top: 3px solid #e7e7e7;
+    border-top: 3px solid #DA413D;
 }
 
 .banner {
     padding: 100px 0;
     color: #f8f8f8;
-    background: url(https://static.pexels.com/photos/7096/people-woman-coffee-meeting.jpg) no-repeat center center;
+    background-color:#DA413D;
     background-size: cover;
 }
 
