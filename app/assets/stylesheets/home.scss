@@ -237,6 +237,64 @@ nav#navbar-custom .btn-search i {
   padding-left: 5px;
   color: #6a646b;
 }
+.feed_whole_content {
+  background-color: #f2f2f2;
+  height: 450px;
+  overflow: auto;
+  padding: 5px;
+  border-radius: 5px;
+  width: 535px;
+  position: relative;
+  left: 200px;
+  top: -455px;
+}
+
+/**right side bar**/
+.filter-dropdown {
+  padding-top: 80px;
+  position: relative;
+  display: inline-block;
+}
+.filter-dropdown-btn-feature,
+.filter-dropdown-btn-group {
+  background-color: #DA413D;
+  color: white;
+  padding: 5px 20px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+.filter-dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+/* Links inside the dropdown */
+.filter-dropdown-content p {
+    color: black;
+    padding: 7px 10px;
+    text-decoration: none;
+    display: block;
+}
+/* Change color of dropdown links on hover */
+.filter-dropdown-content p:hover {
+  background-color: #f1f1f1
+}
+
+/* Show the dropdown menu on hover */
+.filter-dropdown:hover .filter-dropdown-content {
+    display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.filter-dropdown:hover .filter-dropdown-btn-feature,
+.filter-dropdown:hover .filter-dropdown-btn-group {
+    background-color: #c12a25;
+}
+
 .fa-times {
   color:red;
 }

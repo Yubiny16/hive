@@ -1,2 +1,0 @@
-class Budgetnoti < ApplicationRecord
-end

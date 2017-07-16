@@ -55,6 +55,7 @@
           <% end %>
         <% end %>
       </ul>
+      <hr />
       <p><a href="/home/create_group_view"><i class="fa fa-plus-circle" aria-hidden="true"></i>Create Group</a></p>
     </div><!-- leftbar End-->
 
@@ -97,6 +98,10 @@
             <input name= "group_email", type="email", class="form-control" value="<%= @group.email %>">
           </div>
           <div class="group-profile-field">
+            <label for="group-email">Group Website</label><br>
+            <input name= "group_website", type="text", class="form-control" value="<%= @group.website_address %>">
+          </div>
+          <div class="group-profile-field">
             <label for="group-password">Group Password</label><br>
             <input name= "group_pw", type="text", class="form-control" value="<%= @group.password %>">
           </div>
@@ -122,6 +127,10 @@
         <div class="group-profile-field">
           <label for="group-email">Group Email</label><br>
           <%= @group.email %>
+        </div>
+        <div class="group-profile-field">
+          <label for="group-email">Group Website</label><br>
+          <%= @group.website_address %>
         </div>
         <div class="group-profile-field">
           <label for="group-password">Group Password</label><br>

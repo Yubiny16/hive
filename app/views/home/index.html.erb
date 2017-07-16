@@ -59,6 +59,7 @@
           <% end %>
         <% end %>
       </ul>
+      <hr />
       <p><a href="/home/create_group_view"><i class="fa fa-plus-circle" aria-hidden="true"></i>Create Group</a></p>
     </div><!-- leftbar End-->
 
@@ -66,370 +67,257 @@
     <div class="col-md-7 board" style="padding-left: 20px;">
       <!-- Announcement Feed -->
       <div class="main_feed">
-        <h4>Announcement</h4>
+        <h4>NEWS FEED</h4>
         <div class="main_feed_content">
-          <% unless @ann_notification.first == nil %>
-            <% @ann_notification.each do |ann_notification| %>
-              <% if ann_notification.read == false %>
-                <div class="each_feed announcement_id_<%= ann_notification.id %>" data-toggle="modal" data-target="#announcement_modal_<%= ann_notification.id %>">
-                  <div class="each_feed_title">
-                    <div class="circle_<%= @current_group_user.find_by(group_id: ann_notification.group_id).color %>"></div>
-                    <p><%= ann_notification.title %></p>
-                  </div>
-                  <p class="each_feed_content"><%= ann_notification.content %></p>
-                  <p class="feed_date"><%= ann_notification.created_at.strftime("%m/%d/%y") %></p>
-                </div><!-- each_feed -->
-              <script>
-                $(function() {
-                  $('.announcement_id_<%= ann_notification.id %>').click(function(){
-                    var ann_notification_id = <%= ann_notification.id %>;
-
-                    $.ajax({
-                      method: "GET",
-                      url: '/home/ann_read',
-                      data: { ann_notification_id: ann_notification_id }
-
-                    }).done(function() {
-                      //not read --> read
-                      $(".announcement_id_<%= ann_notification.id %>").css("background-color", "#d9d9d9");
-                    });
-                  });
-                });
-              </script>
-
-              <!-- unread -->
-              <% else %>
-                <div class="each_feed_read" data-toggle="modal" data-target="#announcement_modal_<%= ann_notification.id %>">
-                  <div class="each_feed_title">
-                    <div class="circle_<%= @current_group_user.find_by(group_id: ann_notification.group_id).color %>"></div>
-                    <p><%= ann_notification.title %></p>
-                  </div>
-                  <p class="each_feed_content"><%= ann_notification.content %></p>
-                  <p class="feed_date"><%= ann_notification.created_at.strftime("%m/%d/%y") %></p>
-                </div><!-- each_feed -->
-              <% end %>
-
-              <!-- Modal -->
-              <div id="announcement_modal_<%= ann_notification.id %>" class="modal fade">
-                <div class="modal-dialog modal-lg">
-                  <div class="modal-content">
-
-                    <!-- Header -->
-                    <div class="modal-header">
-                      <div class="circle_<%= @current_group_user.find_by(group_id: ann_notification.group_id).color %>"></div>
-                      <p><%= ann_notification.title %></p>
-                      <p class="feed_date"><%= ann_notification.created_at.strftime("%m/%d/%y  %l:%M %p") %></p>
+          <% unless @all_notification.first == nil %>
+            <% @all_notification.each do |all_notification| %>
+              <% if all_notification.notification_type == 1 %>
+                <% if all_notification.read == false %>
+                  <div class="each_feed announcement_feed announcement_id_<%= all_notification.id %>" data-toggle="modal" data-target="#announcement_modal_<%= all_notification.id %>">
+                    <div class="each_feed_title">
+                      <div class="circle_<%= @current_group_user.find_by(group_id: all_notification.group_id).color %>"></div>
+                      <p><%= all_notification.title %></p>
                     </div>
-
-                    <!-- Body -->
-                    <div class="modal-body">
-                      <p class="each_feed_content"><%= ann_notification.content %></p>
-                    </div>
-
-                    <!-- Footer -->
-                    <div class="modal-footer modal-footer--mine">
-                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            <% end %>
-          <% else %>
-            <div class="no_feed_message">
-              <p>
-                No Group Announcement to Show
-              </p>
-            </div>
-          <% end %>
-
-        </div><!-- main_feed_content -->
-      </div><!-- main_feed -->
-
-      <!-- Calendar Feed -->
-      <div class="main_feed">
-        <h4>Calendar</h4>
-        <div class="main_feed_content">
-          <% unless @cal_notification.first == nil %>
-            <% @cal_notification.each do |cal_notification| %>
-              <% if cal_notification.read == false %>
-                <div class="each_feed cal_id_<%= cal_notification.id %>" data-toggle="modal" data-target="#cal_modal_<%= cal_notification.id %>">
-                  <div class="each_feed_title">
-                    <div class="circle_<%= @current_group_user.find_by(group_id: cal_notification.group_id).color %>"></div>
-                    <p><%= cal_notification.title %></p>
-                  </div>
-                  <p class="each_feed_content"><%= cal_notification.description %></p>
-                  <p class="feed_date"><%= cal_notification.created_at.strftime("%m/%d/%y") %></p>
-                </div>
+                    <p class="each_feed_content"><%= all_notification.content %></p>
+                    <p class="feed_date"><%= all_notification.created_at.strftime("%m/%d/%y") %></p>
+                  </div><!-- each_feed -->
                 <script>
                   $(function() {
-                    $('.cal_id_<%= cal_notification.id %>').click(function(){
-                      var cal_notification_id = <%= cal_notification.id %>;
+                    $('.announcement_id_<%= all_notification.id %>').click(function(){
+                      var all_notification_id = <%= all_notification.id %>;
 
                       $.ajax({
                         method: "GET",
-                        url: '/home/cal_read',
-                        data: { cal_notification_id: cal_notification_id }
+                        url: '/home/all_read',
+                        data: { all_notification_id: all_notification_id }
 
                       }).done(function() {
                         //not read --> read
-                        $(".cal_id_<%= cal_notification.id %>").css("background-color", "#d9d9d9");
+                        $(".announcement_id_<%= all_notification.id %>").css("background-color", "#d9d9d9");
                       });
                     });
                   });
                 </script>
-              <% else %>
-                <div class="each_feed_read" data-toggle="modal" data-target="#cal_modal_<%= cal_notification.id %>">
-                  <div class="each_feed_title">
-                    <div class="circle_<%= @current_group_user.find_by(group_id: cal_notification.group_id).color %>"></div>
-                    <p><%= cal_notification.title %></p>
-                  </div>
-                  <p class="each_feed_content"><%= cal_notification.description %></p>
-                  <p class="feed_date"><%= cal_notification.created_at.strftime("%m/%d/%y") %></p>
-                </div><!-- each_feed -->
-              <% end %>
 
-              <!-- Modal -->
-              <div id="cal_modal_<%= cal_notification.id %>" class="modal fade">
-                <div class="modal-dialog modal-lg">
-                  <div class="modal-content">
-
-                    <!-- Header -->
-                    <div class="modal-header">
-                      <div class="circle_<%= @current_group_user.find_by(group_id: cal_notification.group_id).color %>"></div>
-                      <p><%= cal_notification.title %></p>
-                      <p class="feed_date"><%= cal_notification.created_at.strftime("%m/%d/%y  %l:%M %p") %></p>
+                <!-- unread -->
+                <% else %>
+                  <div class="each_feed_read announcement_feed" data-toggle="modal" data-target="#announcement_modal_<%= all_notification.id %>">
+                    <div class="each_feed_title">
+                      <div class="circle_<%= @current_group_user.find_by(group_id: all_notification.group_id).color %>"></div>
+                      <p><%= all_notification.title %></p>
                     </div>
+                    <p class="each_feed_content"><%= all_notification.content %></p>
+                    <p class="feed_date"><%= all_notification.created_at.strftime("%m/%d/%y") %></p>
+                  </div><!-- each_feed -->
+                <% end %>
 
-                    <!-- Body -->
-                    <div class="modal-body">
-                      <p class="each_feed_content"><%= cal_notification.description %></p>
-                      <p class="each_feed_content"><%= cal_notification.start %></p>
-                      <p class="each_feed_content"><%= cal_notification.end %></p>
-                    </div>
+                <!-- Modal -->
+                <div id="announcement_modal_<%= all_notification.id %>" class="modal fade">
+                  <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
 
-                    <!-- Footer -->
-                    <div class="modal-footer modal-footer--mine">
-                      <form action="/home/add_event" method="post">
-                        <input name="title" type="hidden" value="<%= cal_notification.title %>"/>
-                        <input name="start" type="hidden" value="<%= cal_notification.start %>"/>
-                        <input name="end" type="hidden" value="<%= cal_notification.end%>"/>
-                        <input name="description" type="hidden" value="<%= cal_notification.description %>"/>
-                        <input name="group_id" type="hidden" value="<%= cal_notification.group_id %>"/>
-                        <button type="submit" class="btn add_event_button">Add to My Calendar</button>
-                      </form>
+                      <!-- Header -->
+                      <div class="modal-header">
+                        <div class="circle_<%= @current_group_user.find_by(group_id: all_notification.group_id).color %>"></div>
+                        <p><%= all_notification.title %></p>
+                        <p class="feed_date"><%= all_notification.created_at.strftime("%m/%d/%y  %l:%M %p") %></p>
+                      </div>
+
+                      <!-- Body -->
+                      <div class="modal-body">
+                        <p class="each_feed_content"><%= all_notification.content %></p>
+                      </div>
+
+                      <!-- Footer -->
+                      <div class="modal-footer modal-footer--mine">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            <% end %>
-          <% else %>
-            <div class="no_feed_message">
-              <p>
-                No Group Activity to Show
-              </p>
-            </div>
-          <% end %>
-
-        </div><!-- main_feed_content -->
-      </div><!-- main_feed -->
-
-      <!-- Poll Feed -->
-      <div class="main_feed">
-        <h4>Poll</h4>
-        <div class="main_feed_content">
-          <% unless @poll_notification.first == nil %>
-            <% @poll_notification.each do |poll_notification| %>
-              <% if poll_notification.read == false %>
-              <div class="each_feed poll_id_<%= poll_notification.id %>" data-toggle="modal" data-target="#poll_modal_<%= poll_notification.id %>">
-                <div class="each_feed_title">
-                  <div class="circle_<%= @current_group_user.find_by(group_id: poll_notification.group_id).color %>"></div>
-                  <p><%= poll_notification.title %></p>
-                </div>
-                <p><i class="each_feed_content fa fa-times" aria-hidden="true"></i></p>
-                <p class="feed_date"><%= poll_notification.created_at.strftime("%m/%d/%y") %></p>
-              </div>
-              <script>
-                $(function() {
-                  $('.poll_id_<%= poll_notification.id %>').click(function(){
-                    var poll_notification_id = <%= poll_notification.id %>;
-
-                    $.ajax({
-                      method: "GET",
-                      url: '/home/poll_read',
-                      data: { poll_notification_id: poll_notification_id }
-
-                    }).done(function() {
-
-                      $(".poll_id_<%= poll_notification.id %>").css("background-color", "#d9d9d9");
-                    });
-                  });
-                });
-              </script>
-
-              <!-- read -->
-              <% else %>
-                <div class="each_feed_read" data-toggle="modal" data-target="#poll_modal_<%= poll_notification.id %>">
-                  <div class="each_feed_title">
-                    <div class="circle_<%= @current_group_user.find_by(group_id: poll_notification.group_id).color %>"></div>
-                    <p><%= poll_notification.title %></p>
-                  </div>
-                  <% if Polluser.where(user_id: current_user.id).where(poll_id: poll_notification.poll_id).where(voted: true).exists? %>
-                    <p><i class="each_feed_content fa fa-check" aria-hidden="true"></i></p>
-                  <% else %>
+              <% elsif all_notification.notification_type == 2 %>
+                <% if all_notification.read == false %>
+                  <div class="each_feed poll_feed poll_id_<%= all_notification.id %>" data-toggle="modal" data-target="#poll_modal_<%= all_notification.id %>">
+                    <div class="each_feed_title">
+                      <div class="circle_<%= @current_group_user.find_by(group_id: all_notification.group_id).color %>"></div>
+                      <p><%= all_notification.title %></p>
+                    </div>
                     <p><i class="each_feed_content fa fa-times" aria-hidden="true"></i></p>
-                  <% end %>
-                  <p class="feed_date"><%= poll_notification.created_at.strftime("%m/%d/%y") %></p>
-                </div><!-- each_feed -->
-              <% end %>
+                    <p class="feed_date"><%= all_notification.created_at.strftime("%m/%d/%y") %></p>
+                  </div>
+                  <script>
+                    $(function() {
+                      $('.poll_id_<%= all_notification.id %>').click(function(){
+                        var all_notification_id = <%= all_notification.id %>;
 
-              <!-- Modal -->
-              <div id="poll_modal_<%= poll_notification.id %>" class="modal fade">
-                <div class="modal-dialog modal-lg">
-                  <div class="modal-content">
+                        $.ajax({
+                          method: "GET",
+                          url: '/home/poll_read',
+                          data: { all_notification_id: all_notification_id }
 
-                    <!-- Header -->
-                    <div class="modal-header">
-                      <div class="circle_<%= @current_group_user.find_by(group_id: poll_notification.group_id).color %>"></div>
-                      <p><%= poll_notification.title %></p>
-                      <p class="feed_date"><%= poll_notification.created_at.strftime("%m/%d/%y  %l:%M %p") %></p>
+                        }).done(function() {
+
+                          $(".poll_id_<%= all_notification.id %>").css("background-color", "#d9d9d9");
+                        });
+                      });
+                    });
+                  </script>
+
+                  <!-- read -->
+                <% else %>
+                  <div class="each_feed_read poll_feed" data-toggle="modal" data-target="#poll_modal_<%= all_notification.id %>">
+                    <div class="each_feed_title">
+                      <div class="circle_<%= @current_group_user.find_by(group_id: all_notification.group_id).color %>"></div>
+                      <p><%= all_notification.title %></p>
                     </div>
+                    <% if Polluser.where(user_id: current_user.id).where(poll_id: all_notification.poll_id).where(voted: true).exists? %>
+                      <p><i class="each_feed_content fa fa-check" aria-hidden="true"></i></p>
+                    <% else %>
+                      <p><i class="each_feed_content fa fa-times" aria-hidden="true"></i></p>
+                    <% end %>
+                    <p class="feed_date"><%= all_notification.created_at.strftime("%m/%d/%y") %></p>
+                  </div><!-- each_feed -->
+                <% end %>
 
-                    <!-- Body -->
-                    <div class="modal-body">
-                      <!-- If user already voted -->
-                      <% if Polluser.where(user_id: current_user.id).where(poll_id: poll_notification.poll_id).where(voted: true).exists? %>
-                        <form action="/home/option_cancel" method="get">
-                          <% Option.where(poll_id: poll_notification.poll_id).find_each do |options| %>
+                <!-- Modal -->
+                <div id="poll_modal_<%= all_notification.id %>" class="modal fade">
+                  <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+
+                      <!-- Header -->
+                      <div class="modal-header">
+                        <div class="circle_<%= @current_group_user.find_by(group_id: all_notification.group_id).color %>"></div>
+                        <p><%= all_notification.title %></p>
+                        <p class="feed_date"><%= all_notification.created_at.strftime("%m/%d/%y  %l:%M %p") %></p>
+                      </div>
+
+                      <!-- Body -->
+                      <div class="modal-body">
+                        <!-- If user already voted -->
+                        <% if Polluser.where(user_id: current_user.id).where(poll_id: all_notification.poll_id).where(voted: true).exists? %>
+                          <form action="/home/option_cancel" method="get">
+                            <% Option.where(poll_id: all_notification.poll_id).find_each do |options| %>
+                              <div class="radio">
+                                <label><input type="radio" name="optradio" value="<%= options.id %>"><%= options.content %></label>
+                              </div>
+                            <% end %><!-- Option.where -->
+                            <!-- user cancels his/her vote -->
+                            <button name="poll_id" value="<%= all_notification.poll_id %>" type="submit" class="btn">Cancel My Vote</button>
+                          </form>
+
+                        <% else %><!-- if user has not voted -->
+                        <form action="/home/option_select" method="get">
+                          <% Option.where(poll_id: all_notification.poll_id).find_each do |options| %>
                             <div class="radio">
                               <label><input type="radio" name="optradio" value="<%= options.id %>"><%= options.content %></label>
                             </div>
                           <% end %><!-- Option.where -->
-                          <!-- user cancels his/her vote -->
-                          <button name="poll_id" value="<%= poll_notification.poll_id %>" type="submit" class="btn">Cancel My Vote</button>
+                          <button name="poll_id" value="<%= all_notification.poll_id %>"type="submit" class="btn">Vote!</button>
                         </form>
+                        <% end %><!-- if Polluser.where -->
+                      </div><!-- modal-body -->
 
-                      <% else %><!-- if user has not voted -->
-                      <form action="/home/option_select" method="get">
-                        <% Option.where(poll_id: poll_notification.poll_id).find_each do |options| %>
-                          <div class="radio">
-                            <label><input type="radio" name="optradio" value="<%= options.id %>"><%= options.content %></label>
-                          </div>
-                        <% end %><!-- Option.where -->
-                        <button name="poll_id" value="<%= poll_notification.poll_id %>"type="submit" class="btn">Vote!</button>
-                      </form>
-                      <% end %><!-- if Polluser.where -->
-                    </div><!-- modal-body -->
-
-                    <!-- Footer -->
-                    <div class="modal-footer modal-footer--mine">
-                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      <!-- Footer -->
+                      <div class="modal-footer modal-footer--mine">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-
-            <% end %>
-          <% else %>
+              <% end %><!-- all_notification.notification_type == 1 -->
+            <% end %><!-- @all_notification.each do |all_notification| -->
+          <% else %><!-- @all_notification.first == nil -->
             <div class="no_feed_message">
               <p>
-                No Group Activity to Show
+                No Feed to Show
               </p>
             </div>
           <% end %>
 
-        </div>
-      </div>
+        </div><!-- main_feed_content -->
+      </div><!-- main_feed -->
 
-      <!-- Budget Feed -->
-      <div class="main_feed">
-        <h4>Budget</h4>
-        <div class="main_feed_content">
-          <% unless @budget_notification.first == nil %>
-            <% @budget_notification.each do |budget_notification| %>
-              <% if budget_notification.read == false %>
-                <div class="each_feed budget_id_<%= budget_notification.id %>" data-toggle="modal" data-target="#budget_modal_<%= budget_notification.id %>">
-                  <div class="each_feed_title">
-                    <div class="circle_<%= @current_group_user.find_by(group_id: budget_notification.group_id).color %>"></div>
-                    <p><%= budget_notification.content %></p>
-                  </div>
-                  <p class="each_feed_content">Paid?</p>
-                  <p class="feed_date"><%= budget_notification.created_at.strftime("%m/%d/%y") %></p>
-                </div>
-
-                <script>
-                  $(function() {
-                    $('.budget_id_<%= budget_notification.id %>').click(function(){
-                      var budget_notification_id = <%= budget_notification.id %>;
-
-                      $.ajax({
-                        method: "GET",
-                        url: '/home/budget_read',
-                        data: { budget_notification_id: budget_notification_id }
-
-                      }).done(function() {
-                        //not read --> read
-                        $(".budget_id_<%= budget_notification.id %>").css("background-color", "#d9d9d9");
-                      });
-                    });
-                  });
-                </script>
-              <% else %>
-                <div class="each_feed_read" data-toggle="modal" data-target="#budget_modal_<%= budget_notification.id %>">
-                  <div class="each_feed_title">
-                    <div class="circle_<%= @current_group_user.find_by(group_id: budget_notification.group_id).color %>"></div>
-                    <p><%= budget_notification.content %></p>
-                  </div>
-                  <p class="each_feed_content">Paid?</p>
-                  <p class="feed_date"><%= budget_notification.created_at.strftime("%m/%d/%y") %></p>
-                </div><!-- each_feed -->
-              <% end %>
-
-              <!-- Modal -->
-              <div id="budget_modal_<%= budget_notification.id %>" class="modal fade">
-                <div class="modal-dialog modal-lg">
-                  <div class="modal-content">
-
-                    <!-- Header -->
-                    <div class="modal-header">
-                      <div class="circle_<%= @current_group_user.find_by(group_id: budget_notification.group_id).color %>"></div>
-                      <p><%= budget_notification.content %></p>
-                      <p class="feed_date"><%= budget_notification.created_at.strftime("%m/%d/%y  %l:%M %p") %></p>
-                    </div>
-
-                    <!-- Body -->
-                    <div class="modal-body">
-                      <p class="each_feed_content"><%= budget_notification.content %></p>
-                    </div>
-
-                    <!-- Footer -->
-                    <div class="modal-footer modal-footer--mine">
-                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-            <% end %>
-          <% else %>
-            <div class="no_feed_message">
-              <p>
-                No Group Activity to Show
-              </p>
-            </div>
-          <% end %>
-
-        </div>
+      <div class="feed_whole_content">
+        
       </div>
 
     </div><!--col-md-7-->
 
     <div class="col-md-2">
-    </div>
+      <div class="filter-dropdown">
+        <button class ="filter-dropdown-btn-feature">All</button>
+        <div class="filter-dropdown-content">
+          <p id="filter-all">All</p>
+          <p id="filter-announcement">Announcement</p>
+          <p id="filter-poll">Poll</p>
+        </div>
+      </div>
+      <div class="filter-dropdown">
+        <button class ="filter-dropdown-btn-group">All</button>
+        <div class="filter-dropdown-content">
+          <p id="filter-group-all">
+            All
+          </p>
+          <% unless @current_group_user == nil %>
+            <% @current_group_user.each do |group_user| %>
+              <p id="filter-group-<%= group_user.group_id %>">
+                <div class="circle_<%= group_user.color %>"></div><%= Group.find(group_user.group_id).name %>
+              </p>
+              <% @group_name = Group.find(group_user.group_id).name %>
+              <script>
+                //filter by group
+                $( function() {
+                  $("#filter-group-<%= group_user.group_id %>").click(function(){
+                    $(".announcement_feed").hide();
+                    $(".poll_feed").hide();
+                    $(".announcement_id_<%= group_user.group_id %>").fadeIn();
+                    $(".poll_id_<%= group_user.group_id %>").fadeIn();
+                    $('.filter-dropdown-btn-group').html("<%= @group_name %>");
+                 });
+                 } );
+              </script>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div><!-- row 2-->
 
   </div><!-- row -->
 </div><!-- container-fluid container-body -->
 
 <script>
+//filer by feature
+$( function() {
+  $("#filter-announcement").click(function(){
+     $(".poll_feed").hide();
+     $(".announcement_feed").fadeIn();
+     $('.filter-dropdown-btn-feature').html('Announcement');
+ });
+ } );
+
+$( function() {
+ $("#filter-poll").click(function(){
+   $(".announcement_feed").hide();
+    $(".poll_feed").fadeIn();
+    $('.filter-dropdown-btn-feature').html('Poll');
+});
+} );
+
+$( function() {
+  $("#filter-all").click(function(){
+    $(".announcement_feed").fadeIn();
+     $(".poll_feed").fadeIn();
+     $('.filter-dropdown-btn-feature').html('All');
+ });
+ } );
+//filter by group (all)
+$( function() {
+  $("#filter-group-all").click(function(){
+    $(".announcement_feed").fadeIn();
+     $(".poll_feed").fadeIn();
+     $('.filter-dropdown-btn-group').html('All');
+ });
+ } );
 //search suggestions
 $( function() {
   $( "#search_group" ).autocomplete({

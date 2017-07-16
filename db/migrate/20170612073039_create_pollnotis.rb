@@ -2,6 +2,7 @@ class CreatePollnotis < ActiveRecord::Migration[5.0]
   def change
     create_table :pollnotis do |t|
 
+      t.integer :notification_type # 2 = poll
       t.integer :group_id
       t.integer :poll_id
       t.integer :sender

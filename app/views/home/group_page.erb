@@ -55,6 +55,7 @@
           <% end %>
         <% end %>
       </ul>
+      <hr />
       <p><a href="/home/create_group_view"><i class="fa fa-plus-circle" aria-hidden="true"></i>Create Group</a></p>
     </div><!-- leftbar End-->
 
@@ -65,6 +66,7 @@
         <div class="group_profile_heading">
           <h3><%= @group.name %></h3>
           <p><%= @group.school %></p>
+          <a href="<%= @group.website_address %>"><%= @group.website_address %></a>
         </div>
         <p><%= @group.description %></p>
         <a href="/home/group_profile/<%= @group.id %>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
