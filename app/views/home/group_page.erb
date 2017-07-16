@@ -106,7 +106,8 @@
                       <label>Title</label>
                       <input name="announcement_title" type="text" class="form-control"/>
                       <label>Content</label>
-                      <textarea name="announcement_content" type="text" class="form-control"></textarea>
+                      <input id="announcement_content" type="hidden" name="announcement_content"/>
+                      <trix-editor input="announcement_content"></trix-editor>
                       <label>Email</label>
                       <input name="announcement_email" type="email" value="<%= @group.email %>" class="form-control"/>
                       <input name="group_id" type="hidden" value="<%= @group.id %>">
@@ -130,7 +131,7 @@
                   </h3>
 
                   <!--Announcement Content-->
-                  <p><%= announcements.content %></p>
+                  <p><%= sanitize(announcements.content) %></p>
                 <% end %>
               </div><!--Announcement accordion-->
 

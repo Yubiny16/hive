@@ -19,4 +19,5 @@
 //= require daterangepicker
 //= require bootstrap-datetimepicker
 //= require cable
+//= require trix
 //= require_tree .

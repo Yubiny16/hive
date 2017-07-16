@@ -73,23 +73,23 @@
             <% @all_notification.each do |all_notification| %>
               <% if all_notification.notification_type == 1 %>
                 <% if all_notification.read == false %>
-                  <div class="each_feed announcement_feed announcement_id_<%= all_notification.id %>" data-toggle="modal" data-target="#announcement_modal_<%= all_notification.id %>">
+                  <div class="each_feed announcement_feed announcement_id_<%= all_notification.id %>">
                     <div class="each_feed_title">
                       <div class="circle_<%= @current_group_user.find_by(group_id: all_notification.group_id).color %>"></div>
                       <p><%= all_notification.title %></p>
                     </div>
-                    <p class="each_feed_content"><%= all_notification.content %></p>
+                    <p class="each_feed_content"> <%= sanitize(all_notification.content) %></p>
                     <p class="feed_date"><%= all_notification.created_at.strftime("%m/%d/%y") %></p>
                   </div><!-- each_feed -->
                 <script>
                   $(function() {
                     $('.announcement_id_<%= all_notification.id %>').click(function(){
-                      var all_notification_id = <%= all_notification.id %>;
+                      var ann_notification_id = <%= all_notification.id %>;
 
                       $.ajax({
                         method: "GET",
-                        url: '/home/all_read',
-                        data: { all_notification_id: all_notification_id }
+                        url: '/home/ann_read',
+                        data: { ann_notification_id: ann_notification_id }
 
                       }).done(function() {
                         //not read --> read
@@ -101,40 +101,17 @@
 
                 <!-- unread -->
                 <% else %>
-                  <div class="each_feed_read announcement_feed" data-toggle="modal" data-target="#announcement_modal_<%= all_notification.id %>">
+                  <div class="each_feed_read announcement_feed">
                     <div class="each_feed_title">
                       <div class="circle_<%= @current_group_user.find_by(group_id: all_notification.group_id).color %>"></div>
                       <p><%= all_notification.title %></p>
                     </div>
-                    <p class="each_feed_content"><%= all_notification.content %></p>
+                    <p class="each_feed_content"><%= sanitize(all_notification.content) %></p>
                     <p class="feed_date"><%= all_notification.created_at.strftime("%m/%d/%y") %></p>
                   </div><!-- each_feed -->
                 <% end %>
 
-                <!-- Modal -->
-                <div id="announcement_modal_<%= all_notification.id %>" class="modal fade">
-                  <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-
-                      <!-- Header -->
-                      <div class="modal-header">
-                        <div class="circle_<%= @current_group_user.find_by(group_id: all_notification.group_id).color %>"></div>
-                        <p><%= all_notification.title %></p>
-                        <p class="feed_date"><%= all_notification.created_at.strftime("%m/%d/%y  %l:%M %p") %></p>
-                      </div>
-
-                      <!-- Body -->
-                      <div class="modal-body">
-                        <p class="each_feed_content"><%= all_notification.content %></p>
-                      </div>
-
-                      <!-- Footer -->
-                      <div class="modal-footer modal-footer--mine">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+              <!-- poll_feed -->
               <% elsif all_notification.notification_type == 2 %>
                 <% if all_notification.read == false %>
                   <div class="each_feed poll_feed poll_id_<%= all_notification.id %>" data-toggle="modal" data-target="#poll_modal_<%= all_notification.id %>">
@@ -148,12 +125,12 @@
                   <script>
                     $(function() {
                       $('.poll_id_<%= all_notification.id %>').click(function(){
-                        var all_notification_id = <%= all_notification.id %>;
+                        var poll_notification_id = <%= all_notification.id %>;
 
                         $.ajax({
                           method: "GET",
                           url: '/home/poll_read',
-                          data: { all_notification_id: all_notification_id }
+                          data: { poll_notification_id: poll_notification_id }
 
                         }).done(function() {
 
@@ -163,7 +140,7 @@
                     });
                   </script>
 
-                  <!-- read -->
+                <!-- read -->
                 <% else %>
                   <div class="each_feed_read poll_feed" data-toggle="modal" data-target="#poll_modal_<%= all_notification.id %>">
                     <div class="each_feed_title">
