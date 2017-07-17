@@ -2,18 +2,21 @@
       <!--list admins first-->
       <% member.where(admin: true).each do |members| %>
         <% User.where(id: members.user_id).find_each do |friends_info| %>
-          <button type="button" class="btn member-profile" data-toggle="modal" data-target="#user_profile_<%= friends_info.id %>">
-            <div>
-              <% if @user.image_url=="" %>
-                <img src="http://www.sessionlogs.com/media/icons/defaultIcon.png" alt="profile img" title="default profile image" style="border-radius: 50%;" width="100">
-              <% else %>
-                <img src="<%= @user.image_url %>" alt="profile img" style="border-radius: 50%;" width="100">
-              <% end %>
-            </div>
-            <%= friends_info.first_name %> <%= friends_info.last_name %>
-            <%= friends_info.class_year %>
-            <p>admin</p>
-          </button>
+          <div class="member-profile">
+            <% if @user.image_url=="" %>
+              <img src="http://www.sessionlogs.com/media/icons/defaultIcon.png" alt="profile img" title="default profile image" style="border-radius: 50%;" width="80">
+            <% else %>
+              <img src="<%= @user.image_url %>" alt="profile img" style="border-radius: 50%;" width="80">
+            <% end %>
+            <span class="member-profile-name">
+              <%= friends_info.first_name %> <%= friends_info.last_name %>,
+              <%= friends_info.class_year %>
+            </span>
+            <span class="admin_marker">admin</span>
+            <button type="button" class="btn" data-toggle="modal" data-target="#user_profile_<%= friends_info.id %>">
+              View Profile
+            </button>
+          </div>
           <div class="modal fade" id="user_profile_<%= friends_info.id %>" tableindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
               <div class="modal-content member-profile-popup">
@@ -39,15 +42,6 @@
                     <li class="list-group-item">Class Year: <%= friends_info.class_year %></li>
                     <!-- <li class="list-group-item">Company: <%= friends_info.company %> </li> -->
                   </ul>
-                </div>
-                <div class="modal-footer">
-                  <div class="input-box">
-                    <input type="text" class="input-box_text" id="message_input"/>
-                  </div>
-                  <form action="/rooms/new_chat" method="get">
-                    <input name= "group_id" type="hidden" value= "<%= @group.id %>">
-                    <button name="friend_id" value= "<%= friends_info.id %>" type="submit" class="btn btn-default reply_submit">Send Message</button>
-                  </form>
                 </div>
               </div><!--modal content-->
             </div><!--modal-dialog-->
@@ -58,17 +52,20 @@
       <!--then list members-->
       <% member.where(admin: false).each do |members| %>
         <% User.where(id: members.user_id).find_each do |friends_info| %>
-          <button type="button" class="btn member-profile" data-toggle="modal" data-target="#user_profile_<%= friends_info.id %>">
-            <div>
-              <% if @user.image_url=="" %>
-                <img src="http://www.sessionlogs.com/media/icons/defaultIcon.png" alt="profile img" title="default profile image" style="border-radius: 50%;" width="100">
-              <% else %>
-                <img src="<%= @user.image_url %>" alt="profile img" style="border-radius: 50%;" width="100">
-              <% end %>
-            </div>
-            <%= friends_info.first_name %> <%= friends_info.last_name %>
-            <%= friends_info.class_year %>
-          </button>
+          <div class="member-profile">
+            <% if @user.image_url=="" %>
+              <img src="http://www.sessionlogs.com/media/icons/defaultIcon.png" alt="profile img" title="default profile image" style="border-radius: 50%;" width="80">
+            <% else %>
+              <img src="<%= @user.image_url %>" alt="profile img" style="border-radius: 50%;" width="80">
+            <% end %>
+            <span class="member-profile-name">
+              <%= friends_info.first_name %> <%= friends_info.last_name %>,
+              <%= friends_info.class_year %>
+            </span>
+            <button type="button" class="btn" data-toggle="modal" data-target="#user_profile_<%= friends_info.id %>">
+              View Profile
+            </button>
+          </div>
           <div class="modal fade" id="user_profile_<%= friends_info.id %>" tableindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
               <div class="modal-content member-profile-popup">
@@ -94,15 +91,6 @@
                     <li class="list-group-item">Class Year: <%= friends_info.class_year %></li>
                     <!-- <li class="list-group-item">Company: <%= friends_info.company %> </li> -->
                   </ul>
-                </div>
-                <div class="modal-footer">
-                  <div class="input-box">
-                    <input type="text" class="input-box_text" id="message_input"/>
-                  </div>
-                  <form action="/rooms/new_chat" method="get">
-                    <input name= "group_id" type="hidden" value= "<%= @group.id %>">
-                    <button name="friend_id" value= "<%= friends_info.id %>" type="submit" class="btn btn-default reply_submit">Send Message</button>
-                  </form>
                 </div>
               </div><!--modal content-->
             </div><!--modal-dialog-->

@@ -9,6 +9,8 @@
 * {
   font-family: "Source Sans Pro Regular";
 }
+$main-gray: #f9f9f9;
+$main-font: "Source Sans Pro Regular";
 /*******************Scrollbar customize***********/
 /*******************Group Color*****************/
 .circle_black {
@@ -57,7 +59,7 @@ nav#navbar-custom .navbar-brand {
   padding: 10px 15px;
   height: inherit;
   color: white;
-  font-family: "Source Sans Pro Regular";
+  font-family: $main-font;
 }
 nav#navbar-custom #dropdownMenuButton {
   float: right;
@@ -66,7 +68,7 @@ nav#navbar-custom #dropdownMenuButton {
   padding: 10px 12px;
   background-color: #DA413D;
   color: white;
-  font-family: "Source Sans Pro Regular";
+  font-family: $main-font;
 }
 nav#navbar-custom .dropdown-menu {
   right: 10px;
@@ -108,7 +110,7 @@ nav#navbar-custom .btn-search i {
 }
 /*******************main page styling*****************/
 .container-body {
-  background-color: #f9f9f9;
+  background-color: $main-gray;;
 }
 .board {
   background-color: white;
@@ -121,7 +123,7 @@ nav#navbar-custom .btn-search i {
 }
 .leftbar {
   font-size: 18px;
-  font-family: "Source Sans Pro Regular";
+  font-family: $main-font;
 }
 .leftbar > p {
   text-align: left;
@@ -159,7 +161,7 @@ nav#navbar-custom .btn-search i {
 .main_feed h4 {
   text-align: center;
   margin-top: 0;
-  font-family: "Source Sans Pro Regular";
+  font-family: $main-font;
   border-bottom: 3px solid #DA413D;
   position: relative;
   padding-bottom: 6px;
@@ -173,7 +175,7 @@ nav#navbar-custom .btn-search i {
   border-radius: 5px;
 }
 .no_feed_message > p {
-  font-family: "Source Sans Pro Regular";
+  font-family: $main-font;
   text-align: center;
   margin-top: 200px;
   font-size: 15px;
@@ -267,7 +269,7 @@ nav#navbar-custom .btn-search i {
 .filter-dropdown-content {
   display: none;
   position: absolute;
-  background-color: #f9f9f9;
+  background-color: $main-gray;;
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
@@ -308,6 +310,7 @@ nav#navbar-custom .btn-search i {
   width: 90%;
   margin: 0 auto;
   display: block;
+  min-height: 100px;
 }
 #group_profile .group_profile_heading {
   display: inline-block;
@@ -367,49 +370,107 @@ ul#feature-tabs > li.active > a {
 }
 #add_ann_btn,
 #add_poll_btn {
-  width: 100%;
-  text-align: left;
-  background-color: #f6f6f6;
-  border: 1px solid #c5c5c5;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  border-radius: 0;
-  font-size: 16px;
+  margin-left: 30px;
+  background-color: #DA413D;
+  color: white;
   font-weight: bold;
 }
 #add_ann_btn i,
 #add_poll_btn i {
   margin-right: 7px;
 }
-.announcement_accordion {
-  width: 100%;
+#announcements_board,
+#poll_board {
+  float: left;
+  border: 1px solid #BFC9CA;
+  border-radius: 5px;
+  width: 90%;
+  margin-left: 30px;
+  margin-top: 20px;
 }
-.announcement_accordion :hover {
-  background-color: none;
+#announcements_board ul,
+#poll_board ul {
+  width: 30%;
+  float: left;
+  overflow: auto;
+  height: 300px;
 }
-.announcement_accordion :after {
-  background-color: none;
+#announcements_board ul::-webkit-scrollbar,
+#poll_board ul::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
 }
-#announcement_accordion .ui-state-active,
-#poll_accordion .ui-state-active {
-  // border: 1px solid #c5c5c5;
-  border: 1px solid #DA413D;
-  background-color: #f6f6f6;
-  // color: #454545;
+#announcements_board ul li a,
+#poll_board ul li a {
+  white-space:  nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+#announcements_board ul li,
+#poll_board ul li {
+  border-top: 1px solid #BFC9CA;
+  border-right: 1px solid #BFC9CA;
+  margin-top: 0;
+}
+#announcements_board ul li.active,
+#poll_board ul li.active {
+  border-right: 1px solid transparent;
+}
+#announcements_board ul li a:hover,
+#announcements_board ul li a:focus,
+#poll_board ul li a:hover,
+#poll_board ul li a:focus {
+  background-color: transparent;
+}
+#announcements_board ul li:last-child,
+#poll_board ul li:last-child {
+  border-bottom: 1px solid #BFC9CA;
+}
+#announcements_board ul li:first-child,
+#poll_board ul li:first-child {
+  border-top: none;
+}
+#announcements_board .tab-content,
+#poll_board .tab-content {
+  width: 70%;
+  height: 300px;
+  float: left;
+  position: relative;
+}
+#announcements_board .tab-content h4,
+#poll_board .tab-content h4 {
+  font-weight: bold;
+  // border-bottom: 1px solid #BFC9CA;
+  padding-left: 10px;
+  padding-bottom: 10px;
+  margin: 10px 0 0;
+}
+#announcements_board .tab-content span,
+#poll_board .tab-content span.poll_created_at {
+  float: right;
+  margin-right: 5px;
+}
+#announcements_board .tab-content .tab-pane div,
+#poll_board .tab-content .tab-pane div.already-voted,
+#poll_board .tab-content .tab-pane div.not-voted {
+  padding-top: 20px;
+  padding-left: 20px; padding-right: 20px;
+}
+#poll_board .tab-content .tab-pane div.already-voted button[type="submit"],
+#poll_board .tab-content .tab-pane div.not-voted button[type="submit"] {
+  font-weight: bold;
+  font-family: $main-font;
   color: white;
   background-color: #DA413D;
+  padding: 4px 6px;
+  margin-bottom: 10px;
+  outline: none;
 }
-// #announcement_accordion .ui-state-active .ui-icon,
-// #poll_accordion .ui-state-active .ui-icon {
-//   background-image: url("http://code.jquery.com/ui/1.12.1/themes/base/images/ui-icons_444444_256x240.png");
-// }
-#announcement_accordion .group_announcement_title {
-  margin: 0;
-  border-radius: 0;
-  border-top: 0px;
-}
-#announcement_accordion .ui-accordion-content {
-  border-radius: 0;
+#poll_board .tab-content .tab-pane .view_stat {
+  border: none;
+  background: none;
+  outline: none;
+  color: #337ab7;
 }
 #ann_popup_new,
 #poll_popup {
@@ -500,43 +561,57 @@ ul#feature-tabs > li.active > a {
   border-left: 1px solid #ddd;
   font-weight: bold;
 }
-/**members page design**/
-#Network {
-  text-align: center;
+/**members tab design**/
+#Members .member {
+  margin-left: 30px;
 }
-#Network .hex,
-#friends-page-tab-content .hex {
-  width: 100px;
-  padding-bottom: 115.470053838px;
+#Members .member-profile {
+  position: relative;
+  width: 47%;
+  display: inline-block;
+  border: 1px solid #BFC9CA;
+  border-radius: 5px;
+  padding: 5px;
+  margin-left: 5px;
+  margin-bottom: 5px;
 }
-.member-prof-positioning {
-  width:150px; height: 120px;
-  margin: 0 auto 10px;
+#Members .member-profile .admin_marker {
+  position: absolute;
+  top: 2px;
+  right: 3px;
 }
-#Network .member-profile,
-#friends-page-tab-content .member-profile {
-  margin-right: 10px;
-  margin-bottom: 13px;
-  padding-left: 0px; padding-right: 0px;
-  padding-bottom: 15px;
-  background: none;
+#Members .member-profile .member-profile-name {
+  position: absolute;
+  left: 100px;
+  top: 15px;
+}
+#Members .member-profile button {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  padding: 4px;
+  font-size: 12px;
+  font-family: $main-font;
   outline: none;
+  background-color: #DA413D;
+  color: white;
   font-weight: bold;
-  border: 2px solid #FBF764;
-  border-radius: 20px;
-  -webkit-transition: border 0.5s ease;
-  -ms-transition: border 0.5s ease;
-  transition: border 0.5s ease;
-  color: #543B19;
-}
-#Network .member-profile:hover,
-#friends-page-tab-content .member-profile:hover {
-  border: 2px solid #543B19;
 }
 /*member's page pop-up design*/
 .member-profile-popup {
   width: 400px;
   margin: 0 auto;
+}
+.member-profile-popup .modal-title {
+  font-weight: bold;
+}
+.member-profile-popup .modal-body > div {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.member-profile-popup .modal-body .list-group {
+  width: 300px;
+  margin: 0 auto 30px;
 }
 /******************profile page styling********************/
 /*Profile*/
