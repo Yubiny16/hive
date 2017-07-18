@@ -14,7 +14,7 @@ class HomeController < ApplicationController
     @poll_notification = Pollnoti.where(receiver: @user.id)
 
     @all_notification = (@poll_notification + @ann_notification).sort{|a,b| a.created_at <=> b.created_at }.reverse
-
+  
   end
 
   def search
@@ -120,6 +120,9 @@ class HomeController < ApplicationController
 
     #Member
     @members = GroupUser.where(group_id: @group.id)
+
+    #poll not voted
+    @number_of_notvoted = 0
   end
 
   def group_profile

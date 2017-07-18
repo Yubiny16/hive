@@ -127,14 +127,28 @@
               <div id="announcements_board">
                 <ul class="nav nav-stacked">
                   <% @announcements.each do |announcements| %>
-                    <li><a href="#ann_<%= announcements.id %>" data-toggle="tab"><%= announcements.title %></a></li>
+                    <li>
+                      <a href="#ann_<%= announcements.id %>" data-toggle="tab">
+                        <p class="announcement_list_title">
+                          <%= announcements.title %>
+                        </p>
+                        <p class="announcement_list_date">
+                          <%= announcements.created_at.strftime("%Y/%m/%d") %>
+                        </p>
+                        <span class="announcement_list_content">
+                          <%= announcements.content.html_safe %>
+                        </span>
+                      </a>
+                    </li>
                   <% end %>
                 </ul>
                 <div class="tab-content">
                   <% @announcements.each do |announcements| %>
                     <div class="tab-pane" id="ann_<%= announcements.id %>">
-                      <h4><%= announcements.title %></h4><span><%= announcements.created_at.strftime("%Y-%m-%d") %></span>
-                      <%= sanitize(announcements.content) %>
+                      <h4><%= announcements.title %></h4>
+                      <p>From: <%= User.find(Annnoti.find_by(announcement_id: announcements.id).sender).first_name %> <%= User.find(Annnoti.find_by(announcement_id: announcements.id).sender).last_name %></p>
+                      <span class="announcement_tab_content_date"><%= announcements.created_at.strftime("%B %e, %Y at %l:%M %p") %></span>
+                      <div class="announcement_tab_content_content"><%= sanitize(announcements.content) %></div>
                     </div>
                   <% end %>
                 </div>
@@ -232,65 +246,69 @@
             <div id="poll_board">
               <ul class="nav nav-stacked">
                 <% @poll.each do |p| %>
-                  <li><a href="#poll_<%= p.id %>" data-toggle="tab"><%= p.title %></a></li>
+                  <li>
+                    <a href="#poll_<%= p.id %>" data-toggle="tab">
+                      <p class="poll_list_title">
+                        <%= p.title %>
+                      </p>
+                      <p class="poll_list_date">
+                        <%= p.created_at.strftime("%Y-%m-%d") %>
+                      </p>
+                    </a>
+                  </li>
                 <% end %>
               </ul>
               <div class="tab-content">
                 <% @poll.each do |p| %>
                   <div class="tab-pane" id="poll_<%= p.id %>">
-                    <h4><%= p.title %></h4><span class="poll_created_at"><%= p.created_at.strftime("%Y-%m-%d") %></span> <!--%l:%M %p-->
-                    <!-- Already voted? -->
+                    <h4><%= p.title %></h4>
+                    <p>From: <%= User.find(Pollnoti.find_by(poll_id: p.id).sender).first_name %> <span style="text-transform: capitalize"><%= User.find(Pollnoti.find_by(poll_id: p.id).sender).last_name %></span></p>
+                    <span class="poll_tab_content_date"><%= p.created_at.strftime("%B %e, %Y at %l:%M %p") %></span> <!--%l:%M %p-->
+                    <!-- Already voted -->
                     <% if Polluser.where(user_id: @user.id).where(poll_id: p.id).where(voted: true).exists? %>
                       <div class="already-voted">
                         <form action="/home/option_cancel" method="get">
                           <% Option.where(poll_id: p.id).find_each do |o| %>
                             <div class="radio">
                               <!-- Options -->
-                              <label><input type="radio" name="optradio" value="<%= o.id %>"><%= o.content %></label> <strong><%= o.vote_number %></strong>
+                              <label><input type="radio" name="optradio" value="<%= o.id %>"><%= o.content %></label>
                             </div>
                           <% end %>
                           <!-- user cancels his/her vote -->
                           <button name="poll_id" value="<%= p.id %>" type="submit" class="btn">Cancel My Vote</button>
                         </form>
 
-                        <!-- view stat -->
-                        <button class="view_stat view_poll_stat_<%= p.id %>"><i class="fa fa-caret-down" aria-hidden="true"></i> View Detailed Stat</button>
                         <div class="poll_stat_<%= p.id %>">
                           <% Option.where(poll_id: p.id).find_each do |o| %>
-                            <strong><%= o.content %></strong> <br>
+                            <p class="view_stat_options"><%= o.content %> <span style="color: #DA413D;"><%= o.vote_number %></span></p>
                             <!-- Find the people who voted -->
                             <% Polluser.where(option_id: o.id).where(voted: true).find_each do |pu| %>
                               <% User.where(id: pu.user_id).find_each do |voted_user| %>
-                                <%= voted_user.first_name %> <%= voted_user.last_name %>
+                                <div class="view_stat_options_votes">
+                                  <%= voted_user.first_name %> <%= voted_user.last_name %>
+                                </div>
                               <% end %>
                             <% end %>
                           <% end %>
 
-                              <!-- Find the people who have not voted -->
-                          <strong><p>Not Voted</p></strong>
+                          <!-- Find the people who have not voted -->
+                          <p class="view_stat_options">Not Voted</p>
                           <% GroupUser.where(group_id: @group.id).find_each do |gr| %>
                             <% User.where(id: gr.user_id).find_each do |not_voted_user| %>
                               <% if !Polluser.where(user_id: not_voted_user.id).where(poll_id: p.id).exists? %>
-                                <%= not_voted_user.first_name %> <%= not_voted_user.last_name %>
+                                <div class="view_stat_options_votes">
+                                  <%= not_voted_user.first_name %> <%= not_voted_user.last_name %>
+                                </div>
                               <% end %>
                               <% if Polluser.where(user_id: not_voted_user.id).where(poll_id: p.id).where(voted: false).exists? %>
-                                <%= not_voted_user.first_name %> <%= not_voted_user.last_name %>
+                                <div class="view_stat_options_votes">
+                                  <%= not_voted_user.first_name %> <%= not_voted_user.last_name %>
+                                </div>
                               <% end %>
                             <% end %>
                           <% end %>
                         </div><!-- poll_stat -->
 
-                        <script>
-                          $(".poll_stat_<%= p.id %>").hide();
-
-                          //view poll stat
-                          $( function() {
-                            $(".view_poll_stat_<%= p.id %>").click(function(){
-                              $(".poll_stat_<%= p.id %>").toggle();
-                              $("i", this).toggleClass("fa-caret-down fa-caret-up");
-                            });
-                          });
-                        </script>
                       </div>
 
                     <% else %><!-- Already voted? NO -->
@@ -300,51 +318,44 @@
                         <% Option.where(poll_id: p.id).find_each do |o| %>
                           <div class="radio">
                             <!-- Options -->
-                            <label><input type="radio" name="optradio" value="<%= o.id %>"><%= o.content %></label> <strong><%= o.vote_number %></strong>
+                            <label><input type="radio" name="optradio" value="<%= o.id %>"><%= o.content %></label>
                           </div>
                         <% end %>
                         <button name="poll_id" value="<%= p.id %>" type="submit" class="btn">Vote!</button>
                       </form><!-- Vote -->
 
-                      <!-- view stat -->
-                      <button class=" view_stat view_poll_stat_<%= p.id %>"><i class="fa fa-caret-down" aria-hidden="true"></i> View Detailed Stat</button>
-                        <div class="poll_stat_<%= p.id %>">
-                          <% Option.where(poll_id: p.id).find_each do |o| %>
-                            <strong><%= o.content %></strong> <br>
-                            <!-- Find the people who voted -->
-                            <% Polluser.where(option_id: o.id).where(voted: true).find_each do |pu| %>
-                              <% User.where(id: pu.user_id).find_each do |voted_user| %>
+                      <div class="poll_stat_<%= p.id %>">
+                        <% Option.where(poll_id: p.id).find_each do |o| %>
+                          <p class="view_stat_options"><%= o.content %> <span style="color: #DA413D;"><%= o.vote_number %></span></p>
+                          <!-- Find the people who voted -->
+                          <% Polluser.where(option_id: o.id).where(voted: true).find_each do |pu| %>
+                            <% User.where(id: pu.user_id).find_each do |voted_user| %>
+                              <div class="view_stat_options_votes">
                                 <%= voted_user.first_name %> <%= voted_user.last_name %>
-                              <% end %>
+                              </div>
                             <% end %>
                           <% end %>
+                        <% end %>
 
-                          <!-- Find the people who have not voted -->
-                          <strong><p>Not Voted</p></strong>
-                          <% GroupUser.where(group_id: @group.id).find_each do |gr| %>
-                            <% User.where(id: gr.user_id).find_each do |not_voted_user| %>
-                              <% if !Polluser.where(user_id: not_voted_user.id).where(poll_id: p.id).exists? %>
+                        <!-- Find the people who have not voted -->
+                        <p class="view_stat_options">Not Voted</p>
+                        <% GroupUser.where(group_id: @group.id).find_each do |gr| %>
+                          <% User.where(id: gr.user_id).find_each do |not_voted_user| %>
+                            <% if !Polluser.where(user_id: not_voted_user.id).where(poll_id: p.id).exists? %>
+                              <div class="view_stat_options_votes">
                                 <%= not_voted_user.first_name %> <%= not_voted_user.last_name %>
-                              <% end %>
-                              <% if Polluser.where(user_id: not_voted_user.id).where(poll_id: p.id).where(voted: false).exists? %>
+                              </div>
+                            <% end %>
+                            <% if Polluser.where(user_id: not_voted_user.id).where(poll_id: p.id).where(voted: false).exists? %>
+                              <div class="view_stat_options_votes">
                                 <%= not_voted_user.first_name %> <%= not_voted_user.last_name %>
-                              <% end %>
+                              </div>
                             <% end %>
                           <% end %>
-                        </div><!-- poll_stat -->
+                        <% end %>
+                      </div><!-- poll_stat -->
 
-                        <script>
-                          $(".poll_stat_<%= p.id %>").hide();
-
-                          //view poll stat
-                          $( function() {
-                            $(".view_poll_stat_<%= p.id %>").click(function(){
-                              $(".poll_stat_<%= p.id %>").toggle();
-                              $("i", this).toggleClass("fa-caret-down fa-caret-up");
-                            });
-                          });
-                        </script>
-                      </div>
+                    </div>
                     <% end %><!-- Polluser exists? -->
                   </div>
                 <% end %>

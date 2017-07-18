@@ -5,6 +5,9 @@
 
   font-family: "Source Sans Pro Regular";
   src: url('/assets/SourceSansPro-Regular.otf');
+
+  font-family: "Source Sans Pro Bold";
+  src: url('/assets/SourceSansPro-Semibold.otf');
 }
 * {
   font-family: "Source Sans Pro Regular";
@@ -13,6 +16,13 @@ $main-gray: #f9f9f9;
 $main-font: "Source Sans Pro Regular";
 /*******************Scrollbar customize***********/
 /*******************Group Color*****************/
+.unread-notification {
+  background-color: #5586f6;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
 .circle_black {
   background: #2c2c2c;
   width: 15px;
@@ -153,104 +163,14 @@ nav#navbar-custom .btn-search i {
   position: relative;
   bottom: 2px;
 }
-.main_feed {
-  width: 22%;
-  display: inline-block;
-  margin-left: 2%;
-}
-.main_feed h4 {
-  text-align: center;
-  margin-top: 0;
-  font-family: $main-font;
-  border-bottom: 3px solid #DA413D;
-  position: relative;
-  padding-bottom: 6px;
-}
-.main_feed_content {
-  background-color: #e4e4e6;
-  height: 450px;
-  overflow: auto;
-  padding: 5px;
-  border: 2px solid #e4e4e6;
+#main_board {
+  float: left;
+  border: 1px solid #BFC9CA;
   border-radius: 5px;
+  width: 90%;
+  margin-left: 30px;
+  margin-top: 20px;
 }
-.no_feed_message > p {
-  font-family: $main-font;
-  text-align: center;
-  margin-top: 200px;
-  font-size: 15px;
-}
-.each_feed {
-  background-color: white;
-  overflow: hidden;
-  height: auto;
-  margin-bottom: 7px;
-  border-radius: 2px;
-  box-shadow: 0px 0.5px 0.5px #888888;
-  cursor: pointer; cursor: hand;
-
-}
-.each_feed_read {
-  background-color: #d9d9d9;
-  overflow: hidden;
-  height: auto;
-  margin-bottom: 7px;
-  border-radius: 2px;
-  box-shadow: 0px 0.5px 0.5px #888888;
-  cursor: pointer; cursor: hand;
-}
-.each_feed:last-child,
-.each_feed_read:last-child {
-  margin-bottom: 0;
-}
-.each_feed_title {
-  height: 30px;
-  position: relative;
-}
-.each_feed_title div{
-  position: absolute;
-  top: 5px;
-  left: 5px;
-}
-.each_feed_title p{
-  position: absolute;
-  top: 5px;
-  left: 30px;
-  width: 120px;
-  white-space: nowrap;
-  overflow: hidden;
-  display: inline-block;
-  text-overflow: ellipsis;
-  font-weight: bold;
-}
-.each_feed .feed_date,
-.each_feed_read .feed_date {
-  font-size: 10px;
-  text-align: right;
-  margin-bottom: 0;
-  margin-right: 3px;
-}
-//doesnt work on firefox or IE
-.each_feed_content {
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  padding-left: 5px;
-  color: #6a646b;
-}
-.feed_whole_content {
-  background-color: #f2f2f2;
-  height: 450px;
-  overflow: auto;
-  padding: 5px;
-  border-radius: 5px;
-  width: 535px;
-  position: relative;
-  left: 200px;
-  top: -455px;
-}
-
 /**right side bar**/
 .filter-dropdown {
   padding-top: 80px;
@@ -389,75 +309,167 @@ ul#feature-tabs > li.active > a {
   margin-top: 20px;
 }
 #announcements_board ul,
-#poll_board ul {
-  width: 30%;
+#poll_board ul,
+#main_board ul{
+  width: 35%;
   float: left;
   overflow: auto;
-  height: 300px;
+  height: 450px;
 }
 #announcements_board ul::-webkit-scrollbar,
-#poll_board ul::-webkit-scrollbar {
+#poll_board ul::-webkit-scrollbar,
+#main_board ul::-webkit-scrollbar {
   width: 0px;
   background: transparent;
 }
 #announcements_board ul li a,
-#poll_board ul li a {
+#poll_board ul li a,
+#main_board ul li a{
+  height: 80px;
   white-space:  nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
 }
+#main_board .unread-notification {
+  position: absolute;
+  top: 5px;
+  left: -15px;
+}
+#main_board .group-color {
+  position: relative;
+}
+#announcements_board .announcement_list_title,
+#poll_board .poll_list_title,
+#main_board .announcement_list_title,
+#main_board .poll_list_title, {
+  position: relative;
+  font-size: 14px;
+  color: black;
+  font-family: "Source Sans Pro Bold";
+  top: 17px;
+  left: 10px;
+}
+#announcements_board .announcement_list_date,
+#poll_board .poll_list_date,
+#main_board .announcement_list_date,
+#main_board .poll_list_date, {
+  position: relative;
+  font-size: 10px;
+  color: #89868f;
+  left: 160px;
+  bottom: 30px;
+}
+#announcements_board .announcement_list_content,
+#main_board .announcement_list_content {
+  position: relative;
+  font-size: 13px;
+  color: #89868f;
+  bottom: 20px;
+  left: 10px;
+}
 #announcements_board ul li,
-#poll_board ul li {
+#poll_board ul li,
+#main_board ul li  {
   border-top: 1px solid #BFC9CA;
   border-right: 1px solid #BFC9CA;
   margin-top: 0;
 }
 #announcements_board ul li.active,
-#poll_board ul li.active {
-  border-right: 1px solid transparent;
+#poll_board ul li.active,
+#main_board ul li.active {
+  background-color: #DA413D;
+  p {
+    color: white;
+  }
+  span {
+    color: #b03636;
+  }
 }
 #announcements_board ul li a:hover,
 #announcements_board ul li a:focus,
 #poll_board ul li a:hover,
-#poll_board ul li a:focus {
+#poll_board ul li a:focus,
+#main_board ul li a:hover,
+#main_board ul li a:focus {
   background-color: transparent;
+
 }
 #announcements_board ul li:last-child,
-#poll_board ul li:last-child {
+#poll_board ul li:last-child,
+#main_board ul li:last-child {
   border-bottom: 1px solid #BFC9CA;
 }
 #announcements_board ul li:first-child,
-#poll_board ul li:first-child {
+#poll_board ul li:first-child,
+#main_board ul li:first-child {
   border-top: none;
 }
 #announcements_board .tab-content,
-#poll_board .tab-content {
-  width: 70%;
-  height: 300px;
+#poll_board .tab-content,
+#main_board .tab-content {
+  width: 65%;
+  height: 450px;
   float: left;
   position: relative;
+  overflow: scroll;
+  border-left: 1px solid #BFC9CA;
+}
+#announcements_board .tab-content::-webkit-scrollbar,
+#poll_board .tab-content::-webkit-scrollbar,
+#main_board .tab-content::-webkit-scrollbar {
+  width: 5px;
+  background: transparent;
 }
 #announcements_board .tab-content h4,
-#poll_board .tab-content h4 {
-  font-weight: bold;
-  // border-bottom: 1px solid #BFC9CA;
-  padding-left: 10px;
-  padding-bottom: 10px;
-  margin: 10px 0 0;
+#poll_board .tab-content h4,
+#main_board .tab-content h4 {
+  font-family: "Source Sans Pro Bold";
+  padding-left: 20px;
 }
-#announcements_board .tab-content span,
-#poll_board .tab-content span.poll_created_at {
+#announcements_board .tab-content p,
+#poll_board .tab-content p,
+#main_board .tab-content p {
+  color: #89868f;
+  padding-left: 20px;
+  padding-bottom: 10px;
+  margin: 21px 0 0;
+  border-bottom: 1px solid #BFC9CA;
+}
+#announcements_board .tab-content .announcement_tab_content_date,
+#poll_board .tab-content .poll_tab_content_date,
+#main_board .tab-content .announcement_tab_content_date,
+#main_board .tab-content .poll_tab_content_date {
+  color: #89868f;
+  position: relative;
+  bottom: 31px;
+  right: 18px;
   float: right;
   margin-right: 5px;
 }
+#announcements_board .tab-content .announcement_tab_content_content,
+#poll_board .tab-content .poll_tab_content_content,
+#main_board .tab-content .poll_tab_content_content {
+  position: relative;
+  padding-left: 50px;
+}
+#main_board .tab-content .announcement_tab_content_content {
+  position: relative;
+  padding-left: 50px;
+  top: 37px;
+}
 #announcements_board .tab-content .tab-pane div,
 #poll_board .tab-content .tab-pane div.already-voted,
-#poll_board .tab-content .tab-pane div.not-voted {
+#poll_board .tab-content .tab-pane div.not-voted,
+#main_board .tab-content .tab-pane .tab-pane div,
+#main_board .tab-content .tab-pane div.already-voted,
+#main_board .tab-content .tab-pane div.not-voted {
   padding-top: 20px;
   padding-left: 20px; padding-right: 20px;
 }
 #poll_board .tab-content .tab-pane div.already-voted button[type="submit"],
-#poll_board .tab-content .tab-pane div.not-voted button[type="submit"] {
+#poll_board .tab-content .tab-pane div.not-voted button[type="submit"],
+#main_board .tab-content .tab-pane div.already-voted button[type="submit"],
+#main_board .tab-content .tab-pane div.not-voted button[type="submit"] {
   font-weight: bold;
   font-family: $main-font;
   color: white;
@@ -465,12 +477,28 @@ ul#feature-tabs > li.active > a {
   padding: 4px 6px;
   margin-bottom: 10px;
   outline: none;
+  position: relative;
+  top: 10px;
 }
-#poll_board .tab-content .tab-pane .view_stat {
+#poll_board .tab-content .tab-pane .view_stat,
+#main_board .tab-content .tab-pane .view_stat {
   border: none;
   background: none;
   outline: none;
-  color: #337ab7;
+}
+#poll_board .tab-content .view_stat_options,
+#main_board .tab-content .view_stat_options {
+  color: #89868f;
+  padding-left: 20px;
+  padding-bottom: 10px;
+  margin: 50px 0 0;
+  border-bottom: 1px solid #BFC9CA;
+}
+#poll_board .tab-content .view_stat_options_votes,
+#main_board .tab-content .view_stat_options_votes, {
+  position: relative;
+  left: 20px;
+  top: 5px;
 }
 #ann_popup_new,
 #poll_popup {
