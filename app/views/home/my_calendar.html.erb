@@ -65,11 +65,11 @@
     </div><!-- leftbar End-->
 
     <!-- Main/Board -->
-    <div class="col-md-5 board" style="padding-left: 20px;">
+    <div class="col-md-6 board" style="padding-left: 20px;">
       <div class="my_calendar">
         <div id="event_type" data-type="<%= $type %>"></div>
       </div>
-    </div><!--col-md-5-->
+    </div><!--col-md-6-->
 
     <!-- Calendar Feed -->
     <div class="col-md-2">
@@ -78,7 +78,8 @@
           <% @cal_notification.each do |cal_notification| %>
             <% if cal_notification.read == false %>
               <div class="one_event cal_<%= cal_notification.id %>">
-                <span class="unread-notification unread-notification_<%= cal_notification.id %>"></span>
+                <div class="rectangle_<%= @current_group_user.find_by(group_id: cal_notification.group_id).color %>"></div>
+                <div class="unread-notification unread-notification_<%= cal_notification.id %>"></div>
                 <p class="one_event_title">
                   <%= cal_notification.title %>
                 </p>
@@ -100,6 +101,7 @@
                   <button type="submit" class="btn add_event_button">Add to My Calendar</button>
                 </form>
               </div>
+              <hr />
               <script>
                 $(function() {
                   $('.cal_<%= cal_notification.id %>').click(function(){
@@ -119,6 +121,7 @@
               </script>
             <% else %>
               <div class="one_event cal_<%= cal_notification.id %>">
+                <div class="rectangle_<%= @current_group_user.find_by(group_id: cal_notification.group_id).color %>"></div>
                 <p class="one_event_title">
                   <%= cal_notification.title %>
                 </p>
@@ -140,34 +143,8 @@
                   <button type="submit" class="btn add_event_button">Add to My Calendar</button>
                 </form>
               </div>
+              <hr />
             <% end %>
-
-            <!-- Modal -->
-            <div id="cal_modal_<%= cal_notification.id %>" class="modal fade">
-              <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-
-                  <!-- Header -->
-                  <div class="modal-header">
-                    <div class="circle_<%= @current_group_user.find_by(group_id: cal_notification.group_id).color %>"></div>
-                    <p><%= cal_notification.title %></p>
-                    <p class="feed_date"><%= cal_notification.created_at.strftime("%m/%d/%y  %l:%M %p") %></p>
-                  </div>
-
-                  <!-- Body -->
-                  <div class="modal-body">
-                    <p class="each_feed_content"><%= cal_notification.description %></p>
-                    <p class="each_feed_content"><%= cal_notification.start %></p>
-                    <p class="each_feed_content"><%= cal_notification.end %></p>
-                  </div>
-
-                  <!-- Footer -->
-                  <div class="modal-footer modal-footer--mine">
-
-                  </div>
-                </div>
-              </div>
-            </div>
           <% end %>
         <% else %>
           <div class="no_feed_message">
@@ -179,7 +156,7 @@
       </div><!-- calendar_board -->
     </div><!-- col-md-2-->
 
-    <div class="col-md-2">
+    <div class="col-md-1">
     </div>
 
   </div><!-- row -->

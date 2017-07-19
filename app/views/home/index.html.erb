@@ -66,7 +66,6 @@
     <!-- Main/Board -->
     <div class="col-md-7 board" style="padding-left: 20px;">
       <!-- Announcement Feed -->
-        <h4>NEWS FEED</h4>
         <div id="main_board">
           <ul class="nav nav-stacked">
             <% @all_notification.each do |all_notification| %>
@@ -74,16 +73,15 @@
                 <% if all_notification.read == false %>
                   <li class="announcement_feed announcement_<%= all_notification.id %>">
                     <a href="#ann_<%= all_notification.id %>" data-toggle="tab">
-                      <div class="circle_<%= @current_group_user.find_by(group_id: all_notification.group_id).color %>"></div>
+                      <div class="rectangle_<%= @current_group_user.find_by(group_id: all_notification.group_id).color %>"></div>
+                      <div class="unread-notification unread-notification_<%= all_notification.id %>"></div>
                       <p class="announcement_list_title">
-                        <span class="unread-notification unread-notification_<%= all_notification.id %>"></span><%= all_notification.title %>
+                        <%= all_notification.title %>
                       </p>
                       <p class="announcement_list_date ">
                         <%= all_notification.created_at.strftime("%Y/%m/%d") %>
                       </p>
-                      <span class="announcement_list_content">
-                        <%= all_notification.content.html_safe %>
-                      </span>
+                      <%= all_notification.content.html_safe %>
                     </a>
                   </li>
 
@@ -108,7 +106,7 @@
                 <% else %><!-- read -->
                   <li class="announcement_feed announcement_<%= all_notification.id %>">
                     <a href="#ann_<%= all_notification.id %>" data-toggle="tab">
-                      <div class="circle_<%= @current_group_user.find_by(group_id: all_notification.group_id).color %>"></div>
+                      <div class="rectangle_<%= @current_group_user.find_by(group_id: all_notification.group_id).color %>"></div>
                       <p class="announcement_list_title">
                         <%= all_notification.title %>
                       </p>
@@ -124,9 +122,10 @@
                 <% if all_notification.read == false %>
                   <li class="poll_feed poll_<%= all_notification.id %>">
                     <a href="#poll_<%= all_notification.id %>" data-toggle="tab">
-                      <div class="circle_<%= @current_group_user.find_by(group_id: all_notification.group_id).color %>"></div>
+                      <div class="rectangle_<%= @current_group_user.find_by(group_id: all_notification.group_id).color %>"></div>
+                      <div class="unread-notification unread-notification_<%= all_notification.id %>"></div>
                       <p class="poll_list_title">
-                        <span class="unread-notification unread-notification_<%= all_notification.id %>"></span><%= all_notification.title %>
+                        <%= all_notification.title %>
                       </p>
                       <p class="poll_list_answer">
                         <% if Polluser.where(user_id: @user.id).where(poll_id: all_notification.poll_id).where(voted: true).exists? %>
@@ -158,7 +157,7 @@
                 <% else %><!-- read -->
                   <li class="poll_feed poll_<%= all_notification.id %>">
                     <a href="#poll_<%= all_notification.id %>" data-toggle="tab">
-                      <div class="circle_<%= @current_group_user.find_by(group_id: all_notification.group_id).color %>"></div>
+                      <div class="rectangle_<%= @current_group_user.find_by(group_id: all_notification.group_id).color %>"></div>
                       <p class="poll_list_title">
                         <%= all_notification.title %>
                       </p>
