@@ -303,7 +303,7 @@ ul#feature-tabs > li.active > a {
 #poll_board {
   float: left;
   border: 1px solid #BFC9CA;
-  border-radius: 5px;
+  border-radius: 5px; 
   width: 90%;
   margin-left: 30px;
   margin-top: 20px;
@@ -338,34 +338,47 @@ ul#feature-tabs > li.active > a {
 #main_board .group-color {
   position: relative;
 }
-#announcements_board .announcement_list_title,
-#poll_board .poll_list_title,
 #main_board .announcement_list_title,
 #main_board .poll_list_title, {
-  position: relative;
   font-size: 14px;
   color: black;
   font-family: "Source Sans Pro Bold";
-  top: 17px;
-  left: 10px;
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin-bottom: 0;
+}
+#announcements_board .announcement_list_title,
+#poll_board .poll_list_title {
+  font-size: 14px;
+  color: black;
+  font-family: "Source Sans Pro Bold";
+  margin-top: 15px;
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin-bottom: 0;
 }
 #announcements_board .announcement_list_date,
 #poll_board .poll_list_date,
 #main_board .announcement_list_date,
 #main_board .poll_list_date, {
-  position: relative;
+  position: absolute;
   font-size: 10px;
   color: #89868f;
-  left: 160px;
-  bottom: 30px;
+  right: 5px;
+  top: 10px;
 }
-#announcements_board .announcement_list_content,
-#main_board .announcement_list_content {
-  position: relative;
+#announcements_board ul li div,
+#main_board .announcement_feed div:last-child {
   font-size: 13px;
   color: #89868f;
-  bottom: 20px;
-  left: 10px;
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 #announcements_board ul li,
 #poll_board ul li,
@@ -375,14 +388,13 @@ ul#feature-tabs > li.active > a {
   margin-top: 0;
 }
 #announcements_board ul li.active,
-#poll_board ul li.active,
-#main_board ul li.active {
+#poll_board ul li.active {
   background-color: #DA413D;
   p {
     color: white;
   }
-  span {
-    color: #b03636;
+  div {
+    color: white;
   }
 }
 #announcements_board ul li a:hover,
@@ -392,7 +404,6 @@ ul#feature-tabs > li.active > a {
 #main_board ul li a:hover,
 #main_board ul li a:focus {
   background-color: transparent;
-
 }
 #announcements_board ul li:last-child,
 #poll_board ul li:last-child,
@@ -417,7 +428,7 @@ ul#feature-tabs > li.active > a {
 #announcements_board .tab-content::-webkit-scrollbar,
 #poll_board .tab-content::-webkit-scrollbar,
 #main_board .tab-content::-webkit-scrollbar {
-  width: 5px;
+  width: 0px;
   background: transparent;
 }
 #announcements_board .tab-content h4,
