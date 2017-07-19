@@ -249,7 +249,12 @@
                   <li>
                     <a href="#poll_<%= p.id %>" data-toggle="tab">
                       <p class="poll_list_title">
-                        <%= p.title %>
+                        Q: <%= p.title %>
+                      </p>
+                      <p class="poll_list_answer">
+                        <% if Polluser.where(user_id: @user.id).where(poll_id: p.id).where(voted: true).exists? %>
+                          A: <%= Option.find(Polluser.where(user_id: @user.id).where(poll_id: p.id).where(voted: true).first.option_id).content %>
+                        <% end %>
                       </p>
                       <p class="poll_list_date">
                         <%= p.created_at.strftime("%Y-%m-%d") %>
@@ -360,6 +365,12 @@
                   </div>
                 <% end %>
               </div>
+              <script>
+                $(function(){
+                  $('#poll_board ul li:first-child').addClass("active");
+                  $('#poll_board .tab-content .tab-pane:first-child').addClass("active");
+                });
+              </script>
             </div>
 
             <% else %>
