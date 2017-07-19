@@ -123,11 +123,16 @@
               <% elsif all_notification.notification_type == 2 %>
                 <% if all_notification.read == false %>
                   <li class="poll_feed poll_<%= all_notification.id %>">
-                    <span class="circle_<%= @current_group_user.find_by(group_id: all_notification.group_id).color %>"></span>
-                    <span class="unread-notification"></span>
+                    <!-- 동그라미 --><span class="circle_<%= @current_group_user.find_by(group_id: all_notification.group_id).color %>"></span>
+                    <span class="unread-notification unread-notification_<%= all_notification.id %>"></span>
                     <a href="#poll_<%= all_notification.id %>" data-toggle="tab">
                       <p class="poll_list_title">
                         <span class="unread-notification unread-notification_<%= all_notification.id %>"></span><%= all_notification.title %>
+                      </p>
+                      <p class="poll_list_answer">
+                        <% if Polluser.where(user_id: @user.id).where(poll_id: all_notification.poll_id).where(voted: true).exists? %>
+                          A: <%= Option.find(Polluser.where(user_id: @user.id).where(poll_id: all_notification.poll_id).where(voted: true).first.option_id).content %>
+                        <% end %>
                       </p>
                       <p class="poll_list_date">
                         <%= all_notification.created_at.strftime("%Y-%m-%d") %>
@@ -151,12 +156,17 @@
                     });
                   </script>
 
-                <% else %><!-- unread -->
+                <% else %><!-- read -->
                   <li class="poll_feed poll_<%= all_notification.id %>">
                     <a href="#poll_<%= all_notification.id %>" data-toggle="tab">
-                      <span class="circle_<%= @current_group_user.find_by(group_id: all_notification.group_id).color %>"></span>
+                      <!-- 동그라미 --><span class="circle_<%= @current_group_user.find_by(group_id: all_notification.group_id).color %>"></span>
                       <p class="poll_list_title">
                         <%= all_notification.title %>
+                      </p>
+                      <p class="poll_list_answer">
+                        <% if Polluser.where(user_id: @user.id).where(poll_id: all_notification.poll_id).where(voted: true).exists? %>
+                          A: <%= Option.find(Polluser.where(user_id: @user.id).where(poll_id: all_notification.poll_id).where(voted: true).first.option_id).content %>
+                        <% end %>
                       </p>
                       <p class="poll_list_date">
                         <%= all_notification.created_at.strftime("%Y-%m-%d") %>

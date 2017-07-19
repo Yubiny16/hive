@@ -293,7 +293,7 @@ ul#feature-tabs > li.active > a {
   margin-left: 30px;
   background-color: #DA413D;
   color: white;
-  font-weight: bold;
+  font-family: "Source Sans Pro Bold";
 }
 #add_ann_btn i,
 #add_poll_btn i {
@@ -303,7 +303,7 @@ ul#feature-tabs > li.active > a {
 #poll_board {
   float: left;
   border: 1px solid #BFC9CA;
-  border-radius: 5px; 
+  border-radius: 5px;
   width: 90%;
   margin-left: 30px;
   margin-top: 20px;
@@ -481,7 +481,7 @@ ul#feature-tabs > li.active > a {
 #poll_board .tab-content .tab-pane div.not-voted button[type="submit"],
 #main_board .tab-content .tab-pane div.already-voted button[type="submit"],
 #main_board .tab-content .tab-pane div.not-voted button[type="submit"] {
-  font-weight: bold;
+  font-family: "Source Sans Pro Bold";
   font-family: $main-font;
   color: white;
   background-color: #DA413D;
@@ -526,7 +526,7 @@ ul#feature-tabs > li.active > a {
   margin-top: 15px;
   background-color: #DA413D;
   color: white;
-  font-weight: bold;
+  font-family: "Source Sans Pro Bold";
 }
 #ann_popup_new .modal-body .popup-buttons {
   text-align: right;
@@ -535,7 +535,7 @@ ul#feature-tabs > li.active > a {
   margin-top: 10px;
   background-color: #DA413D;
   color: white;
-  font-weight: bold;
+  font-family: "Source Sans Pro Bold";
 }
 #poll_popup .create_poll_btn {
   margin-top: 20px;
@@ -589,16 +589,16 @@ ul#feature-tabs > li.active > a {
 #transactions .each_transaction .revenue td:last-child {
   color: #38DB1E;
   border-left: 1px solid #ddd;
-  font-weight: bold;
+  font-family: "Source Sans Pro Bold";
 }
 #transactions .each_transaction .expense td:last-child {
   color: #F43716;
   border-left: 1px solid #ddd;
-  font-weight: bold;
+  font-family: "Source Sans Pro Bold";
 }
 #transactions tfoot tr td:last-child {
   border-left: 1px solid #ddd;
-  font-weight: bold;
+  font-family: "Source Sans Pro Bold";
 }
 /**members tab design**/
 #Members .member {
@@ -634,7 +634,7 @@ ul#feature-tabs > li.active > a {
   outline: none;
   background-color: #DA413D;
   color: white;
-  font-weight: bold;
+  font-family: "Source Sans Pro Bold";
 }
 /*member's page pop-up design*/
 .member-profile-popup {
@@ -642,7 +642,7 @@ ul#feature-tabs > li.active > a {
   margin: 0 auto;
 }
 .member-profile-popup .modal-title {
-  font-weight: bold;
+  font-family: "Source Sans Pro Bold";
 }
 .member-profile-popup .modal-body > div {
   text-align: center;
@@ -684,13 +684,13 @@ ul#feature-tabs > li.active > a {
   margin-top: 15px;
   background-color: #DA413D;
   color: white;
-  font-weight: bold;
+  font-family: "Source Sans Pro Bold";
 }
 #user-profile-update-btn {
   margin-top: 15px;
   background-color: #DA413D;
   color: white;
-  font-weight: bold;
+  font-family: "Source Sans Pro Bold";
 }
 /*Preferences*/
 #preferences .preference_group_name {
@@ -731,7 +731,7 @@ ul#feature-tabs > li.active > a {
   margin-top: 15px;
   background-color: #DA413D;
   color: white;
-  font-weight: bold;
+  font-family: "Source Sans Pro Bold";
 }
 /******************Group Profile Edit Page***********/
 
@@ -767,7 +767,7 @@ ul#feature-tabs > li.active > a {
   margin-top: 15px;
   background-color: #DA413D;
   color: white;
-  font-weight: bold;
+  font-family: "Source Sans Pro Bold";
 }
 .group-update-label{
   position: relative;
@@ -780,7 +780,7 @@ ul#feature-tabs > li.active > a {
   margin-top: 15px;
   background-color: #DA413D;
   color: white;
-  font-weight: bold;
+  font-family: "Source Sans Pro Bold";
 }
 /****************Search page design********************/
 #join_group_popup {
@@ -800,7 +800,7 @@ ul#feature-tabs > li.active > a {
   margin-top: 15px;
   background-color: #DA413D;
   color: white;
-  font-weight: bold;
+  font-family: "Source Sans Pro Bold";
 }
 #join_group_popup .popup-buttons {
   text-align: right;
@@ -853,4 +853,59 @@ ul#feature-tabs > li.active > a {
   margin-left: 30px;
   font-family: "Source Sans Pro Regular";
   font-size: 16px;
+}
+/****************My Calendar********************/
+#calendar_board {
+  position: relative;
+  top: 133px;
+  height:450px;
+  border: 1px solid #BFC9CA;
+  border-radius: 5px;
+  width: 300px;
+  overflow: auto;
+}
+#calendar_board ::-webkit-scrollbar{
+  width: 0px;
+  background: transparent;
+}
+#calendar_board .one_event {
+  border: 1px solid #BFC9CA;
+  height: auto;
+  overflow: auto;
+  padding: 15px;
+}
+#calendar_board .one_event .one_event_title {
+  position: relative;
+  font-size: 16px;
+  color: black;
+  font-family: "Source Sans Pro Bold";
+  top: 5px;
+  left: 10px;
+}
+#calendar_board .one_event .one_event_content {
+  position: relative;
+  font-size: 14px;
+  color: black;
+  top: 5px;
+  left: 10px;
+  padding-bottom: 20px;
+}
+#calendar_board .one_event .one_event_start,
+#calendar_board .one_event .one_event_end {
+  position: relative;
+  font-size: 14px;
+  color: #716e77;
+  left: 10px;
+  bottom: 10px;
+}
+#calendar_board .one_event button[type="submit"] {
+  position: relative;
+  left: 10px;
+  font-family: "Source Sans Pro Bold";
+  font-family: $main-font;
+  color: white;
+  background-color: #DA413D;
+  padding: 4px 6px;
+  margin-bottom: 10px;
+  outline: none;
 }
