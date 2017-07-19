@@ -123,9 +123,8 @@
               <% elsif all_notification.notification_type == 2 %>
                 <% if all_notification.read == false %>
                   <li class="poll_feed poll_<%= all_notification.id %>">
-                    <div class="circle_<%= @current_group_user.find_by(group_id: all_notification.group_id).color %>"></div>
-                    <span class="unread-notification unread-notification_<%= all_notification.id %>"></span>
                     <a href="#poll_<%= all_notification.id %>" data-toggle="tab">
+                      <div class="circle_<%= @current_group_user.find_by(group_id: all_notification.group_id).color %>"></div>
                       <p class="poll_list_title">
                         <span class="unread-notification unread-notification_<%= all_notification.id %>"></span><%= all_notification.title %>
                       </p>

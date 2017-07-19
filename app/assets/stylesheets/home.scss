@@ -21,7 +21,8 @@ $main-font: "Source Sans Pro Regular";
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  display: inline-block;
+  position: absolute;
+  right: 0;
 }
 .circle_black {
   background: #2c2c2c;
@@ -364,7 +365,7 @@ ul#feature-tabs > li.active > a {
 #announcements_board .announcement_list_date,
 #poll_board .poll_list_date,
 #main_board .announcement_list_date,
-#main_board .poll_list_date, {
+#main_board .poll_list_date {
   position: absolute;
   font-size: 10px;
   color: #89868f;
@@ -396,6 +397,18 @@ ul#feature-tabs > li.active > a {
   div {
     color: white;
   }
+}
+#main_board ul li.active {
+  background-color: #DA413D;
+  p {
+    color: white;
+  }
+  div:last-child {
+    color: white;
+  }
+}
+.poll_list_answer {
+  color: #DA413D;
 }
 #announcements_board ul li a:hover,
 #announcements_board ul li a:focus,
