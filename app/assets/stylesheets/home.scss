@@ -310,7 +310,7 @@ ul#feature-tabs > li.active > a {
 }
 #announcements_board ul,
 #poll_board ul,
-#main_board ul{
+#main_board ul {
   width: 35%;
   float: left;
   overflow: auto;
@@ -324,7 +324,7 @@ ul#feature-tabs > li.active > a {
 }
 #announcements_board ul li a,
 #poll_board ul li a,
-#main_board ul li a{
+#main_board ul li a {
   height: 80px;
   white-space:  nowrap;
   text-overflow: ellipsis;
@@ -339,7 +339,7 @@ ul#feature-tabs > li.active > a {
   position: relative;
 }
 #main_board .announcement_list_title,
-#main_board .poll_list_title, {
+#main_board .poll_list_title {
   font-size: 14px;
   color: black;
   font-family: "Source Sans Pro Bold";

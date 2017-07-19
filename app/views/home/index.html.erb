@@ -123,7 +123,7 @@
               <% elsif all_notification.notification_type == 2 %>
                 <% if all_notification.read == false %>
                   <li class="poll_feed poll_<%= all_notification.id %>">
-                    <!-- 동그라미 --><span class="circle_<%= @current_group_user.find_by(group_id: all_notification.group_id).color %>"></span>
+                    <div class="circle_<%= @current_group_user.find_by(group_id: all_notification.group_id).color %>"></div>
                     <span class="unread-notification unread-notification_<%= all_notification.id %>"></span>
                     <a href="#poll_<%= all_notification.id %>" data-toggle="tab">
                       <p class="poll_list_title">
@@ -159,7 +159,7 @@
                 <% else %><!-- read -->
                   <li class="poll_feed poll_<%= all_notification.id %>">
                     <a href="#poll_<%= all_notification.id %>" data-toggle="tab">
-                      <!-- 동그라미 --><span class="circle_<%= @current_group_user.find_by(group_id: all_notification.group_id).color %>"></span>
+                      <div class="circle_<%= @current_group_user.find_by(group_id: all_notification.group_id).color %>"></div>
                       <p class="poll_list_title">
                         <%= all_notification.title %>
                       </p>

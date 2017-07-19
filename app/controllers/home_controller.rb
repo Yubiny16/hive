@@ -14,7 +14,7 @@ class HomeController < ApplicationController
     @poll_notification = Pollnoti.where(receiver: @user.id)
 
     @all_notification = (@poll_notification + @ann_notification).sort{|a,b| a.created_at <=> b.created_at }.reverse
-  
+
   end
 
   def search
@@ -360,6 +360,8 @@ class HomeController < ApplicationController
     one_event.start = params[:start]
     one_event.end = params[:end]
     one_event.save
+
+    
     redirect_to :back
   end
 
