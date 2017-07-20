@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   get 'edit' => 'users/registrations#edit'
   # uploading profile picture
   post '/uploadprofpic' => 'home#uploadprofpic'
+  post '/home/profile_update' => 'home#profile_update'
 
   #Group
   get '/home/create_group_view' => 'home#create_group_view'
@@ -48,7 +49,7 @@ Rails.application.routes.draw do
   get '/home/poll_read' => 'home#poll_read'
 
   get '/home/group_profile/:group_id' => 'home#group_profile'
-  get '/home/group_edit' => 'home#group_edit'
+  post '/home/group_edit' => 'home#group_edit'
 
   post '/home/add_event' => 'home#add_event'
 

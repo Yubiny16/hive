@@ -69,18 +69,17 @@
       </div>
       <hr>
       <% if @admin_user.admin == true %>
-        <div class="group-image-update">
-          <% if current_user.image_url=="" %>
-            <img src="http://www.sessionlogs.com/media/icons/defaultIcon.png" alt="profile img" title="default profile image" style="border-radius: 50%;" width="100">
-          <% else %>
-            <img src="<%= current_user.image_url %>" alt="profile img">
-          <% end %>
-          <br>
-          <label class="btn" for="profile-image-upload"><i class="fa fa-upload" aria-hidden="true"></i> Upload Photo</label>
-          <input type="file" name="pic" accept="image/*" id="profile-image-upload">
-        </div>
-
-        <form action= "/home/group_edit" method="get">
+        <form action= "/home/group_edit" method="post" enctype="multipart/form-data">
+          <div class="group-image-update">
+            <% if @group.image_url=="" %>
+              <img src="http://www.sessionlogs.com/media/icons/defaultIcon.png" alt="profile img" title="default profile image" style="border-radius: 50%;" width="100">
+            <% else %>
+              <img src="<%= @group.image_url %>" alt="profile img" style="border-radius: 50%;" width="100">
+            <% end %>
+            <br>
+            <label class="btn" for="profile-image-upload"><i class="fa fa-upload" aria-hidden="true"></i> Upload Photo</label>
+            <input type="file" name="pic" accept="image/*" id="profile-image-upload">
+          </div>
           <div class="group-profile-field">
             <label for="group-name">Group Name</label><br>
             <input name= "group_name", type="text", class="form-control" value="<%= @group.name %>">

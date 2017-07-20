@@ -405,9 +405,9 @@ ul#feature-tabs > li.active > a {
 #announcements_board ul li,
 #poll_board ul li,
 #main_board ul li  {
-  border-top: 1px solid #BFC9CA;
-  border-right: 1px solid #BFC9CA;
-  margin-top: 0;
+  border: 1px solid #BFC9CA;
+  margin: 5px;
+  border-radius: 5px;
 }
 #announcements_board ul li.active,
 #poll_board ul li.active {
@@ -445,16 +445,6 @@ ul#feature-tabs > li.active > a {
 #main_board ul li a:hover,
 #main_board ul li a:focus {
   background-color: transparent;
-}
-#announcements_board ul li:last-child,
-#poll_board ul li:last-child,
-#main_board ul li:last-child {
-  border-bottom: 1px solid #BFC9CA;
-}
-#announcements_board ul li:first-child,
-#poll_board ul li:first-child,
-#main_board ul li:first-child {
-  border-top: none;
 }
 #announcements_board .tab-content,
 #poll_board .tab-content,

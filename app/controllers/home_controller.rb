@@ -40,7 +40,13 @@ class HomeController < ApplicationController
     GroupUser.where(user_id: current_user.id).where(group_id: params[:group_id]).update(:color => params[:new_color])
   end
 
-  def uploadprofpic
+  def profile_update
+    User.update(current_user.id, :first_name => params[:user_first_name])
+    User.update(current_user.id, :last_name => params[:user_last_name])
+    User.update(current_user.id, :school => params[:user_school])
+    User.update(current_user.id, :major => params[:user_major])
+    User.update(current_user.id, :class_year => params[:user_class_year])
+
     uploader = UserprofileUploader.new
     uploader.store!(params[:pic])
 
@@ -50,6 +56,17 @@ class HomeController < ApplicationController
 
     redirect_to "/home/profile"
   end
+
+  # def uploadprofpic
+  #   uploader = UserprofileUploader.new
+  #   uploader.store!(params[:pic])
+  #
+  #   @user = current_user
+  #   @user.image_url = uploader.url
+  #   @user.save
+  #
+  #   redirect_to "/home/profile"
+  # end
 
   def create_group_view
     @user_groups = GroupUser.where(user_id: current_user.id)
@@ -138,6 +155,12 @@ class HomeController < ApplicationController
     Group.update(params[:group_id], :description => params[:group_description])
     Group.update(params[:group_id], :password => params[:group_pw])
     Group.update(params[:group_id], :website_address => params[:group_website])
+
+    uploader = GroupprofileUploader.new
+    uploader.store!(params[:pic])
+
+    Group.update(params[:group_id], :image_url => uploader.url)
+
     redirect_to "/home/group_page/#{group_id}"
   end
 
@@ -361,7 +384,7 @@ class HomeController < ApplicationController
     one_event.end = params[:end]
     one_event.save
 
-    
+
     redirect_to :back
   end
 

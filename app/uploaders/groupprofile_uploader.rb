@@ -1,4 +1,4 @@
-class UserprofileUploader < CarrierWave::Uploader::Base
+class GroupprofileUploader < CarrierWave::Uploader::Base
 
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
@@ -11,7 +11,7 @@ class UserprofileUploader < CarrierWave::Uploader::Base
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
   def store_dir
-    "uploads/userprofile/"
+    "uploads/groupprofile"
   end
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
@@ -43,7 +43,7 @@ class UserprofileUploader < CarrierWave::Uploader::Base
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.
   def filename
-    Time.now.to_i.to_s + [*('a'..'z')].sample(8).join + "_user." + file.extension if original_filename
+    Time.now.to_i.to_s + [*('a'..'z')].sample(8).join + "_group." + file.extension if original_filename
   end
 
 end

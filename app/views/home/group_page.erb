@@ -62,7 +62,11 @@
     <!-- Body-->
     <div class="col-md-7 board">
       <div id="group_profile">
-        <img src="https://i1.sndcdn.com/artworks-000078815478-g59cab-t500x500.jpg" alt="group profile img" title="default profile image" style="border-radius: 50%;" width="100">
+        <% if @group.image_url=="" %>
+          <img src="http://www.sessionlogs.com/media/icons/defaultIcon.png" alt="profile img" title="default profile image" style="border-radius: 50%;" width="100">
+        <% else %>
+          <img src="<%= @group.image_url %>" alt="profile img" style="border-radius: 50%;" width="100">
+        <% end %>
         <div class="group_profile_heading">
           <h3><%= @group.name %></h3>
           <p><%= @group.school %></p>
