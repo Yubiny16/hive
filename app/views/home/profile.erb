@@ -124,10 +124,13 @@
             <div id="<%= group_user.group_id %>_color" class="circle_<%= group_user.color %>" style="width: 60px; height: 60px; margin-left: 5%"></div>
             <div class="preference_group_name"><%= Group.find(group_user.group_id).name %></div>
             <div class="change_color">
-              <div class="circle_black circle_black_id_<%= group_user.group_id %>"></div>
-              <div class="circle_blue circle_blue_id_<%= group_user.group_id %>"></div>
               <div class="circle_red circle_red_id_<%= group_user.group_id %>"></div>
+              <div class="circle_orange circle_orange_id_<%= group_user.group_id %>"></div>
+              <div class="circle_yellow circle_yellow_id_<%= group_user.group_id %>"></div>
               <div class="circle_green circle_green_id_<%= group_user.group_id %>"></div>
+              <div class="circle_blue circle_blue_id_<%= group_user.group_id %>"></div>
+              <div class="circle_skyblue circle_skyblue_id_<%= group_user.group_id %>"></div>
+              <div class="circle_purple circle_purple_id_<%= group_user.group_id %>"></div>
             </div>
 
               <hr>
@@ -152,10 +155,10 @@
                   });
                 });
 
-                //Change group_color to black
+                //Change group_color to orange
                 $(function() {
-                  $('.circle_black_id_<%= group_user.group_id %>').click(function(){
-                    var new_color = "black";
+                  $('.circle_orange_id_<%= group_user.group_id %>').click(function(){
+                    var new_color = "orange";
                     var group_id = <%= group_user.group_id %>;
 
                     $.ajax({
@@ -165,7 +168,7 @@
                               group_id: group_id }
 
                     }).done(function() {
-                      $("#<%= group_user.group_id %>_color").attr('class', 'circle_black');
+                      $("#<%= group_user.group_id %>_color").attr('class', 'circle_orange');
                     });
 
                   });
@@ -208,7 +211,65 @@
 
                   });
                 });
+
+                //Change group_color to yellow
+                $(function() {
+                  $('.circle_yellow_id_<%= group_user.group_id %>').click(function(){
+                    var new_color = "yellow";
+                    var group_id = <%= group_user.group_id %>;
+
+                    $.ajax({
+                      method: "POST",
+                      url: '/home/group_color',
+                      data: { new_color: new_color,
+                              group_id: group_id }
+
+                    }).done(function() {
+                      $("#<%= group_user.group_id %>_color").attr('class', 'circle_yellow');
+                    });
+
+                  });
+                });
+
+                //Change group_color to skyblue
+                $(function() {
+                  $('.circle_skyblue_id_<%= group_user.group_id %>').click(function(){
+                    var new_color = "skyblue";
+                    var group_id = <%= group_user.group_id %>;
+
+                    $.ajax({
+                      method: "POST",
+                      url: '/home/group_color',
+                      data: { new_color: new_color,
+                              group_id: group_id }
+
+                    }).done(function() {
+                      $("#<%= group_user.group_id %>_color").attr('class', 'circle_skyblue');
+                    });
+
+                  });
+                });
+
+                //Change group_color to purple
+                $(function() {
+                  $('.circle_purple_id_<%= group_user.group_id %>').click(function(){
+                    var new_color = "purple";
+                    var group_id = <%= group_user.group_id %>;
+
+                    $.ajax({
+                      method: "POST",
+                      url: '/home/group_color',
+                      data: { new_color: new_color,
+                              group_id: group_id }
+
+                    }).done(function() {
+                      $("#<%= group_user.group_id %>_color").attr('class', 'circle_purple');
+                    });
+
+                  });
+                });
               </script>
+
           <% end %>
         </div><!--preferences tab-->
       </div><!--tab content-->

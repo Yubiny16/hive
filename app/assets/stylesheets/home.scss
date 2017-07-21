@@ -14,6 +14,14 @@
 }
 $main-gray: #f9f9f9;
 $main-font: "Source Sans Pro Regular";
+$group-red: #e60000;
+$group-orange: #ffa64d;
+$group-yellow: #ffdb4d;
+$group-green: #77b756;
+$group-blue: #2f77c0;
+$group-skyblue: #66d9ff;
+$group-purple: #aa80ff;
+
 /*******************Scrollbar customize***********/
 /*******************Group Color*****************/
 .unread-notification {
@@ -24,47 +32,71 @@ $main-font: "Source Sans Pro Regular";
   position: absolute;
 
 }
-.circle_black,
-.circle_blue,
 .circle_red,
-.circle_green {
+.circle_orange,
+.circle_yellow,
+.circle_green,
+.circle_blue,
+.circle_skyblue,
+.circle_purple {
   width: 15px;
   height: 15px;
   border-radius: 50%;
   display: inline-block;
 }
-.circle_black {
-  background: black;
-}
-.circle_blue {
-  background: #2f77c0;
-}
 .circle_red {
-  background: #d4624c;
+  background: $group-red;
+}
+.circle_orange {
+  background: $group-orange;
+}
+.circle_yellow {
+  background: $group-yellow;
 }
 .circle_green {
-  background: #77b756;
+  background: $group-green;
 }
-.rectangle_black,
-.rectangle_blue,
+.circle_blue {
+  background: $group-blue;
+}
+.circle_skyblue {
+  background: $group-skyblue;
+}
+.circle_purple {
+  background: $group-purple;
+}
 .rectangle_red,
-.rectangle_green {
+.rectangle_orange,
+.rectangle_yellow,
+.rectangle_green,
+.rectangle_blue,
+.rectangle_skyblue,
+.rectangle_purple {
   width: 40px;
   height: 7px;
   border-radius: 15%;
   display: inline-block;
 }
-.rectangle_black {
-  background: black;
-}
-.rectangle_blue {
-  background: #2f77c0;
-}
 .rectangle_red {
-  background: #d4624c;
+  background: $group-red;
+}
+.rectangle_orange {
+  background: $group-orange;
+}
+.rectangle_yellow {
+  background: $group-yellow;
 }
 .rectangle_green {
-  background: #77b756;
+  background: $group-green;
+}
+.rectangle_blue {
+  background: $group-blue;
+}
+.rectangle_skyblue {
+  background: $group-skyblue;
+}
+.rectangle_purple {
+  background: $group-purple;
 }
 /*******************Heading*****************/
 nav#navbar-custom {
@@ -187,25 +219,43 @@ nav#navbar-custom .btn-search i {
   margin-top: 20px;
   background-color: $main-gray;;
 }
-/**right side bar**/
-.filter-dropdown {
-  padding-top: 80px;
+/**Filter dropdown buttons**/
+.filter-feature {
   position: relative;
   display: inline-block;
+  left: 30px;
+  top: 18px;
 }
-.filter-dropdown-btn-feature,
+.filter-group {
+  position: relative;
+  display: inline-block;
+  left: 30px;
+  top: 18px;
+}
 .filter-dropdown-btn-group {
   background-color: #DA413D;
+  border-color: #DA413D;
+  border: none;
   color: white;
   padding: 5px 20px;
   font-size: 16px;
-  border: none;
   cursor: pointer;
+  width: 60px;
+}
+.filter-dropdown-btn-feature {
+  background-color: #DA413D;
+  border-color: #DA413D;
+  border: none;
+  color: white;
+  padding: 5px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 175px;
 }
 .filter-dropdown-content {
   display: none;
   position: absolute;
-  background-color: $main-gray;;
+  background-color: white;
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
@@ -216,6 +266,9 @@ nav#navbar-custom .btn-search i {
     padding: 7px 10px;
     text-decoration: none;
     display: block;
+}
+.filter-dropdown-content p div:first-child {
+
 }
 /* Change color of dropdown links on hover */
 .filter-dropdown-content p:hover {

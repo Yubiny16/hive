@@ -71,10 +71,10 @@ ActiveRecord::Schema.define(version: 20170612073039) do
   create_table "group_users", force: :cascade do |t|
     t.integer  "group_id"
     t.integer  "user_id"
-    t.string   "color",      default: "black"
+    t.string   "color",      default: "blue"
     t.boolean  "admin",      default: false
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
 
   create_table "groups", force: :cascade do |t|
