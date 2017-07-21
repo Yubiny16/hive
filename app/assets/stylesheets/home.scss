@@ -409,26 +409,13 @@ ul#feature-tabs > li.active > a {
 #main_board ul li  {
   border: 1px solid #BFC9CA;
   margin: 5px;
-  border-radius: 5px;
 }
 #announcements_board ul li.active,
 #poll_board ul li.active {
-  background-color: #DA413D;
-  p {
-    color: white;
-  }
-  div {
-    color: white;
-  }
+  border-color: #DA413D;
 }
 #main_board ul li.active {
-  background-color: #DA413D;
-  p {
-    color: white;
-  }
-  div:last-child {
-    color: white;
-  }
+  border-color: #DA413D;
 }
 .poll_list_answer {
   position: relative;
@@ -439,14 +426,6 @@ ul#feature-tabs > li.active > a {
   white-space: nowrap;
   text-overflow: ellipsis;
   left: 10px;
-}
-#announcements_board ul li a:hover,
-#announcements_board ul li a:focus,
-#poll_board ul li a:hover,
-#poll_board ul li a:focus,
-#main_board ul li a:hover,
-#main_board ul li a:focus {
-  background-color: transparent;
 }
 #announcements_board .tab-content,
 #poll_board .tab-content,
@@ -895,7 +874,8 @@ ul#feature-tabs > li.active > a {
   border-radius: 5px;
   width: 250px;
   overflow: auto;
-  background-color: white;
+  background-color: $main-gray;
+  border: 1px solid #BFC9CA;
 }
 #calendar_board ::-webkit-scrollbar{
   width: 0px;
@@ -906,6 +886,9 @@ ul#feature-tabs > li.active > a {
   height: auto;
   overflow: auto;
   padding: 15px;
+  margin: 5px;
+  border: 1px solid #BFC9CA;
+  background-color: white;
 }
 #calendar_board .one_event .one_event_title {
   position: relative;
