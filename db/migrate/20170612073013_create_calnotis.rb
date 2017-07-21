@@ -2,6 +2,7 @@ class CreateCalnotis < ActiveRecord::Migration[5.0]
   def change
     create_table :calnotis do |t|
 
+      t.integer :event_id
       t.integer :group_id
       t.integer :sender
       t.integer :receiver

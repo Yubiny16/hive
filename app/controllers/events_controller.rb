@@ -40,6 +40,7 @@ class EventsController < ApplicationController
 
         #Cal Feed
         one_cal_notification = Calnoti.new
+        one_cal_notification.event_id = @event.id
         one_cal_notification.group_id = $group_id
         one_cal_notification.sender = current_user.id
         one_cal_notification.receiver = one_member.user_id
@@ -57,10 +58,17 @@ class EventsController < ApplicationController
     @event.update(event_params)
 
     if $type == 1
+
+      #delete previous cal Feed
+      Calnoti.where(event_id: @event.id).destroy_all()
+
       GroupUser.where(group_id: $group_id).find_each do |one_member|
 
-        #Cal Feed
+        Event.where(event_id: @event.id).where(calendar_type: 0).where(user_id: one_member.user_id).destroy_all()
+      
+        #New Cal Feed
         one_cal_notification = Calnoti.new
+        one_cal_notification.event_id = @event.id
         one_cal_notification.group_id = $group_id
         one_cal_notification.sender = current_user.id
         one_cal_notification.receiver = one_member.user_id

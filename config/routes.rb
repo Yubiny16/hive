@@ -52,10 +52,12 @@ Rails.application.routes.draw do
   post '/home/group_edit' => 'home#group_edit'
 
   post '/home/add_event' => 'home#add_event'
+  get '/home/cancel_event' => 'home#cancel_event'
 
   get '/landing/landing_page' => 'landing#landing_page'
   get '/landing/index' => 'landing#index'
   #Calendar
   resources :events
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

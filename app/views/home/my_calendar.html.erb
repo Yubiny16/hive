@@ -76,10 +76,10 @@
       <div id="calendar_board">
         <% unless @cal_notification.first == nil %>
           <% @cal_notification.each do |cal_notification| %>
-            <% if cal_notification.read == false %>
+            <% if !Event.where(event_id: cal_notification.event_id).where(calendar_type: 0).where(user_id: cal_notification.receiver).exists? %>
               <div class="one_event cal_<%= cal_notification.id %>">
                 <div class="rectangle_<%= @current_group_user.find_by(group_id: cal_notification.group_id).color %>"></div>
-                <div class="unread-notification unread-notification_<%= cal_notification.id %>"></div>
+                <i class="event_not_added_icon fa fa-times" aria-hidden="true"></i>
                 <p class="one_event_title">
                   <%= cal_notification.title %>
                 </p>
@@ -98,30 +98,16 @@
                   <input name="end" type="hidden" value="<%= cal_notification.end%>"/>
                   <input name="description" type="hidden" value="<%= cal_notification.description %>"/>
                   <input name="group_id" type="hidden" value="<%= cal_notification.group_id %>"/>
+                  <input name="event_id" type="hidden" value="<%= cal_notification.event_id %>"/>
+                  <input name="color" type="hidden" value="<%= @current_group_user.find_by(group_id: cal_notification.group_id).color %>"/>
                   <button type="submit" class="btn add_event_button">Add to My Calendar</button>
                 </form>
               </div>
               <hr />
-              <script>
-                $(function() {
-                  $('.cal_<%= cal_notification.id %>').click(function(){
-                    var cal_notification_id = <%= cal_notification.id %>;
-
-                    $.ajax({
-                      method: "GET",
-                      url: '/home/cal_read',
-                      data: { cal_notification_id: cal_notification_id }
-
-                    }).done(function() {
-                      //not read --> read
-                      $('.unread-notification_<%= cal_notification.id %>').hide();
-                    });
-                  });
-                });
-              </script>
             <% else %>
               <div class="one_event cal_<%= cal_notification.id %>">
                 <div class="rectangle_<%= @current_group_user.find_by(group_id: cal_notification.group_id).color %>"></div>
+                <i class="event_not_added_icon fa fa-check" style="color: green" aria-hidden="true"></i>
                 <p class="one_event_title">
                   <%= cal_notification.title %>
                 </p>
@@ -134,13 +120,9 @@
                 <p class="one_event_end">
                   <span style="color: #d4624c">End:</span> <%= cal_notification.end.strftime("%B %e, %Y at %l:%M %p") %>
                 </p>
-                <form action="/home/add_event" method="post">
-                  <input name="title" type="hidden" value="<%= cal_notification.title %>"/>
-                  <input name="start" type="hidden" value="<%= cal_notification.start %>"/>
-                  <input name="end" type="hidden" value="<%= cal_notification.end%>"/>
-                  <input name="description" type="hidden" value="<%= cal_notification.description %>"/>
-                  <input name="group_id" type="hidden" value="<%= cal_notification.group_id %>"/>
-                  <button type="submit" class="btn add_event_button">Add to My Calendar</button>
+                <form action="/home/cancel_event" method="get">
+                  <input name="event_id" type="hidden" value="<%= cal_notification.event_id %>"/>
+                  <button type="submit" class="btn add_event_button">Cancel</button>
                 </form>
               </div>
               <hr />

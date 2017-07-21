@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 20170612073039) do
   end
 
   create_table "calnotis", force: :cascade do |t|
+    t.integer  "event_id"
     t.integer  "group_id"
     t.integer  "sender"
     t.integer  "receiver"
@@ -55,6 +56,7 @@ ActiveRecord::Schema.define(version: 20170612073039) do
   end
 
   create_table "events", force: :cascade do |t|
+    t.integer  "event_id"
     t.integer  "calendar_type"
     t.integer  "user_id"
     t.string   "title"

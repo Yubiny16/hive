@@ -376,15 +376,20 @@ class HomeController < ApplicationController
 
   def add_event
     one_event = Event.new
+    one_event.event_id = params[:event_id]
     one_event.calendar_type = 0
     one_event.user_id = current_user.id
     one_event.title = params[:title]
     one_event.description = params[:description]
     one_event.start = params[:start]
     one_event.end = params[:end]
+    one_event.color = params[:color]
     one_event.save
 
-
+    redirect_to :back
+  end
+  def cancel_event
+    Event.where(event_id: params[:event_id]).where(calendar_type: 0).where(user_id: current_user.id).destroy_all()
     redirect_to :back
   end
 
