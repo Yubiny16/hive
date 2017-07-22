@@ -205,6 +205,9 @@ nav#navbar-custom .btn-search i {
 }
 .leftbar .leftbar-groups li {
   margin-bottom: 10px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .leftbar .leftbar-groups li a {
   position: relative;
@@ -234,22 +237,18 @@ nav#navbar-custom .btn-search i {
 }
 .filter-dropdown-btn-group {
   background-color: #DA413D;
-  border-color: #DA413D;
   border: none;
   color: white;
-  padding: 5px 20px;
+  padding: 5px 10px;
   font-size: 16px;
-  cursor: pointer;
   width: 60px;
 }
 .filter-dropdown-btn-feature {
   background-color: #DA413D;
-  border-color: #DA413D;
   border: none;
   color: white;
   padding: 5px 20px;
   font-size: 16px;
-  cursor: pointer;
   width: 175px;
 }
 .filter-dropdown-content {
@@ -266,9 +265,7 @@ nav#navbar-custom .btn-search i {
     padding: 7px 10px;
     text-decoration: none;
     display: block;
-}
-.filter-dropdown-content p div:first-child {
-
+    cursor: pointer;
 }
 /* Change color of dropdown links on hover */
 .filter-dropdown-content p:hover {
@@ -396,11 +393,11 @@ ul#feature-tabs > li.active > a {
 #poll_board ul li a,
 #main_board ul li a {
   position:relative;
-  height: 80px;
+  display: block;
   white-space:  nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
-  background-color: white;
+  background-color: transparent;
 }
 #main_board .unread-notification {
   position: absolute;
@@ -448,27 +445,30 @@ ul#feature-tabs > li.active > a {
 }
 #announcements_board ul li div,
 #main_board .announcement_feed div:last-child {
-  position: relative;
   font-size: 13px;
   color: #716e77;
   width: 100%;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  max-height: 18px;
+}
+#main_board .announcement_feed div:last-child {
+  position: relative;
   left: 10px;
 }
 #announcements_board ul li,
 #poll_board ul li,
 #main_board ul li  {
   border: 1px solid #BFC9CA;
+  border-radius: 5px;
   margin: 5px;
 }
 #announcements_board ul li.active,
-#poll_board ul li.active {
-  border-color: #DA413D;
-}
+#poll_board ul li.active,
 #main_board ul li.active {
   border-color: #DA413D;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(218, 65, 61, 0.5);
 }
 .poll_list_answer {
   position: relative;
@@ -524,19 +524,19 @@ ul#feature-tabs > li.active > a {
 }
 #announcements_board .tab-content .announcement_tab_content_content,
 #poll_board .tab-content .poll_tab_content_content,
-#main_board .tab-content .poll_tab_content_content {
-  position: relative;
-  padding-left: 50px;
-}
+#main_board .tab-content .poll_tab_content_content,
 #main_board .tab-content .announcement_tab_content_content {
   position: relative;
   padding-left: 50px;
-  top: 37px;
+}
+#announcements_board .tab-content .announcement_tab_content_content div,
+#main_board .tab-content .announcement_tab_content_content div {
+  word-wrap: break-word;
 }
 #announcements_board .tab-content .tab-pane div,
 #poll_board .tab-content .tab-pane div.already-voted,
 #poll_board .tab-content .tab-pane div.not-voted,
-#main_board .tab-content .tab-pane .tab-pane div,
+#main_board .tab-content .tab-pane div,
 #main_board .tab-content .tab-pane div.already-voted,
 #main_board .tab-content .tab-pane div.not-voted {
   padding-top: 20px;
@@ -716,6 +716,9 @@ ul#feature-tabs > li.active > a {
 .member-profile-popup .modal-body .list-group {
   width: 300px;
   margin: 0 auto 30px;
+}
+.fc-toolbar button {
+  outline: none;
 }
 /******************profile page styling********************/
 /*Profile*/
