@@ -147,7 +147,7 @@
                   <li class="announcement_feed announcement_<%= all_notification.id %>">
                     <a href="#ann_<%= all_notification.id %>" data-toggle="tab">
                       <div class="rectangle_<%= @current_group_user.find_by(group_id: all_notification.group_id).color %>"></div>
-                      <div class="unread-notification unread-notification_<%= all_notification.id %>"></div>
+                      <div class="unread-notification announcement_unread-notification_<%= all_notification.id %>"></div>
                       <p class="announcement_list_title">
                         <%= all_notification.title %>
                       </p>
@@ -169,7 +169,7 @@
                         data: { ann_notification_id: ann_notification_id }
                       }).done(function() {
                         //not read --> read
-                        $('.unread-notification_<%= all_notification.id %>').hide();
+                        $('.announcement_unread-notification_<%= all_notification.id %>').hide();
 
                       });
                     });
@@ -196,7 +196,7 @@
                   <li class="poll_feed poll_<%= all_notification.id %>">
                     <a href="#poll_<%= all_notification.id %>" data-toggle="tab">
                       <div class="rectangle_<%= @current_group_user.find_by(group_id: all_notification.group_id).color %>"></div>
-                      <div class="unread-notification unread-notification_<%= all_notification.id %>"></div>
+                      <div class="unread-notification poll_unread-notification_<%= all_notification.id %>"></div>
                       <p class="poll_list_title">
                         <%= all_notification.title %>
                       </p>
@@ -221,7 +221,7 @@
                           url: '/home/poll_read',
                           data: { poll_notification_id: poll_notification_id }
                         }).done(function() {
-                          $('.unread-notification_<%= all_notification.id %>').hide();
+                          $('.poll_unread-notification_<%= all_notification.id %>').hide();
                         });
                       });
                     });
