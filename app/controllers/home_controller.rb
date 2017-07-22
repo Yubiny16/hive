@@ -393,4 +393,16 @@ class HomeController < ApplicationController
     redirect_to :back
   end
 
+  def file_upload
+    gfiles = Groupfile.new
+    gfiles.group_id = params[:group_id]
+    # gfiles.filename = original_filename
+
+    uploader = GroupfileUploader.new
+    uploader.store!(params[:file])
+
+    gfiles.file_url = uploader.url
+
+    redirect_to :back
+  end
 end

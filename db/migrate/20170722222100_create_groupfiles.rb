@@ -4,7 +4,8 @@ class CreateGroupfiles < ActiveRecord::Migration[5.0]
 
       t.integer :group_id
       t.string :file_url
-      
+      t.string :filename
+
       t.timestamps
     end
   end

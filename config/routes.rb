@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   # uploading profile picture
   post '/uploadprofpic' => 'home#uploadprofpic'
   post '/home/profile_update' => 'home#profile_update'
+  post '/home/file_upload' => 'home#file_upload'
 
   #Group
   get '/home/create_group_view' => 'home#create_group_view'
