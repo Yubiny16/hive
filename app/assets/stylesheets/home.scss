@@ -527,7 +527,9 @@ ul#feature-tabs > li.active > a {
 #main_board .tab-content .poll_tab_content_content,
 #main_board .tab-content .announcement_tab_content_content {
   position: relative;
-  padding-left: 50px;
+}
+#main_board .tab-content .announcement_tab_content_content {
+  padding: 40px;
 }
 #announcements_board .tab-content .announcement_tab_content_content div,
 #main_board .tab-content .announcement_tab_content_content div {
@@ -536,7 +538,6 @@ ul#feature-tabs > li.active > a {
 #announcements_board .tab-content .tab-pane div,
 #poll_board .tab-content .tab-pane div.already-voted,
 #poll_board .tab-content .tab-pane div.not-voted,
-#main_board .tab-content .tab-pane div,
 #main_board .tab-content .tab-pane div.already-voted,
 #main_board .tab-content .tab-pane div.not-voted {
   padding-top: 20px;
