@@ -1,5 +1,9 @@
 <head>
   <style>
+    body {
+      background: url(https://static.pexels.com/photos/7096/people-woman-coffee-meeting.jpg) no-repeat center center;
+      background-size: cover;
+    }
     .field, .actions, .links {
       width: 300px;
       margin: auto;
@@ -9,6 +13,7 @@
       width: 300px;
       height: 40px;
       margin-bottom: 15px;
+      background-color: transparent;
     }
     input[type="submit"] {
       border-radius: 20px;
@@ -53,22 +58,27 @@
     }
     .body-container {
       z-index: 1;
-      position: fixed;
-      top: 65%;
+      position: absolute;
+      top: 50%;
       left: 47%;
       margin-top: -192.25px;
       margin-left: -150px;
-      background-color: white;
+      background-color: #f9f9f9;
       padding: 30px;
+      box-shadow: 8px 8px 4px #3a3a3a;
     }
-    .logo {
+    #logo {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    /*.logo {
       display: block;
       width: 100px;
       margin: auto;
       margin-top: 70px;
-    }
+    }*/
     /******background pattern********/
-    .hex_tile {
+    /*.hex_tile {
       float: left;
       margin-right: -26px;
       margin-bottom: -50px;
@@ -110,17 +120,16 @@
     body {
       overflow: hidden;
       background-color: #DA413D;
-    }
+    }*/
   </style>
 </head>
 <body>
 
-  <div class="logo">
-    <a href="/landing/index">LOGO</a>
-  </div>
   <div class="body-container">
     <!--logo-->
-
+    <div id="logo">
+      <a href="/landing/index">H I V E</a>
+    </div>
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
       <div class="field">
         <%= f.email_field :email, autofocus: true, placeholder: "Email", class: "form-control" %>
@@ -147,7 +156,7 @@
     </div>
   </div>
 
-  <div class="login_background_pattern">
+  <!-- <div class="login_background_pattern">
     <div class="hex_tile">
       <div class="left"></div>
       <div class="middle"></div>
@@ -568,5 +577,5 @@
       <div class="middle"></div>
       <div class="right"></div>
     </div>
-  </div>
+  </div> -->
 </body>
