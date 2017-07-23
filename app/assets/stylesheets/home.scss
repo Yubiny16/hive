@@ -227,13 +227,13 @@ nav#navbar-custom .btn-search i {
   position: relative;
   display: inline-block;
   left: 30px;
-  top: 18px;
+  top: 5px;
 }
 .filter-group {
   position: relative;
   display: inline-block;
-  left: 30px;
-  top: 18px;
+  left: 27px;
+  top: 5px;
 }
 .filter-dropdown-btn-group {
   background-color: #DA413D;
@@ -241,7 +241,7 @@ nav#navbar-custom .btn-search i {
   color: white;
   padding: 5px 10px;
   font-size: 16px;
-  width: 60px;
+  width: 40px;
 }
 .filter-dropdown-btn-feature {
   background-color: #DA413D;
@@ -249,7 +249,7 @@ nav#navbar-custom .btn-search i {
   color: white;
   padding: 5px 20px;
   font-size: 16px;
-  width: 175px;
+  width: 195px;
 }
 .filter-dropdown-content {
   display: none;
@@ -924,9 +924,62 @@ ul#feature-tabs > li.active > a {
   font-size: 16px;
 }
 /****************My Calendar********************/
+.calendar-filter-group {
+  position: relative;
+  display: inline-block;
+  top: 83px;
+}
+.calendar-filter-rsvp {
+  position: relative;
+  display: inline-block;
+  left: 45px;
+  top: 51px;
+}
+.calendar-filter-group button {
+  background-color: #DA413D;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  font-size: 16px;
+  width: 40px;
+}
+.calendar-filter-rsvp button {
+  background-color: #DA413D;
+  border: none;
+  color: white;
+  padding: 5px 20px;
+  font-size: 16px;
+  width: 205px;
+}
+.filter-dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: white;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+/* Links inside the dropdown */
+.filter-dropdown-content p {
+    color: black;
+    padding: 7px 10px;
+    text-decoration: none;
+    display: block;
+    cursor: pointer;
+}
+/* Change color of dropdown links on hover */
+.filter-dropdown-content p:hover {
+  background-color: #f1f1f1
+}
+
+/* Show the dropdown menu on hover */
+.filter-dropdown:hover .filter-dropdown-content {
+    display: block;
+}
+
 #calendar_board {
   position: relative;
-  top: 110px;
+  top: 68px;
   height: 498px;
   border-radius: 5px;
   width: 250px;

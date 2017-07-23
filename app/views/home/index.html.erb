@@ -113,11 +113,29 @@
                       var change_color = "#aa80ff";
                     }
 
-                    $(".announcement_feed").hide();
-                    $(".poll_feed").hide();
-                    $(".group_<%= group_user.group_id %>").fadeIn();
+
+                    $(".feed").remove();
+                    $('.nav-stacked').append(one_group_feed_<%= group_user.group_id %>);
+
+                    if (feature_filter_switch == "Announcement")
+                    {
+                      $(".announcement_feed").fadeIn();
+                      $(".poll_feed").hide();
+                    }
+                    else if (feature_filter_switch == "Poll")
+                    {
+                      $(".poll_feed").fadeIn();
+                      $(".announcement_feed").hide();
+                    }
+                    else
+                    {
+                      $(".announcement_feed").fadeIn();
+                      $(".poll_feed").fadeIn();
+                    }
+
                     $('.filter-dropdown-btn-group').css("background-color", change_color);
                     $('.filter-dropdown-btn-group').css("color", change_color);
+
                  });
                  } );
               </script>
@@ -141,7 +159,7 @@
             <% @all_notification.each do |all_notification| %>
               <% if all_notification.notification_type == 1 %>
                 <% if all_notification.read == false %>
-                  <li class="announcement_feed announcement_<%= all_notification.announcement_id %> group_<%= all_notification.group_id %>">
+                  <li class="feed announcement_feed announcement_<%= all_notification.announcement_id %> group_<%= all_notification.group_id %>">
                     <a href="#ann_<%= all_notification.announcement_id %>" data-toggle="tab">
                       <div class="rectangle_<%= @current_group_user.find_by(group_id: all_notification.group_id).color %>"></div>
                       <div class="unread-notification announcement_unread-notification_<%= all_notification.announcement_id %>"></div>
@@ -174,7 +192,7 @@
                 </script>
 
                 <% else %><!-- read -->
-                  <li class="announcement_feed announcement_<%= all_notification.announcement_id %> group_<%= all_notification.group_id %>">
+                  <li class="feed announcement_feed announcement_<%= all_notification.announcement_id %> group_<%= all_notification.group_id %>">
                     <a href="#ann_<%= all_notification.announcement_id %>" data-toggle="tab">
                       <div class="rectangle_<%= @current_group_user.find_by(group_id: all_notification.group_id).color %>"></div>
                       <p class="announcement_list_title">
@@ -190,7 +208,7 @@
 
               <% elsif all_notification.notification_type == 2 %>
                 <% if all_notification.read == false %>
-                  <li class="poll_feed poll_<%= all_notification.poll_id %> group_<%= all_notification.group_id %>">
+                  <li class="feed poll_feed poll_<%= all_notification.poll_id %> group_<%= all_notification.group_id %>">
                     <a href="#poll_<%= all_notification.poll_id %>" data-toggle="tab">
                       <div class="rectangle_<%= @current_group_user.find_by(group_id: all_notification.group_id).color %>"></div>
                       <div class="unread-notification poll_unread-notification_<%= all_notification.poll_id %>"></div>
@@ -225,7 +243,7 @@
                   </script>
 
                 <% else %><!-- read -->
-                  <li class="poll_feed poll_<%= all_notification.poll_id %> group_<%= all_notification.group_id %>">
+                  <li class="feed poll_feed poll_<%= all_notification.poll_id %> group_<%= all_notification.group_id %>">
                     <a href="#poll_<%= all_notification.poll_id %>" data-toggle="tab">
                       <div class="rectangle_<%= @current_group_user.find_by(group_id: all_notification.group_id).color %>"></div>
                       <p class="poll_list_title">
@@ -378,39 +396,77 @@
 
   </div><!-- row -->
 </div><!-- container-fluid container-body -->
+<% @current_group_user.each do |group_user| %>
+  <script>
+    one_group_feed_<%= group_user.group_id %> = $('.group_<%= group_user.group_id %>');
+  </script>
+<% end %>
 
 <script>
+//for multiple filtering
+feature_filter_switch = "All";
+all_feed = $('.feed');
+
+
+
 //filer by feature
 $( function() {
   $("#filter-announcement").click(function(){
-     $(".poll_feed").hide();
-     $(".announcement_feed").fadeIn();
-     $('.filter-dropdown-btn-feature').html('Announcement');
+
+    $(".poll_feed").hide();
+    $(".announcement_feed").fadeIn();
+    $('.filter-dropdown-btn-feature').html('Announcement');
+    feature_filter_switch = "Announcement";
+
  });
  } );
 
 $( function() {
  $("#filter-poll").click(function(){
+
    $(".announcement_feed").hide();
     $(".poll_feed").fadeIn();
     $('.filter-dropdown-btn-feature').html('Poll');
+    feature_filter_switch = "Poll";
+
 });
 } );
 
 $( function() {
   $("#filter-all").click(function(){
+
     $(".announcement_feed").fadeIn();
-     $(".poll_feed").fadeIn();
-     $('.filter-dropdown-btn-feature').html('All');
+    $(".poll_feed").fadeIn();
+
+    feature_filter_switch = "All";
+    $('.filter-dropdown-btn-feature').html('All');
+
  });
  } );
 //filter by group (all)
 $( function() {
   $("#filter-group-all").click(function(){
-    $(".announcement_feed").fadeIn();
-     $(".poll_feed").fadeIn();
-     $('.filter-dropdown-btn-group').css('background-color', "#DA413D");
-     $('.filter-dropdown-btn-group').css('color', "white");
+
+    $('.nav-stacked').append(all_feed);
+    if (feature_filter_switch == "Announcement")
+    {
+      $(".announcement_feed").fadeIn();
+      $(".poll_feed").hide();
+    }
+    else if (feature_filter_switch == "Poll")
+    {
+      $(".poll_feed").fadeIn();
+      $(".announcement_feed").hide();
+    }
+    else
+    {
+      $(".announcement_feed").fadeIn();
+      $(".poll_feed").fadeIn();
+    }
+
+    $('.filter-dropdown-btn-group').css('background-color', "#DA413D");
+    $('.filter-dropdown-btn-group').css('color', "white");
+
  });
  } );
 //search suggestions
