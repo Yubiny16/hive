@@ -79,8 +79,6 @@
               </p>
 
               <script>
-
-
                 //filter by group
                 $( function() {
                   $("#filter-group-<%= group_user.group_id %>").click(function(){
@@ -117,8 +115,7 @@
 
                     $(".announcement_feed").hide();
                     $(".poll_feed").hide();
-                    $(".announcement_<%= group_user.group_id %>").fadeIn();
-                    $(".poll_<%= group_user.group_id %>").fadeIn();
+                    $(".group_<%= group_user.group_id %>").fadeIn();
                     $('.filter-dropdown-btn-group').css("background-color", change_color);
                     $('.filter-dropdown-btn-group').css("color", change_color);
                  });
@@ -144,10 +141,10 @@
             <% @all_notification.each do |all_notification| %>
               <% if all_notification.notification_type == 1 %>
                 <% if all_notification.read == false %>
-                  <li class="announcement_feed announcement_<%= all_notification.id %>">
-                    <a href="#ann_<%= all_notification.id %>" data-toggle="tab">
+                  <li class="announcement_feed announcement_<%= all_notification.announcement_id %> group_<%= all_notification.group_id %>">
+                    <a href="#ann_<%= all_notification.announcement_id %>" data-toggle="tab">
                       <div class="rectangle_<%= @current_group_user.find_by(group_id: all_notification.group_id).color %>"></div>
-                      <div class="unread-notification announcement_unread-notification_<%= all_notification.id %>"></div>
+                      <div class="unread-notification announcement_unread-notification_<%= all_notification.announcement_id %>"></div>
                       <p class="announcement_list_title">
                         <%= all_notification.title %>
                       </p>
@@ -160,8 +157,8 @@
 
                   <script>
                   $(function() {
-                    $('.announcement_<%= all_notification.id %>').click(function(){
-                      var ann_notification_id = <%= all_notification.id %>;
+                    $('.announcement_<%= all_notification.announcement_id %>').click(function(){
+                      var ann_notification_id = <%= all_notification.announcement_id %>;
 
                       $.ajax({
                         method: "GET",
@@ -169,7 +166,7 @@
                         data: { ann_notification_id: ann_notification_id }
                       }).done(function() {
                         //not read --> read
-                        $('.announcement_unread-notification_<%= all_notification.id %>').hide();
+                        $('.announcement_unread-notification_<%= all_notification.announcement_id %>').hide();
 
                       });
                     });
@@ -177,8 +174,8 @@
                 </script>
 
                 <% else %><!-- read -->
-                  <li class="announcement_feed announcement_<%= all_notification.id %>">
-                    <a href="#ann_<%= all_notification.id %>" data-toggle="tab">
+                  <li class="announcement_feed announcement_<%= all_notification.announcement_id %> group_<%= all_notification.group_id %>">
+                    <a href="#ann_<%= all_notification.announcement_id %>" data-toggle="tab">
                       <div class="rectangle_<%= @current_group_user.find_by(group_id: all_notification.group_id).color %>"></div>
                       <p class="announcement_list_title">
                         <%= all_notification.title %>
@@ -193,10 +190,10 @@
 
               <% elsif all_notification.notification_type == 2 %>
                 <% if all_notification.read == false %>
-                  <li class="poll_feed poll_<%= all_notification.id %>">
-                    <a href="#poll_<%= all_notification.id %>" data-toggle="tab">
+                  <li class="poll_feed poll_<%= all_notification.poll_id %> group_<%= all_notification.group_id %>">
+                    <a href="#poll_<%= all_notification.poll_id %>" data-toggle="tab">
                       <div class="rectangle_<%= @current_group_user.find_by(group_id: all_notification.group_id).color %>"></div>
-                      <div class="unread-notification poll_unread-notification_<%= all_notification.id %>"></div>
+                      <div class="unread-notification poll_unread-notification_<%= all_notification.poll_id %>"></div>
                       <p class="poll_list_title">
                         <%= all_notification.title %>
                       </p>
@@ -213,7 +210,7 @@
 
                   <script>
                     $(function() {
-                      $('.poll_<%= all_notification.id %>').click(function(){
+                      $('.poll_<%= all_notification.poll_id %>').click(function(){
                         var poll_notification_id = <%= all_notification.id %>;
 
                         $.ajax({
@@ -221,15 +218,15 @@
                           url: '/home/poll_read',
                           data: { poll_notification_id: poll_notification_id }
                         }).done(function() {
-                          $('.poll_unread-notification_<%= all_notification.id %>').hide();
+                          $('.poll_unread-notification_<%= all_notification.poll_id %>').hide();
                         });
                       });
                     });
                   </script>
 
                 <% else %><!-- read -->
-                  <li class="poll_feed poll_<%= all_notification.id %>">
-                    <a href="#poll_<%= all_notification.id %>" data-toggle="tab">
+                  <li class="poll_feed poll_<%= all_notification.poll_id %> group_<%= all_notification.group_id %>">
+                    <a href="#poll_<%= all_notification.poll_id %>" data-toggle="tab">
                       <div class="rectangle_<%= @current_group_user.find_by(group_id: all_notification.group_id).color %>"></div>
                       <p class="poll_list_title">
                         <%= all_notification.title %>
@@ -254,7 +251,7 @@
             <% @all_notification.each do |all_notification| %>
               <!-- Announcement Feed -->
               <% if all_notification.notification_type == 1 %>
-                <div class="tab-pane" id="ann_<%= all_notification.id %>">
+                <div class="tab-pane" id="ann_<%= all_notification.announcement_id %>">
                   <h4><%= all_notification.title %></h4>
                   <p>From: <%= User.find(Annnoti.find_by(announcement_id: all_notification.announcement_id).sender).first_name %> <%= User.find(Annnoti.find_by(announcement_id: all_notification.announcement_id).sender).last_name %></p>
                   <span class="announcement_tab_content_date"><%= all_notification.created_at.strftime("%B %e, %Y at %l:%M %p") %></span>
@@ -263,7 +260,7 @@
 
               <!-- Poll Feed -->
               <% elsif all_notification.notification_type == 2 %>
-                <div class="tab-pane" id="poll_<%= all_notification.id %>">
+                <div class="tab-pane" id="poll_<%= all_notification.poll_id %>">
                   <h4><%= all_notification.title %></h4>
                   <p>From: <%= User.find(Pollnoti.find_by(poll_id: all_notification.poll_id).sender).first_name %> <span style="text-transform: capitalize"><%= User.find(Pollnoti.find_by(poll_id: all_notification.poll_id).sender).last_name %></span></p>
                   <span class="poll_tab_content_date"><%= all_notification.created_at.strftime("%B %e, %Y at %l:%M %p") %></span>
@@ -278,10 +275,10 @@
                           </div>
                         <% end %>
                         <!-- user cancels his/her vote -->
-                        <button name="poll_id" value="<%= all_notification.id %>" type="submit" class="btn">Cancel My Vote</button>
+                        <button name="poll_id" value="<%= all_notification.poll_id %>" type="submit" class="btn">Cancel My Vote</button>
                       </form>
 
-                      <div class="poll_stat_<%= all_notification.id %>">
+                      <div class="poll_stat_<%= all_notification.poll_id %>">
                         <% Option.where(poll_id: all_notification.poll_id).find_each do |o| %>
                           <p class="view_stat_options"><%= o.content %> <span style="color: #DA413D;"><%= o.vote_number %></span></p>
                           <!-- Find the people who voted -->
