@@ -29,8 +29,10 @@ class EventsController < ApplicationController
     @event = Event.new(event_params)
     if $type == 1# group
       @event.user_id = $group_id
+      @event.event_type = 1
     else# user
       @event.user_id = current_user.id
+      @event.event_type = 0
     end
     @event.calendar_type = $type
     @event.save
@@ -65,7 +67,7 @@ class EventsController < ApplicationController
       GroupUser.where(group_id: $group_id).find_each do |one_member|
 
         Event.where(event_id: @event.id).where(calendar_type: 0).where(user_id: one_member.user_id).destroy_all()
-      
+
         #New Cal Feed
         one_cal_notification = Calnoti.new
         one_cal_notification.event_id = @event.id
@@ -83,7 +85,17 @@ class EventsController < ApplicationController
   end
 
   def destroy
-    @event.destroy
+
+    if $type == 1
+      Calnoti.where(event_id: @event.id).destroy_all
+      Eventuser.where(event_id: @event.id).destroy_all
+      Event.where(event_id: @event.id).destroy_all
+      @event.destroy
+    end
+
+    if $type == 0
+      @event.destroy
+    end
   end
 
   private

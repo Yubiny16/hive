@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170722222100) do
+ActiveRecord::Schema.define(version: 20170723011424) do
 
   create_table "annnotis", force: :cascade do |t|
     t.integer  "notification_type"
@@ -58,6 +58,7 @@ ActiveRecord::Schema.define(version: 20170722222100) do
   create_table "events", force: :cascade do |t|
     t.integer  "event_id"
     t.integer  "calendar_type"
+    t.integer  "event_type"
     t.integer  "user_id"
     t.string   "title"
     t.datetime "start"
@@ -66,6 +67,13 @@ ActiveRecord::Schema.define(version: 20170722222100) do
     t.string   "description"
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
+  end
+
+  create_table "eventusers", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "event_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "group_users", force: :cascade do |t|

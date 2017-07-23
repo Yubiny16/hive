@@ -1,0 +1,2 @@
+class Eventuser < ApplicationRecord
+end

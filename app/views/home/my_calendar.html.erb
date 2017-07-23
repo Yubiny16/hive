@@ -77,7 +77,7 @@
         <% unless @cal_notification.first == nil %>
           <% @cal_notification.each do |cal_notification| %>
             <% if !Event.where(event_id: cal_notification.event_id).where(calendar_type: 0).where(user_id: cal_notification.receiver).exists? %>
-              <div class="one_event cal_<%= cal_notification.id %>">
+              <div class="one_event cal_<%= cal_notification.event_id %>">
                 <div class="rectangle_<%= @current_group_user.find_by(group_id: cal_notification.group_id).color %>"></div>
                 <i class="event_not_added_icon fa fa-times" aria-hidden="true"></i>
                 <p class="one_event_title">
@@ -102,11 +102,25 @@
                   <input name="color" type="hidden" value="<%= @current_group_user.find_by(group_id: cal_notification.group_id).color %>"/>
                   <button type="submit" class="btn add_event_button">Add to My Calendar</button>
                 </form>
+
+                <div class="view-attending-members">
+                  View Attendance
+                </div>
+                <ol class="attending-members">
+                  <% Eventuser.where(event_id: cal_notification.event_id).each do |attending_members| %>
+                    <li>
+                      <%= User.find(attending_members.user_id).first_name %> <%= User.find(attending_members.user_id).last_name %>
+                    </li>
+                  <% end %>
+                </ol>
+
+                </div>
+
               </div>
             <% else %>
-              <div class="one_event cal_<%= cal_notification.id %>">
+              <div class="one_event cal_<%= cal_notification.event_id %>">
                 <div class="rectangle_<%= @current_group_user.find_by(group_id: cal_notification.group_id).color %>"></div>
-                <i class="event_not_added_icon fa fa-check" style="color: green" aria-hidden="true"></i>
+                <i class="event_added_icon fa fa-check" style="color: green" aria-hidden="true"></i>
                 <p class="one_event_title">
                   <%= cal_notification.title %>
                 </p>
@@ -123,6 +137,18 @@
                   <input name="event_id" type="hidden" value="<%= cal_notification.event_id %>"/>
                   <button type="submit" class="btn add_event_button">Cancel</button>
                 </form>
+
+                <div class="view-attending-members">
+                  View Attendance
+                </div>
+                <ol class="attending-members">
+                  <% Eventuser.where(event_id: cal_notification.event_id).each do |attending_members| %>
+                    <li>
+                      <%= User.find(attending_members.user_id).first_name %> <%= User.find(attending_members.user_id).last_name %>
+                    </li>
+                  <% end %>
+                </ol>
+
               </div>
             <% end %>
           <% end %>
@@ -143,6 +169,14 @@
 </div><!-- container-fluid container-body -->
 
 <script>
+//view attendance toggle
+$( ".attending-members" ).hide();
+$( ".view-attending-members" ).click(function() {
+  $( ".attending-members" ).toggle(300, function() {
+    // Animation complete.
+  });
+});
+
 // My Calendar
 var initialize_calendar;
 
@@ -196,13 +230,22 @@ var initialize_calendar;
         },
 
         eventClick: function(event, jsEvent, view) {
-       $.getScript(event.edit_url, function() {
-         $('#event_date_range').val(moment(event.start).format("MM/DD/YYYY HH:mm") + ' - ' + moment(event.end).format("MM/DD/YYYY HH:mm"));
-         date_range_picker();
-         $('.start_hidden').val(moment(event.start).format('YYYY-MM-DD HH:mm'));
-         $('.end_hidden').val(moment(event.end).format('YYYY-MM-DD HH:mm'));
-       });
-     }
+          if(event.event_type == 0)
+          {
+            $.getScript(event.edit_url, function() {
+              $('#event_date_range').val(moment(event.start).format("MM/DD/YYYY HH:mm") + ' - ' + moment(event.end).format("MM/DD/YYYY HH:mm"));
+              date_range_picker();
+              $('.start_hidden').val(moment(event.start).format('YYYY-MM-DD HH:mm'));
+              $('.end_hidden').val(moment(event.end).format('YYYY-MM-DD HH:mm'));
+            });
+          }
+          else
+          {
+            $('.one_event').hide();
+            $(".cal_" + event.event_id).fadeIn();
+          }
+
+       }
       });
     });
   };

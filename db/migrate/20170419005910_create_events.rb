@@ -4,6 +4,7 @@ class CreateEvents < ActiveRecord::Migration[5.0]
 
     t.integer "event_id" #for added events (calendar_type: 0)
     t.integer "calendar_type"# 0: user, 1: group
+    t.integer "event_type"#group event or personal event. 0: user, 1: group
     t.integer "user_id"
     t.string   "title"
     t.datetime "start"

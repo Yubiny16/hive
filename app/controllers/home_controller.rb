@@ -378,6 +378,7 @@ class HomeController < ApplicationController
     one_event = Event.new
     one_event.event_id = params[:event_id]
     one_event.calendar_type = 0
+    one_event.event_type = 1
     one_event.user_id = current_user.id
     one_event.title = params[:title]
     one_event.description = params[:description]
@@ -386,10 +387,16 @@ class HomeController < ApplicationController
     one_event.color = params[:color]
     one_event.save
 
+    one_event_user = Eventuser.new
+    one_event_user.user_id = current_user.id
+    one_event_user.event_id = params[:event_id]
+    one_event_user.save
+
     redirect_to :back
   end
   def cancel_event
     Event.where(event_id: params[:event_id]).where(calendar_type: 0).where(user_id: current_user.id).destroy_all()
+    Eventuser.find_by(event_id: params[:event_id], user_id: current_user.id).destroy
     redirect_to :back
   end
 
