@@ -702,6 +702,22 @@ ul#feature-tabs > li.active > a {
   color: white;
   font-family: "Source Sans Pro Bold";
 }
+/*files design*/
+#Files form input {
+  position: absolute;
+  left: -99999rem; //hide this
+}
+#Files form label,
+#Files form button {
+  background-color: #DA413D;
+  color: white;
+  font-family: "Source Sans Pro Bold";
+  margin-left: 30px;
+  margin-bottom: 15px;
+}
+#Files form button {
+  display: block;
+}
 /*member's page pop-up design*/
 .member-profile-popup {
   width: 400px;
@@ -749,7 +765,6 @@ ul#feature-tabs > li.active > a {
   left: -99999rem;
 }
 #profile .profile-image-update label {
-  font-family: 'Source Sans Pro Regular';
   margin-top: 15px;
   background-color: #DA413D;
   color: white;

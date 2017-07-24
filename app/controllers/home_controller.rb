@@ -145,6 +145,9 @@ class HomeController < ApplicationController
     #Member
     @members = GroupUser.where(group_id: @group.id)
 
+    #Files
+    @files = Groupfile.where(group_id: @group.id)
+
     #poll not voted
     @number_of_notvoted = 0
   end
@@ -410,12 +413,14 @@ class HomeController < ApplicationController
   def file_upload
     gfiles = Groupfile.new
     gfiles.group_id = params[:group_id]
+    gfiles.filename = params[:file_name]
     # gfiles.filename = original_filename
 
     uploader = GroupfileUploader.new
     uploader.store!(params[:file])
 
     gfiles.file_url = uploader.url
+    gfiles.save
 
     redirect_to :back
   end
