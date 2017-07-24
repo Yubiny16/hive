@@ -272,7 +272,7 @@
                 <div class="tab-pane" id="ann_<%= all_notification.announcement_id %>">
                   <h4><%= all_notification.title %></h4>
                   <p>From: <%= User.find(Annnoti.find_by(announcement_id: all_notification.announcement_id).sender).first_name %> <%= User.find(Annnoti.find_by(announcement_id: all_notification.announcement_id).sender).last_name %></p>
-                  <span class="announcement_tab_content_date"><%= all_notification.created_at.strftime("%B %e, %Y at %l:%M %p") %></span>
+                  <span class="announcement_tab_content_date"><%= all_notification.created_at.in_time_zone(@timezone).strftime("%B %e, %Y at %l:%M %p") %></span>
                   <div class="announcement_tab_content_content"><%= sanitize(all_notification.content) %></div>
                 </div>
 
@@ -403,11 +403,10 @@
 <% end %>
 
 <script>
+
 //for multiple filtering
 feature_filter_switch = "All";
 all_feed = $('.feed');
-
-
 
 //filer by feature
 $( function() {

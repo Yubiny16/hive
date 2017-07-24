@@ -2,6 +2,7 @@ require 'mailgun'
 class HomeController < ApplicationController
   before_action :require_login
   before_action :set_event, only: [:show, :edit, :update, :destroy]
+
   $n = 2
   $type
 
@@ -14,7 +15,13 @@ class HomeController < ApplicationController
     @poll_notification = Pollnoti.where(receiver: @user.id)
 
     @all_notification = (@poll_notification + @ann_notification).sort{|a,b| a.created_at <=> b.created_at }.reverse
-
+    @timezone = params[:timezone]
+    puts @timezone
+    puts @timezone
+    puts @timezone
+    puts @timezone
+    puts 1
+    puts 1
   end
 
   def search
@@ -412,4 +419,5 @@ class HomeController < ApplicationController
 
     redirect_to :back
   end
+
 end

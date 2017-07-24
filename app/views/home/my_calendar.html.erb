@@ -192,16 +192,25 @@
                   <button type="submit" class="btn add_event_button">Add to My Calendar</button>
                 </form>
 
-                <div class="view-attending-members">
+                <div class="view-attending-members view-toggle-<%= cal_notification.event_id %>">
                   View Attendance
                 </div>
-                <ol class="attending-members">
+                <ol class="attending-members-<%= cal_notification.event_id %>">
                   <% Eventuser.where(event_id: cal_notification.event_id).each do |attending_members| %>
                     <li>
                       <%= User.find(attending_members.user_id).first_name %> <%= User.find(attending_members.user_id).last_name %>
                     </li>
                   <% end %>
                 </ol>
+                <script>
+                  //view attendance toggle
+                  $( ".attending-members" ).hide();
+                  $( ".view-toggle-<%= cal_notification.event_id %>" ).click(function() {
+                    $( ".attending-members-<%= cal_notification.event_id %>" ).toggle(300, function() {
+                      // Animation complete.
+                    });
+                  });
+                </script>
               </div>
             <% else %>
               <div class="one_event cal_<%= cal_notification.event_id %> event_group_<%= cal_notification.group_id %> added_event">
@@ -224,10 +233,10 @@
                   <button type="submit" class="btn add_event_button">Cancel</button>
                 </form>
 
-                <div class="view-attending-members">
+                <div class="view-attending-members view-toggle-<%= cal_notification.event_id %>">
                   View Attendance
                 </div>
-                <ol class="attending-members">
+                <ol class="attending-members-<%= cal_notification.event_id %>">
                   <% Eventuser.where(event_id: cal_notification.event_id).each do |attending_members| %>
                     <li>
                       <%= User.find(attending_members.user_id).first_name %> <%= User.find(attending_members.user_id).last_name %>
@@ -235,6 +244,16 @@
                   <% end %>
                 </ol>
               </div>
+
+              <script>
+                //view attendance toggle
+                $( ".attending-members" ).hide();
+                $( ".view-toggle-<%= cal_notification.event_id %>" ).click(function() {
+                  $( ".attending-members-<%= cal_notification.event_id %>" ).toggle(300, function() {
+                    // Animation complete.
+                  });
+                });
+              </script>
             <% end %>
           <% end %>
         <% else %>
@@ -332,13 +351,6 @@ $( function() {
   });
   } );
 
-//view attendance toggle
-$( ".attending-members" ).hide();
-$( ".view-attending-members" ).click(function() {
-  $( ".attending-members" ).toggle(300, function() {
-    // Animation complete.
-  });
-});
 
 // My Calendar
 var initialize_calendar;
@@ -371,9 +383,9 @@ var initialize_calendar;
               $('#event_date_range').val(moment(start).format("MM/DD/YYYY") + ' - ' + moment(end).format("MM/DD/YYYY"));
               $('.start_hidden').val(moment(start).format('YYYY-MM-DD'));
               $('.end_hidden').val(moment(end).format('YYYY-MM-DD'));
-
             }
           });
+
           calendar.fullCalendar('unselect');
         },
 
