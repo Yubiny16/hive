@@ -137,7 +137,7 @@
                           <%= announcements.title %>
                         </p>
                         <p class="announcement_list_date">
-                          <%= announcements.created_at.strftime("%Y/%m/%d") %>
+                          <%= announcements.created_at.in_time_zone($timezone) %>
                         </p>
                         <%= announcements.content.html_safe %>
                       </a>
@@ -149,7 +149,7 @@
                     <div class="tab-pane" id="ann_<%= announcements.id %>">
                       <h4><%= announcements.title %></h4>
                       <p>From: <%= User.find(Annnoti.find_by(announcement_id: announcements.id).sender).first_name %> <%= User.find(Annnoti.find_by(announcement_id: announcements.id).sender).last_name %></p>
-                      <span class="announcement_tab_content_date"><%= announcements.created_at.strftime("%B %e, %Y at %l:%M %p") %></span>
+                      <span class="announcement_tab_content_date"><%= announcements.created_at.in_time_zone($timezone).strftime("%B %e, %Y at %l:%M %p") %></span>
                       <div class="announcement_tab_content_content"><%= sanitize(announcements.content) %></div>
                     </div>
                   <% end %>
@@ -197,11 +197,13 @@
               </tr>
             </thead>
             <tbody>
-              <% @files.each do |f| %>
-                <tr>
-                  <td><a href="<%= f.file_url %>"><%= f.filename %></a></td>
-                  <td><%= f.created_at.strftime("%Y-%m-%d") %></td>
-                </tr>
+              <% unless @files == nil %>
+                <% @files.each do |f| %>
+                  <tr>
+                    <td><a href="<%= f.file_url %>"><%= f.filename %></a></td>
+                    <td><%= f.created_at.in_time_zone($timezone).strftime("%Y-%m-%d") %></td>
+                  </tr>
+                <% end %>
               <% end %>
             </tbody>
           </table>
@@ -280,7 +282,7 @@
                         <% end %>
                       </p>
                       <p class="poll_list_date">
-                        <%= p.created_at.strftime("%Y-%m-%d") %>
+                        <%= p.created_at.in_time_zone($timezone) %>
                       </p>
                     </a>
                   </li>
@@ -291,7 +293,7 @@
                   <div class="tab-pane" id="poll_<%= p.id %>">
                     <h4><%= p.title %></h4>
                     <p>From: <%= User.find(Pollnoti.find_by(poll_id: p.id).sender).first_name %> <span style="text-transform: capitalize"><%= User.find(Pollnoti.find_by(poll_id: p.id).sender).last_name %></span></p>
-                    <span class="poll_tab_content_date"><%= p.created_at.strftime("%B %e, %Y at %l:%M %p") %></span> <!--%l:%M %p-->
+                    <span class="poll_tab_content_date"><%= p.created_at.in_time_zone($timezone).strftime("%B %e, %Y at %l:%M %p") %></span> <!--%l:%M %p-->
                     <!-- Already voted -->
                     <% if Polluser.where(user_id: @user.id).where(poll_id: p.id).where(voted: true).exists? %>
                       <div class="already-voted">
@@ -439,14 +441,14 @@
                 <% Transaction.where(budget_id: @budget.id).find_each do |t| %>
                   <% if t.pos_neg == true %>
                     <tr class="revenue">
-                      <td><%= t.created_at.strftime("%Y-%m-%d") %></td>
+                      <td><%= t.created_at.in_time_zone($timezone).strftime("%Y-%m-%d") %></td>
                       <td><%= t.description %></td>
                       <td>+ <%= t.value %></td>
                     </tr>
                   <% end %>
                   <% if t.pos_neg == false %>
                     <tr class="expense">
-                      <td><%= t.created_at.strftime("%Y-%m-%d") %></td>
+                      <td><%= t.created_at.in_time_zone($timezone).strftime("%Y-%m-%d") %></td>
                       <td><%= t.description %></td>
                       <td>- <%= t.value %></td>
                     </tr>
@@ -485,7 +487,15 @@
 
 
 <script>
+//momentjs-rails
+$('.announcement_list_date').each(function() {
+  this.textContent = moment(this.textContent).startOf('minute').fromNow();
 
+});
+$('.poll_list_date').each(function() {
+  this.textContent = moment(this.textContent).startOf('minute').fromNow();
+
+});
 //Group Calendar
 var admin = $("#admin").data("admin");
 var initialize_calendar;

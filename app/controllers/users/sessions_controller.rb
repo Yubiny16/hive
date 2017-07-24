@@ -1,8 +1,9 @@
 class Users::SessionsController < Devise::SessionsController
   # before_action :configure_sign_in_params, only: [:create]
-
+  $timezone
   # GET /resource/sign_in
    def new
+     $timezone = params[:timezone]
      super
    end
 

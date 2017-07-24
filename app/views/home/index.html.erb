@@ -166,8 +166,8 @@
                       <p class="announcement_list_title">
                         <%= all_notification.title %>
                       </p>
-                      <p class="announcement_list_date ">
-                        <%= all_notification.created_at.strftime("%Y/%m/%d") %>
+                      <p class="announcement_list_date">
+                        <%= all_notification.created_at.in_time_zone($timezone) %>
                       </p>
                       <%= all_notification.content.html_safe %>
                     </a>
@@ -199,7 +199,7 @@
                         <%= all_notification.title %>
                       </p>
                       <p class="announcement_list_date ">
-                        <%= all_notification.created_at.strftime("%Y/%m/%d") %>
+                        <%= all_notification.created_at.in_time_zone($timezone) %>
                       </p>
                       <%= all_notification.content.html_safe %>
                     </a>
@@ -221,7 +221,7 @@
                         <% end %>
                       </p>
                       <p class="poll_list_date">
-                        <%= all_notification.created_at.strftime("%Y-%m-%d") %>
+                        <%= all_notification.created_at.in_time_zone($timezone) %>
                       </p>
                     </a>
                   </li>
@@ -255,7 +255,7 @@
                         <% end %>
                       </p>
                       <p class="poll_list_date">
-                        <%= all_notification.created_at.strftime("%Y-%m-%d") %>
+                        <%= all_notification.created_at.in_time_zone($timezone) %>
                       </p>
                     </a>
                   </li>
@@ -272,7 +272,7 @@
                 <div class="tab-pane" id="ann_<%= all_notification.announcement_id %>">
                   <h4><%= all_notification.title %></h4>
                   <p>From: <%= User.find(Annnoti.find_by(announcement_id: all_notification.announcement_id).sender).first_name %> <%= User.find(Annnoti.find_by(announcement_id: all_notification.announcement_id).sender).last_name %></p>
-                  <span class="announcement_tab_content_date"><%= all_notification.created_at.in_time_zone(@timezone).strftime("%B %e, %Y at %l:%M %p") %></span>
+                  <span class="announcement_tab_content_date"><%= all_notification.created_at.in_time_zone($timezone).strftime("%B %e, %Y at %l:%M %p") %></span>
                   <div class="announcement_tab_content_content"><%= sanitize(all_notification.content) %></div>
                 </div>
 
@@ -281,7 +281,7 @@
                 <div class="tab-pane" id="poll_<%= all_notification.poll_id %>">
                   <h4><%= all_notification.title %></h4>
                   <p>From: <%= User.find(Pollnoti.find_by(poll_id: all_notification.poll_id).sender).first_name %> <span style="text-transform: capitalize"><%= User.find(Pollnoti.find_by(poll_id: all_notification.poll_id).sender).last_name %></span></p>
-                  <span class="poll_tab_content_date"><%= all_notification.created_at.strftime("%B %e, %Y at %l:%M %p") %></span>
+                  <span class="poll_tab_content_date"><%= all_notification.created_at.in_time_zone($timezone).strftime("%B %e, %Y at %l:%M %p") %></span>
                   <!-- Already voted -->
                   <% if Polluser.where(user_id: @user.id).where(poll_id: all_notification.poll_id).where(voted: true).exists? %>
                     <div class="already-voted">
@@ -403,7 +403,14 @@
 <% end %>
 
 <script>
+$('.announcement_list_date').each(function() {
+  this.textContent = moment(this.textContent).startOf('minute').fromNow();
 
+});
+$('.poll_list_date').each(function() {
+  this.textContent = moment(this.textContent).startOf('minute').fromNow();
+
+});
 //for multiple filtering
 feature_filter_switch = "All";
 all_feed = $('.feed');

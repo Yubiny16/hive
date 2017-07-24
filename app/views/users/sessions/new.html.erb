@@ -155,22 +155,18 @@
       <%= render "users/shared/links" %>
     </div>
   </div>
-
   <script>
-
   jQuery(function() {
     var tz = jstz.determine();
     var tz_name = tz.name();
     $.ajax({
       method: "GET",
-      url: '/home/index',
+      url: '/users/sign_in',
       data: { timezone: tz_name }
     }).done(function() {
-      alert("done");
     });
   });
   </script>
-
   <!-- <div class="login_background_pattern">
     <div class="hex_tile">
       <div class="left"></div>
