@@ -445,14 +445,14 @@
                     <tr class="revenue">
                       <td><%= t.created_at.in_time_zone($timezone).strftime("%m-%d-%Y") %></td>
                       <td><%= t.description %></td>
-                      <td>+ <%= t.value %> <a style="float:right;" href="/destroy_transaction/<%= t.id %>">Delete</a></td>
+                      <td>+ <%= t.value %> <a style="float:right;" href="/destroy_transaction/<%= t.id %>"><i class="fa fa-times" aria-hidden="true" style="color:red"></i></a></td>
                     </tr>
                   <% end %>
                   <% if t.pos_neg == false %>
                     <tr class="expense">
                       <td><%= t.created_at.in_time_zone($timezone).strftime("%m-%d-%Y") %></td>
                       <td><%= t.description %></td>
-                      <td>- <%= t.value %> <a style="float:right;" href="/destroy_transaction/<%= t.id %>">Delete</a></td>
+                      <td>- <%= t.value %> <a style="float:right;" href="/destroy_transaction/<%= t.id %>"><i class="fa fa-times" aria-hidden="true" style="color:red"></i></a></td>
                     </tr>
                   <% end %>
                 <% end %>

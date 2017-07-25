@@ -156,113 +156,121 @@
       <!-- Announcement Feed -->
         <div id="main_board">
           <ul class="nav nav-stacked">
-            <% @all_notification.each do |all_notification| %>
-              <% if all_notification.notification_type == 1 %>
-                <% if all_notification.read == false %>
-                  <li class="feed announcement_feed announcement_<%= all_notification.announcement_id %> group_<%= all_notification.group_id %>">
-                    <a href="#ann_<%= all_notification.announcement_id %>" data-toggle="tab">
-                      <div class="rectangle_<%= @current_group_user.find_by(group_id: all_notification.group_id).color %>"></div>
-                      <div class="unread-notification announcement_unread-notification_<%= all_notification.announcement_id %>"></div>
-                      <p class="announcement_list_title">
-                        <%= all_notification.title %>
-                      </p>
-                      <p class="announcement_list_date">
-                        <%= all_notification.created_at.in_time_zone($timezone) %>
-                      </p>
-                      <%= all_notification.content.html_safe %>
-                    </a>
-                  </li>
+            <% unless @all_notification.first == nil %>
+              <% @all_notification.each do |all_notification| %>
+                <% if all_notification.notification_type == 1 %>
+                  <% if all_notification.read == false %>
+                    <li class="feed announcement_feed announcement_<%= all_notification.announcement_id %> group_<%= all_notification.group_id %>">
+                      <a href="#ann_<%= all_notification.announcement_id %>" data-toggle="tab">
+                        <div class="rectangle_<%= @current_group_user.find_by(group_id: all_notification.group_id).color %>"></div>
+                        <div class="unread-notification announcement_unread-notification_<%= all_notification.announcement_id %>"></div>
+                        <p class="announcement_list_title">
+                          <%= all_notification.title %>
+                        </p>
+                        <p class="announcement_list_date">
+                          <%= all_notification.created_at.in_time_zone($timezone) %>
+                        </p>
+                        <%= all_notification.content.html_safe %>
+                      </a>
+                    </li>
 
-                  <script>
-                  $(function() {
-                    $('.announcement_<%= all_notification.announcement_id %>').click(function(){
-                      var ann_notification_id = <%= all_notification.announcement_id %>;
-
-                      $.ajax({
-                        method: "GET",
-                        url: '/home/ann_read',
-                        data: { ann_notification_id: ann_notification_id }
-                      }).done(function() {
-                        //not read --> read
-                        $('.announcement_unread-notification_<%= all_notification.announcement_id %>').hide();
-
-                      });
-                    });
-                  });
-                </script>
-
-                <% else %><!-- read -->
-                  <li class="feed announcement_feed announcement_<%= all_notification.announcement_id %> group_<%= all_notification.group_id %>">
-                    <a href="#ann_<%= all_notification.announcement_id %>" data-toggle="tab">
-                      <div class="rectangle_<%= @current_group_user.find_by(group_id: all_notification.group_id).color %>"></div>
-                      <p class="announcement_list_title">
-                        <%= all_notification.title %>
-                      </p>
-                      <p class="announcement_list_date ">
-                        <%= all_notification.created_at.in_time_zone($timezone) %>
-                      </p>
-                      <%= all_notification.content.html_safe %>
-                    </a>
-                  </li>
-                <% end %>
-
-              <% elsif all_notification.notification_type == 2 %>
-                <% if all_notification.read == false %>
-                  <li class="feed poll_feed poll_<%= all_notification.poll_id %> group_<%= all_notification.group_id %>">
-                    <a href="#poll_<%= all_notification.poll_id %>" data-toggle="tab">
-                      <div class="rectangle_<%= @current_group_user.find_by(group_id: all_notification.group_id).color %>"></div>
-                      <div class="unread-notification poll_unread-notification_<%= all_notification.poll_id %>"></div>
-                      <p class="poll_list_title">
-                        <%= all_notification.title %>
-                      </p>
-                      <p class="poll_list_answer">
-                        <% if Polluser.where(user_id: @user.id).where(poll_id: all_notification.poll_id).where(voted: true).exists? %>
-                          A: <%= Option.find(Polluser.where(user_id: @user.id).where(poll_id: all_notification.poll_id).where(voted: true).first.option_id).content %>
-                        <% end %>
-                      </p>
-                      <p class="poll_list_date">
-                        <%= all_notification.created_at.in_time_zone($timezone) %>
-                      </p>
-                    </a>
-                  </li>
-
-                  <script>
+                    <script>
                     $(function() {
-                      $('.poll_<%= all_notification.poll_id %>').click(function(){
-                        var poll_notification_id = <%= all_notification.id %>;
+                      $('.announcement_<%= all_notification.announcement_id %>').click(function(){
+                        var ann_notification_id = <%= all_notification.announcement_id %>;
 
                         $.ajax({
                           method: "GET",
-                          url: '/home/poll_read',
-                          data: { poll_notification_id: poll_notification_id }
+                          url: '/home/ann_read',
+                          data: { ann_notification_id: ann_notification_id }
                         }).done(function() {
-                          $('.poll_unread-notification_<%= all_notification.poll_id %>').hide();
+                          //not read --> read
+                          $('.announcement_unread-notification_<%= all_notification.announcement_id %>').hide();
+
                         });
                       });
                     });
                   </script>
 
-                <% else %><!-- read -->
-                  <li class="feed poll_feed poll_<%= all_notification.poll_id %> group_<%= all_notification.group_id %>">
-                    <a href="#poll_<%= all_notification.poll_id %>" data-toggle="tab">
-                      <div class="rectangle_<%= @current_group_user.find_by(group_id: all_notification.group_id).color %>"></div>
-                      <p class="poll_list_title">
-                        <%= all_notification.title %>
-                      </p>
-                      <p class="poll_list_answer">
-                        <% if Polluser.where(user_id: @user.id).where(poll_id: all_notification.poll_id).where(voted: true).exists? %>
-                          A: <%= Option.find(Polluser.where(user_id: @user.id).where(poll_id: all_notification.poll_id).where(voted: true).first.option_id).content %>
-                        <% end %>
-                      </p>
-                      <p class="poll_list_date">
-                        <%= all_notification.created_at.in_time_zone($timezone) %>
-                      </p>
-                    </a>
-                  </li>
-                <% end %>
+                  <% else %><!-- read -->
+                    <li class="feed announcement_feed announcement_<%= all_notification.announcement_id %> group_<%= all_notification.group_id %>">
+                      <a href="#ann_<%= all_notification.announcement_id %>" data-toggle="tab">
+                        <div class="rectangle_<%= @current_group_user.find_by(group_id: all_notification.group_id).color %>"></div>
+                        <p class="announcement_list_title">
+                          <%= all_notification.title %>
+                        </p>
+                        <p class="announcement_list_date ">
+                          <%= all_notification.created_at.in_time_zone($timezone) %>
+                        </p>
+                        <%= all_notification.content.html_safe %>
+                      </a>
+                    </li>
+                  <% end %>
 
-              <% end %><!-- notification_type -->
-            <% end %><!-- all_notification.each -->
+                <% elsif all_notification.notification_type == 2 %>
+                  <% if all_notification.read == false %>
+                    <li class="feed poll_feed poll_<%= all_notification.poll_id %> group_<%= all_notification.group_id %>">
+                      <a href="#poll_<%= all_notification.poll_id %>" data-toggle="tab">
+                        <div class="rectangle_<%= @current_group_user.find_by(group_id: all_notification.group_id).color %>"></div>
+                        <div class="unread-notification poll_unread-notification_<%= all_notification.poll_id %>"></div>
+                        <p class="poll_list_title">
+                          <%= all_notification.title %>
+                        </p>
+                        <p class="poll_list_answer">
+                          <% if Polluser.where(user_id: @user.id).where(poll_id: all_notification.poll_id).where(voted: true).exists? %>
+                            A: <%= Option.find(Polluser.where(user_id: @user.id).where(poll_id: all_notification.poll_id).where(voted: true).first.option_id).content %>
+                          <% end %>
+                        </p>
+                        <p class="poll_list_date">
+                          <%= all_notification.created_at.in_time_zone($timezone) %>
+                        </p>
+                      </a>
+                    </li>
+
+                    <script>
+                      $(function() {
+                        $('.poll_<%= all_notification.poll_id %>').click(function(){
+                          var poll_notification_id = <%= all_notification.id %>;
+
+                          $.ajax({
+                            method: "GET",
+                            url: '/home/poll_read',
+                            data: { poll_notification_id: poll_notification_id }
+                          }).done(function() {
+                            $('.poll_unread-notification_<%= all_notification.poll_id %>').hide();
+                          });
+                        });
+                      });
+                    </script>
+
+                  <% else %><!-- read -->
+                    <li class="feed poll_feed poll_<%= all_notification.poll_id %> group_<%= all_notification.group_id %>">
+                      <a href="#poll_<%= all_notification.poll_id %>" data-toggle="tab">
+                        <div class="rectangle_<%= @current_group_user.find_by(group_id: all_notification.group_id).color %>"></div>
+                        <p class="poll_list_title">
+                          <%= all_notification.title %>
+                        </p>
+                        <p class="poll_list_answer">
+                          <% if Polluser.where(user_id: @user.id).where(poll_id: all_notification.poll_id).where(voted: true).exists? %>
+                            A: <%= Option.find(Polluser.where(user_id: @user.id).where(poll_id: all_notification.poll_id).where(voted: true).first.option_id).content %>
+                          <% end %>
+                        </p>
+                        <p class="poll_list_date">
+                          <%= all_notification.created_at.in_time_zone($timezone).strftime("%Y-%m-%d") %>
+                        </p>
+                      </a>
+                    </li>
+                  <% end %>
+
+                <% end %><!-- notification_type -->
+              <% end %><!-- all_notification.each -->
+            <% else %><!-- no feed to show -->
+              <div class="no-feed-to-show">
+                <p>
+                  No Group Activity to Display
+                </p>
+              </div>
+            <% end %>
           </ul>
 
           <div class="tab-content">

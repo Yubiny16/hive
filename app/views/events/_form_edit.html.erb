@@ -5,7 +5,7 @@
     <%= f.input :description %>
     <%= f.input_field :start, as: :hidden, value: Date.today, class: 'form-control input-sm start_hidden' %>
     <%= f.input_field :end, as: :hidden, value: Date.today, class: 'form-control input-sm end_hidden' %>
-    <%= f.input :color, as: :select, collection: [['Black','black'], ['Green','green'], ['Red','red']], include_blank: false, include_hidden: false %>
+    <%= f.input :color, as: :select, collection: [['Red','#e60000'], ['Orange','#ffa64d'], ['Yellow','#ffdb4d'], ['Green','#77b756'], ['Blue','#2f77c0'], ['Sky Blue','#66d9ff'], ['Purple','#aa80ff']], include_blank: false, include_hidden: false %>
   </div>
 
   <div class="form-actions">

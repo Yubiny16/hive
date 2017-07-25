@@ -437,8 +437,15 @@ class HomeController < ApplicationController
 
   def destroy_transaction
     @trans = Transaction.find_by_id(params[:trans_id])
-    @trans.destroy
+    @old_budget = Budget.find_by(group_id: $group_id).group_budget
+    if @trans.pos_neg == true
+      @new_budget = @old_budget - @trans.value.to_f
+    else
+      @new_budget = @old_budget + @trans.value.to_f
+    end
+    Budget.find_by(group_id: $group_id).update(:group_budget => @new_budget)
 
+    @trans.destroy
     redirect_to :back
   end
 

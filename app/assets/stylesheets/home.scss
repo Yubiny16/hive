@@ -166,6 +166,12 @@ nav#navbar-custom .btn-search i {
   color: white;
 }
 /*******************main page styling*****************/
+.no-feed-to-show p {
+  position: relative;
+  left: 35px;
+  top: 200px;
+  color: #454b54;
+}
 .container-body {
   background-color: $main-gray;;
 }
@@ -1076,4 +1082,11 @@ ul#feature-tabs > li.active > a {
   position: relative;
   margin-top: 5px;
 
+}
+.no-feed-message p {
+  position: relative;
+  width: 100px;
+  left: 75px;
+  top: 220px;
+  color: #454b54;
 }
