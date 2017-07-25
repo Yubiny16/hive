@@ -194,6 +194,7 @@
               <tr>
                 <th>Name</th>
                 <th>Date</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -201,7 +202,8 @@
                 <% @files.each do |f| %>
                   <tr>
                     <td><a href="<%= f.file_url %>"><%= f.filename %></a></td>
-                    <td><%= f.created_at.in_time_zone($timezone).strftime("%Y-%m-%d") %></td>
+                    <td><%= f.created_at.strftime("%Y-%m-%d") %></td>
+                    <td><a href="/destroy_file/<%= f.id %>">Delete</a></td>
                   </tr>
                 <% end %>
               <% end %>
@@ -441,21 +443,18 @@
                 <% Transaction.where(budget_id: @budget.id).find_each do |t| %>
                   <% if t.pos_neg == true %>
                     <tr class="revenue">
-                      <td><%= t.created_at.in_time_zone($timezone).strftime("%Y-%m-%d") %></td>
+                      <td><%= t.created_at.in_time_zone($timezone).strftime("%m-%d-%Y") %></td>
                       <td><%= t.description %></td>
-                      <td>+ <%= t.value %></td>
+                      <td>+ <%= t.value %> <a style="float:right;" href="/destroy_transaction/<%= t.id %>">Delete</a></td>
                     </tr>
                   <% end %>
                   <% if t.pos_neg == false %>
                     <tr class="expense">
-                      <td><%= t.created_at.in_time_zone($timezone).strftime("%Y-%m-%d") %></td>
+                      <td><%= t.created_at.in_time_zone($timezone).strftime("%m-%d-%Y") %></td>
                       <td><%= t.description %></td>
-                      <td>- <%= t.value %></td>
+                      <td>- <%= t.value %> <a style="float:right;" href="/destroy_transaction/<%= t.id %>">Delete</a></td>
                     </tr>
                   <% end %>
-                  <script>
-
-                  </script>
                 <% end %>
               </tbody>
             </table>
@@ -567,16 +566,16 @@ $(document).on('turbolinks:load', initialize_calendar);
 
 
   //announcement accordion
-  $( function() {
-     $( ".announcement_accordion" ).accordion();
-   } );
-
-  //poll accordion
-  $( function() {
-    $( ".poll_accordion" ).accordion({
-      heightStyle: "content"
-    });
-   } );
+  // $( function() {
+  //    $( ".announcement_accordion" ).accordion();
+  //  } );
+  //
+  // //poll accordion
+  // $( function() {
+  //   $( ".poll_accordion" ).accordion({
+  //     heightStyle: "content"
+  //   });
+  //  } );
 
    var today = new Date();
    var dd = today.getDate();
@@ -611,18 +610,16 @@ $(document).on('turbolinks:load', initialize_calendar);
       }).done(function() {
         var old_budget = document.getElementById("total_budget").innerHTML;
         var new_budget = parseInt(old_budget) + parseInt(money_plus)
-        $(".each_transaction").append("<tr class= 'revenue'> <td>" + today + "</td> <td>" + description_p + "</td> <td> + " + money_plus + "</td> <tr>");
+        $(".each_transaction").append("<tr class= 'revenue'> <td>" + today + "</td> <td>" + description_p + "</td> <td> + " + money_plus + "</td><tr>");
         $("#total_budget").empty();
         $("#total_budget").append(new_budget);
         $("#description").val("");
         $("#money").val("");
 
       });
-
-
-
     });
   });
+
 //Budget - minus
   $(function() {
     $('.money_minus_button').click(function(){

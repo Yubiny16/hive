@@ -23,6 +23,8 @@ Rails.application.routes.draw do
   post '/uploadprofpic' => 'home#uploadprofpic'
   post '/home/profile_update' => 'home#profile_update'
   post '/home/file_upload' => 'home#file_upload'
+  get '/destroy_file/:file_id' => 'home#destroy_file'
+  get '/destroy_transaction/:trans_id' => 'home#destroy_transaction'
 
   #Group
   get '/home/create_group_view' => 'home#create_group_view'

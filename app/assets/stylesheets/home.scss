@@ -656,11 +656,13 @@ ul#feature-tabs > li.active > a {
   color: #38DB1E;
   border-left: 1px solid #ddd;
   font-family: "Source Sans Pro Bold";
+  width: 200px;
 }
 #transactions .each_transaction .expense td:last-child {
   color: #F43716;
   border-left: 1px solid #ddd;
   font-family: "Source Sans Pro Bold";
+  width: 200px;
 }
 #transactions tfoot tr td:last-child {
   border-left: 1px solid #ddd;

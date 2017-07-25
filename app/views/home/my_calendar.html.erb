@@ -66,7 +66,7 @@
 
     <!-- Main/Board -->
     <div class="col-md-6 board" style="padding-left: 20px;">
-      <div class="my_calendar">
+      <div class="calendar">
         <div id="event_type" data-type="<%= $type %>"></div>
       </div>
     </div><!--col-md-6-->
@@ -356,7 +356,7 @@ $( function() {
 var initialize_calendar;
 
   initialize_calendar = function() {
-    $('.my_calendar').each(function(){
+    $('.calendar').each(function(){
       var calendar = $(this);
 
       calendar.fullCalendar({

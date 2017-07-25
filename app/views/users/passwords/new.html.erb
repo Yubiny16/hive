@@ -1,12 +1,33 @@
 <head>
   <style>
+    @font-face {
+      font-family: "Source Sans Pro Light";
+      src: url('/assets/SourceSansPro-Light.otf');
+
+      font-family: "Source Sans Pro Regular";
+      src: url('/assets/SourceSansPro-Regular.otf');
+
+      font-family: "Source Sans Pro Bold";
+      src: url('/assets/SourceSansPro-Semibold.otf');
+    }
+    * {
+      font-family: "Source Sans Pro Regular";
+    }
     body {
-      background-color: #FBF764;
+      background: url(https://static.pexels.com/photos/7096/people-woman-coffee-meeting.jpg) no-repeat center center;
+      background-size: cover;
     }
-    .container {
-      padding-top: 10%;
+    form {
+      display: inline-block;
+      padding: 10px 30px 30px 30px;
+      background-color: white;
+      box-shadow: 8px 8px 4px #3a3a3a;
+      position: absolute;
+      left: 50%;
+      margin-left: -180px;
+      top: 20%;
     }
-    .field, .actions, .links {
+    .field, .actions {
       width: 300px;
       margin: auto;
     }
@@ -14,6 +35,7 @@
       width: 300px;
       margin: auto;
       margin-bottom: 20px;
+      color: white;
     }
     input.input-field {
       border-radius: 20px;
@@ -23,45 +45,53 @@
     }
     input[type="submit"] {
       border-radius: 20px;
+      border: 1.5px solid #DA413D;
       width: 300px;
       height: 40px;
       margin-bottom: 15px;
-      background-color: #543B19;
-      color: white;
+      color: #DA413D;
       font-weight: bold;
+      background: linear-gradient(to left, white 50%, #DA413D 50%);
+      background-size: 200% 100%;
+      background-position: right bottom;
+      -webkit-transition: all 0.8s ease;
+      -ms-transition: all 0.8s ease;
+      transition:all 0.8s ease;
     }
     input[type="submit"]:hover {
-      color: black;
-    }
-    div > a {
-      color: black;
-      font-weight: bold;
-    }
-    div > a:hover {
+      background-position: left bottom;
       color: white;
-      text-decoration: none;
     }
-    .logo-size {
-      display: block;
-      width: 100px;
-      margin: auto;
-      margin-bottom: 3em;
+    .links {
+      position: absolute;
+      top: 30px;
+      right: 50px;
+    }
+    .links a {
+      color: white;
+      font-weight: bold;
+      font-size: 18px;
+      padding: 5px 8px;
+      display: inline-block;
+      text-decoration: none;
+      -webkit-transition: all 0.5s ease;
+      -ms-transition: all 0.5s ease;
+      transition: all 0.5s ease;
+    }
+    .links a:hover {
+      background-color: #DA413D;
+    }
+    h3 {
+      margin-bottom: 30px;
     }
   </style>
 </head>
 <body>
   <div class="container">
 
-    <!--logo-->
-    <%= image_tag "hexagon.svg.png", class: "logo-size" %>
-
-    <div class="large-text">
-      <h3>Forgot your password?</h3>
-    </div>
-
     <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
       <%= devise_error_messages! %>
-
+      <h3>Forgot your password?</h3>
       <div class="field">
         <%= f.email_field :email, autofocus: true, placeholder: "Email", class: "form-control input-field" %>
       </div>

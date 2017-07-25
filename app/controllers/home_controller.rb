@@ -17,7 +17,7 @@ class HomeController < ApplicationController
 
     @all_notification = (@poll_notification + @ann_notification).sort{|a,b| a.created_at <=> b.created_at }.reverse
 
-    
+
     puts $timezone
     puts 1
     puts 1
@@ -143,6 +143,9 @@ class HomeController < ApplicationController
 
     #Member
     @members = GroupUser.where(group_id: @group.id)
+
+    #files
+    @files = Groupfile.where(group_id: @group.id).reverse
 
     #poll not voted
     @number_of_notvoted = 0
@@ -413,15 +416,30 @@ class HomeController < ApplicationController
   def file_upload
     gfiles = Groupfile.new
     gfiles.group_id = params[:group_id]
+    gfiles.filename = params[:file_name]
     # gfiles.filename = original_filename
 
     uploader = GroupfileUploader.new
     uploader.store!(params[:file])
 
     gfiles.file_url = uploader.url
+    gfiles.save
 
     redirect_to :back
   end
 
+  def destroy_file
+    @file = Groupfile.find_by_id(params[:file_id])
+    @file.destroy
+
+    redirect_to :back
+  end
+
+  def destroy_transaction
+    @trans = Transaction.find_by_id(params[:trans_id])
+    @trans.destroy
+
+    redirect_to :back
+  end
 
 end

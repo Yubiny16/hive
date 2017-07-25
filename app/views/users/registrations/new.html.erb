@@ -1,22 +1,42 @@
 <head>
   <style>
-    .container {
-      padding-top: 5%;
-      padding-bottom: 5%;
+    @font-face {
+      font-family: "Source Sans Pro Light";
+      src: url('/assets/SourceSansPro-Light.otf');
+
+      font-family: "Source Sans Pro Regular";
+      src: url('/assets/SourceSansPro-Regular.otf');
+
+      font-family: "Source Sans Pro Bold";
+      src: url('/assets/SourceSansPro-Semibold.otf');
     }
-    .body-container {
-      z-index: 1;
-      position: fixed;
-      top: 65%;
-      left: 47%;
-      margin-top: -400px;
-      margin-left: -150px;
-      background-color: white;
+    * {
+      font-family: "Source Sans Pro Regular";
+    }
+    body {
+      background: url(https://static.pexels.com/photos/7096/people-woman-coffee-meeting.jpg) no-repeat center center;
+      background-size: cover;
+    }
+    .sign_up_div {
+      height: 400px;
+      position: absolute;
       padding: 30px;
+      display: inline-block;
+      background-color: white;
+      left: 50%;
+      margin-left: -180px;
+      top: 15%;
+      box-shadow: 8px 8px 4px #3a3a3a;
     }
-    .field, .actions, .links {
+    .first {
+      z-index: 1;
+    }
+    .field, .actions {
       width: 300px;
       margin: auto;
+    }
+    .actions {
+      margin-top: 42px;
     }
     .field em {
       padding-left: 10px;
@@ -47,82 +67,114 @@
       color: white;
     }
     .links a {
-      color: grey;
+      color: white;
       font-weight: bold;
+      font-size: 18px;
       padding: 5px 8px;
       display: inline-block;
-      margin-bottom: 2px;
-      border-radius: 16px;
       text-decoration: none;
       -webkit-transition: all 0.5s ease;
       -ms-transition: all 0.5s ease;
       transition: all 0.5s ease;
+      position: absolute;
+      top: 30px;
+      right: 50px;
     }
     .links a:hover {
       background-color: #DA413D;
-      color: white;
     }
-    .logo-size {
-      display: block;
-      width: 100px;
-      margin: auto;
-      margin-bottom: 3em;
+    .logo {
+      text-align: center;
+      margin-bottom: 30px;
     }
-    body {
-      background-color: #DA413D;
+    #next,
+    #prev {
+      cursor: pointer;
+      text-decoration: none;
+    }
+    #next {
+      float: right;
+    }
+    #next i {
+      margin-left: 5px;
+      position: relative;
+      top: 1px;
+    }
+    #prev i {
+      margin-right: 5px;
+      position: relative;
+      top: 1px;
+    }
+    #error_explanation h2 {
+      display: none;
+    }
+    #error_explanation {
+      background-color: white;
+      display: inline-block;
+      padding: 20px;
+      border: 2px solid #DA413D;
+      z-index: 3;
+      position: absolute;
+      top: 30%;
+      left: 15%;
+    }
+    #error_explanation ul li {
+      list-style: square;
     }
   </style>
 </head>
 <body>
   <div class="container">
 
-    <!--logo-->
-    <div class="logo">
-      <a href="/landing/index">LOGO</a>
+    <div class="links">
+      <%= render "users/shared/links" %>
     </div>
     <div class="body-container">
       <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
         <%= devise_error_messages! %>
-        <div class="field">
-          <%= f.email_field :email, autofocus: true, placeholder: "Email", class: "form-control input-field" %>
+        <div class="sign_up_div first">
+          <div class="logo">
+            <a href="/landing/index">H I V E</a>
+          </div>
+          <div class="field">
+            <%= f.text_field :first_name, autofocus: true, placeholder: "First Name", class: "form-control input-field" %>
+          </div>
+          <div class="field">
+            <%= f.text_field :last_name, autofocus: true, placeholder: "Last Name", class: "form-control input-field" %>
+          </div>
+          <div class="field">
+            <%= f.text_field :school, autocomplete: "off", placeholder: "School", class: "form-control input-field" %>
+          </div>
+          <div class="field">
+            <%= f.text_field :major, autocomplete: "off", placeholder: "Major", class: "form-control input-field" %>
+          </div>
+          <div class="field">
+            <%= f.number_field :class_year, autocomplete: "off", placeholder: "Class Year (e.g., 2018)", class: "form-control input-field" %>
+          </div>
+          <a id="next">Next<i class="fa fa-chevron-right" aria-hidden="true"></i></a>
         </div>
-        <div class="field">
-          <% if @minimum_password_length %>
-            <em>(<%= @minimum_password_length %> characters minimum)</em>
-          <% end %><br>
-          <%= f.password_field :password, autocomplete: "off", placeholder: "Password", class: "form-control input-field" %>
-        </div>
-        <div class="field">
-          <%= f.password_field :password_confirmation, autocomplete: "off", placeholder: "Confirm Password", class: "form-control input-field" %>
-        </div>
-        <div class="field">
-          <%= f.text_field :first_name, autofocus: true, placeholder: "First Name", class: "form-control input-field" %>
-        </div>
-        <div class="field">
-          <%= f.text_field :last_name, autofocus: true, placeholder: "Last Name", class: "form-control input-field" %>
-        </div>
-        <div class="field">
-          <%= f.text_field :school, autocomplete: "off", placeholder: "School", class: "form-control input-field" %>
-        </div>
-        <div class="field">
-          <%= f.text_field :major, autocomplete: "off", placeholder: "Major", class: "form-control input-field" %>
-        </div>
-        <!-- removed for now. will add back in the future
-        <div class="field">
-          <%= f.text_field :company, autocomplete: "off", placeholder: "Company", class: "form-control input-field" %>
-        </div> -->
-        <div class="field">
-          <%= f.number_field :class_year, autocomplete: "off", placeholder: "Class Year (e.g., 2018)", class: "form-control input-field" %>
-        </div>
-
-        <div class="actions">
-          <%= f.submit "Sign up", class: "btn" %>
+        <div class="sign_up_div second">
+          <div class="logo">
+            <a href="/landing/index">H I V E</a>
+          </div>
+          <div class="field">
+            <%= f.email_field :email, autofocus: true, placeholder: "Email", class: "form-control input-field" %>
+          </div>
+          <div class="field" style="margin-top: 20px;">
+            <% if @minimum_password_length %>
+              <em>(<%= @minimum_password_length %> characters minimum)</em>
+            <% end %><br>
+            <%= f.password_field :password, autocomplete: "off", placeholder: "Password", class: "form-control input-field" %>
+          </div>
+          <div class="field">
+            <%= f.password_field :password_confirmation, autocomplete: "off", placeholder: "Confirm Password", class: "form-control input-field" %>
+          </div>
+          <div class="actions">
+            <%= f.submit "Sign up", class: "btn" %>
+          </div>
+          <a id="prev"><i class="fa fa-chevron-left" aria-hidden="true"></i>Previous</a>
         </div>
       <% end %>
-
-      <div class="links">
-        <%= render "users/shared/links" %>
-      </div>
     </div>
   </div>
   <script>
@@ -134,7 +186,17 @@
       url: '/users/sign_up',
       data: { timezone: tz_name }
     }).done(function() {
-      
+
+    });
+  });
+  $(function(){
+    $('#next').click(function(){
+      $('.first').fadeOut();
+      $('.second').fadeIn();
+    });
+    $('#prev').click(function(){
+      $('.second').fadeOut();
+      $('.first').fadeIn();
     });
   });
   </script>
