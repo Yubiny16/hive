@@ -6,23 +6,61 @@ class HomeController < ApplicationController
   $n = 2
   $type
   $timezone
-  $index_first_time = "yes"
-  $mycalendar_first_time = "yes"
-  $group_first_time = "yes"
 
   def index
+
+    if params[:index_first_time] == "no"
+      User.find_by_id(current_user.id).update(:index_first_time => params[:index_first_time])
+    end
+
+    #instruction message from hive (main page)
+    if User.find_by_id(current_user.id).index_first_time == "yes" && current_user.id != 1
+      connectwithhive = GroupUser.new
+      connectwithhive.group_id = 1
+      connectwithhive.user_id = current_user.id
+      connectwithhive.color = "red"
+      connectwithhive.save
+
+      hive_announcement = Annnoti.new
+      hive_announcement.notification_type = 1
+      hive_announcement.announcement_id = Announcement.where(group_id: 1).first.id
+      hive_announcement.group_id = 1
+      hive_announcement.sender = 1
+      hive_announcement.receiver = current_user.id
+      hive_announcement.title = Announcement.where(group_id: 1).first.title
+      hive_announcement.content = Announcement.where(group_id: 1).first.content
+      hive_announcement.save
+
+    end
+
+    #instruction message from hive (my_calendar page)
+    if User.find_by_id(current_user.id).index_first_time == "yes" && current_user.id != 1
+
+      hive_event = Calnoti.new
+      hive_event.event_id = Event.where(user_id: 1).where(calendar_type: 1).first.id
+      hive_event.group_id = 1
+      hive_event.sender = 1
+      hive_event.receiver = current_user.id
+      hive_event.title = Event.where(user_id: 1).where(calendar_type: 1).first.title
+      hive_event.description = Event.where(user_id: 1).where(calendar_type: 1).first.description
+      hive_event.start = Time.now.in_time_zone($timezone)
+      hive_event.end = 60.minutes.from_now.in_time_zone($timezone)
+      hive_event.save
+
+    end
+
     @user = current_user
 
     @current_group_user = GroupUser.where(user_id: @user.id)
 
-    @ann_notification = Annnoti.where(receiver: @user.id)
-    @poll_notification = Pollnoti.where(receiver: @user.id)
+    now = Date.today
+    weekago = (now - 7)
+
+    @ann_notification = Annnoti.where(receiver: @user.id).where(:created_at => weekago.beginning_of_day..now.end_of_day)
+    @poll_notification = Pollnoti.where(receiver: @user.id).where(:created_at => weekago.beginning_of_day..now.end_of_day)
 
     @all_notification = (@poll_notification + @ann_notification).sort{|a,b| a.created_at <=> b.created_at }.reverse
 
-    if params[:index_first_time] == "no"
-      $index_first_time = "no"
-    end
   end
 
   def search
@@ -153,7 +191,7 @@ class HomeController < ApplicationController
     @number_of_notvoted = 0
 
     if params[:group_first_time] == "no"
-      $group_first_time = "no"
+      User.find_by_id(current_user.id).update(:group_first_time => params[:group_first_time])
     end
   end
 
@@ -390,7 +428,7 @@ class HomeController < ApplicationController
     $type = 0
 
     if params[:mycalendar_first_time] == "no"
-      $mycalendar_first_time = "no"
+      User.find_by_id(current_user.id).update(:mycalendar_first_time => params[:mycalendar_first_time])
     end
 
   end

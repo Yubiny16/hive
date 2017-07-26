@@ -1,5 +1,5 @@
 <!-- Welcome Message -->
-<% if $index_first_time == "yes" %>
+<% if User.find_by_id(current_user.id).index_first_time == "yes" %>
   <script>
     jQuery(function(){
      jQuery('#welcome_message_btn').trigger('click');
@@ -28,7 +28,7 @@
           Welcome! and Thank You for giving us an opportunity to help you achieve more! <br /><br />
           We put our focus and energy on efficiency, simplicity, and utility. <br /><br />
 
-          We work hard to make your life easy. <br /><br />
+          We will work hard to make your life easy. <br /><br />
 
           Team Hive.
 

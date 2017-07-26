@@ -166,52 +166,16 @@ nav#navbar-custom .btn-search i {
   color: white;
 }
 /*******************main page styling*****************/
+#welcome_message_btn {
+  position: absolute;
+  left: -99999rem;
+}
 .get-started button {
   background-color: #DA413D;
   color: white;
   font-family: "Source Sans Pro Bold";
   border:none;
 }
-
-/* Popup container - can be anything you want */
-.popup {
-    position: relative;
-    display: inline-block;
-
-}
-
-/* The actual popup */
-.popup .popuptext {
-    visibility: hidden;
-    width: 160px;
-    background-color: #555;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 8px 0;
-    position: absolute;
-    z-index: 1;
-}
-
-/* Popup arrow */
-.popup .popuptext::after {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: #555 transparent transparent transparent;
-}
-
-/* Toggle this class - hide and show the popup */
-.popup .show {
-    visibility: visible;
-    -webkit-animation: fadeIn 1s;
-    animation: fadeIn 1s;
-}
-
 .no-feed-to-show p {
   position: relative;
   left: 35px;
@@ -449,7 +413,8 @@ ul#feature-tabs > li.active > a {
   white-space:  nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
-  background-color: transparent;
+  background-color: white;
+
 }
 #main_board .unread-notification {
   position: absolute;
@@ -526,7 +491,6 @@ ul#feature-tabs > li.active > a {
 #poll_board ul li,
 #main_board ul li  {
   border: 1px solid #BFC9CA;
-  border-radius: 5px;
   margin: 5px;
 }
 #announcements_board ul li.active,

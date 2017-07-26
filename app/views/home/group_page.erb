@@ -1,5 +1,5 @@
 <!-- Welcome Message -->
-<% if $group_first_time == "yes" %>
+<% if User.find_by_id(current_user.id).group_first_time == "yes" %>
   <script>
     jQuery(function(){
      jQuery('#welcome_message_btn').trigger('click');
@@ -8,11 +8,11 @@
 
     $.ajax({
       method: "GET",
-      url: '/home/group_page/',
+      url: '/home/group_page/<%= @group.id %>',
       data: { group_first_time: group_first_time }
     })
   </script>
-  <button id="welcome_message_btn" data-toggle="modal" data-target="#welcome_message" class="btn" type="hidden"></button>
+  <button id="welcome_message_btn" data-toggle="modal" data-target="#welcome_message" class="btn"></button>
   <div class="modal fade" id="welcome_message" tableindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
       <div class="modal-content">

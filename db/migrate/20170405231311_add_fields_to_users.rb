@@ -8,5 +8,8 @@ class AddFieldsToUsers < ActiveRecord::Migration[5.0]
     add_column :users, :major, :string
     add_column :users, :company, :string
     add_column :users, :image_url, :string, :default => ""
+    add_column :users, :index_first_time, :string, :default => "yes"
+    add_column :users, :group_first_time, :string, :default => "yes"
+    add_column :users, :mycalendar_first_time, :string, :default => "yes"
   end
 end
