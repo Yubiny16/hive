@@ -1,3 +1,45 @@
+<!-- Welcome Message -->
+<% if $index_first_time == "yes" %>
+  <script>
+    jQuery(function(){
+     jQuery('#welcome_message_btn').trigger('click');
+    });
+    var index_first_time = "no"
+
+    $.ajax({
+      method: "GET",
+      url: '/home/index',
+      data: { index_first_time: index_first_time }
+    })
+  </script>
+  <button id="welcome_message_btn" data-toggle="modal" data-target="#welcome_message" class="btn" type="hidden"></button>
+  <div class="modal fade" id="welcome_message" tableindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title" style="text-align: center;">Welcome to Hive!</h4>
+        </div>
+        <div class="modal-body" style="text-align: center;">
+          Hi <%= current_user.first_name %>!<br /><br />
+
+          Welcome! and Thank You for giving us an opportunity to help you achieve more! <br /><br />
+          We put our focus and energy on efficiency, simplicity, and utility. <br /><br />
+
+          We work hard to make your life easy. <br /><br />
+
+          Team Hive.
+
+        </div>
+        <div class="modal-footer get-started" style="text-align: center;">
+          <button data-dismiss="modal">Get Started!</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
 <!-- Header -->
 <nav class="navbar navbar-default navbar-fixed-top" id="navbar-custom">
   <div class="container-fluid">

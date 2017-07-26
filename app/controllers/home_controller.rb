@@ -6,6 +6,9 @@ class HomeController < ApplicationController
   $n = 2
   $type
   $timezone
+  $index_first_time = "yes"
+  $mycalendar_first_time = "yes"
+  $group_first_time = "yes"
 
   def index
     @user = current_user
@@ -17,10 +20,9 @@ class HomeController < ApplicationController
 
     @all_notification = (@poll_notification + @ann_notification).sort{|a,b| a.created_at <=> b.created_at }.reverse
 
-
-    puts $timezone
-    puts 1
-    puts 1
+    if params[:index_first_time] == "no"
+      $index_first_time = "no"
+    end
   end
 
   def search
@@ -150,9 +152,9 @@ class HomeController < ApplicationController
     #poll not voted
     @number_of_notvoted = 0
 
-    puts $timezone
-    puts 1
-    puts 1
+    if params[:group_first_time] == "no"
+      $group_first_time = "no"
+    end
   end
 
   def group_profile
@@ -382,9 +384,15 @@ class HomeController < ApplicationController
   #####my_calendar
 
   def my_calendar
+
     @current_group_user = GroupUser.where(user_id: current_user.id)
     @cal_notification = Calnoti.where(receiver: current_user.id).reverse
     $type = 0
+
+    if params[:mycalendar_first_time] == "no"
+      $mycalendar_first_time = "no"
+    end
+
   end
 
   def add_event
