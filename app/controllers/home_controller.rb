@@ -457,4 +457,21 @@ class HomeController < ApplicationController
     redirect_to :back
   end
 
+  def destroy_announcement
+    @ann = Announcement.find_by_id(params[:ann_id])
+    @ann.destroy
+    respond_to do |format|
+      format.html {redirect_to :back}
+      format.js
+    end
+  end
+
+  def destroy_poll
+    @poll = Poll.find_by_id(params[:p_id])
+    @poll.destroy
+    respond_to do |format|
+      format.html {redirect_to :back}
+      format.js
+    end
+  end
 end

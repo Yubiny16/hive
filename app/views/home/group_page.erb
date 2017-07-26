@@ -171,6 +171,8 @@
                 <ul class="nav nav-stacked">
                   <% @announcements.each do |announcements| %>
                     <li>
+                      <!-- <a href="/destroy_ann/<%= announcements.id %>" class="btn destroy_ann" style="position: absolute; font-size: 10px; padding: 0;">Delete</a> -->
+                      <%= link_to '<i class="fa fa-times"></i>'.html_safe, announcements_path(announcements), method: :delete, data: {confirm: 'Would you like to delete this announcement?'}, remote: true, class: 'delete_ann' %>
                       <a href="#ann_<%= announcements.id %>" data-toggle="tab">
                         <p class="announcement_list_title">
                           <%= announcements.title %>
@@ -313,6 +315,7 @@
               <ul class="nav nav-stacked">
                 <% @poll.each do |p| %>
                   <li>
+                    <%= link_to '<i class="fa fa-times"></i>'.html_safe, p_path(p), method: :delete, data: {confirm: 'Would you like to delete this poll?'}, remote: true, class: 'delete_poll' %>
                     <a href="#poll_<%= p.id %>" data-toggle="tab">
                       <p class="poll_list_title">
                         Q: <%= p.title %>

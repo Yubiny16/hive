@@ -485,6 +485,19 @@ ul#feature-tabs > li.active > a {
   text-overflow: ellipsis;
   margin-bottom: 0;
 }
+#announcements_board .delete_ann,
+#poll_board .delete_poll {
+  position: absolute;
+  top: 4px; left: 4px;
+  z-index: 100;
+  font-size: 10px;
+  padding: 0px 2px;
+  border-radius: 3px;
+  background-color: #DA413D;
+  i {
+    color: white;
+  }
+}
 #announcements_board .announcement_list_date,
 #poll_board .poll_list_date,
 #main_board .announcement_list_date,
