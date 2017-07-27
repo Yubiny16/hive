@@ -423,7 +423,7 @@ class HomeController < ApplicationController
 
   def my_calendar
     $type = 0 #calendar type   0: my calendar
-    
+
     @current_group_user = GroupUser.where(user_id: current_user.id)
 
     Calnoti.where(receiver: current_user.id).each do |old_event|
@@ -488,7 +488,7 @@ class HomeController < ApplicationController
   end
 
   def destroy_transaction
-    @trans = Transaction.find_by_id(params[:trans_id])
+    @trans = Transaction.find_by_id(params[:t_id])
     @old_budget = Budget.find_by(group_id: $group_id).group_budget
     if @trans.pos_neg == true
       @new_budget = @old_budget - @trans.value.to_f
@@ -498,7 +498,10 @@ class HomeController < ApplicationController
     Budget.find_by(group_id: $group_id).update(:group_budget => @new_budget)
 
     @trans.destroy
-    redirect_to :back
+    respond_to do |format|
+      format.html {redirect_to :back}
+      format.js
+    end
   end
 
   def destroy_announcement

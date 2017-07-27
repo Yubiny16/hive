@@ -1,0 +1,9 @@
+$(document).ready(function () {
+  $('.delete_trans').bind('ajax:success', function() {
+    money = $(this).prev().html();
+    $(this).closest('tr').fadeOut();
+    var old_budget = document.getElementById("total_budget").innerHTML;
+    var new_budget = parseInt(old_budget) - parseInt(money);
+    $("#total_budget").text(new_budget);
+  });
+});

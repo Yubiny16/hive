@@ -24,11 +24,13 @@ Rails.application.routes.draw do
   post '/home/profile_update' => 'home#profile_update'
   post '/home/file_upload' => 'home#file_upload'
   get '/destroy_file/:file_id' => 'home#destroy_file'
-  get '/destroy_transaction/:trans_id' => 'home#destroy_transaction'
+  # get '/destroy_transaction/:trans_id' => 'home#destroy_transaction'
   delete '/announcements.:ann_id' => 'home#destroy_announcement'
   delete '/p/:p_id' => 'home#destroy_poll'
+  delete '/t/:t_id' => 'home#destroy_transaction'
   resources :announcements
   resources :p
+  resources :t
 
   #Group
   get '/home/create_group_view' => 'home#create_group_view'
