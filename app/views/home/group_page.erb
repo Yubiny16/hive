@@ -457,6 +457,17 @@
             </div>
           <% end %>
 
+          <!-- testtesttesttesttesttest -->
+          <hr />
+          <form method="get" action="/home/transaction">
+            <input name="description" type="text" class="form-control" placeholder="Description">
+            <input name="money" type="number" class="form-control" placeholder="$00.00">
+            <input name="group_id" type="hidden" value="<%= @group.id %>">
+            <button name="transaction_type" value="plus" type="submit" class="btn money_plus_button"><i class="fa fa-plus" aria-hidden="true"></i></button>
+            <button name="transaction_type" value="minus" type="submit" class="btn money_plus_button"><i class="fa fa-minus" aria-hidden="true"></i></button>
+          </form>
+          <!-- testtesttesttesttesttest -->
+
           <!-- Add div to let the ajax script know where to append new input field. -->
           <div id="transactions">
             <table class="table table-hover">

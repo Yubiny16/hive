@@ -89,9 +89,17 @@
       <hr>
 
       <ul class="leftbar-groups">
-        <% unless @current_group_user == nil %>
-          <% @current_group_user.where.not(group_id: 1).each do |group_user| %>
-            <li><div class="circle_<%= group_user.color %>"></div><a href="/home/group_page/<%= group_user.group_id %>"><%= Group.find(group_user.group_id).name %></a></li>
+        <% unless current_user.id == 1 %>
+          <% unless @current_group_user == nil %>
+            <% @current_group_user.where.not(group_id: 1).each do |group_user| %>
+              <li><div class="circle_<%= group_user.color %>"></div><a href="/home/group_page/<%= group_user.group_id %>"><%= Group.find(group_user.group_id).name %></a></li>
+            <% end %>
+          <% end %>
+        <% else %>
+          <% unless @current_group_user == nil %>
+            <% @current_group_user.each do |group_user| %>
+              <li><div class="circle_<%= group_user.color %>"></div><a href="/home/group_page/<%= group_user.group_id %>"><%= Group.find(group_user.group_id).name %></a></li>
+            <% end %>
           <% end %>
         <% end %>
       </ul>

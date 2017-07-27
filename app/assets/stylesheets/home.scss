@@ -854,7 +854,14 @@ ul#feature-tabs > li.active > a {
   font-family: "Source Sans Pro Bold";
 }
 /******************Group Profile Edit Page***********/
-
+.group-profile-field-member {
+  margin-left: 5%;
+}
+.group-profile-field-member label{
+  font-family: "Source Sans Pro Bold";
+  margin-top: 3%;
+  font-size: 15px;
+}
 .group-profile-field {
   font-family: "Source Sans Pro Regular";
   width: 50%;

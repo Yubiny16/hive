@@ -286,6 +286,43 @@ class HomeController < ApplicationController
     message_id = result['id']
     message = result['message']
   end
+  #testtesttesttesttesttest
+  def transaction
+    if params[:transaction_type] == "plus"
+      #Find the value of previous budget balance
+      @old_budget = Budget.find(params[:group_id]).group_budget
+      #How much to add
+      @money_plus = params[:money]
+      #Change to integer
+      @new_budget = @money_plus.to_f + @old_budget.to_f
+
+      Budget.update(params[:group_id], :group_budget => @new_budget)
+      # Add new transaction to DB
+      one_transaction = Transaction.new
+      one_transaction.budget_id = Budget.find(params[:group_id]).id
+      one_transaction.value = params[:money]
+      one_transaction.description = params[:description]
+      one_transaction.save
+    elsif params[:transaction_type] == "minus"
+      #Find the value of previous budget balance
+      @old_budget = Budget.find(params[:group_id]).group_budget
+      #How much to subtract
+      @money_minus = params[:money]
+      # Change to float
+      @new_budget =  @old_budget.to_f - @money_minus.to_f
+
+      Budget.update(params[:group_id], :group_budget => @new_budget)
+      # Add new transaction to DB
+      one_transaction = Transaction.new
+      one_transaction.budget_id = Budget.find(params[:group_id]).id
+      one_transaction.value = params[:money]
+      one_transaction.description = params[:description]
+      one_transaction.pos_neg = false
+      one_transaction.save
+
+    end
+    redirect_to :back
+  end
 
   def money_plus
     #Find the value of previous budget balance
