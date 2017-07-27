@@ -42,15 +42,12 @@
   <div class="container-fluid">
     <div class="row">
 
-      <div class="col-md-1">
-      </div>
-
       <div class="col-md-2">
         <a class="navbar-brand" href="/home/index">H I V E</a>
       </div>
 
       <!--search bar-->
-      <div class="col-md-4" style="padding-left: 0;">
+      <div class="col-md-5" style="padding-left: 0;">
         <form action="/home/search" method="get">
           <!-- Pass search words to controller -->
           <input id="search_group" name= "search_group" type="text" class="form-control" data-autocomplete= "<%= Group.order(:name).map(&:name) %>" placeholder="Search Your Group">
@@ -78,18 +75,15 @@
 <div class ="container-fluid container-body">
   <div class="row">
 
-    <div class="col-md-1">
-    </div>
-
     <div class="col-md-2 leftbar">
       <ul class="leftbar-personal">
         <li><a href="/home/index"><i class="fa fa-server" aria-hidden="true"></i>Board</a></li>
-        <li><a href="/home/my_calendar"><i class="fa fa-calendar" aria-hidden="true"></i>Calendar</a></li>
+        <li><a href="/home/my_calendar"><i class="fa fa-calendar" aria-hidden="true"></i>My Schedule</a></li>
       </ul>
       <hr>
       <ul class="leftbar-groups">
         <% unless @user_groups == nil %>
-          <% @user_groups.each do |user_groups| %>
+          <% @user_groups.where.not(group_id: 1).each do |user_groups| %>
             <li><div class="circle_<%= user_groups.color %>"></div><a href="/home/group_page/<%= user_groups.group_id %>"><%= Group.find(user_groups.group_id).name %></a></li>
           <% end %>
         <% end %>
@@ -99,7 +93,7 @@
     </div><!-- leftbar End-->
 
     <!-- Body-->
-    <div class="col-md-7 board">
+    <div class="col-md-8 board">
       <div id="group_profile">
         <% if @group.image_url=="" %>
           <img src="http://www.sessionlogs.com/media/icons/defaultIcon.png" alt="profile img" title="default profile image" style="border-radius: 50%;" width="100">

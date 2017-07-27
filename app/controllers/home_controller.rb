@@ -422,10 +422,16 @@ class HomeController < ApplicationController
   #####my_calendar
 
   def my_calendar
-
+    $type = 0 #calendar type   0: my calendar
+    
     @current_group_user = GroupUser.where(user_id: current_user.id)
+
+    Calnoti.where(receiver: current_user.id).each do |old_event|
+      if Date.strptime(old_event.end.to_s, '%Y-%m-%d') < Date.strptime(Date.today.to_s, '%Y-%m-%d')
+        old_event.destroy
+      end
+    end
     @cal_notification = Calnoti.where(receiver: current_user.id).reverse
-    $type = 0
 
     if params[:mycalendar_first_time] == "no"
       User.find_by_id(current_user.id).update(:mycalendar_first_time => params[:mycalendar_first_time])

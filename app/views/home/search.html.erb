@@ -3,15 +3,12 @@
   <div class="container-fluid">
     <div class="row">
 
-      <div class="col-md-1">
-      </div>
-
       <div class="col-md-2">
         <a class="navbar-brand" href="/home/index">H I V E</a>
       </div>
 
       <!--search bar-->
-      <div class="col-md-4" style="padding-left: 0;">
+      <div class="col-md-5" style="padding-left: 0;">
         <form action="/home/search" method="get">
           <!-- Pass search words to controller -->
           <input id="search_group" name= "search_group" type="text" class="form-control" data-autocomplete= "<%= Group.order(:name).map(&:name) %>" placeholder="Search Your Group">
@@ -39,19 +36,16 @@
 <div class="container-fluid container-body">
   <div class="row">
 
-    <div class="col-md-1">
-    </div>
-
     <!-- Left Bar -->
     <div class="col-md-2 leftbar">
       <ul class="leftbar-personal">
         <li><a href="/home/index"><i class="fa fa-server" aria-hidden="true"></i>Board</a></li>
-        <li><a href="/home/my_calendar"><i class="fa fa-calendar" aria-hidden="true"></i>Calendar</a></li>
+        <li><a href="/home/my_calendar"><i class="fa fa-calendar" aria-hidden="true"></i>My Schedule</a></li>
       </ul>
       <hr>
       <ul class="leftbar-groups">
         <% unless @user_groups == nil %>
-          <% @user_groups.each do |group_user| %>
+          <% @user_groups.where.not(group_id:1).each do |group_user| %>
             <li><div class="circle_<%= group_user.color %>"></div> <a href="/home/group_page/<%= group_user.group_id %>"><%= Group.find(group_user.group_id).name %></a></li>
           <% end %>
         <% end %>
@@ -61,7 +55,7 @@
     </div><!-- leftbar End-->
 
     <!-- Main/Board -->
-    <div class="col-md-7 board" style="padding-left: 0;">
+    <div class="col-md-8 board" style="padding-left: 0;">
       <!-- list of searched groups -->
       <% unless @searched_groups.first == nil %>
         <% @searched_groups.find_each do |g| %>
