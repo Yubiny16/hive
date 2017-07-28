@@ -95,14 +95,14 @@
     </div><!-- leftbar End-->
 
     <!-- Main/Board -->
-    <div class="col-md-7 board" style="padding-left: 20px;">
-      <div class="calendar">
+    <div class="col-md-7 board">
+      <div class="calendar" style="margin-left: 70px; margin-right: 50px">
         <div id="event_type" data-type="<%= $type %>"></div>
       </div>
-    </div><!--col-md-6-->
+    </div><!--col-md-7-->
 
     <!-- Calendar Feed -->
-    <div class="col-md-2">
+    <div class="col-md-3" style="background-color: white">
 
       <!-- Filter -->
       <div class="filter-dropdown calendar-filter-group">
@@ -234,7 +234,7 @@
                 </ol>
                 <script>
                   //view attendance toggle
-                  $( ".attending-members" ).hide();
+                  $( ".attending-members-<%= cal_notification.event_id %>" ).hide();
                   $( ".view-toggle-<%= cal_notification.event_id %>" ).click(function() {
                     $( ".attending-members-<%= cal_notification.event_id %>" ).toggle(300, function() {
                       // Animation complete.
@@ -277,7 +277,7 @@
 
               <script>
                 //view attendance toggle
-                $( ".attending-members" ).hide();
+                $( ".attending-members-<%= cal_notification.event_id %>" ).hide();
                 $( ".view-toggle-<%= cal_notification.event_id %>" ).click(function() {
                   $( ".attending-members-<%= cal_notification.event_id %>" ).toggle(300, function() {
                     // Animation complete.
@@ -294,10 +294,7 @@
           </div>
         <% end %>
       </div><!-- calendar_board -->
-    </div><!-- col-md-2-->
-
-    <div class="col-md-1">
-    </div>
+    </div><!-- col-md-3-->
 
   </div><!-- row -->
 </div><!-- container-fluid container-body -->

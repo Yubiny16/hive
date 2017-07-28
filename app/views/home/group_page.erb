@@ -93,7 +93,7 @@
     </div><!-- leftbar End-->
 
     <!-- Body-->
-    <div class="col-md-8 board">
+    <div class="col-md-10 board" style="padding-top: 60px">
       <div id="group_profile">
         <% if @group.image_url=="" %>
           <img src="http://www.sessionlogs.com/media/icons/defaultIcon.png" alt="profile img" title="default profile image" style="border-radius: 50%;" width="100">
@@ -106,9 +106,9 @@
           <a href="<%= @group.website_address %>"><%= @group.website_address %></a>
         </div>
         <p><%= @group.description %></p>
-        <a href="/home/group_profile/<%= @group.id %>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+        <a href="/home/group_profile/<%= @group.id %>"><i class="fa fa-cog" aria-hidden="true"></i></a>
+        <a href="/home/group_leave" id="group_leave"data-confirm="Are you sure you want to leave <%= @group.name %>?">Leave Group</a>
       </div>
-      <hr>
 
       <ul class ="nav nav-pills" id="feature-tabs">
         <li class="active" ><a href="#Announcement" data-toggle="tab">Announcement</a></li>
@@ -118,8 +118,8 @@
         <li><a href="#Budget" data-toggle="tab">Budget</a></li>
         <li><a href="#Members" data-toggle="tab">Member</a></li>
       </ul>
-
-      <div class="tab-content">
+<hr />
+      <div class="tab-content group-page-tab-content">
         <!-- Announcements -->
         <div class="tab-pane active" id="Announcement">
           <!-- Make an announcement (visible only to admin) -->
@@ -527,8 +527,6 @@
       </div><!--tab content-->
     </div><!--col-md-7-->
 
-    <div class="col-md-2">
-    </div>
 
   </div><!--row-->
 </div><!--container-->

@@ -1,2 +1,20 @@
-Event Info
-Event ADD to calendar
+<div id="calendar-group-member-popup">
+  <p class="calendar-member-popup-content">
+    <%= @event.description %>
+  </p>
+  <p class="calendar-member-popup-start">
+    <span style="color: #d4624c">Start:</span> <%= @event.start.strftime("%B %e, %Y at %l:%M %p") %>
+  </p>
+  <p class="calenar-member-popup-end">
+    <span style="color: #d4624c">End:</span> <%= @event.end.strftime("%B %e, %Y at %l:%M %p") %>
+  </p>
+  <hr />
+  <% unless Eventuser.where(event_id: @event.id).where(user_id: current_user.id).exists? %>
+    <button type="submit" class="btn add_event_button"><a href="/home/my_calendar" style="color:white; ">Add This Event to My Schedule</a></button>
+  <% else %>
+    <form action="/home/cancel_event" method="get">
+      <input name="event_id" type="hidden" value="<%= @event.id %>"/>
+      <button type="submit" class="btn add_event_button">Cancel</button>
+    </form>
+  <% end %>
+</div>

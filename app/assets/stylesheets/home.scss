@@ -201,14 +201,16 @@ nav#navbar-custom .btn-search i {
 .leftbar {
   font-size: 16px;
   font-family: $main-font;
-  margin-left: 50px;
+  margin: auto;
 }
 .leftbar > p {
   text-align: left;
   color: #454b54;
+  margin-left: 50px;
 }
 .leftbar .leftbar-personal li {
   margin-bottom: 15px;
+  margin-left: 50px;
 }
 .leftbar .leftbar-personal li a,
 .leftbar .leftbar-groups li a,
@@ -222,13 +224,14 @@ nav#navbar-custom .btn-search i {
 .leftbar .leftbar-personal li a i,
 .leftbar .leftbar-groups li > div,
 .leftbar > p a i {
-  margin-right: 5px;
+  margin-right: 10px;
 }
 .leftbar .leftbar-groups li {
   margin-bottom: 10px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  margin-left: 50px;
 }
 .leftbar .leftbar-groups li a {
   position: relative;
@@ -314,15 +317,26 @@ nav#navbar-custom .btn-search i {
 #group_profile {
   font-family: "Source Sans Pro Regular";
   position: relative;
-  width: 90%;
-  margin: 0 auto;
+  width: 85%;
   display: block;
   min-height: 100px;
+  background-color: #993333;
+  margin: auto;
+  color: white;
+  padding: 30px;
+  border-radius: 5px;
+  margin-left: 60px;
+}
+#group_profile img{
+  position: relative;
+  left: -10px;
+  bottom: 10px;
 }
 #group_profile .group_profile_heading {
   display: inline-block;
   position: absolute;
   margin-left: 20px;
+  margin-top: 30px;
   top: 0;
 }
 #group_profile .group_profile_heading h3 {
@@ -339,12 +353,29 @@ nav#navbar-custom .btn-search i {
   padding-right: 20px;
   margin-top: -50px;
   word-wrap: break-word;
+  position: relative;
+  bottom: 10px;
 }
 #group_profile > a {
   position: absolute;
-  right: 20px;
-  top: 0;
-  font-size: 18px;
+  left: 900px;
+  top: 6px;
+  font-size: 20px;
+  color: white;
+}
+#group_profile a:last-child {
+  position: absolute;
+  left: 840px;
+  top: 100px;
+  font-size: 14px;
+  color: white;
+  background-color: #732626;
+  width: 90px;
+  text-align: center;
+  padding: 5px;
+}
+#group_profile a:last-child:hover {
+  text-decoration: none;
 }
 #Announcement .group_page_no_announcement > p,
 #Poll .group_page_no_poll > p {
@@ -353,10 +384,11 @@ nav#navbar-custom .btn-search i {
   font-size: 15px;
 }
 ul#feature-tabs {
-  margin-bottom: 40px;
+  margin-top: 30px;
   display: flex;
-  justify-content: center;
   font-size: 18px;
+  position: relative;
+  left: 70px;
 }
 ul#feature-tabs li {
   margin: 0;
@@ -375,9 +407,12 @@ ul#feature-tabs > li.active > a {
   border-bottom: 5px solid #DA413D;
   color: black;
 }
+.group-page-tab-content {
+  margin-left: 100px;
+  width: 700px;
+}
 #add_ann_btn,
 #add_poll_btn {
-  margin-left: 30px;
   background-color: #DA413D;
   color: white;
   font-family: "Source Sans Pro Bold";
@@ -392,7 +427,6 @@ ul#feature-tabs > li.active > a {
   border: 1px solid #BFC9CA;
   border-radius: 5px;
   width: 90%;
-  margin-left: 30px;
   margin-top: 20px;
   background-color: $main-gray;;
 }
@@ -647,6 +681,33 @@ ul#feature-tabs > li.active > a {
   right: 15px;
   bottom: 70px;
 }
+#calendar-group-member-popup {
+  margin: auto;
+  width: 100%;
+  text-align: center;
+}
+#calendar-group-member-popup .calendar-member-popup-content {
+  margin-bottom: 30px;
+  margin-top: 30px;
+}
+#calendar-group-member-popup .calenar-member-popup-end {
+  color: #716e77;
+}
+#calendar-group-member-popup .calendar-member-popup-start {
+  color: #716e77;
+}
+#calendar-group-member-popup button {
+  font-family: "Source Sans Pro Bold";
+  color: white;
+  background-color: #DA413D;
+  padding: 4px 6px;
+  margin-bottom: 10px;
+  outline: none;
+}
+#calendar-group-member-popup a:hover {
+  text-decoration: none;
+}
+
 #budget_item_input {
   width: 90%;
   white-space: nowrap;
@@ -704,7 +765,6 @@ ul#feature-tabs > li.active > a {
 }
 /**members tab design**/
 #Members .member {
-  margin-left: 30px;
 }
 #Members .member-profile {
   position: relative;
@@ -738,6 +798,16 @@ ul#feature-tabs > li.active > a {
   color: white;
   font-family: "Source Sans Pro Bold";
 }
+#Members .modal-body button {
+  position: relative;
+  left: 35%;
+  font-size: 12px;
+  font-family: $main-font;
+  outline: none;
+  background-color: #DA413D;
+  color: white;
+  font-family: "Source Sans Pro Bold";
+}
 /*files design*/
 #Files form input {
   position: absolute;
@@ -748,7 +818,6 @@ ul#feature-tabs > li.active > a {
   background-color: #DA413D;
   color: white;
   font-family: "Source Sans Pro Bold";
-  margin-left: 30px;
   margin-bottom: 15px;
 }
 #Files form button {
@@ -990,8 +1059,7 @@ ul#feature-tabs > li.active > a {
 .calendar-filter-rsvp {
   position: relative;
   display: inline-block;
-  left: 45px;
-  top: 51px;
+  top: 83px;
 }
 .calendar-filter-group button {
   background-color: #DA413D;
@@ -1037,8 +1105,8 @@ ul#feature-tabs > li.active > a {
 
 #calendar_board {
   position: relative;
-  top: 68px;
-  height: 498px;
+  top: 100px;
+  height: 565px;
   border-radius: 5px;
   width: 250px;
   overflow: auto;

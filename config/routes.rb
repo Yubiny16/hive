@@ -38,6 +38,7 @@ Rails.application.routes.draw do
   get '/home/group_page/:group_id' => 'home#group_page'
   get '/home/search' => 'home#search'
   post '/home/join_group/:group_id' => 'home#join_group'
+  get '/home/group_leave' => 'home#group_leave'
 
   #Group_Home_Functions
   get '/home/announcement' => 'home#announcement'
@@ -62,7 +63,6 @@ Rails.application.routes.draw do
 
   post '/home/add_event' => 'home#add_event'
   get '/home/cancel_event' => 'home#cancel_event'
-
   get '/landing/landing_page' => 'landing#landing_page'
   get '/landing/index' => 'landing#index'
   #Calendar
@@ -71,5 +71,8 @@ Rails.application.routes.draw do
   #testtesttesttesttesttest
   get '/home/transaction' => 'home#transaction'
 
+  get '/home/appoint_admin' => 'home#appoint_admin'
+
+  resources :groups
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

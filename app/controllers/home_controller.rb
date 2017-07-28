@@ -84,6 +84,7 @@ class HomeController < ApplicationController
 
   def group_color
     GroupUser.where(user_id: current_user.id).where(group_id: params[:group_id]).update(:color => params[:new_color])
+    Event.where(calendar_type: 0).where(event_type: 1).where(user_id: current_user.id).update(:color => params[:new_color])
   end
 
   def profile_update
@@ -135,7 +136,18 @@ class HomeController < ApplicationController
        #jquery로 패스워드 틀렸다 말하기
      end
 
-   end
+     Event.where(user_id: params[:group_id]).where(calendar_type: 1).each do |event|
+       one_calnoti = Calnoti.new
+       one_calnoti.event_id = event.id
+       one_calnoti.group_id = event.user_id
+       one_calnoti.receiver = current_user.id
+       one_calnoti.title = event.title
+       one_calnoti.description = event.description
+       one_calnoti.start = event.start
+       one_calnoti.end = event.end
+       one_calnoti.save
+     end
+  end
 
   def create_group
 
@@ -468,7 +480,8 @@ class HomeController < ApplicationController
         old_event.destroy
       end
     end
-    @cal_notification = Calnoti.where(receiver: current_user.id).reverse
+
+    @cal_notification = Calnoti.where(receiver: current_user.id).where("start > ? AND start < ?", Time.now.beginning_of_month, Time.now.end_of_month).order(:start)
 
     if params[:mycalendar_first_time] == "no"
       User.find_by_id(current_user.id).update(:mycalendar_first_time => params[:mycalendar_first_time])
@@ -557,5 +570,15 @@ class HomeController < ApplicationController
       format.html {redirect_to :back}
       format.js
     end
+  end
+
+  def appoint_admin
+    GroupUser.where(user_id: params[:user_id]).where(group_id: $group_id).update(:admin => true)
+    redirect_to :back
+  end
+
+  def group_leave
+    GroupUser.where(user_id: current_user.id).where(group_id: $group_id).destroy_all
+    redirect_to "/home/index"
   end
 end
