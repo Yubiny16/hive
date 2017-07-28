@@ -187,35 +187,39 @@ nav#navbar-custom .btn-search i {
   color: #454b54;
 }
 .container-body {
-  background-color: $main-gray;;
+  background-color: $main-gray;
 }
 .board {
   background-color: white;
   padding-bottom: 100px;
-}
-.leftbar,
-.board {
   padding-top: 80px;
   height: 100%;
 }
 .leftbar {
-  font-size: 16px;
+  padding-top: 80px;
+  height: 100%;
+}
+.leftbar {
+  font-size: 15px;
   font-family: $main-font;
   margin: auto;
 }
 .leftbar > p {
   text-align: left;
-  color: #454b54;
+  color: black;
   margin-left: 50px;
+  padding: 5px;
+  padding-right: 20px;
 }
 .leftbar .leftbar-personal li {
-  margin-bottom: 15px;
   margin-left: 50px;
+  padding: 5px;
+  padding-right: 20px;
 }
 .leftbar .leftbar-personal li a,
 .leftbar .leftbar-groups li a,
 .leftbar > p a {
-  color: #454b54;
+  color: black;
   text-decoration: none;
 }
 .leftbar > p a i {
@@ -232,6 +236,8 @@ nav#navbar-custom .btn-search i {
   white-space: nowrap;
   text-overflow: ellipsis;
   margin-left: 50px;
+  padding: 5px;
+  padding-right: 20px;
 }
 .leftbar .leftbar-groups li a {
   position: relative;
@@ -239,12 +245,11 @@ nav#navbar-custom .btn-search i {
 }
 #main_board {
   float: left;
-  border: 1px solid #BFC9CA;
-  border-radius: 5px;
   width: 90%;
   margin-left: 30px;
   margin-top: 20px;
-  background-color: $main-gray;;
+  background-color: $main-gray;
+  box-shadow: .5px .5px #b3b3b3;
 }
 /**Filter dropdown buttons**/
 .filter-feature {
@@ -317,27 +322,22 @@ nav#navbar-custom .btn-search i {
 #group_profile {
   font-family: "Source Sans Pro Regular";
   position: relative;
-  width: 85%;
+  width: 75%;
   display: block;
   min-height: 100px;
-  background-color: #993333;
-  margin: auto;
+  background-color: #afb8cf;
   color: white;
-  padding: 30px;
-  border-radius: 5px;
-  margin-left: 60px;
+  padding: 80px;
 }
 #group_profile img{
   position: relative;
-  left: -10px;
-  bottom: 10px;
+  left: -40px;
+  top: 10px;
 }
 #group_profile .group_profile_heading {
   display: inline-block;
   position: absolute;
-  margin-left: 20px;
-  margin-top: 30px;
-  top: 0;
+  top: 100px;
 }
 #group_profile .group_profile_heading h3 {
   display: inline-block;
@@ -348,28 +348,35 @@ nav#navbar-custom .btn-search i {
   margin: 0;
   margin-left: 15px;
 }
+#group_profile .group_profile_heading a{
+  display: inline-block;
+  position: relative;
+  margin-left: 15px;
+  color: white;
+}
 #group_profile > p {
   padding-left: 120px;
   padding-right: 20px;
   margin-top: -50px;
   word-wrap: break-word;
   position: relative;
-  bottom: 10px;
+  right: 20px;
+  top: 10px;
 }
 #group_profile > a {
   position: absolute;
-  left: 900px;
-  top: 6px;
+  left: 800px;
+  top: 106px;
   font-size: 20px;
   color: white;
 }
-#group_profile a:last-child {
+#group_profile #group_leave {
   position: absolute;
-  left: 840px;
-  top: 100px;
+  left: 750px;
+  top: 200px;
   font-size: 14px;
   color: white;
-  background-color: #732626;
+  background-color: #808eb3;
   width: 90px;
   text-align: center;
   padding: 5px;
@@ -388,7 +395,7 @@ ul#feature-tabs {
   display: flex;
   font-size: 18px;
   position: relative;
-  left: 70px;
+  left: 150px;
 }
 ul#feature-tabs li {
   margin: 0;
@@ -408,7 +415,7 @@ ul#feature-tabs > li.active > a {
   color: black;
 }
 .group-page-tab-content {
-  margin-left: 100px;
+  margin-left: 15px;
   width: 700px;
 }
 #add_ann_btn,
@@ -424,11 +431,10 @@ ul#feature-tabs > li.active > a {
 #announcements_board,
 #poll_board {
   float: left;
-  border: 1px solid #BFC9CA;
-  border-radius: 5px;
-  width: 90%;
+  width: 120%;
   margin-top: 20px;
-  background-color: $main-gray;;
+  background-color: $main-gray;
+  box-shadow: .5px .5px #b3b3b3;
 }
 #announcements_board ul,
 #poll_board ul,

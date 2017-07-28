@@ -83,7 +83,7 @@
     <!-- Left Bar -->
     <div class="col-md-2 leftbar">
       <ul class="leftbar-personal">
-        <li><a href="/home/index"><i class="fa fa-server" aria-hidden="true"></i>Board</a></li>
+        <li style="background-color: #DA413D;"><a href="/home/index" style="color: white"><i class="fa fa-server" aria-hidden="true"></i>Board</a></li>
         <li><a href="/home/my_calendar"><i class="fa fa-calendar" aria-hidden="true"></i>My Schedule</a></li>
       </ul>
       <hr>
@@ -221,7 +221,7 @@
                     <script>
                     $(function() {
                       $('.announcement_<%= all_notification.announcement_id %>').click(function(){
-                        var ann_notification_id = <%= all_notification.announcement_id %>;
+                        var ann_notification_id = <%= all_notification.id %>;
 
                         $.ajax({
                           method: "GET",

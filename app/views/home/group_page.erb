@@ -84,7 +84,11 @@
       <ul class="leftbar-groups">
         <% unless @user_groups == nil %>
           <% @user_groups.where.not(group_id: 1).each do |user_groups| %>
-            <li><div class="circle_<%= user_groups.color %>"></div><a href="/home/group_page/<%= user_groups.group_id %>"><%= Group.find(user_groups.group_id).name %></a></li>
+            <% if user_groups.group_id == @group.id %>
+              <li style="background-color: #DA413D;"><a style="color: white;" href="/home/group_page/<%= user_groups.group_id %>"><%= Group.find(user_groups.group_id).name %></a></li>
+            <% else %>
+              <li><div class="circle_<%= user_groups.color %>"></div><a href="/home/group_page/<%= user_groups.group_id %>"><%= Group.find(user_groups.group_id).name %></a></li>
+            <% end %>
           <% end %>
         <% end %>
       </ul>
@@ -93,7 +97,7 @@
     </div><!-- leftbar End-->
 
     <!-- Body-->
-    <div class="col-md-10 board" style="padding-top: 60px">
+    <div class="col-md-10 board" style="padding-top: 0px; padding-left: 0px; padding-right: 0px;">
       <div id="group_profile">
         <% if @group.image_url=="" %>
           <img src="http://www.sessionlogs.com/media/icons/defaultIcon.png" alt="profile img" title="default profile image" style="border-radius: 50%;" width="100">
@@ -207,7 +211,7 @@
         </div><!--Announcement tab-->
 
         <!-- Calendar -->
-        <div class="tab-pane" id="Calendar">
+        <div class="tab-pane" id="Calendar" style="width: 840px">
           <div id="group_calendar" class="calendar">
             <input name= "group_id" type="hidden" value= "<%= @group.id %>">
             <div id="admin" data-admin="<%= @admin_user.admin %>"></div>
