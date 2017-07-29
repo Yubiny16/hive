@@ -109,15 +109,17 @@
 
     <!-- Main/Board -->
     <div class="col-md-10 board">
-
+      <div class="filter-group-label">
+        FILTER BY GROUP
+      </div>
       <div class="filter-dropdown filter-group">
         <button class ="filter-dropdown-btn-group">All</button>
-        <div class="filter-dropdown-content">
+        <div class="filter-dropdown-content filter-drop-down-content-group">
           <p id="filter-group-all">
             All
           </p>
           <% unless @current_group_user == nil %>
-            <% @current_group_user.each do |group_user| %>
+            <% @current_group_user.where.not(group_id: 1).each do |group_user| %>
               <p id="filter-group-<%= group_user.group_id %>">
                 <span class="circle_<%= group_user.color %>"></span>
               </p>
@@ -179,6 +181,7 @@
 
                     $('.filter-dropdown-btn-group').css("background-color", change_color);
                     $('.filter-dropdown-btn-group').css("color", change_color);
+                    $('.filter-dropdown-btn-group').css("border-color", change_color);
 
                  });
                  } );
@@ -188,9 +191,12 @@
         </div>
       </div>
 
+      <div class="filter-feature-label">
+        FILTER BY TYPE
+      </div>
       <div class="filter-dropdown filter-feature">
         <button class ="filter-dropdown-btn-feature">All</button>
-        <div class="filter-dropdown-content">
+        <div class="filter-dropdown-content filter-drop-down-content-feature">
           <p id="filter-all">All</p>
           <p id="filter-announcement">Announcement</p>
           <p id="filter-poll">Poll</p>
@@ -522,8 +528,9 @@ $( function() {
       $(".poll_feed").fadeIn();
     }
 
-    $('.filter-dropdown-btn-group').css('background-color', "#DA413D");
-    $('.filter-dropdown-btn-group').css('color', "white");
+    $('.filter-dropdown-btn-group').css('background-color', "white");
+    $('.filter-dropdown-btn-group').css('border-color', "#DA413D");
+    $('.filter-dropdown-btn-group').css('color', "#DA413D");
 
  });
  } );

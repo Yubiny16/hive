@@ -53,7 +53,7 @@ class HomeController < ApplicationController
 
     @current_group_user = GroupUser.where(user_id: @user.id)
 
-    now = Date.today
+    now = (Date.today + 1)
     weekago = (now - 7)
 
     @ann_notification = Annnoti.where(receiver: @user.id).where(:created_at => weekago.beginning_of_day..now.end_of_day)
@@ -475,13 +475,18 @@ class HomeController < ApplicationController
 
     @current_group_user = GroupUser.where(user_id: current_user.id)
 
+    now = (Date.today + 1)
+
     Calnoti.where(receiver: current_user.id).each do |old_event|
-      if Date.strptime(old_event.end.to_s, '%Y-%m-%d') < Date.strptime(Date.today.to_s, '%Y-%m-%d')
-        old_event.destroy
+      if Date.strptime(old_event.end.to_s, '%Y-%m-%d') < Date.strptime(now.to_s, '%Y-%m-%d')
+        unless old_event.event_id == 1
+          old_event.destroy
+        end
+
       end
     end
 
-    @cal_notification = Calnoti.where(receiver: current_user.id).where("start > ? AND start < ?", Time.now.beginning_of_month, Time.now.end_of_month).order(:start)
+    @cal_notification = Calnoti.where(receiver: current_user.id).order(:start)
 
     if params[:mycalendar_first_time] == "no"
       User.find_by_id(current_user.id).update(:mycalendar_first_time => params[:mycalendar_first_time])

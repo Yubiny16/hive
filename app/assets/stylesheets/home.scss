@@ -255,38 +255,67 @@ nav#navbar-custom .btn-search i {
 .filter-feature {
   position: relative;
   display: inline-block;
-  left: 30px;
+  left: 150px;
   top: 5px;
 }
 .filter-group {
   position: relative;
   display: inline-block;
-  left: 27px;
+  left: 140px;
   top: 5px;
 }
+.filter-group-label {
+  position: absolute;
+  top: 94px;
+  left: 55px;
+  color: #6a646b;
+  font-size: 13px;
+  font-family: "Source Sans Pro Regular";
+}
+.filter-feature-label {
+  position: absolute;
+  top: 94px;
+  left: 220px;
+  color: #6a646b;
+  font-size: 13px;
+  font-family: "Source Sans Pro Regular";
+}
 .filter-dropdown-btn-group {
-  background-color: #DA413D;
-  border: none;
-  color: white;
+  background-color: white;
+  border-style: solid;
+  border-radius: 100px;
+  border-color: #DA413D;
+  color: #DA413D;
   padding: 5px 10px;
   font-size: 16px;
   width: 40px;
+  position: relative;
+  left: 5px;
 }
 .filter-dropdown-btn-feature {
-  background-color: #DA413D;
-  border: none;
-  color: white;
+  background-color: white;
+  border-color: #DA413D;
+  border-radius: 100px;
+  border-style: solid;
+  color: #DA413D;
   padding: 5px 20px;
   font-size: 16px;
   width: 195px;
+  position: relative;
+  left: 105px;
 }
 .filter-dropdown-content {
   display: none;
   position: absolute;
   background-color: white;
-  min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
+}
+.filter-drop-down-content-group {
+
+}
+.filter-drop-down-content-feature {
+  left: 115px;
 }
 /* Links inside the dropdown */
 .filter-dropdown-content p {
@@ -309,7 +338,7 @@ nav#navbar-custom .btn-search i {
 /* Change the background color of the dropdown button when the dropdown content is shown */
 .filter-dropdown:hover .filter-dropdown-btn-feature,
 .filter-dropdown:hover .filter-dropdown-btn-group {
-    background-color: #c12a25;
+
 }
 
 .fa-times {
@@ -1068,17 +1097,21 @@ ul#feature-tabs > li.active > a {
   top: 83px;
 }
 .calendar-filter-group button {
-  background-color: #DA413D;
-  border: none;
-  color: white;
   padding: 5px 10px;
   font-size: 16px;
   width: 40px;
+  background-color: white;
+  border-color: #DA413D;
+  border-radius: 100px;
+  border-style: solid;
+  color: #DA413D;
 }
 .calendar-filter-rsvp button {
-  background-color: #DA413D;
-  border: none;
-  color: white;
+  background-color: white;
+  border-color: #DA413D;
+  border-radius: 100px;
+  border-style: solid;
+  color: #DA413D;
   padding: 5px 20px;
   font-size: 16px;
   width: 205px;
