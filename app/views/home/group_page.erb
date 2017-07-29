@@ -112,17 +112,17 @@
         <p><%= @group.description %></p>
         <a href="/home/group_profile/<%= @group.id %>" id="group_setting"><i class="fa fa-cog" aria-hidden="true"></i></a>
         <a href="/home/group_leave" id="group_leave"data-confirm="Are you sure you want to leave <%= @group.name %>?">Leave Group</a>
-      </div>
 
       <ul class ="nav nav-pills" id="feature-tabs">
-        <li class="active" ><a href="#Announcement" data-toggle="tab">Announcement</a></li>
-        <li><a href="#Calendar" data-toggle="tab">Calendar</a></li>
-        <li><a href="#Poll" data-toggle="tab">Poll</a></li>
-        <li><a href="#Files" data-toggle="tab">Files</a></li>
-        <li><a href="#Budget" data-toggle="tab">Budget</a></li>
-        <li><a href="#Members" data-toggle="tab">Member</a></li>
+        <li class="active" ><a href="#Announcement" data-toggle="tab"><i class="fa fa-bullhorn" aria-hidden="true" style="margin-right: 5px"></i>Announcement</a></li>
+        <li><a href="#Calendar" data-toggle="tab"><i class="fa fa-calendar" aria-hidden="true" style="margin-right: 5px"></i>Calendar</a></li>
+        <li><a href="#Poll" data-toggle="tab"><i class="fa fa-bar-chart" aria-hidden="true" style="margin-right: 5px"></i>Poll</a></li>
+        <li><a href="#Files" data-toggle="tab"><i class="fa fa-file-o" aria-hidden="true" style="margin-right: 5px"></i>Files</a></li>
+        <li><a href="#Budget" data-toggle="tab"><i class="fa fa-usd" aria-hidden="true" style="margin-right: 5px"></i>Budget</a></li>
+        <li><a href="#Members" data-toggle="tab"><i class="fa fa-users" aria-hidden="true" style="margin-right: 5px"></i>Member</a></li>
       </ul>
-<hr />
+    </div>
+
       <div class="tab-content group-page-tab-content">
         <!-- Announcements -->
         <div class="tab-pane active" id="Announcement">
@@ -212,7 +212,7 @@
         </div><!--Announcement tab-->
 
         <!-- Calendar -->
-        <div class="tab-pane" id="Calendar" style="width: 840px">
+        <div class="tab-pane" id="Calendar" style="width: 690px;">
           <div id="group_calendar" class="calendar">
             <input name= "group_id" type="hidden" value= "<%= @group.id %>">
             <div id="admin" data-admin="<%= @admin_user.admin %>"></div>
@@ -221,7 +221,7 @@
         </div>
 
         <!-- Files -->
-        <div class="tab-pane" id="Files">
+        <div class="tab-pane" id="Files" style="width: 760px;">
           <form action="/home/file_upload" method="post" enctype="multipart/form-data">
             <input name="group_id" type="hidden" value="<%= @group.id %>">
             <input name="file_name" id="file_name" type="hidden" value="">
@@ -229,7 +229,7 @@
             <input type="file" id="group_file" name="file" multiple>
             <button type="submit" class="btn">Upload</button>
           </form>
-          <table class="table table-hover" style="margin-left: 30px; width: 90%;">
+          <table class="table table-hover" style="width: 90%;">
             <thead>
               <tr>
                 <th>Name</th>
@@ -451,7 +451,7 @@
         </div><!-- poll tab -->
 
         <!-- Budget Tracker -->
-        <div class="tab-pane" id="Budget">
+        <div class="tab-pane" id="Budget" style="width: 685px">
           <!-- Add transaction (visible only to admin) -->
           <% if @admin_user.admin == true %>
             <div id="budget_item_input">
