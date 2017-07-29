@@ -40,6 +40,9 @@ Rails.application.routes.draw do
   post '/home/join_group/:group_id' => 'home#join_group'
   get '/home/group_leave' => 'home#group_leave'
 
+  #announcements
+  get '/announcements/new' => 'announcements#new'
+
   #Group_Home_Functions
   get '/home/announcement' => 'home#announcement'
   get '/home/announcement_all' => 'home#announcement_all'

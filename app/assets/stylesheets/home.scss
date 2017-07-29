@@ -392,17 +392,17 @@ nav#navbar-custom .btn-search i {
   right: 20px;
   top: 10px;
 }
-#group_profile > a {
+#group_profile #group_setting {
   position: absolute;
-  left: 800px;
-  top: 106px;
+  right: 10px;
+  top: 50px;
   font-size: 20px;
   color: white;
 }
 #group_profile #group_leave {
   position: absolute;
-  left: 750px;
-  top: 200px;
+  right: 10px;
+  bottom: 10px;
   font-size: 14px;
   color: white;
   background-color: #808eb3;

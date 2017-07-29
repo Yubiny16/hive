@@ -110,7 +110,7 @@
           <a href="<%= @group.website_address %>"><%= @group.website_address %></a>
         </div>
         <p><%= @group.description %></p>
-        <a href="/home/group_profile/<%= @group.id %>"><i class="fa fa-cog" aria-hidden="true"></i></a>
+        <a href="/home/group_profile/<%= @group.id %>" id="group_setting"><i class="fa fa-cog" aria-hidden="true"></i></a>
         <a href="/home/group_leave" id="group_leave"data-confirm="Are you sure you want to leave <%= @group.name %>?">Leave Group</a>
       </div>
 
@@ -128,10 +128,11 @@
         <div class="tab-pane active" id="Announcement">
           <!-- Make an announcement (visible only to admin) -->
             <% if @admin_user.admin == true %>
-            <button data-toggle="modal" data-target="#post_announcement" class="btn" id="add_ann_btn"><i class="fa fa-plus" aria-hidden="true"></i>New</button>
+            <%= link_to "New", new_announcement_path, id: "new_announcement", remote: true %>
+            <!-- <button data-toggle="modal" data-target="#post_announcement" class="btn" id="add_ann_btn"><i class="fa fa-plus" aria-hidden="true"></i>New</button> -->
 
             <!-- New Announcement Modal -->
-            <div class="modal fade" id="post_announcement" tableindex="-1" role="dialog">
+            <!-- <div class="modal fade" id="post_announcement" tableindex="-1" role="dialog">
               <div class="modal-dialog" role="document">
                 <div class="modal-content" id="ann_popup_new">
 
@@ -161,7 +162,7 @@
 
                 </div>
               </div>
-            </div>
+            </div> -->
             <% end %>
             <br>
             <% unless @announcements.first == nil %>
