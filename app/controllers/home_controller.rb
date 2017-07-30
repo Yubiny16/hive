@@ -251,6 +251,7 @@ class HomeController < ApplicationController
   end
   #testtesttesttesttesttest
   def transaction
+    @transaction_type = params[:transaction_type]
     if params[:transaction_type] == "plus"
       #Find the value of previous budget balance
       @old_budget = Budget.find(params[:group_id]).group_budget
@@ -284,7 +285,10 @@ class HomeController < ApplicationController
       one_transaction.save
 
     end
-    redirect_to :back
+    respond_to do |format|
+      format.html { redirect_to :back }
+      format.js
+    end
   end
 
   def money_plus

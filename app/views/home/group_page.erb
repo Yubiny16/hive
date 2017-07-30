@@ -128,41 +128,7 @@
         <div class="tab-pane active" id="Announcement">
           <!-- Make an announcement (visible only to admin) -->
             <% if @admin_user.admin == true %>
-            <%= link_to "New", new_announcement_path, id: "new_announcement_link", remote: true %>
-            <!-- <button data-toggle="modal" data-target="#post_announcement" class="btn" id="add_ann_btn"><i class="fa fa-plus" aria-hidden="true"></i>New</button> -->
-
-            <!-- New Announcement Modal -->
-            <!-- <div class="modal fade" id="post_announcement" tableindex="-1" role="dialog">
-              <div class="modal-dialog" role="document">
-                <div class="modal-content" id="ann_popup_new">
-
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                    <h4 class="modal-title">Post New Announcement</h4>
-                  </div>
-
-                  <div class="modal-body">
-                    <form action="/home/announcement" method="get">
-                      <label>Title</label>
-                      <input name="announcement_title" type="text" class="form-control"/>
-                      <label>Content</label>
-                      <input id="announcement_content" type="hidden" name="announcement_content"/>
-                      <trix-editor input="announcement_content"></trix-editor>
-                      <label>Email</label>
-                      <input name="announcement_email" type="email" value="<%= @group.email %>" class="form-control"/>
-                      <input name="group_id" type="hidden" value="<%= @group.id %>">
-                      <div class="popup-buttons">
-                        <button name="post" value= "no_email" type="submit" class="btn">Post</button>
-                        <button name="post" value= "send_email" type="submit" class="btn">Post and Send Email</button>
-                      </div>
-                    </form>
-                  </div>
-
-                </div>
-              </div>
-            </div> -->
+              <%= link_to "New", new_announcement_path, id: "new_announcement_link", remote: true %>
             <% end %>
             <br>
             <div id="announcements_board">
@@ -452,24 +418,21 @@
         <div class="tab-pane" id="Budget" style="width: 685px">
           <!-- Add transaction (visible only to admin) -->
           <% if @admin_user.admin == true %>
-            <div id="budget_item_input">
+            <!-- <div id="budget_item_input">
               <input id="description" type="text" class="form-control" placeholder="Description">
               <input id="money" type="number" class="form-control" placeholder="$00.00">
               <button value="<%= @group.id %>" type="submit" class="btn money_plus_button"><i class="fa fa-plus" aria-hidden="true"></i></button>
               <button value="<%= @group.id %>" type="submit" class="btn money_minus_button"><i class="fa fa-minus" aria-hidden="true"></i></button>
-            </div>
+            </div> -->
+            <hr />
+            <form method="get" action="/home/transaction" data-remote="true">
+              <input name="description" type="text" class="form-control" placeholder="Description">
+              <input name="money" type="number" class="form-control" placeholder="$00.00">
+              <input name="group_id" type="hidden" value="<%= @group.id %>">
+              <button name="transaction_type" value="plus" type="submit" class="btn money_plus_button"><i class="fa fa-plus" aria-hidden="true"></i></button>
+              <button name="transaction_type" value="minus" type="submit" class="btn money_plus_button"><i class="fa fa-minus" aria-hidden="true"></i></button>
+            </form>
           <% end %>
-
-          <!-- testtesttesttesttesttest -->
-          <hr />
-          <form method="get" action="/home/transaction">
-            <input name="description" type="text" class="form-control" placeholder="Description">
-            <input name="money" type="number" class="form-control" placeholder="$00.00">
-            <input name="group_id" type="hidden" value="<%= @group.id %>">
-            <button name="transaction_type" value="plus" type="submit" class="btn money_plus_button"><i class="fa fa-plus" aria-hidden="true"></i></button>
-            <button name="transaction_type" value="minus" type="submit" class="btn money_plus_button"><i class="fa fa-minus" aria-hidden="true"></i></button>
-          </form>
-          <!-- testtesttesttesttesttest -->
 
           <!-- Add div to let the ajax script know where to append new input field. -->
           <div id="transactions">
@@ -613,21 +576,6 @@ var initialize_calendar;
     });
   };
 $(document).on('turbolinks:load', initialize_calendar);
-
-
-
-
-  //announcement accordion
-  // $( function() {
-  //    $( ".announcement_accordion" ).accordion();
-  //  } );
-  //
-  // //poll accordion
-  // $( function() {
-  //   $( ".poll_accordion" ).accordion({
-  //     heightStyle: "content"
-  //   });
-  //  } );
 
    var today = new Date();
    var dd = today.getDate();

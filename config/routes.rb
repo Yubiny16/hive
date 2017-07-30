@@ -44,7 +44,6 @@ Rails.application.routes.draw do
   get '/announcements/new' => 'announcements#new'
 
   #Group_Home_Functions
-  get '/home/announcement' => 'home#announcement'
   get '/home/announcement_all' => 'home#announcement_all'
   get '/home/event_rsvp/' => 'home#event_rsvp'
   post '/home/money_plus' => 'home#money_plus'
