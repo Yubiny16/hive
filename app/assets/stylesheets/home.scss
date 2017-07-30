@@ -38,7 +38,8 @@ $group-purple: #aa80ff;
 .circle_green,
 .circle_blue,
 .circle_skyblue,
-.circle_purple {
+.circle_purple,
+.circle_white {
   width: 15px;
   height: 15px;
   border-radius: 50%;
@@ -64,6 +65,9 @@ $group-purple: #aa80ff;
 }
 .circle_purple {
   background: $group-purple;
+}
+.circle_white {
+  background: white;
 }
 .rectangle_red,
 .rectangle_orange,
@@ -97,6 +101,15 @@ $group-purple: #aa80ff;
 }
 .rectangle_purple {
   background: $group-purple;
+}
+.main-btn {
+  position: relative;
+  background-color: #DA413D;
+  color: white;
+  font-family: "Source Sans Pro Bold";
+}
+.main-btn:hover {
+  color: white;
 }
 /*******************Heading*****************/
 nav#navbar-custom {
@@ -207,18 +220,21 @@ nav#navbar-custom .btn-search i {
 .leftbar > p {
   text-align: left;
   color: black;
-  margin-left: 50px;
+  margin-left: 35px;
   padding: 5px;
+  padding-left: 15px;
   padding-right: 20px;
 }
 .leftbar .leftbar-personal li {
-  margin-left: 50px;
+  margin-left: 35px;
   padding: 5px;
+  padding-left: 15px;
   padding-right: 20px;
 }
 .leftbar .leftbar-personal li a,
 .leftbar .leftbar-groups li a,
 .leftbar > p a {
+  text-align: center;
   color: black;
   text-decoration: none;
 }
@@ -235,11 +251,13 @@ nav#navbar-custom .btn-search i {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  margin-left: 50px;
+  margin-left: 35px;
   padding: 5px;
+  padding-left: 15px;
   padding-right: 20px;
 }
 .leftbar .leftbar-groups li a {
+  text-align: center;
   position: relative;
   bottom: 2px;
 }
@@ -450,14 +468,13 @@ ul#feature-tabs > li.active > a {
   margin-top: 30px;
   margin-left: 90px;
   width: 570px;
+  float: left;
 }
-#add_ann_btn,
 #add_poll_btn {
   background-color: #DA413D;
   color: white;
   font-family: "Source Sans Pro Bold";
 }
-#add_ann_btn i,
 #add_poll_btn i {
   margin-right: 7px;
 }
@@ -866,6 +883,22 @@ ul#feature-tabs > li.active > a {
 }
 #Files form button {
   display: block;
+}
+.group-page-right-side {
+  position: relative;
+  right: 85px;
+  top: 80px;
+  float: right;
+  width: 200px;
+}
+.group-page-right-side label {
+  font-family: "Source Sans Pro Bold";
+  color: #4c4950;
+}
+.group-page-right-side .member-profile-pic {
+  display: inline-block;
+  margin-right: 22px;
+  margin-bottom: -10px;
 }
 /*member's page pop-up design*/
 .member-profile-popup {

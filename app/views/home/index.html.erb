@@ -221,7 +221,7 @@
                         <p class="announcement_list_date">
                           <%= all_notification.created_at.in_time_zone($timezone) %>
                         </p>
-                        <div><%= all_notification.content %></div>
+                        <div><%= all_notification.content.html_safe %></div>
                       </a>
                     </li>
 
@@ -254,7 +254,7 @@
                         <p class="announcement_list_date ">
                           <%= all_notification.created_at.in_time_zone($timezone) %>
                         </p>
-                        <div><%= all_notification.content %></div>
+                        <div><%= all_notification.content.html_safe %></div>
                       </a>
                     </li>
                   <% end %>

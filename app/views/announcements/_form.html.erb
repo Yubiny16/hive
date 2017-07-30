@@ -2,7 +2,7 @@
   <%= a.label :title %>
   <%= a.text_field :title, class: "form-control" %>
   <%= a.label :content %>
-  <%= a.text_area :content, class: "form-control" %>
+  <%= a.trix_editor :content %>
   <%= a.hidden_field :group_id, :value => $group_id %>
   <%= a.submit "Post" %>
 <% end %>

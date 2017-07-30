@@ -229,26 +229,21 @@ class HomeController < ApplicationController
     redirect_to "/home/group_page/#{group_id}"
   end
 
-  def announcement_all
-    @group = Group.find(params[:group_id])
-    @announcement_all = Announcement.where(group_id: @group.id)
-  end
+  #def send_email
+  #  mg_client = Mailgun::Client.new("your-api-key")
 
-  def send_email
-    mg_client = Mailgun::Client.new("your-api-key")
+  #  message_params =  {
+  #                     from: 'bob@example.com',
+  #                     to:   'sally@example.com',
+  #                     subject: 'The Ruby SDK is awesome!',
+  #                     text:    'It is really easy to send a message!'
+  #                    }
 
-    message_params =  {
-                       from: 'bob@example.com',
-                       to:   'sally@example.com',
-                       subject: 'The Ruby SDK is awesome!',
-                       text:    'It is really easy to send a message!'
-                      }
+  #  result = mg_client.send_message('example.com', message_params).to_h!
 
-    result = mg_client.send_message('example.com', message_params).to_h!
-
-    message_id = result['id']
-    message = result['message']
-  end
+  #  message_id = result['id']
+  #  message = result['message']
+#  end
   #testtesttesttesttesttest
   def transaction
     @transaction_type = params[:transaction_type]
