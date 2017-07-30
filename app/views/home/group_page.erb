@@ -128,7 +128,7 @@
         <div class="tab-pane active" id="Announcement">
           <!-- Make an announcement (visible only to admin) -->
             <% if @admin_user.admin == true %>
-            <%= link_to "New", new_announcement_path, id: "new_announcement", remote: true %>
+            <%= link_to "New", new_announcement_path, id: "new_announcement_link", remote: true %>
             <!-- <button data-toggle="modal" data-target="#post_announcement" class="btn" id="add_ann_btn"><i class="fa fa-plus" aria-hidden="true"></i>New</button> -->
 
             <!-- New Announcement Modal -->
@@ -165,26 +165,25 @@
             </div> -->
             <% end %>
             <br>
-            <% unless @announcements.first == nil %>
-              <div id="announcements_board">
-                <ul class="nav nav-stacked">
-                  <% @announcements.each do |announcements| %>
-                    <li>
-                      <!-- <a href="/destroy_ann/<%= announcements.id %>" class="btn destroy_ann" style="position: absolute; font-size: 10px; padding: 0;">Delete</a> -->
-                      <%= link_to '<i class="fa fa-times"></i>'.html_safe, announcements_path(announcements), method: :delete, data: {confirm: 'Would you like to delete this announcement?'}, remote: true, class: 'delete_ann' %>
-                      <a href="#ann_<%= announcements.id %>" data-toggle="tab">
-                        <p class="announcement_list_title">
-                          <%= announcements.title %>
-                        </p>
-                        <p class="announcement_list_date">
-                          <%= announcements.created_at.in_time_zone($timezone) %>
-                        </p>
-                        <%= announcements.content.html_safe %>
-                      </a>
-                    </li>
-                  <% end %>
-                </ul>
-                <div class="tab-content">
+            <div id="announcements_board">
+              <ul class="nav nav-stacked">
+                <% @announcements.each do |announcements| %>
+                  <li>
+                    <%= link_to '<i class="fa fa-times"></i>'.html_safe, announcements_path(announcements), method: :delete, data: {confirm: 'Would you like to delete this announcement?'}, remote: true, class: 'delete_ann', id: "del_ann_" + announcements.id.to_s %>
+                    <a href="#ann_<%= announcements.id %>" data-toggle="tab">
+                      <p class="announcement_list_title">
+                        <%= announcements.title %>
+                      </p>
+                      <p class="announcement_list_date">
+                        <%= announcements.created_at.in_time_zone($timezone) %>
+                      </p>
+                      <%= announcements.content.html_safe %>
+                    </a>
+                  </li>
+                <% end %>
+              </ul>
+              <div class="tab-content">
+                <% unless @announcements.first == nil %>
                   <% @announcements.each do |announcements| %>
                     <div class="tab-pane" id="ann_<%= announcements.id %>">
                       <h4><%= announcements.title %></h4>
@@ -193,16 +192,15 @@
                       <div class="announcement_tab_content_content"><%= sanitize(announcements.content) %></div>
                     </div>
                   <% end %>
-                </div>
+                <% else %>
+                  <div class="tab-pane">
+                    <h4>Welcome!</h4>
+                    <p>From: Team Sync</p>
+                    <div class="announcement_tab_content_content">No announcement written yet! Write your first announcement by clicking "new"</div>
+                  </div>
+                <% end %>
               </div>
-
-            <% else %>
-              <div class="group_page_no_announcement">
-                <p>
-                  There is no announcement in this group
-                </p>
-              </div>
-            <% end %>
+            </div>
             <script>
               $(function(){
                 $('#announcements_board ul li:first-child').addClass("active");

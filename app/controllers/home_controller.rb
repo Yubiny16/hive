@@ -229,55 +229,6 @@ class HomeController < ApplicationController
     redirect_to "/home/group_page/#{group_id}"
   end
 
-  def announcement
-    one_announcement = Announcement.new
-    one_announcement.group_id = params[:group_id]
-    one_announcement.title = params[:announcement_title]
-    one_announcement.content = params[:announcement_content]
-    one_announcement.email = params[:announcement_email]
-    one_announcement.save
-
-    #notify
-    GroupUser.where(group_id: params[:group_id]).find_each do |one_member|
-
-      #who when what
-      one_announcement_notification = Annnoti.new
-      one_announcement_notification.notification_type = 1 #announcement
-      one_announcement_notification.announcement_id = one_announcement.id
-      one_announcement_notification.group_id = params[:group_id]
-      one_announcement_notification.sender = current_user.id
-      one_announcement_notification.receiver = one_member.user_id
-      one_announcement_notification.title = params[:announcement_title]
-      one_announcement_notification.content = params[:announcement_content]
-      one_announcement_notification.save
-
-    end
-
-    #if params[:post] == 'send_email'
-
-    #  @from = Group.find(params[:group_id]).name + params[:group_id] + '@hive.net'
-    #  @group_email = params[:group_email]
-    #  @title = params[:title]
-    #  @content = params[:content]
-
-    #  mg_client = Mailgun::Client.new("key-01cab085b877b33e7e23683b611974b2")
-
-    #  message_params =  {
-    #                     from: 'master@likelion.net',
-    #                     to:   'yubiny16@gmail.com',
-    #                     subject: '@title',
-    #                     text:    '@content'
-    #                    }
-
-    #  result = mg_client.send_message("sandbox3d5ecb84ef964c55a076e27ff9d3c2f5.mailgun.org", message_params).to_h!
-
-    #  message_id = result['id']
-    #  message = result['message']
-    #end
-
-    redirect_to :back
-  end
-
   def announcement_all
     @group = Group.find(params[:group_id])
     @announcement_all = Announcement.where(group_id: @group.id)
@@ -560,8 +511,10 @@ class HomeController < ApplicationController
   end
 
   def destroy_announcement
+    @ann_id = params[:ann_id]
     @ann = Announcement.find_by_id(params[:ann_id])
     @ann.destroy
+    Annnoti.where(announcement_id: params[:ann_id]).destroy_all
     respond_to do |format|
       format.html {redirect_to :back}
       format.js

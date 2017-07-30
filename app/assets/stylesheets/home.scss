@@ -571,11 +571,10 @@ ul#feature-tabs > li.active > a {
   border: 1px solid #BFC9CA;
   margin: 5px;
 }
-#main_board ul li div:first-child i {
+#main_board ul li i {
   position: absolute;
   color: #716e77;
-  left: 230px;
-  bottom: 1px;
+  right: 80px;
 }
 #announcements_board ul li.active,
 #poll_board ul li.active,

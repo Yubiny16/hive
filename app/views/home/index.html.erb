@@ -212,7 +212,8 @@
                   <% if all_notification.read == false %>
                     <li class="feed announcement_feed announcement_<%= all_notification.announcement_id %> group_<%= all_notification.group_id %>">
                       <a href="#ann_<%= all_notification.announcement_id %>" data-toggle="tab">
-                        <div class="rectangle_<%= @current_group_user.find_by(group_id: all_notification.group_id).color %>"><i class="fa fa-bullhorn" aria-hidden="true"></i></div>
+                        <div class="rectangle_<%= @current_group_user.find_by(group_id: all_notification.group_id).color %>"></div>
+                        <i class="fa fa-bullhorn" aria-hidden="true"></i>
                         <div class="unread-notification announcement_unread-notification_<%= all_notification.announcement_id %>"></div>
                         <p class="announcement_list_title">
                           <%= all_notification.title %>
@@ -220,7 +221,7 @@
                         <p class="announcement_list_date">
                           <%= all_notification.created_at.in_time_zone($timezone) %>
                         </p>
-                        <%= all_notification.content.html_safe %>
+                        <div><%= all_notification.content %></div>
                       </a>
                     </li>
 
@@ -245,14 +246,15 @@
                   <% else %><!-- read -->
                     <li class="feed announcement_feed announcement_<%= all_notification.announcement_id %> group_<%= all_notification.group_id %>">
                       <a href="#ann_<%= all_notification.announcement_id %>" data-toggle="tab">
-                        <div class="rectangle_<%= @current_group_user.find_by(group_id: all_notification.group_id).color %>"><i class="fa fa-bullhorn" aria-hidden="true"></i></div>
+                        <div class="rectangle_<%= @current_group_user.find_by(group_id: all_notification.group_id).color %>"></div>
+                        <i class="fa fa-bullhorn" aria-hidden="true"></i>
                         <p class="announcement_list_title">
                           <%= all_notification.title %>
                         </p>
                         <p class="announcement_list_date ">
                           <%= all_notification.created_at.in_time_zone($timezone) %>
                         </p>
-                        <%= all_notification.content.html_safe %>
+                        <div><%= all_notification.content %></div>
                       </a>
                     </li>
                   <% end %>

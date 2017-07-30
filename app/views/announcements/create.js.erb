@@ -1,0 +1,10 @@
+$('#new_announcement').remove(); //remove form
+$('#new_announcement_link').show();
+$('#announcements_board ul li').removeClass('active');
+$('#announcements_board ul').prepend('<%= j render(@announcement) %>');
+$('#announcements_board .tab-content .tab-pane').removeClass('active');
+$('#announcements_board .tab-content').prepend('<%= j render("board") %>');
+
+$("#ann_list_date_<%= @announcement.id %>").each(function(){
+  this.textContent = moment(this.textContent).startOf('minute').fromNow();
+});

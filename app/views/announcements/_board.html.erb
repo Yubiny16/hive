@@ -1,0 +1,6 @@
+<div class="tab-pane active" id="ann_<%= @announcement.id %>">
+  <h4><%= @announcement.title %></h4>
+  <p>From: <%= User.find(Annnoti.find_by(announcement_id: @announcement.id).sender).first_name %> <%= User.find(Annnoti.find_by(announcement_id: @announcement.id).sender).last_name %></p>
+  <span class="announcement_tab_content_date"><%= @announcement.created_at.in_time_zone($timezone).strftime("%B %e, %Y at %l:%M %p") %></span>
+  <div class="announcement_tab_content_content"><%= sanitize(@announcement.content) %></div>
+</div>

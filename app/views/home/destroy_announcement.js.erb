@@ -1,3 +1,9 @@
-$('.delete_ann').bind('ajax:success', function() {
-  $(this).closest('li').fadeOut();
+$('#del_ann_<%= @ann_id %>').bind('ajax:success', function() {
+  var al = $(this).closest('li').attr('class');
+  if (al == "active") {
+    $(this).closest('li').next('li').addClass('active');
+    $('#announcements_board div.tab-content').find('.active').next().addClass('active');
+  }
+  $('#announcements_board div.tab-content').find('.active').first().remove();
+  $(this).closest('li').remove();
 });

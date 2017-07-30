@@ -1,0 +1,12 @@
+<li class="active">
+  <%= link_to '<i class="fa fa-times"></i>'.html_safe, announcements_path(@announcement), method: :delete, data: {confirm: 'Would you like to delete this announcement?'}, remote: true, class: 'delete_ann', id: "del_ann_" + @announcement.id.to_s %>
+  <a href="#ann_<%= @announcement.id %>" data-toggle="tab">
+    <p class="announcement_list_title">
+      <%= @announcement.title %>
+    </p>
+    <p class="announcement_list_date" id="ann_list_date_<%= @announcement.id %>">
+      <%= @announcement.created_at.in_time_zone($timezone) %>
+    </p>
+    <%= announcement.content.html_safe %>
+  </a>
+</li>
