@@ -1,9 +1,14 @@
-$(document).ready(function () {
-  $('.delete_trans').bind('ajax:success', function() {
-    money = $(this).prev().html();
-    $(this).closest('tr').fadeOut();
-    var old_budget = document.getElementById("total_budget").innerHTML;
+$('#del_trans_<%= @t_id %>').bind('ajax:success', function() {
+  money = $(this).prev().html();
+  var tt = $(this).closest('tr').attr('class');
+  var old_budget = document.getElementById("total_budget").innerHTML;
+  var new_budget = 0;
+  if (tt ==  "revenue") {
     var new_budget = parseInt(old_budget) - parseInt(money);
-    $("#total_budget").text(new_budget);
-  });
+  }
+  else if (tt == "expense") {
+    var new_budget = parseInt(old_budget) + parseInt(money);
+  }
+  $(this).closest('tr').fadeOut();
+  $("#total_budget").text(new_budget);
 });

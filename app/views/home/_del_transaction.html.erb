@@ -1,0 +1,1 @@
+<%= link_to '<i class="fa fa-times"></i>'.html_safe, t_path(@one_transaction), method: :delete, data: {confirm: 'Would you like to delete this Transaction?'}, remote: true, class: 'delete_trans', id: 'del_trans_' + @one_transaction.id.to_s %>

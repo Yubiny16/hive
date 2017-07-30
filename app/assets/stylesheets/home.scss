@@ -467,7 +467,7 @@ ul#feature-tabs > li.active > a {
 .group-page-tab-content {
   margin-top: 30px;
   margin-left: 90px;
-  width: 570px;
+  width: 84%;
   float: left;
 }
 #add_poll_btn {
@@ -478,13 +478,20 @@ ul#feature-tabs > li.active > a {
 #add_poll_btn i {
   margin-right: 7px;
 }
+#Announcement,
+#Poll,
+#Files,
+#Calendar,
+#Budget {
+  margin-right: 200px;
+}
 #announcements_board,
 #poll_board {
   float: left;
-  width: 120%;
-  margin-top: 20px;
+  margin-top: 34px;
   background-color: $main-gray;
   box-shadow: .5px .5px #b3b3b3;
+  width: 100%;
 }
 #announcements_board ul,
 #poll_board ul,
@@ -870,6 +877,11 @@ ul#feature-tabs > li.active > a {
   font-family: "Source Sans Pro Bold";
 }
 /*files design*/
+#file_board {
+  float: left;
+  width: 100%;
+  margin-top: 34px;
+}
 #Files form input {
   position: absolute;
   left: -99999rem; //hide this
@@ -885,11 +897,10 @@ ul#feature-tabs > li.active > a {
   display: block;
 }
 .group-page-right-side {
-  position: relative;
-  right: 85px;
-  top: 80px;
-  float: right;
-  width: 200px;
+  float: left;
+  width: 180px;
+  margin-left: 20px;
+  margin-top: 34px;
 }
 .group-page-right-side label {
   font-family: "Source Sans Pro Bold";

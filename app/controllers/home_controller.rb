@@ -257,11 +257,11 @@ class HomeController < ApplicationController
 
       Budget.update(params[:group_id], :group_budget => @new_budget)
       # Add new transaction to DB
-      one_transaction = Transaction.new
-      one_transaction.budget_id = Budget.find(params[:group_id]).id
-      one_transaction.value = params[:money]
-      one_transaction.description = params[:description]
-      one_transaction.save
+      @one_transaction = Transaction.new
+      @one_transaction.budget_id = Budget.find(params[:group_id]).id
+      @one_transaction.value = params[:money]
+      @one_transaction.description = params[:description]
+      @one_transaction.save
     elsif params[:transaction_type] == "minus"
       #Find the value of previous budget balance
       @old_budget = Budget.find(params[:group_id]).group_budget
@@ -272,12 +272,12 @@ class HomeController < ApplicationController
 
       Budget.update(params[:group_id], :group_budget => @new_budget)
       # Add new transaction to DB
-      one_transaction = Transaction.new
-      one_transaction.budget_id = Budget.find(params[:group_id]).id
-      one_transaction.value = params[:money]
-      one_transaction.description = params[:description]
-      one_transaction.pos_neg = false
-      one_transaction.save
+      @one_transaction = Transaction.new
+      @one_transaction.budget_id = Budget.find(params[:group_id]).id
+      @one_transaction.value = params[:money]
+      @one_transaction.description = params[:description]
+      @one_transaction.pos_neg = false
+      @one_transaction.save
 
     end
     respond_to do |format|
@@ -493,6 +493,7 @@ class HomeController < ApplicationController
   end
 
   def destroy_transaction
+    @t_id = params[:t_id]
     @trans = Transaction.find_by_id(params[:t_id])
     @old_budget = Budget.find_by(group_id: $group_id).group_budget
     if @trans.pos_neg == true

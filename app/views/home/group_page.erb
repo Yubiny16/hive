@@ -181,8 +181,8 @@
           </div><!--Announcement tab-->
 
           <!-- Calendar -->
-          <div class="tab-pane" id="Calendar" style="width: 690px;">
-            <div id="group_calendar" class="calendar">
+          <div class="tab-pane" id="Calendar">
+            <div id="group_calendar" class="calendar" style="float: left;">
               <input name= "group_id" type="hidden" value= "<%= @group.id %>">
               <div id="admin" data-admin="<%= @admin_user.admin %>"></div>
               <div id="event_type" data-type="<%= $type %>"></div>
@@ -190,34 +190,36 @@
           </div>
 
           <!-- Files -->
-          <div class="tab-pane" id="Files" style="width: 760px; min-height: 400px">
-            <form action="/home/file_upload" method="post" enctype="multipart/form-data">
-              <input name="group_id" type="hidden" value="<%= @group.id %>">
-              <input name="file_name" id="file_name" type="hidden" value="">
-              <label for="group_file" class="btn"><i class="fa fa-upload" aria-hidden="true"></i> Choose file</label>
-              <input type="file" id="group_file" name="file" multiple>
-              <button type="submit" class="btn">Upload</button>
-            </form>
-            <table class="table table-hover" style="width: 90%;">
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Date</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                <% unless @files == nil %>
-                  <% @files.each do |f| %>
-                    <tr>
-                      <td><a href="<%= f.file_url %>"><%= f.filename %></a></td>
-                      <td><%= f.created_at.strftime("%Y-%m-%d") %></td>
-                      <td><a href="/destroy_file/<%= f.id %>">Delete</a></td>
-                    </tr>
+          <div class="tab-pane" id="Files">
+            <div id="file_board">
+              <form action="/home/file_upload" method="post" enctype="multipart/form-data">
+                <input name="group_id" type="hidden" value="<%= @group.id %>">
+                <input name="file_name" id="file_name" type="hidden" value="">
+                <label for="group_file" class="btn"><i class="fa fa-upload" aria-hidden="true"></i> Choose file</label>
+                <input type="file" id="group_file" name="file" multiple>
+                <button type="submit" class="btn">Upload</button>
+              </form>
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Date</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% unless @files == nil %>
+                    <% @files.each do |f| %>
+                      <tr>
+                        <td><a href="<%= f.file_url %>"><%= f.filename %></a></td>
+                        <td><%= f.created_at.strftime("%Y-%m-%d") %></td>
+                        <td><a href="/destroy_file/<%= f.id %>">Delete</a></td>
+                      </tr>
+                    <% end %>
                   <% end %>
-                <% end %>
-              </tbody>
-            </table>
+                </tbody>
+              </table>
+            </div>
             <script>
               $(function(){
                 $('#group_file').change(function() {
@@ -423,19 +425,12 @@
           </div><!-- poll tab -->
 
           <!-- Budget Tracker -->
-          <div class="tab-pane" id="Budget" style="width: 685px; min-height: 400px">
+          <div class="tab-pane" id="Budget">
             <!-- Add transaction (visible only to admin) -->
             <% if @admin_user.admin == true %>
-              <!-- <div id="budget_item_input">
-                <input id="description" type="text" class="form-control" placeholder="Description">
-                <input id="money" type="number" class="form-control" placeholder="$00.00">
-                <button value="<%= @group.id %>" type="submit" class="btn money_plus_button"><i class="fa fa-plus" aria-hidden="true"></i></button>
-                <button value="<%= @group.id %>" type="submit" class="btn money_minus_button"><i class="fa fa-minus" aria-hidden="true"></i></button>
-              </div> -->
-              <hr />
               <form method="get" action="/home/transaction" data-remote="true">
-                <input name="description" type="text" class="form-control" placeholder="Description">
-                <input name="money" type="number" class="form-control" placeholder="$00.00">
+                <input id="description" name="description" type="text" class="form-control" placeholder="Description">
+                <input id="money" name="money" type="number" class="form-control" placeholder="$00.00">
                 <input name="group_id" type="hidden" value="<%= @group.id %>">
                 <button name="transaction_type" value="plus" type="submit" class="btn money_plus_button"><i class="fa fa-plus" aria-hidden="true"></i></button>
                 <button name="transaction_type" value="minus" type="submit" class="btn money_plus_button"><i class="fa fa-minus" aria-hidden="true"></i></button>
@@ -444,7 +439,7 @@
 
             <!-- Add div to let the ajax script know where to append new input field. -->
             <div id="transactions">
-              <table class="table table-hover">
+              <table class="table table-hover" style="float: left;">
                 <thead>
                   <tr>
                     <th>Date</th>
@@ -467,7 +462,7 @@
                         <td><%= t.created_at.in_time_zone($timezone).strftime("%m-%d-%Y") %></td>
                         <td><%= t.description %></td>
                         <td><span><%= t.value %></span>
-                          <%= link_to '<i class="fa fa-times"></i>'.html_safe, t_path(t), method: :delete, data: {confirm: 'Would you like to delete this Transaction?'}, remote: true, class: 'delete_trans' %>
+                          <%= link_to '<i class="fa fa-times"></i>'.html_safe, t_path(t), method: :delete, data: {confirm: 'Would you like to delete this Transaction?'}, remote: true, class: 'delete_trans', id: 'del_trans_' + t.id.to_s %>
                         </td>
                       </tr>
                     <% end %>
@@ -476,7 +471,7 @@
                         <td><%= t.created_at.in_time_zone($timezone).strftime("%m-%d-%Y") %></td>
                         <td><%= t.description %></td>
                         <td><span><%= t.value %></span>
-                          <%= link_to '<i class="fa fa-times"></i>'.html_safe, t_path(t), method: :delete, data: {confirm: 'Would you like to delete this Transaction?'}, remote: true, class: 'delete_trans' %>
+                          <%= link_to '<i class="fa fa-times"></i>'.html_safe, t_path(t), method: :delete, data: {confirm: 'Would you like to delete this Transaction?'}, remote: true, class: 'delete_trans', id: 'del_trans_' + t.id.to_s %>
                         </td>
                       </tr>
                     <% end %>
@@ -486,114 +481,110 @@
             </div>
           </div>
 
+          <div class="group-page-right-side">
+            <div class="people">
+              <label>ADMINS <span style="margin-left: 3px; color: #DA413D">(<%= @members.where(admin: true).count %>)</span></label>
+              <hr style="margin-bottom: 15px; margin-top: 0px; width: 180px"/>
+                <% @members.where(admin: true).each do |all_admins| %>
+                  <% User.where(id: all_admins.user_id).each do |admin| %>
+                    <div class="member-profile-pic" data-toggle="modal" data-target="#member_<%= admin.id %>">
+                      <% if admin.image_url=="" %>
+                        <img src="http://www.sessionlogs.com/media/icons/defaultIcon.png" alt="profile img" title="default profile image" style="border-radius: 50%; margin-bottom: 30px" width="40">
+                      <% else %>
+                        <img src="<%= admin.image_url %>" alt="profile img" style="border-radius: 50%; margin-bottom: 30px" width="10">
+                      <% end %>
+                    </div>
+
+                    <!--modal for each member-->
+                    <div class="modal fade" id="member_<%= admin.id %>" tableindex="-1" role="dialog">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content member-profile-popup">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title"><%= admin.first_name %>'s profile</h4>
+                          </div>
+                          <div class="modal-body">
+                            <div>
+                              <% if admin.image_url=="" %>
+                                <img src="http://www.sessionlogs.com/media/icons/defaultIcon.png" alt="profile img" title="default profile image" style="border-radius: 50%;" width="100">
+                              <% else %>
+                                <img src="<%= admin.image_url %>" alt="profile img" style="border-radius: 50%;" width="100">
+                              <% end %>
+                            </div>
+                            <ul class="list-group">
+                              <li class="list-group-item">Name: <%= admin.first_name %> <%= admin.last_name %></li>
+                              <li class="list-group-item">Email: <%= admin.email %></li>
+                              <li class="list-group-item">School: <%= admin.school %></li>
+                              <li class="list-group-item">Major: <%= admin.major %></li>
+                              <li class="list-group-item">Class Year: <%= admin.class_year %></li>
+                            </ul>
+                          </div>
+                        </div><!--modal content-->
+                      </div><!--modal-dialog-->
+                    </div><!--modal fade-->
+
+                  <% end %>
+                <% end %>
+                <br />
+
+              <label>MEMBERS<span style="margin-left: 3px; color: #DA413D">(<%= @members.where(admin: false).count %>)</span></label>
+              <hr style="margin-bottom: 15px; margin-top: 0px; width: 180px"/>
+                <% @members.where(admin: false).each do |all_members| %>
+                  <% User.where(id: all_members.user_id).each do |member| %>
+                    <div class="member-profile-pic" data-toggle="modal" data-target="#member_<%= member.id %>">
+                      <% if member.image_url=="" %>
+                        <img src="http://www.sessionlogs.com/media/icons/defaultIcon.png" alt="profile img" title="default profile image" style="border-radius: 50%; margin-bottom: 30px" width="40">
+                      <% else %>
+                        <img src="<%= member.image_url %>" alt="profile img" style="border-radius: 50%; margin-bottom: 30px" width="10">
+                      <% end %>
+                    </div>
+
+                    <!--modal for each member-->
+                    <div class="modal fade" id="member_<%= member.id %>" tableindex="-1" role="dialog">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content member-profile-popup">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title"><%= member.first_name %>'s profile</h4>
+                          </div>
+                          <div class="modal-body">
+                            <div>
+                              <% if member.image_url=="" %>
+                                <img src="http://www.sessionlogs.com/media/icons/defaultIcon.png" alt="profile img" title="default profile image" style="border-radius: 50%;" width="100">
+                              <% else %>
+                                <img src="<%= member.image_url %>" alt="profile img" style="border-radius: 50%;" width="100">
+                              <% end %>
+                            </div>
+                            <ul class="list-group">
+                              <li class="list-group-item">Name: <%= member.first_name %> <%= member.last_name %></li>
+                              <li class="list-group-item">Email: <%= member.email %></li>
+                              <li class="list-group-item">School: <%= member.school %></li>
+                              <li class="list-group-item">Major: <%= member.major %></li>
+                              <li class="list-group-item">Class Year: <%= member.class_year %></li>
+                              <!-- <li class="list-group-item">Company: <%= member.company %> </li> -->
+                            </ul>
+                            <% if @user_groups.where(group_id: @group.id).first.admin == true %>
+                              <form method="get" action="/home/appoint_admin">
+                                <input name="user_id" type="hidden" value="<%= member.id %>">
+                                <button type="submit" class="btn main-btn" style="left: 125px">Appoint Admin</button>
+                              </form>
+                            <% else %>
+                            <% end %>
+                          </div>
+                        </div><!--modal content-->
+                      </div><!--modal-dialog-->
+                    </div><!--modal fade-->
+
+                  <% end %>
+                <% end %>
+            </div>
+          </div><!--right side-->
         </div><!--tab content-->
       </div>
-
-      <div class="group-page-right-side">
-        <div class="people">
-          <label>ADMINS <span style="margin-left: 3px; color: #DA413D">(<%= @members.where(admin: true).count %>)</span></label>
-          <hr style="margin-bottom: 15px; margin-top: 0px; width: 200px"/>
-            <% @members.where(admin: true).each do |all_admins| %>
-              <% User.where(id: all_admins.user_id).each do |admin| %>
-                <div class="member-profile-pic" data-toggle="modal" data-target="#member_<%= admin.id %>">
-                  <% if admin.image_url=="" %>
-                    <img src="http://www.sessionlogs.com/media/icons/defaultIcon.png" alt="profile img" title="default profile image" style="border-radius: 50%; margin-bottom: 30px" width="40">
-                  <% else %>
-                    <img src="<%= admin.image_url %>" alt="profile img" style="border-radius: 50%; margin-bottom: 30px" width="10">
-                  <% end %>
-                </div>
-
-                <!--modal for each member-->
-                <div class="modal fade" id="member_<%= admin.id %>" tableindex="-1" role="dialog">
-                  <div class="modal-dialog" role="document">
-                    <div class="modal-content member-profile-popup">
-                      <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                        <h4 class="modal-title"><%= admin.first_name %>'s profile</h4>
-                      </div>
-                      <div class="modal-body">
-                        <div>
-                          <% if admin.image_url=="" %>
-                            <img src="http://www.sessionlogs.com/media/icons/defaultIcon.png" alt="profile img" title="default profile image" style="border-radius: 50%;" width="100">
-                          <% else %>
-                            <img src="<%= admin.image_url %>" alt="profile img" style="border-radius: 50%;" width="100">
-                          <% end %>
-                        </div>
-                        <ul class="list-group">
-                          <li class="list-group-item">Name: <%= admin.first_name %> <%= admin.last_name %></li>
-                          <li class="list-group-item">Email: <%= admin.email %></li>
-                          <li class="list-group-item">School: <%= admin.school %></li>
-                          <li class="list-group-item">Major: <%= admin.major %></li>
-                          <li class="list-group-item">Class Year: <%= admin.class_year %></li>
-                        </ul>
-                      </div>
-                    </div><!--modal content-->
-                  </div><!--modal-dialog-->
-                </div><!--modal fade-->
-
-              <% end %>
-            <% end %>
-            <br />
-
-          <label>MEMBERS<span style="margin-left: 3px; color: #DA413D">(<%= @members.where(admin: false).count %>)</span></label>
-          <hr style="margin-bottom: 15px; margin-top: 0px; width: 200px"/>
-            <% @members.where(admin: false).each do |all_members| %>
-              <% User.where(id: all_members.user_id).each do |member| %>
-                <div class="member-profile-pic" data-toggle="modal" data-target="#member_<%= member.id %>">
-                  <% if member.image_url=="" %>
-                    <img src="http://www.sessionlogs.com/media/icons/defaultIcon.png" alt="profile img" title="default profile image" style="border-radius: 50%; margin-bottom: 30px" width="40">
-                  <% else %>
-                    <img src="<%= member.image_url %>" alt="profile img" style="border-radius: 50%; margin-bottom: 30px" width="10">
-                  <% end %>
-                </div>
-
-                <!--modal for each member-->
-                <div class="modal fade" id="member_<%= member.id %>" tableindex="-1" role="dialog">
-                  <div class="modal-dialog" role="document">
-                    <div class="modal-content member-profile-popup">
-                      <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                        <h4 class="modal-title"><%= member.first_name %>'s profile</h4>
-                      </div>
-                      <div class="modal-body">
-                        <div>
-                          <% if member.image_url=="" %>
-                            <img src="http://www.sessionlogs.com/media/icons/defaultIcon.png" alt="profile img" title="default profile image" style="border-radius: 50%;" width="100">
-                          <% else %>
-                            <img src="<%= member.image_url %>" alt="profile img" style="border-radius: 50%;" width="100">
-                          <% end %>
-                        </div>
-                        <ul class="list-group">
-                          <li class="list-group-item">Name: <%= member.first_name %> <%= member.last_name %></li>
-                          <li class="list-group-item">Email: <%= member.email %></li>
-                          <li class="list-group-item">School: <%= member.school %></li>
-                          <li class="list-group-item">Major: <%= member.major %></li>
-                          <li class="list-group-item">Class Year: <%= member.class_year %></li>
-                          <!-- <li class="list-group-item">Company: <%= member.company %> </li> -->
-                        </ul>
-                        <% if @user_groups.where(group_id: @group.id).first.admin == true %>
-                          <form method="get" action="/home/appoint_admin">
-                            <input name="user_id" type="hidden" value="<%= member.id %>">
-                            <button type="submit" class="btn main-btn" style="left: 125px">Appoint Admin</button>
-                          </form>
-                        <% else %>
-                        <% end %>
-                      </div>
-                    </div><!--modal content-->
-                  </div><!--modal-dialog-->
-                </div><!--modal fade-->
-
-              <% end %>
-            <% end %>
-        </div>
-
-
-
-      </div><!--right side-->
 
     </div><!--col-md-10-->
 
@@ -695,61 +686,6 @@ $(document).on('turbolinks:load', initialize_calendar);
    }
 
    today = mm + '-' + dd + '-' + yyyy;
-
-  //Budget - plus
-  $(function() {
-    $('.money_plus_button').click(function(){
-
-      group_id = this.value;
-      money_plus = $('#money').val();
-      description_p = $('#description').val();
-
-      $.ajax({
-        method: "POST",
-        url: '/home/money_plus',
-        data: { group_id: group_id,
-                money_plus: money_plus,
-                description_p: description_p }
-
-      }).done(function() {
-        var old_budget = document.getElementById("total_budget").innerHTML;
-        var new_budget = parseInt(old_budget) + parseInt(money_plus)
-        $(".each_transaction").append("<tr class= 'revenue'> <td>" + today + "</td> <td>" + description_p + "</td> <td> + " + money_plus + "</td><tr>");
-        $("#total_budget").empty();
-        $("#total_budget").append(new_budget);
-        $("#description").val("");
-        $("#money").val("");
-
-      });
-    });
-  });
-
-//Budget - minus
-  $(function() {
-    $('.money_minus_button').click(function(){
-
-      group_id = this.value;
-      money_minus = $('#money').val();
-      description_m = $('#description').val();
-
-      $.ajax({
-        method: "POST",
-        url: '/home/money_minus',
-        data: { group_id: group_id,
-                money_minus: money_minus,
-                description_m: description_m }
-
-      }).done(function() {
-        var old_budget = document.getElementById("total_budget").innerHTML;
-        var new_budget = parseInt(old_budget) - parseInt(money_minus)
-        $(".each_transaction").append("<tr class= 'expense'> <td>" + today + "</td> <td>" + description_m + "</td> <td> - " + money_minus + "</td> <tr>");
-        $("#total_budget").empty();
-        $("#total_budget").append(new_budget);
-        $("#description").val("");
-        $("#money").val("");
-      });
-    });
-  });
 
 // Poll - add option
 var i = 1;
