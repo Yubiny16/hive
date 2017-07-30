@@ -286,43 +286,6 @@ class HomeController < ApplicationController
     end
   end
 
-  def money_plus
-    #Find the value of previous budget balance
-    @old_budget = Budget.find(params[:group_id]).group_budget
-    #How much to add
-    @money_plus = params[:money_plus]
-    #Change to integer
-    @new_budget = @money_plus.to_f + @old_budget.to_f
-
-    Budget.update(params[:group_id], :group_budget => @new_budget)
-    # Add new transaction to DB
-    one_transaction = Transaction.new
-    one_transaction.budget_id = Budget.find(params[:group_id]).id
-    one_transaction.value = params[:money_plus]
-    one_transaction.description = params[:description_p]
-    one_transaction.save
-
-  end
-
-  def money_minus
-    #Find the value of previous budget balance
-    @old_budget = Budget.find(params[:group_id]).group_budget
-    #How much to subtract
-    @money_minus = params[:money_minus]
-    # Change to float
-    @new_budget =  @old_budget.to_f - @money_minus.to_f
-
-    Budget.update(params[:group_id], :group_budget => @new_budget)
-    # Add new transaction to DB
-    one_transaction = Transaction.new
-    one_transaction.budget_id = Budget.find(params[:group_id]).id
-    one_transaction.value = params[:money_minus]
-    one_transaction.description = params[:description_m]
-    one_transaction.pos_neg = false
-    one_transaction.save
-
-  end
-
   def add_option
     # add option to global variable $n
     $n = $n+1
