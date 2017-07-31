@@ -21,9 +21,13 @@
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
-          <h4 class="modal-title" style="text-align: center;">This is Your First Group!</h4>
+          <h4 class="modal-title" style="text-align: center;">This is Your Calendar!<i style="margin-left: 5px" class="fa fa-calendar" aria-hidden="true"></i></h4>
         </div>
-        <div class="modal-body" style="text-align: center;">
+        <div class="modal-body" style="text-align: center; font-size: 16px">
+
+          Start your first "<span style="font-size: 16px; font-family: Source Sans Pro Bold; color: #DA413D;">SYNCED</span>" schedule!<br /><br />
+          Balance multiple groups in one by adding different group events to your schedule! <br /><br />
+          <%= image_tag("calendar-instruction.png", size: "300x200") %>
 
 
         </div>
@@ -78,7 +82,7 @@
     <!-- Left Bar -->
     <div class="col-md-2 leftbar">
       <ul class="leftbar-personal">
-        <li><a href="/home/index"><i class="fa fa-server" aria-hidden="true"></i>Board</a></li>
+        <li><a href="/home/index"><i class="fa fa-tasks" aria-hidden="true"></i>Board</a></li>
         <li style="background-color: #DA413D;"><a href="/home/my_calendar" style="color: white"><i class="fa fa-calendar" aria-hidden="true"></i>My Schedule</a></li>
       </ul>
       <hr>

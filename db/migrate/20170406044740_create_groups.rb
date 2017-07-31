@@ -8,7 +8,7 @@ class CreateGroups < ActiveRecord::Migration[5.0]
       t.string :description
       t.string :email
       t.string :website_address
-      t.string :image_url, :default => ""
+      t.string :image_url, :default => "http://www.niagaracollege.ca/alumni-relations/wp-content/uploads/sites/25/2015/05/Icon-Group.svg"
 
       t.timestamps
     end

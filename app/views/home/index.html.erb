@@ -20,17 +20,15 @@
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
-          <h4 class="modal-title" style="text-align: center;">Welcome to Hive!</h4>
+          <h4 class="modal-title" style="text-align: center;">Welcome to Sync <%= current_user.first_name %>!<i style="margin-left: 5px" class="fa fa-smile-o" aria-hidden="true"></i></h4>
         </div>
-        <div class="modal-body" style="text-align: center;">
-          Hi <%= current_user.first_name %>!<br /><br />
+        <div class="modal-body" style="text-align: center; font-size: 16px">
 
-          Welcome! and Thank You for giving us an opportunity to help you achieve more! <br /><br />
-          We put our focus and energy on efficiency, simplicity, and utility. <br /><br />
+          Sync's goal is to help you stay <span style="font-size: 16px; font-family: Source Sans Pro Bold; ">updated</span>, <span style="font-size: 16px; font-family: Source Sans Pro Bold; ">organized</span>, and <span style="font-size: 16px; font-family: Source Sans Pro Bold; color: #DA413D;">SYNCED</span> with your student groups! <br /><br />
 
-          We will work hard to make your life easy. <br /><br />
+          Sync is primarily focused on <span style="font-size: 16px; font-family: Source Sans Pro Bold; ">Efficiency</span>, <span style="font-size: 16px; font-family: Source Sans Pro Bold; ">Utility</span>, and <span style="font-size: 16px; font-family: Source Sans Pro Bold; color: #DA413D;">Simplicity</span>. <br /><br />
 
-          Team Hive.
+          We work hard to make your life easy!
 
         </div>
         <div class="modal-footer get-started" style="text-align: center;">
@@ -83,7 +81,7 @@
     <!-- Left Bar -->
     <div class="col-md-2 leftbar">
       <ul class="leftbar-personal">
-        <li style="background-color: #DA413D;"><a href="/home/index" style="color: white"><i class="fa fa-server" aria-hidden="true"></i>Board</a></li>
+        <li style="background-color: #DA413D;"><a href="/home/index" style="color: white"><i class="fa fa-tasks" aria-hidden="true"></i>Board</a></li>
         <li><a href="/home/my_calendar"><i class="fa fa-calendar" aria-hidden="true"></i>My Schedule</a></li>
       </ul>
       <hr>

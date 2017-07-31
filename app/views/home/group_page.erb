@@ -20,12 +20,12 @@
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
-          <h4 class="modal-title" style="text-align: center;">This is Your First Group!</h4>
+          <h4 class="modal-title" style="text-align: center;">This is Your First Group!<i style="margin-left: 5px" class="fa fa-users" aria-hidden="true"></i></h4>
         </div>
         <div class="modal-body" style="text-align: center;">
           This is <%= @group.name %>'s Page. <br />
           <br />
-          You can view/manage all of <%= @group.name %>'s activities here. <br />
+          You can view/manage <%= @group.name %>'s activities here. <br />
           <br />
 
 
@@ -75,9 +75,9 @@
 <div class ="container-fluid container-body">
   <div class="row">
 
-    <div class="col-md-2 leftbar">
+    <div class="col-md-2 leftbar" style="height: 800px">
       <ul class="leftbar-personal">
-        <li><a href="/home/index"><i class="fa fa-server" aria-hidden="true"></i>Board</a></li>
+        <li><a href="/home/index"><i class="fa fa-tasks" aria-hidden="true"></i>Board</a></li>
         <li><a href="/home/my_calendar"><i class="fa fa-calendar" aria-hidden="true"></i>My Schedule</a></li>
       </ul>
       <hr>
@@ -97,7 +97,7 @@
     </div><!-- leftbar End-->
 
     <!-- Body-->
-    <div class="col-md-10 board" style="padding-top: 0px; padding-left: 0px; padding-right: 0px;">
+    <div class="col-md-10 board" style="padding: 0px">
       <div id="group_profile">
         <% if @group.image_url=="" %>
           <img src="http://www.sessionlogs.com/media/icons/defaultIcon.png" alt="profile img" title="default profile image" style="border-radius: 50%;" width="100">
@@ -121,7 +121,9 @@
           <li><a href="#Budget" data-toggle="tab"><i class="fa fa-usd" aria-hidden="true" style="margin-right: 5px"></i>Budget</a></li>
         </ul>
       </div>
+    </div><!--col-md-10-->
 
+    <div class="col-md-7" style="background-color: white; padding: 0px; height: 800px">
       <div class="group-page-tab-content">
         <div class="tab-content">
           <!-- Announcements -->
@@ -129,14 +131,16 @@
             <!-- Make an announcement (visible only to admin) -->
 
               <% if @admin_user.admin == true %>
-                <%= link_to new_announcement_path, id: "new_announcement_link", remote: true, style: 'color:white; font-family: "Source Sans Pro Bold"; background-color: #DA413D; padding: 8px 12px; border-radius: 4px; position: relative; top: 7px;' do %>
-                  <i class="fa fa-plus" aria-hidden="true" style="margin-right: 3px;"></i>
+                <%= link_to new_announcement_path, id: "new_announcement_link", remote: true do %>
+                <button class="btn main-btn" id="add_ann_btn">
+                  <i class="fa fa-plus" aria-hidden="true" style="margin-right: 4.5px"></i>
                   New
+                </button>
                 <% end %>
               <% end %>
 
               <br>
-              <div id="announcements_board" style="margin-top: 34px">
+              <div id="announcements_board" style="margin-top: 15px">
                 <ul class="nav nav-stacked">
                   <% @announcements.each do |announcements| %>
                     <li>
@@ -181,8 +185,8 @@
           </div><!--Announcement tab-->
 
           <!-- Calendar -->
-          <div class="tab-pane" id="Calendar">
-            <div id="group_calendar" class="calendar" style="float: left;">
+          <div class="tab-pane" id="Calendar" style="margin-top: 49px">
+            <div id="group_calendar" class="calendar">
               <input name= "group_id" type="hidden" value= "<%= @group.id %>">
               <div id="admin" data-admin="<%= @admin_user.admin %>"></div>
               <div id="event_type" data-type="<%= $type %>"></div>
@@ -281,7 +285,7 @@
 
             <!-- Polls -->
 
-              <div id="poll_board">
+              <div id="poll_board" style="margin-top: 15px">
                 <ul class="nav nav-stacked">
                   <% @poll.each do |p| %>
                     <li>
@@ -428,13 +432,16 @@
           <div class="tab-pane" id="Budget">
             <!-- Add transaction (visible only to admin) -->
             <% if @admin_user.admin == true %>
-              <form method="get" action="/home/transaction" data-remote="true">
-                <input id="description" name="description" type="text" class="form-control" placeholder="Description">
-                <input id="money" name="money" type="number" class="form-control" placeholder="$00.00">
-                <input name="group_id" type="hidden" value="<%= @group.id %>">
-                <button name="transaction_type" value="plus" type="submit" class="btn money_plus_button"><i class="fa fa-plus" aria-hidden="true"></i></button>
-                <button name="transaction_type" value="minus" type="submit" class="btn money_plus_button"><i class="fa fa-minus" aria-hidden="true"></i></button>
-              </form>
+              <div id="budget_item_input">
+                <form method="get" action="/home/transaction" data-remote="true">
+                  <input id="description" name="description" type="text" class="form-control" placeholder="Description">
+                  <input id="money" name="money" type="number" class="form-control" placeholder="$00.00">
+                  <input name="group_id" type="hidden" value="<%= @group.id %>">
+                  <button name="transaction_type" value="plus" type="submit" class="btn money_plus_button"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                  <button name="transaction_type" value="minus" type="submit" class="btn money_minus_button"><i class="fa fa-minus" aria-hidden="true"></i></button>
+                </form>
+              </div>
+              <br />
             <% end %>
 
             <!-- Add div to let the ajax script know where to append new input field. -->
@@ -480,116 +487,98 @@
               </table>
             </div>
           </div>
-
-          <div class="group-page-right-side">
-            <div class="people">
-              <label>ADMINS <span style="margin-left: 3px; color: #DA413D">(<%= @members.where(admin: true).count %>)</span></label>
-              <hr style="margin-bottom: 15px; margin-top: 0px; width: 180px"/>
-                <% @members.where(admin: true).each do |all_admins| %>
-                  <% User.where(id: all_admins.user_id).each do |admin| %>
-                    <div class="member-profile-pic" data-toggle="modal" data-target="#member_<%= admin.id %>">
-                      <% if admin.image_url=="" %>
-                        <img src="http://www.sessionlogs.com/media/icons/defaultIcon.png" alt="profile img" title="default profile image" style="border-radius: 50%; margin-bottom: 30px" width="40">
-                      <% else %>
-                        <img src="<%= admin.image_url %>" alt="profile img" style="border-radius: 50%; margin-bottom: 30px" width="10">
-                      <% end %>
-                    </div>
-
-                    <!--modal for each member-->
-                    <div class="modal fade" id="member_<%= admin.id %>" tableindex="-1" role="dialog">
-                      <div class="modal-dialog" role="document">
-                        <div class="modal-content member-profile-popup">
-                          <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                            <h4 class="modal-title"><%= admin.first_name %>'s profile</h4>
-                          </div>
-                          <div class="modal-body">
-                            <div>
-                              <% if admin.image_url=="" %>
-                                <img src="http://www.sessionlogs.com/media/icons/defaultIcon.png" alt="profile img" title="default profile image" style="border-radius: 50%;" width="100">
-                              <% else %>
-                                <img src="<%= admin.image_url %>" alt="profile img" style="border-radius: 50%;" width="100">
-                              <% end %>
-                            </div>
-                            <ul class="list-group">
-                              <li class="list-group-item">Name: <%= admin.first_name %> <%= admin.last_name %></li>
-                              <li class="list-group-item">Email: <%= admin.email %></li>
-                              <li class="list-group-item">School: <%= admin.school %></li>
-                              <li class="list-group-item">Major: <%= admin.major %></li>
-                              <li class="list-group-item">Class Year: <%= admin.class_year %></li>
-                            </ul>
-                          </div>
-                        </div><!--modal content-->
-                      </div><!--modal-dialog-->
-                    </div><!--modal fade-->
-
-                  <% end %>
-                <% end %>
-                <br />
-
-              <label>MEMBERS<span style="margin-left: 3px; color: #DA413D">(<%= @members.where(admin: false).count %>)</span></label>
-              <hr style="margin-bottom: 15px; margin-top: 0px; width: 180px"/>
-                <% @members.where(admin: false).each do |all_members| %>
-                  <% User.where(id: all_members.user_id).each do |member| %>
-                    <div class="member-profile-pic" data-toggle="modal" data-target="#member_<%= member.id %>">
-                      <% if member.image_url=="" %>
-                        <img src="http://www.sessionlogs.com/media/icons/defaultIcon.png" alt="profile img" title="default profile image" style="border-radius: 50%; margin-bottom: 30px" width="40">
-                      <% else %>
-                        <img src="<%= member.image_url %>" alt="profile img" style="border-radius: 50%; margin-bottom: 30px" width="10">
-                      <% end %>
-                    </div>
-
-                    <!--modal for each member-->
-                    <div class="modal fade" id="member_<%= member.id %>" tableindex="-1" role="dialog">
-                      <div class="modal-dialog" role="document">
-                        <div class="modal-content member-profile-popup">
-                          <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                            <h4 class="modal-title"><%= member.first_name %>'s profile</h4>
-                          </div>
-                          <div class="modal-body">
-                            <div>
-                              <% if member.image_url=="" %>
-                                <img src="http://www.sessionlogs.com/media/icons/defaultIcon.png" alt="profile img" title="default profile image" style="border-radius: 50%;" width="100">
-                              <% else %>
-                                <img src="<%= member.image_url %>" alt="profile img" style="border-radius: 50%;" width="100">
-                              <% end %>
-                            </div>
-                            <ul class="list-group">
-                              <li class="list-group-item">Name: <%= member.first_name %> <%= member.last_name %></li>
-                              <li class="list-group-item">Email: <%= member.email %></li>
-                              <li class="list-group-item">School: <%= member.school %></li>
-                              <li class="list-group-item">Major: <%= member.major %></li>
-                              <li class="list-group-item">Class Year: <%= member.class_year %></li>
-                              <!-- <li class="list-group-item">Company: <%= member.company %> </li> -->
-                            </ul>
-                            <% if @user_groups.where(group_id: @group.id).first.admin == true %>
-                              <form method="get" action="/home/appoint_admin">
-                                <input name="user_id" type="hidden" value="<%= member.id %>">
-                                <button type="submit" class="btn main-btn" style="left: 125px">Appoint Admin</button>
-                              </form>
-                            <% else %>
-                            <% end %>
-                          </div>
-                        </div><!--modal content-->
-                      </div><!--modal-dialog-->
-                    </div><!--modal fade-->
-
-                  <% end %>
-                <% end %>
-            </div>
-          </div><!--right side-->
-        </div><!--tab content-->
+        </div>
       </div>
+    </div>
 
-    </div><!--col-md-10-->
+    <div class="col-md-3" style="background-color: white; height: 800px">
+      <div class="group-page-right-side">
+        <div class="people">
+          <label>ADMINS <span style="margin-left: 3px; color: #DA413D">(<%= @members.where(admin: true).count %>)</span></label>
+          <hr style="margin-bottom: 15px; margin-top: 0px; width: 180px"/>
+            <% @members.where(admin: true).each do |all_admins| %>
+              <% User.where(id: all_admins.user_id).each do |admin| %>
+                <div class="member-profile-pic" data-toggle="modal" data-target="#member_<%= admin.id %>">
+                  <img src="<%= admin.image_url %>" alt="profile img" style="border-radius: 50%; margin-bottom: 30px" width="35px">
+                </div>
 
+                <!--modal for each member-->
+                <div class="modal fade" id="member_<%= admin.id %>" tableindex="-1" role="dialog">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content member-profile-popup">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title"><%= admin.first_name %>'s profile</h4>
+                      </div>
+                      <div class="modal-body">
+                        <div>
+                          <img src="<%= admin.image_url %>" alt="profile img" style="border-radius: 50%;" width="100px">
+                        </div>
+                        <ul class="list-group">
+                          <li class="list-group-item">Name: <%= admin.first_name %> <%= admin.last_name %></li>
+                          <li class="list-group-item">Email: <%= admin.email %></li>
+                          <li class="list-group-item">School: <%= admin.school %></li>
+                          <li class="list-group-item">Major: <%= admin.major %></li>
+                          <li class="list-group-item">Class Year: <%= admin.class_year %></li>
+                        </ul>
+                      </div>
+                    </div><!--modal content-->
+                  </div><!--modal-dialog-->
+                </div><!--modal fade-->
 
-  </div><!--row-->
+              <% end %>
+            <% end %>
+            <br />
+
+          <label>MEMBERS<span style="margin-left: 3px; color: #DA413D">(<%= @members.where(admin: false).count %>)</span></label>
+          <hr style="margin-bottom: 15px; margin-top: 0px; width: 180px"/>
+            <% @members.where(admin: false).each do |all_members| %>
+              <% User.where(id: all_members.user_id).each do |member| %>
+                <div class="member-profile-pic" data-toggle="modal" data-target="#member_<%= member.id %>">
+                  <img src="<%= member.image_url %>" alt="profile img" style="border-radius: 50%; margin-bottom: 30px" width="35px">
+                </div>
+
+                <!--modal for each member-->
+                <div class="modal fade" id="member_<%= member.id %>" tableindex="-1" role="dialog">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content member-profile-popup">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title"><%= member.first_name %>'s profile</h4>
+                      </div>
+                      <div class="modal-body">
+                        <div>
+                          <img src="<%= member.image_url %>" alt="profile img" style="border-radius: 50%;" width="100">
+                        </div>
+                        <ul class="list-group">
+                          <li class="list-group-item">Name: <%= member.first_name %> <%= member.last_name %></li>
+                          <li class="list-group-item">Email: <%= member.email %></li>
+                          <li class="list-group-item">School: <%= member.school %></li>
+                          <li class="list-group-item">Major: <%= member.major %></li>
+                          <li class="list-group-item">Class Year: <%= member.class_year %></li>
+                          <!-- <li class="list-group-item">Company: <%= member.company %> </li> -->
+                        </ul>
+                        <% if @user_groups.where(group_id: @group.id).first.admin == true %>
+                          <form method="get" action="/home/appoint_admin">
+                            <input name="user_id" type="hidden" value="<%= member.id %>">
+                            <button type="submit" class="btn main-btn" style="left: 125px">Appoint Admin</button>
+                          </form>
+                        <% else %>
+                        <% end %>
+                      </div>
+                    </div><!--modal content-->
+                  </div><!--modal-dialog-->
+                </div><!--modal fade-->
+
+              <% end %>
+            <% end %>
+        </div>
+      </div><!--right side-->
+    </div>
 </div><!--container-->
 
 

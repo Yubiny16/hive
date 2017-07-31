@@ -12,6 +12,7 @@
 * {
   font-family: "Source Sans Pro Regular";
 }
+$main-red: #DA413D;
 $main-gray: #f9f9f9;
 $main-font: "Source Sans Pro Regular";
 $group-red: #e60000;
@@ -103,7 +104,6 @@ $group-purple: #aa80ff;
   background: $group-purple;
 }
 .main-btn {
-  position: relative;
   background-color: #DA413D;
   color: white;
   font-family: "Source Sans Pro Bold";
@@ -218,7 +218,7 @@ nav#navbar-custom .btn-search i {
   margin: auto;
 }
 .leftbar > p {
-  text-align: left;
+  text-align: left0;
   color: black;
   margin-left: 35px;
   padding: 5px;
@@ -372,7 +372,7 @@ nav#navbar-custom .btn-search i {
   width: 84%;
   display: block;
   min-height: 100px;
-  background-color: #3c4785;
+  background-color: #ff6666;
   color: white;
   margin-top: 60px;
   margin-left: 90px;
@@ -424,7 +424,7 @@ nav#navbar-custom .btn-search i {
   bottom: 15px;
   font-size: 14px;
   color: white;
-  background-color: #353f74;
+  background-color: #ff9999;
   width: 90px;
   text-align: center;
   padding: 5px;
@@ -461,21 +461,24 @@ ul#feature-tabs li a {
 ul#feature-tabs li a:hover,
 ul#feature-tabs > li.active > a {
   background-color: transparent;
-  border-bottom: 5px solid #6f79a7;
+  border-bottom: 5px solid #ff9999;
   color: white;
 }
 .group-page-tab-content {
   margin-top: 30px;
   margin-left: 90px;
-  width: 84%;
+  width: 100%;
   float: left;
+  min-height: 600px;
 }
-#add_poll_btn {
+#add_poll_btn,
+#add_ann_btn {
   background-color: #DA413D;
   color: white;
   font-family: "Source Sans Pro Bold";
 }
-#add_poll_btn i {
+#add_poll_btn i,
+#add_ann_btn i {
   margin-right: 7px;
 }
 #Announcement,
@@ -483,12 +486,11 @@ ul#feature-tabs > li.active > a {
 #Files,
 #Calendar,
 #Budget {
-  margin-right: 200px;
+  margin-right: 120px;
 }
 #announcements_board,
 #poll_board {
   float: left;
-  margin-top: 34px;
   background-color: $main-gray;
   box-shadow: .5px .5px #b3b3b3;
   width: 100%;
@@ -777,7 +779,7 @@ ul#feature-tabs > li.active > a {
 }
 
 #budget_item_input {
-  width: 90%;
+  width: 97%;
   white-space: nowrap;
   font-size: 0;
 }
@@ -831,6 +833,11 @@ ul#feature-tabs > li.active > a {
   border-left: 1px solid #ddd;
   font-family: "Source Sans Pro Bold";
 }
+#transactions .each_transaction td:last-child i {
+  position: absolute;
+  right: 40px;
+  font-size: 18px;
+}
 /**members tab design**/
 #Members .member {
 }
@@ -880,7 +887,6 @@ ul#feature-tabs > li.active > a {
 #file_board {
   float: left;
   width: 100%;
-  margin-top: 34px;
 }
 #Files form input {
   position: absolute;
@@ -894,7 +900,8 @@ ul#feature-tabs > li.active > a {
   margin-bottom: 15px;
 }
 #Files form button {
-  display: block;
+  display: inline-block;
+  margin-left: 10px;
 }
 .group-page-right-side {
   float: left;
@@ -908,7 +915,7 @@ ul#feature-tabs > li.active > a {
 }
 .group-page-right-side .member-profile-pic {
   display: inline-block;
-  margin-right: 22px;
+  margin-right: 18px;
   margin-bottom: -10px;
 }
 /*member's page pop-up design*/
