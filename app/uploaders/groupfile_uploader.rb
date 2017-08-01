@@ -44,7 +44,7 @@ class GroupfileUploader < CarrierWave::Uploader::Base
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.
   def filename
-    Time.now.to_i.to_s + [*('a'..'z')].sample(8).join + "_group." + file.extension if original_filename
+    Time.now.to_i.to_s + [*('a'..'z')].sample(8).join + "_file." + file.extension if original_filename
   end
 
 end
