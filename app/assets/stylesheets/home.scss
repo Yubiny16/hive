@@ -1,13 +1,13 @@
 /*******************Declare the fonts*****************/
 @font-face {
   font-family: "Source Sans Pro Light";
-  src: url('/assets/SourceSansPro-Light.otf');
+  src: font-url('/assets/SourceSansPro-Light.otf');
 
   font-family: "Source Sans Pro Regular";
-  src: url('/assets/SourceSansPro-Regular.otf');
+  src: font-url('/assets/SourceSansPro-Regular.otf');
 
   font-family: "Source Sans Pro Bold";
-  src: url('/assets/SourceSansPro-Semibold.otf');
+  src: font-url('/assets/SourceSansPro-Semibold.otf');
 }
 * {
   font-family: "Source Sans Pro Regular";
