@@ -4,7 +4,7 @@
     <div class="row">
 
       <div class="col-md-2">
-        <a class="navbar-brand" href="/home/index">H I V E</a>
+        <a class="navbar-brand" href="/home/index">Sync</a>
       </div>
 
       <!--search bar-->
@@ -144,3 +144,11 @@
 
   </div><!-- row -->
 </div><!-- container-fluid container-body -->
+<script>
+//search suggestions
+$( function() {
+  $( "#search_group" ).autocomplete({
+    source: $( "#search_group" ).data('autocomplete')
+  });
+});
+</script>

@@ -44,7 +44,7 @@
     <div class="row">
 
       <div class="col-md-2">
-        <a class="navbar-brand" href="/home/index">H I V E</a>
+        <a class="navbar-brand" href="/home/index">Sync</a>
       </div>
 
       <!--search bar-->
@@ -463,4 +463,11 @@ var initialize_calendar;
     });
   };
 $(document).on('turbolinks:load', initialize_calendar);
+
+//search suggestions
+$( function() {
+  $( "#search_group" ).autocomplete({
+    source: $( "#search_group" ).data('autocomplete')
+  });
+});
 </script>

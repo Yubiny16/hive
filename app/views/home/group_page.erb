@@ -43,7 +43,7 @@
     <div class="row">
 
       <div class="col-md-2">
-        <a class="navbar-brand" href="/home/index">H I V E</a>
+        <a class="navbar-brand" href="/home/index">Sync</a>
       </div>
 
       <!--search bar-->
@@ -723,5 +723,12 @@ $(function() {
       //shown.bs.tab (on the newly-active just-shown tab, the same one as for the show.bs.tab event)
       $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
     $('.calendar').fullCalendar('render');
+});
+
+//search suggestions
+$( function() {
+  $( "#search_group" ).autocomplete({
+    source: $( "#search_group" ).data('autocomplete')
+  });
 });
 </script>
