@@ -10,7 +10,7 @@
   </p>
   <hr />
   <% unless Eventuser.where(event_id: @event.id).where(user_id: current_user.id).exists? %>
-    <button type="submit" class="btn add_event_button"><a href="/home/my_calendar" style="color:white; ">Add This Event to My Schedule</a></button>
+    <button type="submit" class="btn add_event_button"><a href="/home/my_calendar" style="color:white; ">Add to My Schedule</a></button>
   <% else %>
     <form action="/home/cancel_event" method="get">
       <input name="event_id" type="hidden" value="<%= @event.id %>"/>

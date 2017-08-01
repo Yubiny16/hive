@@ -104,20 +104,8 @@ class HomeController < ApplicationController
     redirect_to "/home/profile"
   end
 
-  # def uploadprofpic
-  #   uploader = UserprofileUploader.new
-  #   uploader.store!(params[:pic])
-  #
-  #   @user = current_user
-  #   @user.image_url = uploader.url
-  #   @user.save
-  #
-  #   redirect_to "/home/profile"
-  # end
-
   def create_group_view
     @user_groups = GroupUser.where(user_id: current_user.id)
-
   end
 
   def join_group
@@ -184,7 +172,6 @@ class HomeController < ApplicationController
     @user = current_user
     @poll = Poll.where(group_id: @group.id).reverse
     @budget = Budget.find_by(group_id: @group.id)
-
     @announcements = Announcement.where(group_id: @group.id).reverse
     @user_groups = GroupUser.where(user_id: @user.id)
 
@@ -244,7 +231,6 @@ class HomeController < ApplicationController
   #  message_id = result['id']
   #  message = result['message']
 #  end
-  #testtesttesttesttesttest
   def transaction
     @transaction_type = params[:transaction_type]
     if params[:transaction_type] == "plus"
@@ -371,10 +357,6 @@ class HomeController < ApplicationController
 
   def ann_read
     Annnoti.find(params[:ann_notification_id]).update(:read => true)
-  end
-
-  def cal_read
-    Calnoti.find(params[:cal_notification_id]).update(:read => true)
   end
 
   def poll_read

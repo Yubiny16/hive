@@ -2,11 +2,13 @@ class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
 
   def index
+    #group calendar
     if $type == 1
       @events = Event.where(start: params[:start]..params[:end], user_id: $group_id, calendar_type: 1)
 
     end
 
+    #my calendar
     if $type == 0
       @events = Event.where(start: params[:start]..params[:end], user_id: current_user.id, calendar_type: 0)
 
@@ -19,7 +21,6 @@ class EventsController < ApplicationController
 
   def new
     @event = Event.new
-
   end
 
   def edit
@@ -40,7 +41,7 @@ class EventsController < ApplicationController
     if $type == 1
       GroupUser.where(group_id: $group_id).find_each do |one_member|
 
-        #Cal Feed
+        #Cal notification
         one_cal_notification = Calnoti.new
         one_cal_notification.event_id = @event.id
         one_cal_notification.group_id = $group_id

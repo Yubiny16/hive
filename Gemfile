@@ -11,7 +11,6 @@ gem 'mailgun-ruby'
 gem 'fog-aws'
 gem 'carrierwave'
 
-gem 'faker'
 gem 'simple_form'
 gem 'bootstrap-daterangepicker-rails'
 gem 'bootstrap-sass', '~> 3.3.6'

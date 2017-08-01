@@ -565,7 +565,7 @@
                         <% if @user_groups.where(group_id: @group.id).first.admin == true %>
                           <form method="get" action="/home/appoint_admin">
                             <input name="user_id" type="hidden" value="<%= member.id %>">
-                            <button type="submit" class="btn main-btn" style="left: 125px">Appoint Admin</button>
+                            <button type="submit" class="btn main-btn" style="position: relative; left: 125px">Appoint Admin</button>
                           </form>
                         <% else %>
                         <% end %>

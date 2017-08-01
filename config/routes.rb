@@ -20,7 +20,6 @@ Rails.application.routes.draw do
   get 'sign_out' => 'users/sessions#destroy'
   get 'edit' => 'users/registrations#edit'
   # uploading profile picture
-  post '/uploadprofpic' => 'home#uploadprofpic'
   post '/home/profile_update' => 'home#profile_update'
   post '/home/file_upload' => 'home#file_upload'
   get '/destroy_file/:file_id' => 'home#destroy_file'
@@ -45,7 +44,6 @@ Rails.application.routes.draw do
 
   #Group_Home_Functions
   get '/home/announcement_all' => 'home#announcement_all'
-  get '/home/event_rsvp/' => 'home#event_rsvp'
   post '/home/money_plus' => 'home#money_plus'
   post '/home/money_minus' => 'home#money_minus'
   get '/home/new_poll' => 'home#new_poll'
@@ -56,7 +54,6 @@ Rails.application.routes.draw do
   get '/home/my_calendar' => 'home#my_calendar'
 
   get '/home/ann_read' => 'home#ann_read'
-  get '/home/cal_read' => 'home#cal_read'
   get '/home/budget_read' => 'home#budget_read'
   get '/home/poll_read' => 'home#poll_read'
 

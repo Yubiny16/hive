@@ -4,8 +4,6 @@ class CreatePolls < ActiveRecord::Migration[5.0]
 
       t.integer :group_id
       t.string :title
-      t.datetime :closing_time
-      t.boolean :multi_select, :default => false
       t.boolean :anonymous, :default => false
 
       t.timestamps
