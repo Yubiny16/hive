@@ -107,97 +107,99 @@
 
     <!-- Main/Board -->
     <div class="col-md-10 board">
-      <div class="filter-group-label">
-        FILTER BY GROUP
-      </div>
-      <div class="filter-dropdown filter-group">
-        <button class ="filter-dropdown-btn-group">All</button>
-        <div class="filter-dropdown-content filter-drop-down-content-group">
-          <p id="filter-group-all">
-            All
-          </p>
-          <% unless @current_group_user == nil %>
-            <% @current_group_user.where.not(group_id: 1).each do |group_user| %>
-              <p id="filter-group-<%= group_user.group_id %>">
-                <span class="circle_<%= group_user.color %>"></span>
-              </p>
-
-              <script>
-                //filter by group
-                $( function() {
-                  $("#filter-group-<%= group_user.group_id %>").click(function(){
-
-                    var group_color = "<%= group_user.color %>";
-                    if (group_color == "red")
-                    {
-                      var change_color = "#e60000";
-                    }
-                    else if (group_color == "orange")
-                    {
-                      var change_color = "#ffa64d";
-                    }
-                    else if (group_color == "yellow")
-                    {
-                      var change_color = "#ffdb4d";
-                    }
-                    else if (group_color == "green")
-                    {
-                      var change_color = "#77b756";
-                    }
-                    else if (group_color == "blue")
-                    {
-                      var change_color = "#2f77c0";
-                    }
-                    else if (group_color == "skyblue")
-                    {
-                      var change_color = "#66d9ff";
-                    }
-                    else
-                    {
-                      var change_color = "#aa80ff";
-                    }
-
-
-                    $(".feed").remove();
-                    $('.nav-stacked').append(one_group_feed_<%= group_user.group_id %>);
-
-                    if (feature_filter_switch == "Announcement")
-                    {
-                      $(".announcement_feed").fadeIn();
-                      $(".poll_feed").hide();
-                    }
-                    else if (feature_filter_switch == "Poll")
-                    {
-                      $(".poll_feed").fadeIn();
-                      $(".announcement_feed").hide();
-                    }
-                    else
-                    {
-                      $(".announcement_feed").fadeIn();
-                      $(".poll_feed").fadeIn();
-                    }
-
-                    $('.filter-dropdown-btn-group').css("background-color", change_color);
-                    $('.filter-dropdown-btn-group').css("color", change_color);
-                    $('.filter-dropdown-btn-group').css("border-color", change_color);
-
-                 });
-                 } );
-              </script>
-            <% end %>
-          <% end %>
+      <div class="filter-row">
+        <div class="filter-group-label">
+          FILTER BY GROUP
         </div>
-      </div>
+        <div class="filter-dropdown filter-group">
+          <button class ="filter-dropdown-btn-group" style="outline: none;">All</button>
+          <div class="filter-dropdown-content filter-drop-down-content-group">
+            <p id="filter-group-all">
+              All
+            </p>
+            <% unless @current_group_user == nil %>
+              <% @current_group_user.where.not(group_id: 1).each do |group_user| %>
+                <p id="filter-group-<%= group_user.group_id %>">
+                  <span class="circle_<%= group_user.color %>"></span>
+                </p>
 
-      <div class="filter-feature-label">
-        FILTER BY TYPE
-      </div>
-      <div class="filter-dropdown filter-feature">
-        <button class ="filter-dropdown-btn-feature">All</button>
-        <div class="filter-dropdown-content filter-drop-down-content-feature">
-          <p id="filter-all">All</p>
-          <p id="filter-announcement">Announcement</p>
-          <p id="filter-poll">Poll</p>
+                <script>
+                  //filter by group
+                  $( function() {
+                    $("#filter-group-<%= group_user.group_id %>").click(function(){
+
+                      var group_color = "<%= group_user.color %>";
+                      if (group_color == "red")
+                      {
+                        var change_color = "#e60000";
+                      }
+                      else if (group_color == "orange")
+                      {
+                        var change_color = "#ffa64d";
+                      }
+                      else if (group_color == "yellow")
+                      {
+                        var change_color = "#ffdb4d";
+                      }
+                      else if (group_color == "green")
+                      {
+                        var change_color = "#77b756";
+                      }
+                      else if (group_color == "blue")
+                      {
+                        var change_color = "#2f77c0";
+                      }
+                      else if (group_color == "skyblue")
+                      {
+                        var change_color = "#66d9ff";
+                      }
+                      else
+                      {
+                        var change_color = "#aa80ff";
+                      }
+
+
+                      $(".feed").remove();
+                      $('.nav-stacked').append(one_group_feed_<%= group_user.group_id %>);
+
+                      if (feature_filter_switch == "Announcement")
+                      {
+                        $(".announcement_feed").fadeIn();
+                        $(".poll_feed").hide();
+                      }
+                      else if (feature_filter_switch == "Poll")
+                      {
+                        $(".poll_feed").fadeIn();
+                        $(".announcement_feed").hide();
+                      }
+                      else
+                      {
+                        $(".announcement_feed").fadeIn();
+                        $(".poll_feed").fadeIn();
+                      }
+
+                      $('.filter-dropdown-btn-group').css("background-color", change_color);
+                      $('.filter-dropdown-btn-group').css("color", change_color);
+                      $('.filter-dropdown-btn-group').css("border-color", change_color);
+
+                   });
+                   } );
+                </script>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="filter-feature-label">
+          FILTER BY TYPE
+        </div>
+        <div class="filter-dropdown filter-feature">
+          <button class ="filter-dropdown-btn-feature" style="outline: none;">All</button>
+          <div class="filter-dropdown-content filter-drop-down-content-feature">
+            <p id="filter-all">All</p>
+            <p id="filter-announcement">Announcement</p>
+            <p id="filter-poll">Poll</p>
+          </div>
         </div>
       </div>
 

@@ -1,13 +1,13 @@
 /*******************Declare the fonts*****************/
 @font-face {
   font-family: "Source Sans Pro Light";
-  src: font-url('/assets/SourceSansPro-Light.otf');
+  src: url('/assets/SourceSansPro-Light.otf');
 
   font-family: "Source Sans Pro Regular";
-  src: font-url('/assets/SourceSansPro-Regular.otf');
+  src: url('/assets/SourceSansPro-Regular.otf');
 
   font-family: "Source Sans Pro Bold";
-  src: font-url('/assets/SourceSansPro-Semibold.otf');
+  src: url('/assets/SourceSansPro-Semibold.otf');
 }
 * {
   font-family: "Source Sans Pro Regular";
@@ -226,6 +226,7 @@ nav#navbar-custom .btn-search i {
   padding-right: 20px;
 }
 .leftbar .leftbar-personal li {
+  white-space: nowrap;
   margin-left: 35px;
   padding: 5px;
   padding-left: 15px;
@@ -261,6 +262,9 @@ nav#navbar-custom .btn-search i {
   position: relative;
   bottom: 2px;
 }
+.leftbar > p:last-child { //create group
+  white-space: nowrap;
+}
 #main_board {
   float: left;
   width: 90%;
@@ -270,30 +274,18 @@ nav#navbar-custom .btn-search i {
   box-shadow: .5px .5px #b3b3b3;
 }
 /**Filter dropdown buttons**/
-.filter-feature {
-  position: relative;
-  display: inline-block;
-  left: 150px;
-  top: 5px;
+.filter-row {
+  margin-left: 30px;
 }
+.filter-feature,
 .filter-group {
-  position: relative;
   display: inline-block;
-  left: 140px;
-  top: 5px;
+  margin-right: 13px;
 }
-.filter-group-label {
-  position: absolute;
-  top: 94px;
-  left: 55px;
-  color: #6a646b;
-  font-size: 13px;
-  font-family: "Source Sans Pro Regular";
-}
+.filter-group-label,
 .filter-feature-label {
-  position: absolute;
-  top: 94px;
-  left: 220px;
+  display: inline-block;
+  margin-right: 3px;
   color: #6a646b;
   font-size: 13px;
   font-family: "Source Sans Pro Regular";
@@ -307,8 +299,6 @@ nav#navbar-custom .btn-search i {
   padding: 5px 10px;
   font-size: 16px;
   width: 40px;
-  position: relative;
-  left: 5px;
 }
 .filter-dropdown-btn-feature {
   background-color: white;
@@ -319,8 +309,6 @@ nav#navbar-custom .btn-search i {
   padding: 5px 20px;
   font-size: 16px;
   width: 195px;
-  position: relative;
-  left: 105px;
 }
 .filter-dropdown-content {
   display: none;
@@ -328,12 +316,6 @@ nav#navbar-custom .btn-search i {
   background-color: white;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
-}
-.filter-drop-down-content-group {
-
-}
-.filter-drop-down-content-feature {
-  left: 115px;
 }
 /* Links inside the dropdown */
 .filter-dropdown-content p {
@@ -351,12 +333,6 @@ nav#navbar-custom .btn-search i {
 /* Show the dropdown menu on hover */
 .filter-dropdown:hover .filter-dropdown-content {
     display: block;
-}
-
-/* Change the background color of the dropdown button when the dropdown content is shown */
-.filter-dropdown:hover .filter-dropdown-btn-feature,
-.filter-dropdown:hover .filter-dropdown-btn-group {
-
 }
 
 .fa-times {
