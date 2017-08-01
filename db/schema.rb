@@ -100,9 +100,9 @@ ActiveRecord::Schema.define(version: 20170723011424) do
     t.string   "description"
     t.string   "email"
     t.string   "website_address"
-    t.string   "image_url",       default: "http://www.actuariesindia.in/images/group1.png"
-    t.datetime "created_at",                                                                 null: false
-    t.datetime "updated_at",                                                                 null: false
+    t.string   "image_url",       default: "http://www.niagaracollege.ca/alumni-relations/wp-content/uploads/sites/25/2015/05/Icon-Group.svg"
+    t.datetime "created_at",                                                                                                                   null: false
+    t.datetime "updated_at",                                                                                                                   null: false
     t.index ["name"], name: "index_groups_on_name", unique: true
   end
 

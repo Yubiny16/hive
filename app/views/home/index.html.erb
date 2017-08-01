@@ -261,7 +261,8 @@
                   <% if all_notification.read == false %>
                     <li class="feed poll_feed poll_<%= all_notification.poll_id %> group_<%= all_notification.group_id %>">
                       <a href="#poll_<%= all_notification.poll_id %>" data-toggle="tab">
-                        <div class="rectangle_<%= @current_group_user.find_by(group_id: all_notification.group_id).color %>"><i class="fa fa-bar-chart" aria-hidden="true"></i></div>
+                        <div class="rectangle_<%= @current_group_user.find_by(group_id: all_notification.group_id).color %>"></div>
+                        <i class="fa fa-bar-chart" aria-hidden="true"></i>
                         <div class="unread-notification poll_unread-notification_<%= all_notification.poll_id %>"></div>
                         <p class="poll_list_title">
                           <%= all_notification.title %>
@@ -296,7 +297,8 @@
                   <% else %><!-- read -->
                     <li class="feed poll_feed poll_<%= all_notification.poll_id %> group_<%= all_notification.group_id %>">
                       <a href="#poll_<%= all_notification.poll_id %>" data-toggle="tab">
-                        <div class="rectangle_<%= @current_group_user.find_by(group_id: all_notification.group_id).color %>"><i class="fa fa-bar-chart" aria-hidden="true"></i></div>
+                        <div class="rectangle_<%= @current_group_user.find_by(group_id: all_notification.group_id).color %>"></div>
+                        <i class="fa fa-bar-chart" aria-hidden="true"></i>
                         <p class="poll_list_title">
                           <%= all_notification.title %>
                         </p>
