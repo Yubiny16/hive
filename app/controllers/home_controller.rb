@@ -52,7 +52,8 @@ class HomeController < ApplicationController
     @user = current_user
 
     @current_group_user = GroupUser.where(user_id: @user.id)
-    Rails.logger.info "Current User's Groups: #{@current_group_user.all}"
+    Rails.logger.info "Number of Current User's Groups: #{@current_group_user.count}"
+    Rails.logger.info "Total number of groups: #{Group.count}"
 
     now = (Date.today + 1)
     weekago = (now - 7)
@@ -141,29 +142,34 @@ class HomeController < ApplicationController
 
   def create_group
 
-    one_group = Group.new
-    one_group.name = params[:group_name]
-    one_group.school = params[:group_school]
-    one_group.description = params[:group_description]
-    one_group.email = params[:group_email]
-    one_group.password = params[:group_pw]
-    one_group.website_address = params[:group_website]
-    one_group.save
+    if params[:group_name] == "" || params[:group_school] == "" || paramsparams[:group_description] == ""
+      redirect_to :back
+    else
 
-    user = current_user
+      one_group = Group.new
+      one_group.name = params[:group_name]
+      one_group.school = params[:group_school]
+      one_group.description = params[:group_description]
+      one_group.email = params[:group_email]
+      one_group.password = params[:group_pw]
+      one_group.website_address = params[:group_website]
+      one_group.save
 
-    one_group_user = GroupUser.new
-    one_group_user.group_id = one_group.id
-    one_group_user.user_id = user.id
-    one_group_user.admin = true
-    one_group_user.save
+      user = current_user
 
-    one_group_budget = Budget.new
-    one_group_budget.group_id = one_group.id
-    one_group_budget.group_budget = 0
-    one_group_budget.save
+      one_group_user = GroupUser.new
+      one_group_user.group_id = one_group.id
+      one_group_user.user_id = user.id
+      one_group_user.admin = true
+      one_group_user.save
 
-    redirect_to "/home/index"
+      one_group_budget = Budget.new
+      one_group_budget.group_id = one_group.id
+      one_group_budget.group_budget = 0
+      one_group_budget.save
+
+      redirect_to "/home/index"
+    end
   end
 
   def group_page
@@ -318,6 +324,7 @@ class HomeController < ApplicationController
   end
 
   def option_select
+
     # Is it the user's first time voting? if yes...
     if Polluser.where(user_id: current_user.id).where(poll_id: params[:poll_id]).exists?
       Polluser.where(user_id: current_user.id).where(poll_id: params[:poll_id]).find do |polluser|
@@ -327,6 +334,9 @@ class HomeController < ApplicationController
         # Update Polluser now that user has voted for the first time or changed vote
         Polluser.update(polluser.id, :option_id => params[:optradio])
         Polluser.update(polluser.id, :voted => true)
+        puts Polluser.last.voted
+        puts Polluser.count
+        puts Polluser.count
       end
     else
       # Increase the number of votes for this option by 1
@@ -339,6 +349,12 @@ class HomeController < ApplicationController
       one_polluser.option_id = params[:optradio]
       one_polluser.voted = true
       one_polluser.save
+      puts one_polluser.user_id
+      puts one_polluser.user_id
+      puts one_polluser.user_id
+      puts 10
+      puts 10
+      puts 10
     end
     redirect_to :back
   end
@@ -484,6 +500,9 @@ class HomeController < ApplicationController
 
   def group_leave
     GroupUser.where(user_id: current_user.id).where(group_id: $group_id).destroy_all
+    Annnoti.where(group_id: $group_id).where(receiver: current_user.id).destroy_all
+    Pollnoti.where(group_id: $group_id).where(receiver: current_user.id).destroy_all
+    Calnoti.where(group_id: $group_id).where(receiver: current_user.id).destroy_all
     redirect_to "/home/index"
   end
 end
