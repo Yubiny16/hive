@@ -52,7 +52,8 @@ class HomeController < ApplicationController
     @user = current_user
 
     @current_group_user = GroupUser.where(user_id: @user.id)
-
+    Rails.logger.info "Current User's Groups: #{@current_group_user.all}"
+    
     now = (Date.today + 1)
     weekago = (now - 7)
 

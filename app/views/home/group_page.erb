@@ -560,7 +560,6 @@
                           <li class="list-group-item">School: <%= member.school %></li>
                           <li class="list-group-item">Major: <%= member.major %></li>
                           <li class="list-group-item">Class Year: <%= member.class_year %></li>
-                          <!-- <li class="list-group-item">Company: <%= member.company %> </li> -->
                         </ul>
                         <% if @user_groups.where(group_id: @group.id).first.admin == true %>
                           <form method="get" action="/home/appoint_admin">
