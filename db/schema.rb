@@ -129,11 +129,9 @@ ActiveRecord::Schema.define(version: 20170723011424) do
   create_table "polls", force: :cascade do |t|
     t.integer  "group_id"
     t.string   "title"
-    t.datetime "closing_time"
-    t.boolean  "multi_select", default: false
-    t.boolean  "anonymous",    default: false
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.boolean  "anonymous",  default: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
   create_table "pollusers", force: :cascade do |t|
@@ -173,7 +171,6 @@ ActiveRecord::Schema.define(version: 20170723011424) do
     t.string   "school"
     t.integer  "class_year"
     t.string   "major"
-    t.string   "company"
     t.string   "image_url",              default: "https://lh4.googleusercontent.com/-jSJrMg5AJqY/AAAAAAAAAAI/AAAAAAAAAQU/6Ps1RMLKfQE/photo.jpg"
     t.string   "index_first_time",       default: "yes"
     t.string   "group_first_time",       default: "yes"
