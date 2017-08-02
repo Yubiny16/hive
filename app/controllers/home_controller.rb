@@ -53,7 +53,7 @@ class HomeController < ApplicationController
 
     @current_group_user = GroupUser.where(user_id: @user.id)
     Rails.logger.info "Current User's Groups: #{@current_group_user.all}"
-    
+
     now = (Date.today + 1)
     weekago = (now - 7)
 
@@ -81,6 +81,7 @@ class HomeController < ApplicationController
   def profile
     @user = current_user
     @user_groups = GroupUser.where(user_id: @user.id)
+    Rails.logger.info "Current User's Groups: #{@user_groups.all}"
   end
 
   def group_color

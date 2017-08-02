@@ -54,9 +54,9 @@
     </div><!-- leftbar End-->
 
     <div class="col-md-8 board">
-      <ul class ="nav nav-pills" id="feature-tabs" style="margin-bottom: 30px">
+      <ul class ="nav nav-pills" id="profile-feature-tabs" style="margin-left: 35px;">
         <li class="active" id="profile-tab"><a href="#profile" data-toggle="tab">Profile</a></li>
-        <li id="preferences-tab"><a href="#preferences" data-toggle="tab">Preferences</a></li>
+        <li id="preferences-tab" style="margin-left: 15px;"><a href="#preferences" data-toggle="tab">Preferences</a></li>
       </ul>
       <hr />
 
@@ -70,11 +70,7 @@
 
           <form action="/home/profile_update" method="post" enctype="multipart/form-data" class="profile-pic-update-form">
             <div class="profile-image-update">
-              <% if @user.image_url=="" %>
-                <img src="http://www.sessionlogs.com/media/icons/defaultIcon.png" alt="profile img" title="default profile image" style="border-radius: 50%;" width="100">
-              <% else %>
-                <img src="<%= @user.image_url %>" alt="profile img" style="border-radius: 50%;" width="100">
-              <% end %>
+              <img src="<%= @user.image_url %>" alt="profile img" style="border-radius: 50%;" width="100">
               <br>
               <label class="btn" for="profile-image-upload"><i class="fa fa-upload" aria-hidden="true"></i> Upload Photo</label>
               <input type="file" name="pic" accept="image/*" id="profile-image-upload">

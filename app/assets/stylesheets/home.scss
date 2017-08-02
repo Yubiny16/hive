@@ -915,6 +915,19 @@ ul#feature-tabs > li.active > a {
 }
 /******************profile page styling********************/
 /*Profile*/
+ul#profile-feature-tabs li a{
+
+  background-color: transparent;
+  padding-bottom: 5px;
+  border-radius: 0px;
+  color: black;
+  font-size: 16px;
+}
+ul#profile-feature-tabs li a:hover,
+ul#profile-feature-tabs li.active > a{
+  border-bottom: 5px solid $main-red;
+  background-color: transparent;
+}
 #profile .profile-label{
   position: relative;
   color: #6a646b;
