@@ -142,7 +142,7 @@ class HomeController < ApplicationController
 
   def create_group
 
-    if params[:group_name] == "" || params[:group_school] == "" || paramsparams[:group_description] == ""
+    if params[:group_name] == "" || params[:group_school] == "" || params[:group_description] == ""
       redirect_to :back
     else
 
