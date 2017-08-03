@@ -334,9 +334,7 @@ class HomeController < ApplicationController
         # Update Polluser now that user has voted for the first time or changed vote
         Polluser.update(polluser.id, :option_id => params[:optradio])
         Polluser.update(polluser.id, :voted => true)
-        puts Polluser.last.voted
-        puts Polluser.count
-        puts Polluser.count
+
       end
     else
       # Increase the number of votes for this option by 1
@@ -349,12 +347,7 @@ class HomeController < ApplicationController
       one_polluser.option_id = params[:optradio]
       one_polluser.voted = true
       one_polluser.save
-      puts one_polluser.user_id
-      puts one_polluser.user_id
-      puts one_polluser.user_id
-      puts 10
-      puts 10
-      puts 10
+
     end
     redirect_to :back
   end

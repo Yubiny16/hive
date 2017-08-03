@@ -311,7 +311,7 @@
                           <% end %>
                         </p>
                         <p class="poll_list_date">
-                          <%= all_notification.created_at.in_time_zone($timezone).strftime("%Y-%m-%d") %>
+                          <%= all_notification.created_at.in_time_zone($timezone) %>
                         </p>
                       </a>
                     </li>
@@ -346,7 +346,7 @@
                   <p>From: <%= User.find(Pollnoti.find_by(poll_id: all_notification.poll_id).sender).first_name %> <span style="text-transform: capitalize"><%= User.find(Pollnoti.find_by(poll_id: all_notification.poll_id).sender).last_name %></span></p>
                   <span class="poll_tab_content_date"><%= all_notification.created_at.in_time_zone($timezone).strftime("%B %e, %Y at %l:%M %p") %></span>
                   <!-- Already voted -->
-                  <% if Polluser.where(user_id: @user.id).where(poll_id: all_notification.poll_id).where(voted: true).exists? %>
+                  <% if Polluser.where(user_id: current_user.id).where(poll_id: all_notification.poll_id).where(voted: true).exists? %>
                     <div class="already-voted">
                       <form action="/home/option_cancel" method="get">
                         <% Option.where(poll_id: all_notification.poll_id).find_each do |o| %>
@@ -402,7 +402,7 @@
                           <label><input type="radio" name="optradio" value="<%= o.id %>"><%= o.content %></label>
                         </div>
                       <% end %>
-                      <button name="poll_id" value="<%= all_notification.id %>" type="submit" class="btn">Vote!</button>
+                      <button name="poll_id" value="<%= all_notification.poll_id %>" type="submit" class="btn">Vote!</button>
                     </form><!-- Vote -->
 
                     <div class="poll_stat_<%= all_notification.id %>">
