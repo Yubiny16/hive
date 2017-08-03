@@ -291,6 +291,7 @@ class HomeController < ApplicationController
     one_poll.group_id = params[:group_id]
     one_poll.title = params[:poll_title]
     one_poll.anonymous = params[:anonymous]
+    one_poll.sender = current_user.id
     #one_poll.closing_time = params[:closing_time].to_time.strftime("%m/%d/%Y %I:%M %p")
     one_poll.save
 

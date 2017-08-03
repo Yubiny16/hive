@@ -6,6 +6,7 @@ class CreateAnnouncements < ActiveRecord::Migration[5.0]
       t.string :title
       t.string :content
       t.string :email
+      t.integer :sender
 
       t.timestamps
     end
