@@ -497,6 +497,11 @@ class HomeController < ApplicationController
     Annnoti.where(group_id: $group_id).where(receiver: current_user.id).destroy_all
     Pollnoti.where(group_id: $group_id).where(receiver: current_user.id).destroy_all
     Calnoti.where(group_id: $group_id).where(receiver: current_user.id).destroy_all
+
+    Event.where(calendar_type: 1).where(event_type: 1).where(user_id: $group_id).each do |destroy_event|
+      Event.where(calendar_type: 0).where(event_type: 1).where(user_id: current_user.id).where(event_id: destroy_event.id).destroy_all
+    end
+
     redirect_to "/home/index"
   end
 end

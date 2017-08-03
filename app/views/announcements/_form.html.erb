@@ -4,5 +4,6 @@
   <%= a.label :content %>
   <%= a.trix_editor :content %>
   <%= a.hidden_field :group_id, :value => $group_id %>
+  <%= a.hidden_field :sender, :value => current_user.id %>  
   <%= a.submit "Post" %>
 <% end %>
