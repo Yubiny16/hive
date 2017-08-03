@@ -87,7 +87,10 @@ class HomeController < ApplicationController
 
   def group_color
     GroupUser.where(user_id: current_user.id).where(group_id: params[:group_id]).update(:color => params[:new_color])
-    Event.where(calendar_type: 0).where(event_type: 1).where(user_id: current_user.id).update(:color => params[:new_color])
+    Event.where(calendar_type: 1).where(event_type: 1).where(user_id: params[:group_id]).each do |event_change_color|
+      Event.where(calendar_type: 0).where(event_type: 1).where(user_id: current_user.id).where(event_id: event_change_color.id).update(:color => params[:new_color])
+    end
+
   end
 
   def profile_update
