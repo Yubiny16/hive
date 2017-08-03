@@ -26,7 +26,7 @@
         <div class="modal-body" style="text-align: center; font-size: 16px">
 
           Start your first "<span style="font-size: 16px; font-family: Source Sans Pro Bold; color: #DA413D;">SYNCED</span>" schedule!<br /><br />
-          Balance multiple groups in one by adding different group events to your schedule! <br /><br />
+          Balance multiple groups by adding different group events to your schedule! <br /><br />
           <%= image_tag("calendar-instruction.png", size: "300x200") %>
 
 
@@ -225,7 +225,7 @@
                   <input name="group_id" type="hidden" value="<%= cal_notification.group_id %>"/>
                   <input name="event_id" type="hidden" value="<%= cal_notification.event_id %>"/>
                   <input name="color" type="hidden" value="<%= @current_group_user.find_by(group_id: cal_notification.group_id).color %>"/>
-                  <button type="submit" class="btn add_event_button">Add to My Calendar</button>
+                  <button type="submit" class="btn add_event_button">Add</button>
                 </form>
 
                 <div class="view-attending-members view-toggle-<%= cal_notification.event_id %>">
