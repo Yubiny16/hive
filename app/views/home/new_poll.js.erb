@@ -1,0 +1,9 @@
+$('#create_poll').modal('hide');
+$('#poll_board ul li').removeClass('active');
+$('#poll_board ul').prepend('<%= j render("new_poll_list") %>');
+$('#poll_board .tab-content .tab-pane').removeClass('active');
+$('#poll_board .tab-content').prepend('<%= j render("new_poll_board") %>')
+
+$("#poll_list_date_<%= @one_poll.id %>").each(function(){
+  this.textContent = moment(this.textContent).startOf('minute').fromNow();
+});

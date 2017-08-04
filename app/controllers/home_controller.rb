@@ -290,19 +290,19 @@ class HomeController < ApplicationController
 
   def new_poll
     # Create new poll DB
-    one_poll = Poll.new
-    one_poll.group_id = params[:group_id]
-    one_poll.title = params[:poll_title]
-    one_poll.anonymous = params[:anonymous]
-    one_poll.sender = current_user.id
+    @one_poll = Poll.new
+    @one_poll.group_id = params[:group_id]
+    @one_poll.title = params[:poll_title]
+    @one_poll.anonymous = params[:anonymous]
+    @one_poll.sender = current_user.id
     #one_poll.closing_time = params[:closing_time].to_time.strftime("%m/%d/%Y %I:%M %p")
-    one_poll.save
+    @one_poll.save
 
     # Create new Options
     for i in 1..$n
       new_option = Option.new
       # To see which poll these options belong to
-      new_option.poll_id = one_poll.id
+      new_option.poll_id = @one_poll.id
       new_option.content = params["option_content_#{i}"]
       new_option.save
     end
@@ -316,7 +316,7 @@ class HomeController < ApplicationController
       one_poll_notification = Pollnoti.new
       one_poll_notification.notification_type = 2 #announcement
       one_poll_notification.group_id = params[:group_id]
-      one_poll_notification.poll_id = one_poll.id
+      one_poll_notification.poll_id = @one_poll.id
       one_poll_notification.sender = current_user.id
       one_poll_notification.receiver = one_member.user_id
       one_poll_notification.title = params[:poll_title]
@@ -324,11 +324,15 @@ class HomeController < ApplicationController
 
     end
 
-    redirect_to :back
+    respond_to do |format|
+      format.html {redirect_to :back}
+      format.js
+    end
   end
 
   def option_select
-
+    @p_id = params[:poll_id]
+    @o_id = params[:optradio]
     # Is it the user's first time voting? if yes...
     if Polluser.where(user_id: current_user.id).where(poll_id: params[:poll_id]).exists?
       Polluser.where(user_id: current_user.id).where(poll_id: params[:poll_id]).find do |polluser|
@@ -353,20 +357,29 @@ class HomeController < ApplicationController
       one_polluser.save
 
     end
-    redirect_to :back
+
+    respond_to do |format|
+      format.html {redirect_to :back}
+      format.js
+    end
   end
 
   def option_cancel
+    @p_id = params[:poll_id]
     # find the user's vote
     Polluser.where(poll_id: params[:poll_id]).where(user_id: current_user.id).where(voted: true).find do |polluser|
-    @option_id = polluser.option_id
-    # decrease the number of votes for this option by 1
-    @vote_number = Option.find(@option_id).vote_number
-    Option.update(@option_id, :vote_number => @vote_number - 1)
-    # User's vote has been revoked
-    Polluser.update(polluser.id, :voted => false)
+      @option_id = polluser.option_id
+      # decrease the number of votes for this option by 1
+      @vote_number = Option.find(@option_id).vote_number
+      Option.update(@option_id, :vote_number => @vote_number - 1)
+      # User's vote has been revoked
+      Polluser.update(polluser.id, :voted => false)
     end
-    redirect_to :back
+
+    respond_to do |format|
+      format.html {redirect_to :back}
+      format.js
+    end
   end
 
 
@@ -482,8 +495,10 @@ class HomeController < ApplicationController
   end
 
   def destroy_poll
+    @poll_id = params[:p_id]
     @poll = Poll.find_by_id(params[:p_id])
     @poll.destroy
+    Pollnoti.where(poll_id: params[:p_id]).destroy_all
     respond_to do |format|
       format.html {redirect_to :back}
       format.js

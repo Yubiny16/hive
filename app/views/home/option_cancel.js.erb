@@ -1,0 +1,4 @@
+$('#form_cancel_<%= @p_id %>').hide().after('<%= j render("vote_redo") %>');
+var vc = document.getElementById('<%= @p_id %>_option_<%= @option_id %>_count').innerHTML; //vote count
+var nvc = parseInt(vc) - 1;
+$('#<%= @p_id %>_option_<%= @option_id %>_count').text(nvc);

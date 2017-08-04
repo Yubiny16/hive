@@ -696,6 +696,9 @@ ul#feature-tabs > li.active > a {
   width: 500px;
   margin: auto;
 }
+#new_announcement_link {
+  text-decoration: none;
+}
 #ann_popup_new .modal-body input,
 #ann_popup_new .modal-body textarea,
 #poll_popup .modal-body input {

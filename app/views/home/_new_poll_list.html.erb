@@ -1,0 +1,16 @@
+<li class="active">
+  <%= link_to '<i class="fa fa-times"></i>'.html_safe, p_path(@one_poll), method: :delete, data: {confirm: 'Would you like to delete this poll?'}, remote: true, class: 'delete_poll', id: "del_poll_" + @one_poll.id.to_s %>
+  <a href="#poll_<%= @one_poll.id %>" data-toggle="tab">
+    <p class="poll_list_title">
+      Q: <%= @one_poll.title %>
+    </p>
+    <p class="poll_list_answer">
+      <% if Polluser.where(user_id: current_user.id).where(poll_id: @one_poll.id).where(voted: true).exists? %>
+        A: <%= Option.find(Polluser.where(user_id: current_user.id).where(poll_id: @one_poll.id).where(voted: true).first.option_id).content %>
+      <% end %>
+    </p>
+    <p class="poll_list_date" id="poll_list_date_<%= @one_poll.id %>">
+      <%= @one_poll.created_at.in_time_zone($timezone) %>
+    </p>
+  </a>
+</li>

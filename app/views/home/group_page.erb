@@ -245,7 +245,7 @@
           <div class="tab-pane" id="Poll">
             <!-- Create Poll  -->
             <% if @admin_user.admin == true %>
-              <button data-toggle="modal" data-target="#create_poll" class="btn" id="add_poll_btn"><i class="fa fa-plus" aria-hidden="true"></i>New</button>
+              <button data-toggle="modal" data-target="#create_poll" class="btn" id="add_poll_btn" style="outline: none;"><i class="fa fa-plus" aria-hidden="true"></i>New</button>
 
               <!-- Create Poll Modal -->
               <div class="modal fade" id="create_poll" tableindex="-1" role="dialog">
@@ -258,7 +258,7 @@
                       <h4 class="modal-title">Create New Poll</h4>
                     </div>
                     <div class="modal-body">
-                      <form id = "form_poll" action="/home/new_poll" method="get">
+                      <form id="form_poll" action="/home/new_poll" method="get" data-remote="true">
                         <label>Title</label>
                         <input name="poll_title" type="text" class="input-box_text form-control"/>
                         <!-- Add div to let the ajax script know where to append new input field. -->
@@ -292,7 +292,7 @@
                 <ul class="nav nav-stacked">
                   <% @poll.each do |p| %>
                     <li>
-                      <%= link_to '<i class="fa fa-times"></i>'.html_safe, p_path(p), method: :delete, data: {confirm: 'Would you like to delete this poll?'}, remote: true, class: 'delete_poll' %>
+                      <%= link_to '<i class="fa fa-times"></i>'.html_safe, p_path(p), method: :delete, data: {confirm: 'Would you like to delete this poll?'}, remote: true, class: 'delete_poll', id: "del_poll_" + p.id.to_s %>
                       <a href="#poll_<%= p.id %>" data-toggle="tab">
                         <p class="poll_list_title">
                           Q: <%= p.title %>
@@ -319,7 +319,7 @@
                       <!-- Already voted -->
                       <% if Polluser.where(user_id: @user.id).where(poll_id: p.id).where(voted: true).exists? %>
                         <div class="already-voted">
-                          <form action="/home/option_cancel" method="get">
+                          <form action="/home/option_cancel" method="get" data-remote="true" id="form_cancel_<%= p.id %>">
                             <% Option.where(poll_id: p.id).find_each do |o| %>
                               <div class="radio">
                                 <!-- Options -->
@@ -332,15 +332,15 @@
 
                           <div class="poll_stat_<%= p.id %>">
                             <% Option.where(poll_id: p.id).find_each do |o| %>
-                              <p class="view_stat_options"><%= o.content %> <span style="color: #DA413D;"><%= o.vote_number %></span></p>
+                              <p class="view_stat_options"><%= o.content %> <span style="color: #DA413D;" id="<%= p.id %>_option_<%= o.id %>_count"><%= o.vote_number %></span></p>
                               <!-- Find the people who voted -->
-                              <% Polluser.where(option_id: o.id).where(voted: true).find_each do |pu| %>
-                                <% User.where(id: pu.user_id).find_each do |voted_user| %>
-                                  <div class="view_stat_options_votes">
-                                    <%= voted_user.first_name %> <%= voted_user.last_name %>
-                                  </div>
+                              <div class="view_stat_options_votes" id="<%= @one_poll.id %>_option_<%= o.id %>_names">
+                                <% Polluser.where(option_id: o.id).where(voted: true).find_each do |pu| %>
+                                  <% User.where(id: pu.user_id).find_each do |voted_user| %>
+                                    <div id="voter_<% pu.user_id %>"><%= voted_user.first_name %> <%= voted_user.last_name %></div>
+                                  <% end %>
                                 <% end %>
-                              <% end %>
+                              </div>
                             <% end %>
 
                             <!-- Find the people who have not voted -->
@@ -348,25 +348,24 @@
                             <% GroupUser.where(group_id: @group.id).find_each do |gr| %>
                               <% User.where(id: gr.user_id).find_each do |not_voted_user| %>
                                 <% if !Polluser.where(user_id: not_voted_user.id).where(poll_id: p.id).exists? %>
-                                  <div class="view_stat_options_votes">
+                                  <div class="view_stat_options_votes" id="not_voted_user_<%= not_voted_user.id %>">
                                     <%= not_voted_user.first_name %> <%= not_voted_user.last_name %>
                                   </div>
                                 <% end %>
                                 <% if Polluser.where(user_id: not_voted_user.id).where(poll_id: p.id).where(voted: false).exists? %>
-                                  <div class="view_stat_options_votes">
+                                  <div class="view_stat_options_votes" id="not_voted_user_<%= not_voted_user.id %>">
                                     <%= not_voted_user.first_name %> <%= not_voted_user.last_name %>
                                   </div>
                                 <% end %>
                               <% end %>
                             <% end %>
                           </div><!-- poll_stat -->
-
                         </div>
 
                       <% else %><!-- Already voted? NO -->
                       <div class="not-voted">
                         <!-- then Vote -->
-                        <form action="/home/option_select" method="get">
+                        <form action="/home/option_select" method="get" data-remote="true" id="form_vote_<%= p.id %>">
                           <% Option.where(poll_id: p.id).find_each do |o| %>
                             <div class="radio">
                               <!-- Options -->
@@ -378,15 +377,15 @@
 
                         <div class="poll_stat_<%= p.id %>">
                           <% Option.where(poll_id: p.id).find_each do |o| %>
-                            <p class="view_stat_options"><%= o.content %> <span style="color: #DA413D;"><%= o.vote_number %></span></p>
+                            <p class="view_stat_options"><%= o.content %> <span style="color: #DA413D;" id="<%= p.id %>_option_<%= o.id %>_count"><%= o.vote_number %></span></p>
                             <!-- Find the people who voted -->
-                            <% Polluser.where(option_id: o.id).where(voted: true).find_each do |pu| %>
-                              <% User.where(id: pu.user_id).find_each do |voted_user| %>
-                                <div class="view_stat_options_votes">
-                                  <%= voted_user.first_name %> <%= voted_user.last_name %>
-                                </div>
+                            <div class="view_stat_options_votes" id="<%= p.id %>_option_<%= o.id %>_names">
+                              <% Polluser.where(option_id: o.id).where(voted: true).find_each do |pu| %>
+                                <% User.where(id: pu.user_id).find_each do |voted_user| %>
+                                  <div id="voter_<% pu.user_id %>"><%= voted_user.first_name %> <%= voted_user.last_name %></div>
+                                <% end %>
                               <% end %>
-                            <% end %>
+                            </div>
                           <% end %>
 
                           <!-- Find the people who have not voted -->
@@ -394,19 +393,18 @@
                           <% GroupUser.where(group_id: @group.id).find_each do |gr| %>
                             <% User.where(id: gr.user_id).find_each do |not_voted_user| %>
                               <% if !Polluser.where(user_id: not_voted_user.id).where(poll_id: p.id).exists? %>
-                                <div class="view_stat_options_votes">
+                                <div class="view_stat_options_votes" id="not_voted_user_<%= not_voted_user.id %>">
                                   <%= not_voted_user.first_name %> <%= not_voted_user.last_name %>
                                 </div>
                               <% end %>
                               <% if Polluser.where(user_id: not_voted_user.id).where(poll_id: p.id).where(voted: false).exists? %>
-                                <div class="view_stat_options_votes">
+                                <div class="view_stat_options_votes" id="not_voted_user_<%= not_voted_user.id %>">
                                   <%= not_voted_user.first_name %> <%= not_voted_user.last_name %>
                                 </div>
                               <% end %>
                             <% end %>
                           <% end %>
                         </div><!-- poll_stat -->
-
                       </div>
                       <% end %><!-- Polluser exists? -->
 

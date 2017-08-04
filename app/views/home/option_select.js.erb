@@ -1,0 +1,6 @@
+$('#form_vote_<%= @p_id %>').hide().after('<%= j render("vote_cancel") %>');
+$('#not_voted_user_<%= current_user.id %>').remove();
+$('#<%= @p_id %>_option_<%= @o_id %>_names').append("<div><%= current_user.first_name %> <%= current_user.last_name %></div>")
+var vc = document.getElementById('<%= @p_id %>_option_<%= @o_id %>_count').innerHTML; //vote count
+var nvc = parseInt(vc) + 1;
+$('#<%= @p_id %>_option_<%= @o_id %>_count').text(nvc);
