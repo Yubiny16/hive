@@ -405,6 +405,17 @@ nav#navbar-custom .btn-search i {
   text-align: center;
   padding: 5px;
 }
+#group_profile .filter-dropdown {
+  position: absolute;
+  right: 70px;
+  top: 52px;
+
+}
+#group_profile button {
+  background-color: #ff9999;
+  border: none;
+  padding: 5px;
+}
 #group_profile a:last-child:hover {
   text-decoration: none;
 }

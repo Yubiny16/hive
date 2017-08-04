@@ -88,7 +88,22 @@ class HomeController < ApplicationController
   def group_color
     GroupUser.where(user_id: current_user.id).where(group_id: params[:group_id]).update(:color => params[:new_color])
     Event.where(calendar_type: 1).where(event_type: 1).where(user_id: params[:group_id]).each do |event_change_color|
-      Event.where(calendar_type: 0).where(event_type: 1).where(user_id: current_user.id).where(event_id: event_change_color.id).update(:color => params[:new_color])
+      if params[:new_color] == 'red'
+        new_color = '#e60000'
+      elsif params[:new_color] == 'orange'
+        new_color = '#ffa64d'
+      elsif params[:new_color] == 'yellow'
+        new_color = '#ffdb4d'
+      elsif params[:new_color] == 'green'
+        new_color = '#77b756'
+      elsif params[:new_color] == 'blue'
+        new_color = '#2f77c0'
+      elsif params[:new_color] == 'skyblue'
+        new_color = '#66d9ff'
+      elsif params[:new_color] == 'purple'
+        new_color = '#aa80ff'
+      end
+      Event.where(calendar_type: 0).where(event_type: 1).where(user_id: current_user.id).where(event_id: event_change_color.id).update(:color => new_color)
     end
 
   end
@@ -164,6 +179,7 @@ class HomeController < ApplicationController
       one_group_user.group_id = one_group.id
       one_group_user.user_id = user.id
       one_group_user.admin = true
+      one_group_user.sync = true
       one_group_user.save
 
       one_group_budget = Budget.new
@@ -398,7 +414,7 @@ class HomeController < ApplicationController
 
     @current_group_user = GroupUser.where(user_id: current_user.id)
 
-    now = (Date.today + 1)
+    now = (Date.today - 1)
 
     Calnoti.where(receiver: current_user.id).each do |old_event|
       if Date.strptime(old_event.end.to_s, '%Y-%m-%d') < Date.strptime(now.to_s, '%Y-%m-%d')
@@ -427,7 +443,21 @@ class HomeController < ApplicationController
     one_event.description = params[:description]
     one_event.start = params[:start]
     one_event.end = params[:end]
-    one_event.color = params[:color]
+    if params[:color] == 'red'
+      one_event.color = '#e60000'
+    elsif params[:color] == 'orange'
+      one_event.color = '#ffa64d'
+    elsif params[:color] == 'yellow'
+      one_event.color = '#ffdb4d'
+    elsif params[:color] == 'green'
+      one_event.color = '#77b756'
+    elsif params[:color] == 'blue'
+      one_event.color = '#2f77c0'
+    elsif params[:color] == 'skyblue'
+      one_event.color = '#66d9ff'
+    elsif params[:color] == 'purple'
+      one_event.color = '#aa80ff'
+    end
     one_event.save
 
     one_event_user = Eventuser.new
@@ -521,5 +551,15 @@ class HomeController < ApplicationController
     end
 
     redirect_to "/home/index"
+  end
+
+  def sync
+    GroupUser.where(group_id: $group_id).where(user_id: current_user.id).update(:sync => true)
+    redirect_to :back
+  end
+
+  def unsync
+    GroupUser.where(group_id: $group_id).where(user_id: current_user.id).update(:sync => false)
+    redirect_to :back
   end
 end

@@ -99,11 +99,7 @@
     <!-- Body-->
     <div class="col-md-10 board" style="padding: 0px">
       <div id="group_profile">
-        <% if @group.image_url=="" %>
-          <img src="http://www.sessionlogs.com/media/icons/defaultIcon.png" alt="profile img" title="default profile image" style="border-radius: 50%;" width="100">
-        <% else %>
-          <img src="<%= @group.image_url %>" alt="profile img" style="border-radius: 50%;" width="100">
-        <% end %>
+        <img src="<%= @group.image_url %>" alt="profile img" style="border-radius: 50%;" width="100">
         <div class="group_profile_heading">
           <h3><%= @group.name %></h3>
           <p><%= @group.school %></p>
@@ -112,7 +108,23 @@
         <p><%= @group.description %></p>
         <a href="/home/group_profile/<%= @group.id %>" id="group_setting"><i class="fa fa-cog" aria-hidden="true"></i></a>
         <a href="/home/group_leave" id="group_leave"data-confirm="Are you sure you want to leave <%= @group.name %>?">Leave Group</a>
-
+        <div class="filter-dropdown">
+          <% if @user_groups.find_by(group_id: @group.id).sync == false %>
+            <button style="outline: none;">Not Synced</button>
+            <div class="filter-dropdown-content">
+              <form action="/home/sync" method="get">
+                <button type="submit">Sync!</button>
+              </form>
+            </div>
+          <% else %>
+            <button style="outline: none;"><i class="fa fa-check" aria-hidden="true"></i>Synced</button>
+            <div class="filter-dropdown-content">
+              <form action="/home/unsync" method="get">
+                <button type="submit">Unsync</button>
+              </form>
+            </div>
+          <% end %>
+        </div>
         <ul class ="nav nav-pills" id="feature-tabs">
           <li class="active" ><a href="#Announcement" data-toggle="tab"><i class="fa fa-bullhorn" aria-hidden="true" style="margin-right: 5px"></i>Announcement</a></li>
           <li><a href="#Calendar" data-toggle="tab"><i class="fa fa-calendar" aria-hidden="true" style="margin-right: 5px"></i>Calendar</a></li>

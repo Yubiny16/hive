@@ -6,6 +6,7 @@ class CreateGroupUsers < ActiveRecord::Migration[5.0]
       t.integer :user_id
       t.string :color, :default => "blue"
       t.boolean :admin, :default => false
+      t.boolean :sync, :default => false
 
       t.timestamps
     end

@@ -82,6 +82,7 @@ ActiveRecord::Schema.define(version: 20170723011424) do
     t.integer  "user_id"
     t.string   "color",      default: "blue"
     t.boolean  "admin",      default: false
+    t.boolean  "sync",       default: false
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
   end

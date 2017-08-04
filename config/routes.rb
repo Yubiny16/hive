@@ -70,7 +70,8 @@ Rails.application.routes.draw do
   get '/home/transaction' => 'home#transaction'
 
   get '/home/appoint_admin' => 'home#appoint_admin'
-
+  get '/home/sync' => 'home#sync'
+  get '/home/unsync' => 'home#unsync'
   resources :groups
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

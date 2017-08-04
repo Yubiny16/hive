@@ -53,6 +53,26 @@ class EventsController < ApplicationController
         one_cal_notification.end = @event.end
         one_cal_notification.save
 
+        #for synced users
+        if one_member.sync == true
+          one_event = Event.new
+          one_event.event_id = @event.id
+          one_event.calendar_type = 0
+          one_event.event_type = 1
+          one_event.user_id = one_member.user_id
+          one_event.title = @event.title
+          one_event.description = @event.description
+          one_event.start = @event.start
+          one_event.end = @event.end
+          one_event.color = one_member.color
+          one_event.save
+
+          one_eventuser = Eventuser.new
+          one_eventuser.user_id = one_member.user_id
+          one_eventuser.event_id = @event.id
+          one_eventuser.save
+        end
+
       end
     end
   end
