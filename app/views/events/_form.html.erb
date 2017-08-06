@@ -6,8 +6,37 @@
     <%= f.input_field :start, as: :hidden, value: Date.today, class: 'form-control input-sm start_hidden' %>
     <%= f.input_field :end, as: :hidden, value: Date.today, class: 'form-control input-sm end_hidden' %>
     <%= f.input :color, as: :select, collection: [['Red','#e60000'], ['Orange','#ffa64d'], ['Yellow','#ffdb4d'], ['Green','#77b756'], ['Blue','#2f77c0'], ['Sky Blue','#66d9ff'], ['Purple','#aa80ff']], include_blank: false, include_hidden: false %>
+    <div class="repeat-event">
+        <input type="checkbox" name="repeat" value="yes">repeat?
+        <select name="frequency">
+          <option value="daily">Daily</option>
+          <option value="weekly">Weekly</option>
+          <option value="monthly">Monthly</option>
+        </select>
+        <select name="occurences">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="5">9</option>
+          <option value="6">10</option>
+          <option value="7">11</option>
+          <option value="8">12</option>
+          <option value="1">13</option>
+          <option value="2">14</option>
+          <option value="3">15</option>
+          <option value="4">16</option>
+          <option value="5">17</option>
+          <option value="6">18</option>
+          <option value="7">19</option>
+          <option value="8">20</option>
+        </select>
+    </div>
   </div>
-
   <div class="form-actions">
     <%= f.button :submit %>
 

@@ -8,6 +8,13 @@
   <p class="calenar-member-popup-end">
     <span style="color: #d4624c">End:</span> <%= @event.end.strftime("%B %e, %Y at %l:%M %p") %>
   </p>
+  <ol>
+    <% Eventuser.where(event_id: @event.id).each do |attending_members| %>
+      <li>
+        <%= User.find(attending_members.user_id).first_name %> <%= User.find(attending_members.user_id).last_name %>
+      </li>
+    <% end %>
+  </ol>
   <hr />
   <% unless Eventuser.where(event_id: @event.id).where(user_id: current_user.id).exists? %>
     <button type="submit" class="btn add_event_button"><a href="/home/my_calendar" style="color:white; ">Add to My Schedule</a></button>

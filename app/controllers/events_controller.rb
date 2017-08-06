@@ -27,16 +27,62 @@ class EventsController < ApplicationController
   end
 
   def create
-    @event = Event.new(event_params)
+    @temp_event = Event.new(event_params)
+
     if $type == 1# group
+      @event = Event.new(event_params)
       @event.user_id = $group_id
       @event.event_type = 1
+      @event.calendar_type = $type
+      @event.save
+
     else# user
-      @event.user_id = current_user.id
-      @event.event_type = 0
+
+      #repeat events
+      if params[:repeat] == "yes"
+
+        #dates
+        dates_start = @temp_event.start
+        dates_end = @temp_event.end
+
+        for i in 1..params[:occurences].to_i
+
+          @event = Event.new
+          @event.user_id = current_user.id
+          @event.event_type = 0
+          @event.calendar_type = $type
+          @event.title = @temp_event.title
+          @event.description = @temp_event.description
+          @event.color = @temp_event.color
+          @event.start = dates_start
+          @event.end = dates_end
+          @event.save
+
+          #dates
+          if params[:frequency] == "daily"
+            dates_start = (dates_start + 1.day)
+            dates_end = (dates_end + 1.day)
+          elsif params[:frequency] == "weekly"
+            dates_start = (dates_start + 7.day)
+            dates_end = (dates_end + 7.day)
+          else
+            dates_start = (dates_start + 1.month)
+            dates_end = (dates_end + 1.month)
+          end
+
+        end
+        redirect_to :back
+        
+      else #no repeat
+        @event = Event.new(event_params)
+        @event.user_id = current_user.id
+        @event.event_type = 0
+        @event.calendar_type = $type
+        @event.save
+      end
+
     end
-    @event.calendar_type = $type
-    @event.save
+
 
     if $type == 1
       GroupUser.where(group_id: $group_id).find_each do |one_member|
@@ -75,6 +121,7 @@ class EventsController < ApplicationController
 
       end
     end
+
   end
 
   def update

@@ -1,34 +1,25 @@
-<div id="calendar-group-member-popup">
-  <p class="calendar-member-popup-content">
-    <%= @event.description %>
-  </p>
-  <p class="calendar-member-popup-start">
-    <span style="color: #d4624c">Start:</span> <%= @event.start.strftime("%B %e, %Y at %l:%M %p") %>
-  </p>
-  <p class="calenar-member-popup-end">
-    <span style="color: #d4624c">End:</span> <%= @event.end.strftime("%B %e, %Y at %l:%M %p") %>
-  </p>
-  <hr />
-  <% unless Eventuser.where(event_id: @event.id).where(user_id: current_user.id).exists? %>
-    <button type="submit" class="btn add_event_button"><a href="/home/my_calendar" style="color:white; ">Add to My Schedule</a></button>
-  <% else %>
-    <form action="/home/cancel_event" method="get">
-      <input name="event_id" type="hidden" value="<%= @event.id %>"/>
-      <button type="submit" class="btn add_event_button">Cancel</button>
-    </form>
-  <% end %>
-</div>
-
 <%= simple_form_for @event, remote: true do |f| %>
-  <div class="form-inputs">
-    <%= f.input :title %>
-    <!-- <%= f.input :date_range, input_html: { class: "form-control input-sm date-range-picker" } %> -->
-    <%= f.input :description %>
-    <%= f.input_field :start, as: :hidden, value: Date.today, class: 'form-control input-sm start_hidden' %>
-    <%= f.input_field :end, as: :hidden, value: Date.today, class: 'form-control input-sm end_hidden' %>
-    <%= f.input :color, as: :select, collection: [['Red','#e60000'], ['Orange','#ffa64d'], ['Yellow','#ffdb4d'], ['Green','#77b756'], ['Blue','#2f77c0'], ['Sky Blue','#66d9ff'], ['Purple','#aa80ff']], include_blank: false, include_hidden: false %>
+  <div id="calendar-group-member-popup">
+    <p class="calendar-member-popup-content">
+      <%= @event.description %>
+    </p>
+    <p class="calendar-member-popup-start">
+      <span style="color: #d4624c">Start:</span> <%= @event.start.strftime("%B %e, %Y at %l:%M %p") %>
+    </p>
+    <p class="calenar-member-popup-end">
+      <span style="color: #d4624c">End:</span> <%= @event.end.strftime("%B %e, %Y at %l:%M %p") %>
+    </p>
+    <% if @event.calendar_type == 1 %>
+      <ol>
+        <% Eventuser.where(event_id: @event.id).each do |attending_members| %>
+          <li>
+            <%= User.find(attending_members.user_id).first_name %> <%= User.find(attending_members.user_id).last_name %>
+          </li>
+        <% end %>
+      </ol>
+    <% end %>
+    <hr />
   </div>
-
   <div class="form-actions">
     <%= f.button :submit %>
     <%= link_to 'Delete',

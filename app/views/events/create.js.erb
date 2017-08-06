@@ -4,3 +4,10 @@ $('.calendar').fullCalendar(
   true
 );
 $('.modal').modal('hide');
+
+$('.my_calendar').fullCalendar(
+  'renderEvent',
+  $.parseJSON("<%=j render(@event, format: :json).html_safe %>"),
+  true
+);
+$('.modal').modal('hide');

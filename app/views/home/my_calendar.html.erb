@@ -100,7 +100,7 @@
 
     <!-- Main/Board -->
     <div class="col-md-7 board">
-      <div class="calendar" style="margin-left: 70px; margin-right: 50px">
+      <div class="my_calendar" style="margin-left: 70px; margin-right: 50px">
         <div id="event_type" data-type="<%= $type %>"></div>
       </div>
     </div><!--col-md-7-->
@@ -387,7 +387,7 @@ $( function() {
 var initialize_calendar;
 
   initialize_calendar = function() {
-    $('.calendar').each(function(){
+    $('.my_calendar').each(function(){
       var calendar = $(this);
 
       calendar.fullCalendar({
@@ -465,10 +465,16 @@ var initialize_calendar;
   };
 $(document).on('turbolinks:load', initialize_calendar);
 
+
+
 //search suggestions
 $( function() {
   $( "#search_group" ).autocomplete({
     source: $( "#search_group" ).data('autocomplete')
   });
 });
+
+document.addEventListener("turbolinks:load", function() {
+  my_func();
+})
 </script>
