@@ -1,9 +1,0 @@
-<form action="/home/option_select" method="get" data-remote="true" id="form_vote_<%= @p_id %>">
-  <% Option.where(poll_id: @p_id).find_each do |o| %>
-    <div class="radio">
-      <!-- Options -->
-      <label><input type="radio" name="optradio" value="<%= o.id %>"><%= o.content %></label>
-    </div>
-  <% end %>
-  <button name="poll_id" value="<%= @p_id %>" type="submit" class="btn">Vote!</button>
-</form>

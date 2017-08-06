@@ -1,4 +1,7 @@
-$('#form_cancel_<%= @p_id %>').hide().after('<%= j render("vote_redo") %>');
+$('#form_cancel_<%= @p_id %>').hide();
+$('#form_vote_<%= @p_id %>').show();
+$('#<%= @p_id %>_option_<%= @option_id %>_names #voter_<%= current_user.id %>').remove();
 var vc = document.getElementById('<%= @p_id %>_option_<%= @option_id %>_count').innerHTML; //vote count
 var nvc = parseInt(vc) - 1;
 $('#<%= @p_id %>_option_<%= @option_id %>_count').text(nvc);
+$('#not_voted_<%= @p_id %>').append('<div id="not_voted_user_<%= current_user.id %>"><%= current_user.first_name %> <%= current_user.last_name %></div>');
