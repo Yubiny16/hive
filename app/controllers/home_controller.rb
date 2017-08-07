@@ -490,7 +490,13 @@ class HomeController < ApplicationController
 
   def destroy_file
     @file = Groupfile.find_by_id(params[:file_id])
+    f_url = @file.file_url
+    f_key = f_url.partition('syncdataynr/').last
     @file.destroy
+
+    Aws.use_bundled_cert!
+    s3 = Aws::S3::Client.new
+    s3.delete_object(bucket: 'syncdataynr', key: f_key)
 
     redirect_to :back
   end

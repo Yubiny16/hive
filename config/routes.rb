@@ -44,8 +44,6 @@ Rails.application.routes.draw do
 
   #Group_Home_Functions
   get '/home/announcement_all' => 'home#announcement_all'
-  post '/home/money_plus' => 'home#money_plus'
-  post '/home/money_minus' => 'home#money_minus'
   get '/home/new_poll' => 'home#new_poll'
   get '/home/add_option' => 'home#add_option'
   get '/home/option_select' => 'home#option_select'

@@ -10,6 +10,7 @@ gem 'trix'
 gem 'mailgun-ruby'
 gem 'fog-aws'
 gem 'carrierwave'
+gem 'aws-sdk', '~> 2'
 
 gem 'simple_form'
 gem 'bootstrap-daterangepicker-rails'
