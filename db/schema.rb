@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 20170723011424) do
     t.integer  "sender"
     t.integer  "receiver"
     t.string   "title"
-    t.string   "content"
+    t.binary   "content"
     t.boolean  "read",              default: false
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 20170723011424) do
   create_table "announcements", force: :cascade do |t|
     t.integer  "group_id"
     t.string   "title"
-    t.string   "content"
+    t.binary   "content"
     t.string   "email"
     t.integer  "sender"
     t.datetime "created_at", null: false

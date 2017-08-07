@@ -8,7 +8,7 @@ class CreateAnnnotis < ActiveRecord::Migration[5.0]
       t.integer :sender
       t.integer :receiver
       t.string :title
-      t.string :content
+      t.binary :content
       t.boolean :read, :default => false
 
       t.timestamps
