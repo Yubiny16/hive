@@ -35,7 +35,7 @@ Rails.application.routes.draw do
   get '/home/create_group_view' => 'home#create_group_view'
   get '/home/create_group' => 'home#create_group'
   get '/home/group_page/:group_id' => 'home#group_page'
-  get '/home/search' => 'home#search'
+  get '/home/search' => 'groups#index'
   post '/home/join_group/:group_id' => 'home#join_group'
   get '/home/group_leave' => 'home#group_leave'
 
