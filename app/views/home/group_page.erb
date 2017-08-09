@@ -48,7 +48,7 @@
 
       <!--search bar-->
       <div class="col-md-5" style="padding-left: 0;">
-        <form action="/home/search" method="get">
+        <form action="/groups/index" method="get">
           <!-- Pass search words to controller -->
           <input id="search_group" name= "search_group" type="text" class="form-control" data-autocomplete="<%= groups_path %>" placeholder="Search Your Group">
           <button type="submit" class="btn btn-search"><i class="fa fa-search" aria-hidden="true"></i></button>
@@ -107,7 +107,7 @@
         </div>
         <p><%= @group.description %></p>
         <a href="/home/group_profile/<%= @group.id %>" id="group_setting"><i class="fa fa-cog" aria-hidden="true"></i></a>
-        <a href="/home/group_leave" id="group_leave"data-confirm="Are you sure you want to leave <%= @group.name %>?">Leave Group</a>
+        <a href="/home/group_leave" id="group_leave" data-confirm="Are you sure you want to leave <%= @group.name %>?">Leave Group</a>
         <div class="filter-dropdown">
           <% if @user_groups.find_by(group_id: @group.id).sync == false %>
             <button style="outline: none;">Not Synced</button>
@@ -525,6 +525,7 @@
               </table>
             </div>
           </div>
+
         </div>
       </div>
     </div>
@@ -537,7 +538,7 @@
             <% @members.where(admin: true).each do |all_admins| %>
               <% User.where(id: all_admins.user_id).each do |admin| %>
                 <div class="member-profile-pic" data-toggle="modal" data-target="#member_<%= admin.id %>">
-                  <img src="<%= admin.image_url %>" alt="profile img" style="border-radius: 50%; margin-bottom: 30px" width="35px">
+                  <img src="<%= admin.image_url %>" alt="profile img" style="border-radius: 50%; margin-bottom: 30px" width="35px" >
                 </div>
 
                 <!--modal for each member-->

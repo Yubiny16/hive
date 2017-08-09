@@ -9,6 +9,10 @@ class HomeController < ApplicationController
 
   def index
 
+    puts $timezone
+    puts $timezone
+    puts Time.now
+    puts Time.now
     if params[:index_first_time] == "no"
       User.find_by_id(current_user.id).update(:index_first_time => params[:index_first_time])
     end
@@ -118,9 +122,11 @@ class HomeController < ApplicationController
     uploader = UserprofileUploader.new
     uploader.store!(params[:pic])
 
-    @user = current_user
-    @user.image_url = uploader.url
-    @user.save
+    unless uploader.url == nil
+      @user = current_user
+      @user.image_url = uploader.url
+      @user.save
+    end
 
     redirect_to "/home/profile"
   end
@@ -237,9 +243,9 @@ class HomeController < ApplicationController
 
     uploader = GroupprofileUploader.new
     uploader.store!(params[:pic])
-
-    Group.update(params[:group_id], :image_url => uploader.url)
-
+    unless uploader.url == nil
+      Group.update(params[:group_id], :image_url => uploader.url)
+    end
     redirect_to "/home/group_page/#{group_id}"
   end
 
@@ -413,7 +419,10 @@ class HomeController < ApplicationController
     $type = 0 #calendar type   0: my calendar
 
     @current_group_user = GroupUser.where(user_id: current_user.id)
-
+    puts $timezone
+    puts $timezone
+    puts Time.now
+    puts Time.now
     now = (Date.today - 1)
 
     Calnoti.where(receiver: current_user.id).each do |old_event|

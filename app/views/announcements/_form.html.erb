@@ -1,9 +1,9 @@
 <%= form_for @announcement, remote: true do |a| %>
-  <%= a.label :title %>
-  <%= a.text_field :title, class: "form-control" %>
-  <%= a.label :content %>
+  <%= a.label :title, style: "color: #DA413D" %>
+  <%= a.text_field :title, class: "form-control", style: "margin-bottom: 15px" %>
+  <%= a.label :content, style: "color: #DA413D" %>
   <%= a.trix_editor :content %>
   <%= a.hidden_field :group_id, :value => $group_id %>
-  <%= a.hidden_field :sender, :value => current_user.id %>  
-  <%= a.submit "Post" %>
+  <%= a.hidden_field :sender, :value => current_user.id %>
+  <%= a.submit "Post", class: "main-btn", style: "margin-top: 15px; width: 50px;" %>
 <% end %>

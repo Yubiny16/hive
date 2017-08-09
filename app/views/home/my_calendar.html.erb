@@ -49,7 +49,7 @@
 
       <!--search bar-->
       <div class="col-md-5" style="padding-left: 0;">
-        <form action="/home/search" method="get">
+        <form action="/groups/index" method="get">
           <!-- Pass search words to controller -->
           <input id="search_group" name= "search_group" type="text" class="form-control" data-autocomplete= "<%= groups_path %>" placeholder="Search Your Group">
           <button type="submit" class="btn btn-search"><i class="fa fa-search" aria-hidden="true"></i></button>
@@ -204,18 +204,22 @@
             <% if !Event.where(event_id: cal_notification.event_id).where(calendar_type: 0).where(user_id: cal_notification.receiver).exists? %>
               <div class="one_event cal_<%= cal_notification.event_id %> event_group_<%= cal_notification.group_id %> not_added_event">
                 <div class="rectangle_<%= @current_group_user.find_by(group_id: cal_notification.group_id).color %>"></div>
-                <i class="event_not_added_icon fa fa-times" aria-hidden="true"></i>
+                <p class="one_event_date">
+                  <%= cal_notification.start.strftime("%b %e") %>
+                </p>
+                <hr style="margin-bottom: 5px;"/>
                 <p class="one_event_title">
                   <%= cal_notification.title %>
                 </p>
                 <p class="one_event_content">
                   <%= cal_notification.description %>
                 </p>
-                <p class="one_event_start">
-                  <span style="color: #d4624c">Start:</span> <%= cal_notification.start.strftime("%B %e, %Y at %l:%M %p") %>
+                <i class="fa fa-clock-o" aria-hidden="true"></i>
+                <p class="one_event_time">
+                  <%= cal_notification.start.strftime("%l:%M %p") %> ~ <%= cal_notification.end.strftime("%l:%M %p") %>
                 </p>
-                <p class="one_event_end">
-                  <span style="color: #d4624c">End:</span> <%= cal_notification.end.strftime("%B %e, %Y at %l:%M %p") %>
+                <p class="one_event_timeleft">
+                  <%= cal_notification.start %>
                 </p>
                 <form action="/home/add_event" method="post">
                   <input name="title" type="hidden" value="<%= cal_notification.title %>"/>
@@ -251,18 +255,22 @@
             <% else %>
               <div class="one_event cal_<%= cal_notification.event_id %> event_group_<%= cal_notification.group_id %> added_event">
                 <div class="rectangle_<%= @current_group_user.find_by(group_id: cal_notification.group_id).color %>"></div>
-                <i class="event_added_icon fa fa-check" style="color: green" aria-hidden="true"></i>
+                <p class="one_event_date">
+                  <%= cal_notification.start.strftime("%b %e") %>
+                </p>
+                <hr style="margin-bottom: 5px;"/>
                 <p class="one_event_title">
                   <%= cal_notification.title %>
                 </p>
                 <p class="one_event_content">
                   <%= cal_notification.description %>
                 </p>
-                <p class="one_event_start">
-                  <span style="color: #d4624c">Start:</span> <%= cal_notification.start.strftime("%B %e, %Y at %l:%M %p") %>
+                <i class="fa fa-clock-o" aria-hidden="true"></i>
+                <p class="one_event_time">
+                  <%= cal_notification.start.strftime("%l:%M %p") %> ~ <%= cal_notification.end.strftime("%l:%M %p") %>
                 </p>
-                <p class="one_event_end">
-                  <span style="color: #d4624c">End:</span> <%= cal_notification.end.strftime("%B %e, %Y at %l:%M %p") %>
+                <p class="one_event_timeleft">
+                  <%= cal_notification.start %>
                 </p>
                 <form action="/home/cancel_event" method="get">
                   <input name="event_id" type="hidden" value="<%= cal_notification.event_id %>"/>
@@ -314,6 +322,12 @@
 
 
 <script>
+$('.one_event_timeleft').each(function() {
+
+  this.textContent = moment(this.textContent).local().startOf('minute').fromNow();
+
+});
+
 //for multiple filtering
 rsvp_filter_switch = "All";
 all_feed = $('.one_event');

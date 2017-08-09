@@ -107,6 +107,8 @@ $group-purple: #aa80ff;
   background-color: #DA413D;
   color: white;
   font-family: "Source Sans Pro Bold";
+  border: none;
+  border-radius: 3px;
 }
 .main-btn:hover {
   color: white;
@@ -1207,10 +1209,10 @@ ul#profile-feature-tabs li.active > a{
 
 #calendar_board {
   position: relative;
-  top: 100px;
-  height: 565px;
+  top: 95px;
+  height: 480px;
   border-radius: 5px;
-  width: 250px;
+  width: 275px;
   overflow: auto;
   background-color: $main-gray;
   border: 1px solid #BFC9CA;
@@ -1228,6 +1230,12 @@ ul#profile-feature-tabs li.active > a{
   border: 1px solid #BFC9CA;
   background-color: white;
 }
+#calendar_board .one_event .one_event_date {
+  position: relative;
+  left: 15px;
+  top: 10px;
+  font-size: 20px;
+}
 #calendar_board .one_event .one_event_title {
   position: relative;
   font-size: 16px;
@@ -1235,7 +1243,6 @@ ul#profile-feature-tabs li.active > a{
   font-family: "Source Sans Pro Bold";
   top: 5px;
   left: 15px;
-  padding-top: 12px;
   padding-bottom: 5px;
   margin-bottom: 5px;
 }
@@ -1247,13 +1254,25 @@ ul#profile-feature-tabs li.active > a{
   left: 15px;
   padding-bottom: 20px;
 }
-#calendar_board .one_event .one_event_start,
-#calendar_board .one_event .one_event_end {
+#calendar_board i {
+  position: absolute;
+  color: $main-red;
+  font-size: 20px;
+  left: 28px;
+}
+#calendar_board .one_event .one_event_time {
   position: relative;
   font-size: 14px;
   color: #716e77;
-  left: 15px;
+  left: 50px;
   bottom: 10px;
+}
+#calendar_board .one_event .one_event_timeleft {
+  position: relative;
+  font-size: 14px;
+  color: $main-red;
+  left: 50px;
+  bottom: 20px;
 }
 #calendar_board .one_event button[type="submit"] {
   position: relative;
@@ -1270,11 +1289,6 @@ ul#profile-feature-tabs li.active > a{
   position: absolute;
   left: 31px;
   top: 15px;
-}
-#calendar_board .one_event i {
-  position: absolute;
-  left: 12px;
-  top: 11px;
 }
 #calendar_board .one_event .view-attending-members {
   position: relative;

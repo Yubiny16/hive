@@ -3,10 +3,10 @@
     <%= @event.description %>
   </p>
   <p class="calendar-member-popup-start">
-    <span style="color: #d4624c">Start:</span> <%= @event.start.strftime("%B %e, %Y at %l:%M %p") %>
+    <span style="color: #d4624c">Start:</span> <%= @event.start.strftime("%B %e at %l:%M %p") %>
   </p>
   <p class="calenar-member-popup-end">
-    <span style="color: #d4624c">End:</span> <%= @event.end.strftime("%B %e, %Y at %l:%M %p") %>
+    <span style="color: #d4624c">End:</span> <%= @event.end.strftime("%B %e at %l:%M %p") %>
   </p>
   <ol>
     <% Eventuser.where(event_id: @event.id).each do |attending_members| %>

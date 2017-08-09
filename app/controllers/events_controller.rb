@@ -72,7 +72,7 @@ class EventsController < ApplicationController
 
         end
         redirect_to :back
-        
+
       else #no repeat
         @event = Event.new(event_params)
         @event.user_id = current_user.id
@@ -110,7 +110,23 @@ class EventsController < ApplicationController
           one_event.description = @event.description
           one_event.start = @event.start
           one_event.end = @event.end
-          one_event.color = one_member.color
+
+          if one_member.color == 'red'
+            one_event.color = '#e60000'
+          elsif one_member.color == 'orange'
+            one_event.color = '#ffa64d'
+          elsif one_member.color == 'yellow'
+            one_event.color = '#ffdb4d'
+          elsif one_member.color == 'green'
+            one_event.color = '#77b756'
+          elsif one_member.color == 'blue'
+            one_event.color = '#2f77c0'
+          elsif one_member.color == 'skyblue'
+            one_event.color = '#66d9ff'
+          elsif one_member.color == 'purple'
+            one_event.color = '#aa80ff'
+          end
+
           one_event.save
 
           one_eventuser = Eventuser.new

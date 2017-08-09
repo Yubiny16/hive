@@ -26,7 +26,6 @@ $timezone
      @user.school = params[:school]
      @user.major = params[:major]
      @user.class_year = params[:class_year]
-     @user.company = params[:company]
      @user.save
      super
    end

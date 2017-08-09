@@ -49,7 +49,7 @@
 
       <!--search bar-->
       <div class="col-md-5" style="padding-left: 0;">
-        <form action="/home/search" method="get">
+        <form action="/groups/index" method="get">
           <!-- Pass search words to controller -->
           <input id="search_group" name= "search_group" type="text" class="form-control" data-autocomplete= "<%= groups_path %>" placeholder="Search Your Group">
           <button type="submit" class="btn btn-search"><i class="fa fa-search" aria-hidden="true"></i></button>
@@ -220,7 +220,7 @@
                           <%= all_notification.title %>
                         </p>
                         <p class="announcement_list_date">
-                          <%= all_notification.created_at.in_time_zone($timezone) %>
+                          <%= all_notification.created_at %>
                         </p>
                         <div><%= all_notification.content.html_safe %></div>
                       </a>
@@ -253,7 +253,7 @@
                           <%= all_notification.title %>
                         </p>
                         <p class="announcement_list_date ">
-                          <%= all_notification.created_at.in_time_zone($timezone) %>
+                          <%= all_notification.created_at %>
                         </p>
                         <div><%= all_notification.content.html_safe %></div>
                       </a>
@@ -276,7 +276,7 @@
                           <% end %>
                         </p>
                         <p class="poll_list_date">
-                          <%= all_notification.created_at.in_time_zone($timezone) %>
+                          <%= all_notification.created_at %>
                         </p>
                       </a>
                     </li>
@@ -311,7 +311,7 @@
                           <% end %>
                         </p>
                         <p class="poll_list_date">
-                          <%= all_notification.created_at.in_time_zone($timezone) %>
+                          <%= all_notification.created_at %>
                         </p>
                       </a>
                     </li>

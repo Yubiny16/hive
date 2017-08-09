@@ -9,7 +9,7 @@
 
       <!--search bar-->
       <div class="col-md-5" style="padding-left: 0;">
-        <form action="/home/search" method="get">
+        <form action="/groups/index" method="get">
           <!-- Pass search words to controller -->
           <input id="search_group" name= "search_group" type="text" class="form-control" data-autocomplete= "<%= groups_path %>" placeholder="Search Your Group">
           <button type="submit" class="btn btn-search"><i class="fa fa-search" aria-hidden="true"></i></button>
@@ -59,15 +59,15 @@
 
       <form action= "/home/create_group" method="get">
         <div class="group-field">
-          <label for="group-name">Your Group Name</label><br>
+          <label for="group-name"><span style="color: #DA413D; margin-right: 3px">*</span>Your Group Name</label><br>
           <input name= "group_name" type="text" class="form-control" id="group-name">
         </div>
         <div class="group-field">
-          <label for="group-school">Your School</label><br>
+          <label for="group-school"><span style="color: #DA413D; margin-right: 3px">*</span>Your School</label><br>
           <input name= "group_school" type="text" class="form-control" id="group-school">
         </div>
         <div class="group-field">
-          <label for="group-Description">Description</label><br>
+          <label for="group-Description"><span style="color: #DA413D; margin-right: 3px">*</span>Description</label><br>
           <textarea name="group_description" type="text" class="form-control" id="group-description" rows="4"></textarea>
         </div>
         <div class="group-field">
@@ -79,7 +79,7 @@
           <input name= "group_website" type="text" class="form-control" id="group-website">
         </div>
         <div class="group-field">
-          <label for="group-password">Password for this Group</label><br>
+          <label for="group-password"><span style="color: #DA413D; margin-right: 3px">*</span>Password for this Group</label><br>
           <input name= "group_pw" type="text" class="form-control" id="group-pw">
         </div>
         <div class="group-field">
