@@ -419,18 +419,12 @@ class HomeController < ApplicationController
     $type = 0 #calendar type   0: my calendar
 
     @current_group_user = GroupUser.where(user_id: current_user.id)
-    puts $timezone
-    puts $timezone
-    puts Time.now
-    puts Time.now
-    now = (Date.today - 1)
+
+    now = Date.today
 
     Calnoti.where(receiver: current_user.id).each do |old_event|
       if Date.strptime(old_event.end.to_s, '%Y-%m-%d') < Date.strptime(now.to_s, '%Y-%m-%d')
-        unless old_event.event_id == 1
-          old_event.destroy
-        end
-
+        old_event.destroy
       end
     end
 

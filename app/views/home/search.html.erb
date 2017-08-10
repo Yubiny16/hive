@@ -9,7 +9,7 @@
 
       <!--search bar-->
       <div class="col-md-5" style="padding-left: 0;">
-        <form action="/groups/index" method="get">
+        <form action="/home/search" method="get">
           <!-- Pass search words to controller -->
           <input id="search_group" name= "search_group" type="text" class="form-control" data-autocomplete= "<%= groups_path %>" placeholder="Search Your Group">
           <button type="submit" class="btn btn-search"><i class="fa fa-search" aria-hidden="true"></i></button>
@@ -55,7 +55,7 @@
     </div><!-- leftbar End-->
 
     <!-- Main/Board -->
-    <div class="col-md-8 board" style="padding-left: 0;">
+    <div class="col-md-8 board" style="padding-left: 0; min-height: 700px;">
       <!-- list of searched groups -->
       <% unless @searched_groups.first == nil %>
         <% @searched_groups.find_each do |g| %>
@@ -72,7 +72,7 @@
                 <p><%= g.school %></p>
               </div>
               <p><%= g.description %></p>
-              <button class="btn" type="button" data-toggle="modal" data-target="#join_button_<%= g.id %>" style="outline: none;">
+              <button class="btn main-btn" type="button" data-toggle="modal" data-target="#join_button_<%= g.id %>" style="outline: none;">
                 Join
               </button>
             </div>
