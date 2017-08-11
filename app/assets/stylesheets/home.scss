@@ -13,7 +13,7 @@
   font-family: "Source Sans Pro Regular";
 }
 $main-red: #DA413D;
-$main-gray: #e4e6e9;
+$main-gray: #f2f2f2;
 $main-font: "Source Sans Pro Regular";
 $group-red: #e60000;
 $group-orange: #ffa64d;
@@ -899,7 +899,7 @@ ul#feature-tabs > li.active > a {
   float: left;
   width: 180px;
   margin-left: 20px;
-  margin-top: 34px;
+  margin-top: 75px;
 }
 .group-page-right-side label {
   font-family: "Source Sans Pro Bold";
@@ -1151,15 +1151,17 @@ ul#profile-feature-tabs li.active > a{
   font-size: 16px;
 }
 /****************My Calendar********************/
+.group-event-board-label {
+  margin-top: 80px;
+  margin-left: 70px;
+}
 .calendar-filter-group {
   position: relative;
   display: inline-block;
-  top: 83px;
 }
 .calendar-filter-rsvp {
   position: relative;
   display: inline-block;
-  top: 83px;
 }
 .calendar-filter-group button {
   padding: 5px 10px;
@@ -1211,8 +1213,8 @@ ul#profile-feature-tabs li.active > a{
 
 #calendar_board {
   position: relative;
-  top: 95px;
-  height: 480px;
+  margin-top: 10px;
+  height: 440px;
   border-radius: 5px;
   width: 275px;
   overflow: auto;

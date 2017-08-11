@@ -106,8 +106,11 @@
     </div><!--col-md-7-->
 
     <!-- Calendar Feed -->
-    <div class="col-md-3" style="background-color: white; min-height: 700px;">
+    <div class="col-md-3" style="background-color: white; min-height: 710px;">
 
+      <div class="group-event-board-label">
+        <h3>Group Events</h3>
+      </div>
       <!-- Filter -->
       <div class="filter-dropdown calendar-filter-group">
         <button class ="calendar-filter-dropdown-btn-group">All</button>
@@ -367,7 +370,7 @@ $( function() {
 
      $(".not_added_event").hide();
      $(".added_event").fadeIn();
-     $('.calendar-filter-dropdown-btn-rsvp').html('Added Events');
+     $('.calendar-filter-dropdown-btn-rsvp').html('Added');
      rsvp_filter_switch = "Added";
 
   });
@@ -378,7 +381,7 @@ $( function() {
 
     $(".added_event").hide();
      $(".not_added_event").fadeIn();
-     $('.calendar-filter-dropdown-btn-rsvp').html('Not Added Events');
+     $('.calendar-filter-dropdown-btn-rsvp').html('Not Added');
      rsvp_filter_switch = "Not Added";
 
  });
@@ -408,8 +411,10 @@ var initialize_calendar;
         header: {
           left: 'prev, next, today',
           center: 'title',
-          right: 'month, agendaWeek, agendaDay'
+          right: 'month, agendaWeek, listWeek'
         },
+        defaultView: 'listWeek',
+
         selectable: true,
         selectHelper: true,
         editable: true,
