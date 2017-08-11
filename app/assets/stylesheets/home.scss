@@ -13,7 +13,7 @@
   font-family: "Source Sans Pro Regular";
 }
 $main-red: #DA413D;
-$main-gray: #f9f9f9;
+$main-gray: #e4e6e9;
 $main-font: "Source Sans Pro Regular";
 $group-red: #e60000;
 $group-orange: #ffa64d;
@@ -171,7 +171,7 @@ nav#navbar-custom form {
 }
 nav#navbar-custom input {
   height: 34px;
-  width: 80%;
+  width: 50%;
   display: inline-block;
   float: left;
   border-radius: 0px;
@@ -1170,6 +1170,7 @@ ul#profile-feature-tabs li.active > a{
   border-radius: 100px;
   border-style: solid;
   color: #DA413D;
+  margin-left: 25px;
 }
 .calendar-filter-rsvp button {
   background-color: white;
@@ -1179,7 +1180,8 @@ ul#profile-feature-tabs li.active > a{
   color: #DA413D;
   padding: 5px 20px;
   font-size: 16px;
-  width: 205px;
+  width: 170px;
+  margin-left: 15px;
 }
 .filter-dropdown-content {
   display: none;
