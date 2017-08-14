@@ -24,6 +24,23 @@ class AnnouncementsController < ApplicationController
       format.html { redirect_to :back }
       format.js
     end
+
+    #email
+    #unless @announcement.email == nil
+    #  mg_client = Mailgun::Client.new("")
+
+    #  message_params =  {
+    #                     from: 'bob@example.com',
+    #                     to:   @announcement.email,
+    #                     subject: @announcement.title,
+    #                     text:    @announcement.content
+    #                    }
+
+    #  result = mg_client.send_message('sandbox3d5ecb84ef964c55a076e27ff9d3c2f5.mailgun.org', message_params).to_h!
+
+    #  message_id = result['id']
+    #  message = result['message']
+    #end
   end
 
   private

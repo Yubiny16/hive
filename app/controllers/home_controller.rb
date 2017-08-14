@@ -249,21 +249,6 @@ class HomeController < ApplicationController
     redirect_to "/home/group_page/#{group_id}"
   end
 
-  #def send_email
-  #  mg_client = Mailgun::Client.new("your-api-key")
-
-  #  message_params =  {
-  #                     from: 'bob@example.com',
-  #                     to:   'sally@example.com',
-  #                     subject: 'The Ruby SDK is awesome!',
-  #                     text:    'It is really easy to send a message!'
-  #                    }
-
-  #  result = mg_client.send_message('example.com', message_params).to_h!
-
-  #  message_id = result['id']
-  #  message = result['message']
-#  end
   def transaction
     @transaction_type = params[:transaction_type]
     if params[:transaction_type] == "plus"

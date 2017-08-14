@@ -3,7 +3,7 @@ class CreateCalnotis < ActiveRecord::Migration[5.0]
     create_table :calnotis do |t|
 
       t.integer :event_id
-      t.integer :group_id
+      t.integer :group_id # 0 = personal event noti
       t.integer :sender
       t.integer :receiver
       t.string :title
