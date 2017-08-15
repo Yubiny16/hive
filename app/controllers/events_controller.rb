@@ -80,16 +80,16 @@ class EventsController < ApplicationController
         @event.calendar_type = $type
         @event.save
 
-        my_calnoti = Calnoti.new
-        my_calnoti.event_id = @event.id
-        my_calnoti.group_id = 0
-        my_calnoti.sender = current_user.id
-        my_calnoti.receiver = current_user.id
-        my_calnoti.title = @event.title
-        my_calnoti.description = @event.description
-        my_calnoti.start = @event.start
-        my_calnoti.end = @event.end
-        my_calnoti.save
+        @my_calnoti = Calnoti.new
+        @my_calnoti.event_id = @event.id
+        @my_calnoti.group_id = 0
+        @my_calnoti.sender = current_user.id
+        @my_calnoti.receiver = current_user.id
+        @my_calnoti.title = @event.title
+        @my_calnoti.description = @event.description
+        @my_calnoti.start = @event.start
+        @my_calnoti.end = @event.end
+        @my_calnoti.save
       end
 
     end

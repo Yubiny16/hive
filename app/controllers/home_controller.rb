@@ -455,6 +455,7 @@ class HomeController < ApplicationController
 
     redirect_to :back
   end
+
   def cancel_event
     Event.where(event_id: params[:event_id]).where(calendar_type: 0).where(user_id: current_user.id).destroy_all()
     Eventuser.find_by(event_id: params[:event_id], user_id: current_user.id).destroy

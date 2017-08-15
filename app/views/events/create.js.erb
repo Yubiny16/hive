@@ -11,3 +11,8 @@ $('.my_calendar').fullCalendar(
   true
 );
 $('.modal').modal('hide');
+
+$('#calendar_board').prepend('<%= j render("event_board") %>');
+$('.one_event_timeleft').each(function() {
+  this.textContent = moment(this.textContent).local().startOf('minute').fromNow();
+});
