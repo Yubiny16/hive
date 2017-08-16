@@ -23,7 +23,17 @@ $group-blue: #2f77c0;
 $group-skyblue: #66d9ff;
 $group-purple: #aa80ff;
 
-/*******************Scrollbar customize***********/
+/*******************new event***********/
+@-webkit-keyframes greenPulse {
+  from { -webkit-box-shadow: 0 0 9px #BFC9CA; }
+  50% { -webkit-box-shadow: 0 0 18px #DA413D; }
+  to { -webkit-box-shadow: 0 0 9px #BFC9CA; }
+}
+div.new_event {
+  -webkit-animation-name: greenPulse;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-iteration-count: 3;
+}
 /*******************Group Color*****************/
 .unread-notification {
   background-color: #5586f6;
@@ -273,7 +283,7 @@ nav#navbar-custom .btn-search i {
   margin-left: 30px;
   margin-top: 25px;
   background-color: $main-gray;
-  box-shadow: .5px .5px #b3b3b3;
+  border: 1px solid #BCA9CA;
 }
 /**Filter dropdown buttons**/
 .filter-row {
@@ -391,8 +401,8 @@ nav#navbar-custom .btn-search i {
 }
 #group_profile #group_setting {
   position: absolute;
-  right: 20px;
-  top: 50px;
+  right: 10px;
+  top: 10px;
   font-size: 20px;
   color: white;
 }
@@ -409,9 +419,13 @@ nav#navbar-custom .btn-search i {
 }
 #group_profile .filter-dropdown {
   position: absolute;
-  right: 70px;
-  top: 52px;
-
+  right: 50px;
+  top: 10px;
+}
+#group_profile .filter-dropdown-content {
+  min-width: initial;
+  width: 80px;
+  background-color: #ff9999;
 }
 #group_profile button {
   background-color: #ff9999;
@@ -481,8 +495,8 @@ ul#feature-tabs > li.active > a {
 #poll_board {
   float: left;
   background-color: $main-gray;
-  box-shadow: .5px .5px #b3b3b3;
   width: 100%;
+  border: 1px solid #BCA9CA;
 }
 #announcements_board ul,
 #poll_board ul,
@@ -507,7 +521,13 @@ ul#feature-tabs > li.active > a {
   text-overflow: ellipsis;
   overflow: hidden;
   background-color: white;
-
+  padding: 0;
+  margin: 10px 15px;
+}
+#main_board ul li a:hover,
+#poll_board ul li a:hover,
+#announcements_board ul li a:hover {
+  background-color: white;
 }
 #main_board .unread-notification {
   position: absolute;
@@ -546,7 +566,7 @@ ul#feature-tabs > li.active > a {
 #announcements_board .delete_ann,
 #poll_board .delete_poll {
   position: absolute;
-  top: 4px; left: 4px;
+  top: -5px; left: -10px;
   z-index: 100;
   font-size: 10px;
   padding: 0px 2px;
@@ -564,7 +584,7 @@ ul#feature-tabs > li.active > a {
   font-size: 10px;
   color: #89868f;
   right: 5px;
-  top: 10px;
+  top: 0px;
 }
 #announcements_board ul li div,
 #main_board .announcement_feed div:last-child {
@@ -584,12 +604,19 @@ ul#feature-tabs > li.active > a {
 #poll_board ul li,
 #main_board ul li  {
   border: 1px solid #BFC9CA;
+  border-radius: 5px;
   margin: 5px;
+  background-color: white;
 }
 #main_board ul li i {
   position: absolute;
   color: #716e77;
   right: 80px;
+}
+#main_board ul li:hover,
+#poll_board ul li:hover,
+#announcements_board ul li:hover {
+  border-color: #DA413D;
 }
 #announcements_board ul li.active,
 #poll_board ul li.active,
@@ -616,6 +643,7 @@ ul#feature-tabs > li.active > a {
   position: relative;
   overflow: scroll;
   border-left: 1px solid #BFC9CA;
+  background-color: white;
 }
 #announcements_board .tab-content::-webkit-scrollbar,
 #poll_board .tab-content::-webkit-scrollbar,
@@ -1230,8 +1258,9 @@ ul#profile-feature-tabs li.active > a{
   height: auto;
   overflow: auto;
   padding: 15px;
-  margin: 5px;
   border: 1px solid #BFC9CA;
+  margin: 5px;
+  border-radius: 5px;
   background-color: white;
 }
 #calendar_board .one_event .one_event_date {

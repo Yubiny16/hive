@@ -90,6 +90,7 @@ class EventsController < ApplicationController
         @my_calnoti.start = @event.start
         @my_calnoti.end = @event.end
         @my_calnoti.save
+
       end
 
     end
@@ -99,16 +100,16 @@ class EventsController < ApplicationController
       GroupUser.where(group_id: $group_id).find_each do |one_member|
 
         #Cal notification
-        one_cal_notification = Calnoti.new
-        one_cal_notification.event_id = @event.id
-        one_cal_notification.group_id = $group_id
-        one_cal_notification.sender = current_user.id
-        one_cal_notification.receiver = one_member.user_id
-        one_cal_notification.title = @event.title
-        one_cal_notification.description = @event.description
-        one_cal_notification.start = @event.start
-        one_cal_notification.end = @event.end
-        one_cal_notification.save
+        @my_calnoti = Calnoti.new
+        @my_calnoti.event_id = @event.id
+        @my_calnoti.group_id = $group_id
+        @my_calnoti.sender = current_user.id
+        @my_calnoti.receiver = one_member.user_id
+        @my_calnoti.title = @event.title
+        @my_calnoti.description = @event.description
+        @my_calnoti.start = @event.start
+        @my_calnoti.end = @event.end
+        @my_calnoti.save
 
         #for synced users
         if one_member.sync == true
