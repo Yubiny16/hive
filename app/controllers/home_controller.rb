@@ -422,31 +422,31 @@ class HomeController < ApplicationController
   end
 
   def add_event
-    one_event = Event.new
-    one_event.event_id = params[:event_id]
-    one_event.calendar_type = 0
-    one_event.event_type = 1
-    one_event.user_id = current_user.id
-    one_event.title = params[:title]
-    one_event.description = params[:description]
-    one_event.start = params[:start]
-    one_event.end = params[:end]
+    @one_event = Event.new
+    @one_event.event_id = params[:event_id]
+    @one_event.calendar_type = 0
+    @one_event.event_type = 1
+    @one_event.user_id = current_user.id
+    @one_event.title = params[:title]
+    @one_event.description = params[:description]
+    @one_event.start = params[:start]
+    @one_event.end = params[:end]
     if params[:color] == 'red'
-      one_event.color = '#e60000'
+      @one_event.color = '#e60000'
     elsif params[:color] == 'orange'
-      one_event.color = '#ffa64d'
+      @one_event.color = '#ffa64d'
     elsif params[:color] == 'yellow'
-      one_event.color = '#ffdb4d'
+      @one_event.color = '#ffdb4d'
     elsif params[:color] == 'green'
-      one_event.color = '#77b756'
+      @one_event.color = '#77b756'
     elsif params[:color] == 'blue'
-      one_event.color = '#2f77c0'
+      @one_event.color = '#2f77c0'
     elsif params[:color] == 'skyblue'
-      one_event.color = '#66d9ff'
+      @one_event.color = '#66d9ff'
     elsif params[:color] == 'purple'
-      one_event.color = '#aa80ff'
+      @one_event.color = '#aa80ff'
     end
-    one_event.save
+    @one_event.save
 
     one_event_user = Eventuser.new
     one_event_user.user_id = current_user.id

@@ -478,9 +478,10 @@ var initialize_calendar;
         },
 
         eventClick: function(event, jsEvent, view) {
-
+            var newEvent = $('.newww_event');
             $('.one_event').remove();
             $('#calendar_board').append(all_feed);
+            $('#calendar_board').append(newEvent);
             $('.one_event').hide();
 
             if (event.event_type == 1)
