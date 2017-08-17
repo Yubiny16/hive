@@ -538,6 +538,7 @@
             <% @members.where(admin: true).each do |all_admins| %>
               <% User.where(id: all_admins.user_id).each do |admin| %>
                 <div class="member-profile-pic" data-toggle="modal" data-target="#member_<%= admin.id %>">
+                  <span class="member-hover"><%= admin.first_name %> <%= admin.last_name %></span>
                   <img src="<%= admin.image_url %>" alt="profile img" style="border-radius: 50%; margin-bottom: 30px" width="35px" >
                 </div>
 
@@ -576,6 +577,7 @@
             <% @members.where(admin: false).each do |all_members| %>
               <% User.where(id: all_members.user_id).each do |member| %>
                 <div class="member-profile-pic" data-toggle="modal" data-target="#member_<%= member.id %>">
+                  <span class="member-hover"><%= member.first_name %> <%= member.last_name %></span>
                   <img src="<%= member.image_url %>" alt="profile img" style="border-radius: 50%; margin-bottom: 30px" width="35px">
                 </div>
 

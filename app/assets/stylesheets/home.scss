@@ -40,8 +40,6 @@ div.new_event {
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  position: absolute;
-
 }
 .circle_red,
 .circle_orange,
@@ -522,7 +520,7 @@ ul#feature-tabs > li.active > a {
   overflow: hidden;
   background-color: white;
   padding: 0;
-  margin: 10px 15px;
+  margin: 10px 10px;
 }
 #main_board ul li a:hover,
 #poll_board ul li a:hover,
@@ -531,12 +529,11 @@ ul#feature-tabs > li.active > a {
 }
 #main_board .unread-notification {
   position: absolute;
-  top: 16px;
-  left: 10px;
+  top: 5px;
 }
 #main_board li a div:first-child {
   position: relative;
-  left: 10px;
+  left: 15px;
 }
 #main_board .announcement_list_title,
 #main_board .poll_list_title {
@@ -549,7 +546,7 @@ ul#feature-tabs > li.active > a {
   white-space: nowrap;
   text-overflow: ellipsis;
   margin-bottom: 0;
-  left: 10px;
+  left: 15px;
 }
 #announcements_board .announcement_list_title,
 #poll_board .poll_list_title {
@@ -566,7 +563,7 @@ ul#feature-tabs > li.active > a {
 #announcements_board .delete_ann,
 #poll_board .delete_poll {
   position: absolute;
-  top: -5px; left: -10px;
+  top: -5px; left: -5px;
   z-index: 100;
   font-size: 10px;
   padding: 0px 2px;
@@ -575,6 +572,10 @@ ul#feature-tabs > li.active > a {
   i {
     color: white;
   }
+}
+#announcements_board .delete_ann:hover,
+#poll_board .delete_poll:hover {
+  background-color: #DA413D;
 }
 #announcements_board .announcement_list_date,
 #poll_board .poll_list_date,
@@ -598,7 +599,6 @@ ul#feature-tabs > li.active > a {
 }
 #main_board .announcement_feed div:last-child div {
   position: relative;
-  left: 10px;
 }
 #announcements_board ul li,
 #poll_board ul li,
@@ -859,50 +859,7 @@ ul#feature-tabs > li.active > a {
   font-size: 18px;
 }
 /**members tab design**/
-#Members .member {
-}
-#Members .member-profile {
-  position: relative;
-  width: 47%;
-  display: inline-block;
-  border: 1px solid #BFC9CA;
-  border-radius: 5px;
-  padding: 5px;
-  margin-left: 5px;
-  margin-bottom: 5px;
-}
-#Members .member-profile .admin_marker {
-  position: absolute;
-  top: 2px;
-  right: 3px;
-}
-#Members .member-profile .member-profile-name {
-  position: absolute;
-  left: 100px;
-  top: 15px;
-}
-#Members .member-profile button {
-  position: absolute;
-  bottom: 8px;
-  right: 8px;
-  padding: 4px;
-  font-size: 12px;
-  font-family: $main-font;
-  outline: none;
-  background-color: #DA413D;
-  color: white;
-  font-family: "Source Sans Pro Bold";
-}
-#Members .modal-body button {
-  position: relative;
-  left: 35%;
-  font-size: 12px;
-  font-family: $main-font;
-  outline: none;
-  background-color: #DA413D;
-  color: white;
-  font-family: "Source Sans Pro Bold";
-}
+
 /*files design*/
 #file_board {
   float: left;
@@ -956,6 +913,24 @@ ul#feature-tabs > li.active > a {
 }
 .fc-toolbar button {
   outline: none;
+}
+.member-profile-pic {
+  cursor: pointer;
+  position: relative;
+}
+.member-profile-pic .member-hover {
+  display: none;
+  position: absolute;
+  top: 40px;
+  white-space: nowrap;
+  padding: 5px 8px;
+  background-color: black;
+  border-radius: 3px;
+  color: white;
+  opacity: 0.7;
+}
+.member-profile-pic:hover .member-hover {
+  display: block;
 }
 /******************profile page styling********************/
 /*Profile*/
