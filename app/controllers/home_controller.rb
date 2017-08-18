@@ -462,6 +462,14 @@ class HomeController < ApplicationController
     redirect_to :back
   end
 
+  def my_event_delete
+    delete_event = Event.find(params[:event_id])
+    delete_event.destroy
+
+    delete_event_noti = Calnoti.find(params[:calnoti_id])
+    delete_event_noti.destroy
+  end
+
   def file_upload
     gfiles = Groupfile.new
     gfiles.group_id = params[:group_id]

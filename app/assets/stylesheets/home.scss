@@ -114,7 +114,7 @@ div.new_event {
 .main-btn {
   background-color: #DA413D;
   color: white;
-  font-family: "Source Sans Pro Bold";
+  font-family: $main-font;
   border: none;
   border-radius: 3px;
 }
@@ -1285,7 +1285,6 @@ ul#profile-feature-tabs li.active > a{
 #calendar_board .one_event button[type="submit"] {
   position: relative;
   left: 10px;
-  font-family: "Source Sans Pro Bold";
   font-family: $main-font;
   color: white;
   background-color: #DA413D;

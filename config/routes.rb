@@ -63,7 +63,7 @@ Rails.application.routes.draw do
   get '/landing/index' => 'landing#index'
   #Calendar
   resources :events
-
+  get '/home/my_event_delete' => 'home#my_event_delete'
   #testtesttesttesttesttest
   get '/home/transaction' => 'home#transaction'
 
