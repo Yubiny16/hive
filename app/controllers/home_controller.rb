@@ -573,7 +573,7 @@ class HomeController < ApplicationController
     @group_pw = Group.find($group_id).password
 
     unless params[:email1] == ""
-      mg_client = Mailgun::Client.new("key-01cab085b877b33e7e23683b611974b2")
+      mg_client = Mailgun::Client.new("")
 
       message_params =  {
                          from: "#{current_user.first_name} #{current_user.last_name}@synced.space",
@@ -589,7 +589,7 @@ class HomeController < ApplicationController
     end
 
     unless params[:email2] == ""
-      mg_client = Mailgun::Client.new("key-01cab085b877b33e7e23683b611974b2")
+      mg_client = Mailgun::Client.new("")
 
       message_params =  {
                          from: "#{current_user.first_name} #{current_user.last_name}@synced.space",
@@ -605,7 +605,7 @@ class HomeController < ApplicationController
     end
 
     unless params[:email3] == ""
-      mg_client = Mailgun::Client.new("key-01cab085b877b33e7e23683b611974b2")
+      mg_client = Mailgun::Client.new("")
 
       message_params =  {
                          from: "#{current_user.first_name} #{current_user.last_name}@synced.space",
@@ -620,7 +620,7 @@ class HomeController < ApplicationController
       message = result['message']
     end
     unless params[:email4] == ""
-      mg_client = Mailgun::Client.new("key-01cab085b877b33e7e23683b611974b2")
+      mg_client = Mailgun::Client.new("")
 
       message_params =  {
                          from: "#{current_user.first_name} #{current_user.last_name}@synced.space",
@@ -635,7 +635,7 @@ class HomeController < ApplicationController
       message = result['message']
     end
     unless params[:email5] == ""
-      mg_client = Mailgun::Client.new("key-01cab085b877b33e7e23683b611974b2")
+      mg_client = Mailgun::Client.new("")
 
       message_params =  {
                          from: "#{current_user.first_name} #{current_user.last_name}@synced.space",
@@ -650,7 +650,7 @@ class HomeController < ApplicationController
       message = result['message']
     end
     unless params[:email6] == ""
-      mg_client = Mailgun::Client.new("key-01cab085b877b33e7e23683b611974b2")
+      mg_client = Mailgun::Client.new("")
 
       message_params =  {
                          from: "#{current_user.first_name} #{current_user.last_name}@synced.space",

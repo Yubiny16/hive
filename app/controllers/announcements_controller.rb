@@ -28,7 +28,7 @@ class AnnouncementsController < ApplicationController
     #email
     if params[:post] == "post_and_email"
 
-      mg_client = Mailgun::Client.new("key-01cab085b877b33e7e23683b611974b2")
+      mg_client = Mailgun::Client.new("")
 
       message_params =  {
                          from: "#{current_user.first_name} #{current_user.last_name}@synced.space",
