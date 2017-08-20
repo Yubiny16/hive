@@ -26,21 +26,22 @@ class AnnouncementsController < ApplicationController
     end
 
     #email
-    #unless @announcement.email == nil
-    #  mg_client = Mailgun::Client.new("")
+    if params[:post] == "post_and_email"
 
-    #  message_params =  {
-    #                     from: 'bob@example.com',
-    #                     to:   @announcement.email,
-    #                     subject: @announcement.title,
-    #                     text:    @announcement.content
-    #                    }
+      mg_client = Mailgun::Client.new("key-01cab085b877b33e7e23683b611974b2")
 
-    #  result = mg_client.send_message('sandbox3d5ecb84ef964c55a076e27ff9d3c2f5.mailgun.org', message_params).to_h!
+      message_params =  {
+                         from: "#{current_user.first_name} #{current_user.last_name}@synced.space",
+                         to:   @announcement.email,
+                         subject: @announcement.title,
+                         text:    ActionView::Base.full_sanitizer.sanitize(@announcement.content)
+                        }
 
-    #  message_id = result['id']
-    #  message = result['message']
-    #end
+      result = mg_client.send_message('synced.space', message_params).to_h!
+
+      message_id = result['id']
+      message = result['message']
+    end
   end
 
   private

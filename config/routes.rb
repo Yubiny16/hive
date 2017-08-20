@@ -73,5 +73,7 @@ Rails.application.routes.draw do
   resources :groups
 
   get '/home/search' => 'home#search'
+
+  get '/home/invite' => 'home#invite'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
