@@ -143,6 +143,7 @@ class HomeController < ApplicationController
        one_group_user = GroupUser.new
        one_group_user.group_id = params[:group_id]
        one_group_user.user_id = user.id
+       one_group_user.color = params[:color]
        one_group_user.save
 
        redirect_to controller: 'home', action: 'group_page', id: :group_id
@@ -186,6 +187,7 @@ class HomeController < ApplicationController
       one_group_user.user_id = user.id
       one_group_user.admin = true
       one_group_user.sync = true
+      one_group_user.color = params[:color]
       one_group_user.save
 
       one_group_budget = Budget.new
@@ -239,6 +241,7 @@ class HomeController < ApplicationController
     Group.update(params[:group_id], :school => params[:group_school])
     Group.update(params[:group_id], :description => params[:group_description])
     Group.update(params[:group_id], :password => params[:group_pw])
+    Group.update(params[:group_id], :email => params[:group_email])
     Group.update(params[:group_id], :website_address => params[:group_website])
 
     uploader = GroupprofileUploader.new
@@ -564,5 +567,107 @@ class HomeController < ApplicationController
   def unsync
     GroupUser.where(group_id: $group_id).where(user_id: current_user.id).update(:sync => false)
     redirect_to :back
+  end
+
+  def invite
+
+    @group_name = Group.find($group_id).name
+    @group_pw = Group.find($group_id).password
+
+    unless params[:email1] == ""
+      mg_client = Mailgun::Client.new("")
+
+      message_params =  {
+                         from: "#{current_user.first_name} #{current_user.last_name}@synced.space",
+                         to:   params[:email1],
+                         subject: "#{current_user.first_name} #{current_user.last_name} Invited you to join #{@group_name} at Sync",
+                         text:    "Join " + @group_name + " at www.synced.space (the password for this group is " + @group_pw + ")"
+                        }
+
+      result = mg_client.send_message('synced.space', message_params).to_h!
+
+      message_id = result['id']
+      message = result['message']
+    end
+
+    unless params[:email2] == ""
+      mg_client = Mailgun::Client.new("")
+
+      message_params =  {
+                         from: "#{current_user.first_name} #{current_user.last_name}@synced.space",
+                         to:   params[:email2],
+                         subject: "#{current_user.first_name} #{current_user.last_name} Invited you to join #{@group_name} at Sync",
+                         text:    "Join " + @group_name + " at www.synced.space (the password for this group is " + @group_pw + ")"
+                        }
+
+      result = mg_client.send_message('synced.space', message_params).to_h!
+
+      message_id = result['id']
+      message = result['message']
+    end
+
+    unless params[:email3] == ""
+      mg_client = Mailgun::Client.new("")
+
+      message_params =  {
+                         from: "#{current_user.first_name} #{current_user.last_name}@synced.space",
+                         to:   params[:email3],
+                         subject: "#{current_user.first_name} #{current_user.last_name} Invited you to join #{@group_name} at Sync",
+                         text:    "Join " + @group_name + " at www.synced.space (the password for this group is " + @group_pw + ")"
+                        }
+
+      result = mg_client.send_message('synced.space', message_params).to_h!
+
+      message_id = result['id']
+      message = result['message']
+    end
+    unless params[:email4] == ""
+      mg_client = Mailgun::Client.new("")
+
+      message_params =  {
+                         from: "#{current_user.first_name} #{current_user.last_name}@synced.space",
+                         to:   params[:email4],
+                         subject: "#{current_user.first_name} #{current_user.last_name} Invited you to join #{@group_name} at Sync",
+                         text:    "Join " + @group_name + " at www.synced.space (the password for this group is " + @group_pw + ")"
+                        }
+
+      result = mg_client.send_message('synced.space', message_params).to_h!
+
+      message_id = result['id']
+      message = result['message']
+    end
+    unless params[:email5] == ""
+      mg_client = Mailgun::Client.new("")
+
+      message_params =  {
+                         from: "#{current_user.first_name} #{current_user.last_name}@synced.space",
+                         to:   params[:email5],
+                         subject: "#{current_user.first_name} #{current_user.last_name} Invited you to join #{@group_name} at Sync",
+                         text:    "Join " + @group_name + " at www.synced.space (the password for this group is " + @group_pw + ")"
+                        }
+
+      result = mg_client.send_message('synced.space', message_params).to_h!
+
+      message_id = result['id']
+      message = result['message']
+    end
+    unless params[:email6] == ""
+      mg_client = Mailgun::Client.new("")
+
+      message_params =  {
+                         from: "#{current_user.first_name} #{current_user.last_name}@synced.space",
+                         to:   params[:email6],
+                         subject: "#{current_user.first_name} #{current_user.last_name} Invited you to join #{@group_name} at Sync",
+                         text:    "Join " + @group_name + " at www.synced.space (the password for this group is " + @group_pw + ")"
+                        }
+
+      result = mg_client.send_message('synced.space', message_params).to_h!
+
+      message_id = result['id']
+      message = result['message']
+    end
+
+  redirect_to :back
+
   end
 end

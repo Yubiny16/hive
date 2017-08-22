@@ -532,6 +532,40 @@
 
     <div class="col-md-3" style="background-color: white; height: 900px">
       <div class="group-page-right-side">
+
+        <div class="invite">
+          <label>INVITE GROUP MEMBERS</label>
+          <hr style="margin-bottom: 15px; margin-top: 0px; width: 180px"/>
+          <p>
+            Ask your group members to join!
+          </p>
+          <button id="invite_member_btn" data-toggle="modal" data-target="#invite_member" class="btn">Invite them now</button>
+          <div class="modal fade" id="invite_member" tableindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  <h4 class="modal-title" style="text-align: center;">Invite Group Members<i style="margin-left: 5px" class="fa fa-users" aria-hidden="true"></i></h4>
+                </div>
+                <div class="modal-body" style="text-align: center;">
+                  <form action="/home/invite" method="get">
+                    <input name="email1" type="email" placeholder="member@example.com"/><br />
+                    <input name="email2" type="email" placeholder=""/><br />
+                    <input name="email3" type="email" placeholder=""/><br />
+                    <input name="email4" type="email" placeholder=""/><br />
+                    <input name="email5" type="email" placeholder=""/><br />
+                    <input name="email6" type="email" placeholder=""/><br />
+                    <button type="submit" class="main-btn">Invite</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
         <div class="people">
           <label>ADMINS <span style="margin-left: 3px; color: #DA413D">(<%= @members.where(admin: true).count %>)</span></label>
           <hr style="margin-bottom: 15px; margin-top: 0px; width: 180px"/>

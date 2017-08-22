@@ -1,11 +1,12 @@
 <%= form_for @announcement, remote: true do |a| %>
   <%= a.label :title, style: "color: #DA413D" %>
   <%= a.text_field :title, class: "form-control", style: "margin-bottom: 15px" %>
-  <%= a.label :email, style: "color: #DA413D" %>
-  <%= a.text_field :email, class: "form-control", :value => Group.find($group_id).email, style: "margin-bottom: 15px" %>
+  <%= a.label :email, 'Email  (Listserv)', style: "color: #DA413D" %>
+  <%= a.text_field :email, class: "form-control", value: Group.find($group_id).email, style: "margin-bottom: 15px" %>
   <%= a.label :content, style: "color: #DA413D" %>
   <%= a.trix_editor :content %>
   <%= a.hidden_field :group_id, :value => $group_id %>
   <%= a.hidden_field :sender, :value => current_user.id %>
-  <%= a.submit "Post", class: "main-btn", style: "margin-top: 15px; width: 50px;" %>
+  <%= a.submit "Post", :name => 'post', class: "main-btn", style: "margin-top: 15px; width: 50px;", :value => "post" %>
+  <%= a.submit "Post and Email", :name => 'post', class: "main-btn", style: "margin-top: 15px; width: 120px;", :value => "post_and_email" %>
 <% end %>

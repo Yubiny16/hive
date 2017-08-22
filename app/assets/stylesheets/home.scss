@@ -886,6 +886,18 @@ ul#feature-tabs > li.active > a {
   margin-left: 20px;
   margin-top: 75px;
 }
+.group-page-right-side #invite_member_btn{
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+.group-page-right-side #invite_member input {
+  width: 250px;
+  margin-top: 10px;
+}
+.group-page-right-side #invite_member button[type="submit"] {
+  width: 250px;
+  margin-top: 10px;
+}
 .group-page-right-side label {
   font-family: "Source Sans Pro Bold";
   color: #4c4950;
@@ -1154,10 +1166,6 @@ ul#profile-feature-tabs li.active > a{
   font-size: 16px;
 }
 /****************My Calendar********************/
-.group-event-board-label {
-  margin-top: 80px;
-  margin-left: 70px;
-}
 .calendar-filter-group {
   position: relative;
   display: inline-block;
@@ -1176,6 +1184,7 @@ ul#profile-feature-tabs li.active > a{
   border-style: solid;
   color: #DA413D;
   margin-left: 25px;
+  margin-top: 70px;
 }
 .calendar-filter-rsvp button {
   background-color: white;
@@ -1187,6 +1196,7 @@ ul#profile-feature-tabs li.active > a{
   font-size: 16px;
   width: 170px;
   margin-left: 15px;
+  margin-top: 70px;
 }
 .filter-dropdown-content {
   display: none;
@@ -1217,7 +1227,7 @@ ul#profile-feature-tabs li.active > a{
 #calendar_board {
   position: relative;
   margin-top: 10px;
-  height: 440px;
+  height: 500px;
   border-radius: 5px;
   width: 275px;
   overflow: auto;

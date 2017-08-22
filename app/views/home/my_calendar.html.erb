@@ -108,9 +108,6 @@
     <!-- Calendar Feed -->
     <div class="col-md-3" style="background-color: white; min-height: 710px;">
 
-      <div class="group-event-board-label">
-        <h3>Group Events</h3>
-      </div>
       <!-- Filter -->
       <div class="filter-dropdown calendar-filter-group">
         <button class ="calendar-filter-dropdown-btn-group">All</button>
@@ -210,6 +207,7 @@
             <% if !Event.where(event_id: cal_notification.event_id).where(calendar_type: 0).where(user_id: cal_notification.receiver).exists? && cal_notification.group_id != 0 %>
               <div class="one_event cal_<%= cal_notification.event_id %> event_group_<%= cal_notification.group_id %> not_added_event">
                 <div class="rectangle_<%= @current_group_user.find_by(group_id: cal_notification.group_id).color %>"></div>
+                <i style="margin-left: 200px" class="fa fa-users" aria-hidden="true"></i>
                 <p class="one_event_date">
                   <%= cal_notification.start.strftime("%b %e") %>
                 </p>
@@ -264,8 +262,10 @@
               <div class="one_event cal_<%= cal_notification.event_id %> event_group_<%= cal_notification.group_id %> added_event">
                 <% unless cal_notification.group_id == 0 %>
                   <div class="rectangle_<%= @current_group_user.find_by(group_id: cal_notification.group_id).color %>"></div>
+                  <i style="margin-left: 200px" class="fa fa-users" aria-hidden="true"></i>
                 <% else %>
                   <div style="width: 40px; height: 7px; border-radius: 15%; display: inline-block; background-color: <%= Event.find(cal_notification.event_id).color %>"></div>
+                  <i style="margin-left: 200px" class="fa fa-user" aria-hidden="true"></i>
                 <% end %>
                 <p class="one_event_date">
                   <%= cal_notification.start.strftime("%b %e") %>
@@ -399,8 +399,6 @@ $( function() {
  //filter by group (me)
  $( function() {
    $("#calendar-filter-group-my").click(function(){
-
-     $my_feed.append($('.newww_event'));
 
      $(".one_event").remove();
      $('#calendar_board').append(my_feed);
