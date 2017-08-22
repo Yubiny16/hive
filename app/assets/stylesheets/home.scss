@@ -771,19 +771,28 @@ ul#feature-tabs > li.active > a {
   right: 15px;
   bottom: 70px;
 }
+#edit_event .modal-title{
+  font-size: 20px;
+}
 #calendar-group-member-popup {
   margin: auto;
   width: 100%;
   text-align: center;
 }
+#calendar-group-member-popup i{
+  margin: auto;
+  width: 100%;
+  position: absolute;
+  right: 70px;
+  top: 118px;
+  color: $main-red;
+}
 #calendar-group-member-popup .calendar-member-popup-content {
   margin-bottom: 30px;
   margin-top: 30px;
 }
-#calendar-group-member-popup .calenar-member-popup-end {
-  color: #716e77;
-}
-#calendar-group-member-popup .calendar-member-popup-start {
+#calendar-group-member-popup .calenar-member-popup-time {
+  font-size: 14px;
   color: #716e77;
 }
 #calendar-group-member-popup button {
@@ -1226,8 +1235,8 @@ ul#profile-feature-tabs li.active > a{
 
 #calendar_board {
   position: relative;
-  margin-top: 10px;
-  height: 500px;
+  margin-top: 25px;
+  height: 600px;
   border-radius: 5px;
   width: 275px;
   overflow: auto;
