@@ -1250,7 +1250,8 @@ ul#profile-feature-tabs li.active > a{
 #calendar_board .one_event {
   position: relative;
   height: auto;
-  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
   padding: 15px;
   border: 1px solid #BFC9CA;
   margin: 5px;

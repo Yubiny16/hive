@@ -425,6 +425,7 @@ class HomeController < ApplicationController
   end
 
   def add_event
+    @calnoti_id = params[:event_id]
     @one_event = Event.new
     @one_event.event_id = params[:event_id]
     @one_event.calendar_type = 0
@@ -456,21 +457,36 @@ class HomeController < ApplicationController
     one_event_user.event_id = params[:event_id]
     one_event_user.save
 
-    redirect_to :back
+    respond_to do |format|
+      format.html {redirect_to :back}
+      format.js
+    end
   end
 
   def cancel_event
+    @calnoti_id = params[:event_id]
+    @event_id = Event.find_by(event_id: params[:event_id], calendar_type: 0, event_type: 1).id
     Event.where(event_id: params[:event_id]).where(calendar_type: 0).where(user_id: current_user.id).destroy_all()
     Eventuser.find_by(event_id: params[:event_id], user_id: current_user.id).destroy
-    redirect_to :back
+
+    respond_to do |format|
+      format.html {redirect_to :back}
+      format.js
+    end
   end
 
   def my_event_delete
+    @event_id = params[:event_id]
     delete_event = Event.find(params[:event_id])
     delete_event.destroy
 
     delete_event_noti = Calnoti.find(params[:calnoti_id])
     delete_event_noti.destroy
+
+    respond_to do |format|
+      format.html {redirect_to :back}
+      format.js
+    end
   end
 
   def file_upload

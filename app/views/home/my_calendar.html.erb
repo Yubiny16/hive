@@ -207,7 +207,7 @@
             <% if !Event.where(event_id: cal_notification.event_id).where(calendar_type: 0).where(user_id: cal_notification.receiver).exists? && cal_notification.group_id != 0 %>
               <div class="one_event cal_<%= cal_notification.event_id %> event_group_<%= cal_notification.group_id %> not_added_event">
                 <div class="rectangle_<%= @current_group_user.find_by(group_id: cal_notification.group_id).color %>"></div>
-                <i style="margin-left: 200px" class="fa fa-users" aria-hidden="true"></i>
+                <i style="position: absolute; top: 20px; right: 20px; left: initial" class="fa fa-users" aria-hidden="true"></i>
                 <p class="one_event_date">
                   <%= cal_notification.start.strftime("%b %e") %>
                 </p>
@@ -226,7 +226,7 @@
                   <%= cal_notification.start %>
                 </p>
 
-                  <form action="/home/add_event" method="post">
+                  <form action="/home/add_event" method="post" data-remote="true" id="eventAdd_<%= cal_notification.event_id %>">
                     <input name="title" type="hidden" value="<%= cal_notification.title %>"/>
                     <input name="start" type="hidden" value="<%= cal_notification.start %>"/>
                     <input name="end" type="hidden" value="<%= cal_notification.end%>"/>
@@ -235,6 +235,10 @@
                     <input name="event_id" type="hidden" value="<%= cal_notification.event_id %>"/>
                     <input name="color" type="hidden" value="<%= @current_group_user.find_by(group_id: cal_notification.group_id).color %>"/>
                     <button type="submit" class="btn add_event_button">Add</button>
+                  </form>
+                  <form action="/home/cancel_event" method="get" data-remote="true" id="eventCancel_<%= cal_notification.event_id %>" style="display: none;">
+                    <input name="event_id" type="hidden" value="<%= cal_notification.event_id %>"/>
+                    <button type="submit" class="btn add_event_button">Cancel</button>
                   </form>
 
                   <div class="view-attending-members view-toggle-<%= cal_notification.event_id %>">
@@ -262,10 +266,10 @@
               <div class="one_event cal_<%= cal_notification.event_id %> event_group_<%= cal_notification.group_id %> added_event">
                 <% unless cal_notification.group_id == 0 %>
                   <div class="rectangle_<%= @current_group_user.find_by(group_id: cal_notification.group_id).color %>"></div>
-                  <i style="margin-left: 200px" class="fa fa-users" aria-hidden="true"></i>
+                  <i style="position: absolute; top: 20px; right: 20px; left: initial;" class="fa fa-users" aria-hidden="true"></i>
                 <% else %>
                   <div style="width: 40px; height: 7px; border-radius: 15%; display: inline-block; background-color: <%= Event.find(cal_notification.event_id).color %>"></div>
-                  <i style="margin-left: 200px" class="fa fa-user" aria-hidden="true"></i>
+                  <i style="position: absolute; top: 20px; right: 20px; left: initial" class="fa fa-user" aria-hidden="true"></i>
                 <% end %>
                 <p class="one_event_date">
                   <%= cal_notification.start.strftime("%b %e") %>
@@ -285,9 +289,19 @@
                   <%= cal_notification.start %>
                 </p>
                 <% unless cal_notification.group_id == 0 %>
-                  <form action="/home/cancel_event" method="get">
+                  <form action="/home/cancel_event" method="get" data-remote="true" id="eventCancel_<%= cal_notification.event_id %>">
                     <input name="event_id" type="hidden" value="<%= cal_notification.event_id %>"/>
                     <button type="submit" class="btn add_event_button">Cancel</button>
+                  </form>
+                  <form action="/home/add_event" method="post" data-remote="true" id="eventAdd_<%= cal_notification.event_id %>" style="display: none;">
+                    <input name="title" type="hidden" value="<%= cal_notification.title %>"/>
+                    <input name="start" type="hidden" value="<%= cal_notification.start %>"/>
+                    <input name="end" type="hidden" value="<%= cal_notification.end%>"/>
+                    <input name="description" type="hidden" value="<%= cal_notification.description %>"/>
+                    <input name="group_id" type="hidden" value="<%= cal_notification.group_id %>"/>
+                    <input name="event_id" type="hidden" value="<%= cal_notification.event_id %>"/>
+                    <input name="color" type="hidden" value="<%= @current_group_user.find_by(group_id: cal_notification.group_id).color %>"/>
+                    <button type="submit" class="btn add_event_button">Add</button>
                   </form>
                   <div class="view-attending-members view-toggle-<%= cal_notification.event_id %>">
                     View Attendance
@@ -300,26 +314,11 @@
                     <% end %>
                   </ol>
                 <% else %>
-                    <button id="delete_<%= cal_notification.id %>" class="main-btn" style="margin-left: 15px; padding: 4px 6px;">Delete</button>
-                    <script>
-                      $(function() {
-                          $("#delete_<%= cal_notification.id %>").click(function(){
-
-                            $.ajax({
-                              method: "get",
-                              url: "/home/my_event_delete",
-                              data: { event_id: <%= cal_notification.event_id %>,
-                                      calnoti_id: <%= cal_notification.id %> },
-
-                              success: function(){
-                                $(".cal_<%= cal_notification.event_id %>").remove();
-                                //make event disappear too
-                              }
-
-                            })
-                          });
-                      });
-                    </script>
+                  <form action="/home/my_event_delete" method="get" data-remote="true">
+                    <input type="hidden" name="event_id" value="<%= cal_notification.event_id %>">
+                    <input type="hidden" name="calnoti_id" value="<%= cal_notification.id %>">
+                    <button type="submit" class="btn">Delete</button>
+                  </form>
                 <% end %>
               </div>
 

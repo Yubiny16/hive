@@ -1,5 +1,6 @@
 <div class="newww_event one_event cal_<%= @my_calnoti.event_id %> event_group_0 not_added_event new_event">
   <div style="width: 40px; height: 7px; border-radius: 15%; display: inline-block; background-color: <%= Event.find(@my_calnoti.event_id).color %>"></div>
+  <i style="position: absolute; top: 20px; right: 20px; left: initial" class="fa fa-user" aria-hidden="true"></i>
   <p class="one_event_date">
     <%= @my_calnoti.start.strftime("%b %e") %>
   </p>
@@ -17,5 +18,9 @@
   <p class="one_event_timeleft">
     <%= @my_calnoti.start %>
   </p>
-  <button id="delete_<%= @my_calnoti.id %>" class="main-btn" style="margin-left: 15px; padding: 4px 6px;">Delete</button>
+  <form action="/home/my_event_delete" method="get" data-remote="true">
+    <input type="hidden" name="event_id" value="<%= @my_calnoti.event_id %>">
+    <input type="hidden" name="calnoti_id" value="<%= @my_calnoti.id %>">
+    <button type="submit" class="btn">Delete</button>
+  </form>
 </div>

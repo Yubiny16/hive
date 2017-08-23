@@ -1,0 +1,14 @@
+$('.my_calendar').fullCalendar('renderEvent', {
+  id: '<%= @one_event.id %>',
+  title: '<%= @one_event.title %>',
+  start: '<%= @one_event.start.strftime("%Y-%m-%dT%H:%M:%S") %>',
+  end: '<%= @one_event.end.strftime("%Y-%m-%dT%H:%M:%S") %>',
+  color: '<%= @one_event.color %>',
+  event_type: '<%= @one_event.event_type %>',
+  calendar_type: '<%= @one_event.calendar_type %>',
+  description: '<%= @one_event.description %>',
+  event_id: '<%= @one_event.event_id %>',
+  user_id: '<%= @one_event.user_id %>'
+}, true);
+$('#eventAdd_<%= @calnoti_id %>').hide();
+$('#eventCancel_<%= @calnoti_id %>').fadeIn();
