@@ -75,5 +75,8 @@ Rails.application.routes.draw do
   get '/home/search' => 'home#search'
 
   get '/home/invite' => 'home#invite'
+
+  get '/home/add_event_from_group_page' => 'home#add_event_from_group_page'
+  get '/home/cancel_event_from_group_page' => 'home#cancel_event_from_group_page'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

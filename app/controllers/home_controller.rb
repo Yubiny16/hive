@@ -9,10 +9,6 @@ class HomeController < ApplicationController
 
   def index
 
-    puts $timezone
-    puts $timezone
-    puts Time.now
-    puts Time.now
     if params[:index_first_time] == "no"
       User.find_by_id(current_user.id).update(:index_first_time => params[:index_first_time])
     end
@@ -34,22 +30,6 @@ class HomeController < ApplicationController
       hive_announcement.title = Announcement.where(group_id: 1).first.title
       hive_announcement.content = Announcement.where(group_id: 1).first.content
       hive_announcement.save
-
-    end
-
-    #instruction message from hive (my_calendar page)
-    if User.find_by_id(current_user.id).index_first_time == "yes" && current_user.id != 1
-
-      hive_event = Calnoti.new
-      hive_event.event_id = Event.where(user_id: 1).where(calendar_type: 1).first.id
-      hive_event.group_id = 1
-      hive_event.sender = 1
-      hive_event.receiver = current_user.id
-      hive_event.title = Event.where(user_id: 1).where(calendar_type: 1).first.title
-      hive_event.description = Event.where(user_id: 1).where(calendar_type: 1).first.description
-      hive_event.start = Time.now.in_time_zone($timezone)
-      hive_event.end = 60.minutes.from_now.in_time_zone($timezone)
-      hive_event.save
 
     end
 
@@ -167,7 +147,7 @@ class HomeController < ApplicationController
 
   def create_group
 
-    if params[:group_name] == "" || params[:group_school] == "" || params[:group_description] == ""
+    if params[:group_name] == "" || params[:group_school] == "" || params[:group_description] == "" || params[:group_pw] == ""
       redirect_to :back
     else
 
@@ -224,9 +204,6 @@ class HomeController < ApplicationController
     #poll not voted
     @number_of_notvoted = 0
 
-    if params[:group_first_time] == "no"
-      User.find_by_id(current_user.id).update(:group_first_time => params[:group_first_time])
-    end
   end
 
   def group_profile
@@ -418,10 +395,6 @@ class HomeController < ApplicationController
 
     @cal_notification = Calnoti.where(receiver: current_user.id).order(:start)
 
-    if params[:mycalendar_first_time] == "no"
-      User.find_by_id(current_user.id).update(:mycalendar_first_time => params[:mycalendar_first_time])
-    end
-
   end
 
   def add_event
@@ -461,6 +434,32 @@ class HomeController < ApplicationController
       format.html {redirect_to :back}
       format.js
     end
+  end
+
+  def add_event_from_group_page
+    event_id = params[:event_id]
+
+    @one_event = Event.new
+    @one_event.event_id = event_id
+    @one_event.calendar_type = 0
+    @one_event.event_type = 1
+    @one_event.user_id = current_user.id
+    @one_event.title = Event.find(event_id).title
+    @one_event.description = Event.find(event_id).description
+    @one_event.start = Event.find(event_id).start
+    @one_event.end = Event.find(event_id).end
+    @one_event.color = GroupUser.find_by(group_id: $group_id, user_id: current_user.id).color
+    @one_event.save
+
+    one_event_user = Eventuser.new
+    one_event_user.user_id = current_user.id
+    one_event_user.event_id = event_id
+    one_event_user.save
+  end
+
+  def cancel_event_from_group_page
+    delete_event = Event.find_by(event_id: params[:event_id], calendar_type: 0, event_type: 1, user_id: current_user.id)
+    delete_event.destroy
   end
 
   def cancel_event

@@ -351,6 +351,40 @@ nav#navbar-custom .btn-search i {
 .fa-check {
   color: green;
 }
+.main-page-right-side label{
+  margin-top: 100px;
+  font-family: "Source Sans Pro Bold";
+  color: #4c4950;
+  font-size: 16px;
+}
+.main-page-right-side hr {
+  position: relative;
+  right: 42px;
+  width: 150px;
+  margin-top: 3px;
+}
+.main-page-right-side .one_today_event {
+  position:relative;
+  display: block;
+  white-space:  nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  background-color: white;
+  //padding: 10px;
+  //margin: 10px 10px;
+  //border: 1px solid #BCA9CA;
+  //border-radius: 5px;
+  margin-right: 50px;
+}
+.main-page-right-side .one_today_event .today_event_title{
+  color: #716e77;
+  margin-top: 4px;
+  margin-bottom: 2px;
+}
+.main-page-right-side .one_today_event .today_event_timeleft{
+  color: $main-red;
+  margin-bottom: 20px;
+}
 /************group page styling********/
 #group_profile {
   font-family: "Source Sans Pro Regular";
@@ -774,6 +808,9 @@ ul#feature-tabs > li.active > a {
 #edit_event .modal-title{
   font-size: 20px;
 }
+#member_add_event h4 {
+  font-size: 20px;
+}
 #calendar-group-member-popup {
   margin: auto;
   width: 100%;
@@ -783,17 +820,27 @@ ul#feature-tabs > li.active > a {
   margin: auto;
   width: 100%;
   position: absolute;
-  right: 70px;
-  top: 118px;
+  left: -90px;
+  font-size: 20px;
   color: $main-red;
 }
-#calendar-group-member-popup .calendar-member-popup-content {
-  margin-bottom: 30px;
-  margin-top: 30px;
+#calendar-group-member-popup .calendar-member-popup-title {
+  font-size: 16px;
+  font-family: "Source Sans Pro Bold";
+  margin-bottom: 20px;
 }
-#calendar-group-member-popup .calenar-member-popup-time {
-  font-size: 14px;
+#calendar-group-member-popup .calendar-member-popup-content {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+#calendar-group-member-popup .calendar-member-popup-time {
+  font-size: 16px;
   color: #716e77;
+  margin-bottom: 0px;
+}
+#calendar-group-member-popup .calendar-member-popup-timeleft {
+  color: $main-red;
+  font-size: 16px;
 }
 #calendar-group-member-popup button {
   font-family: "Source Sans Pro Bold";
@@ -805,6 +852,10 @@ ul#feature-tabs > li.active > a {
 }
 #calendar-group-member-popup a:hover {
   text-decoration: none;
+}
+#calendar-group-member-popup img {
+  margin: 15px 10px 0px 10px;
+
 }
 
 #budget_item_input {

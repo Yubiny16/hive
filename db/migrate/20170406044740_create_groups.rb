@@ -13,7 +13,7 @@ class CreateGroups < ActiveRecord::Migration[5.0]
       t.timestamps
     end
 
-    add_index :groups, :name, unique: true
+    add_index :groups, :name, unique: false
 
   end
 end

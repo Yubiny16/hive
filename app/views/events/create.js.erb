@@ -1,18 +1,21 @@
-$('.calendar').fullCalendar(
-  'renderEvent',
-  $.parseJSON("<%=j render(@event, format: :json).html_safe %>"),
-  true
-);
-$('.modal').modal('hide');
+if (<%= @event.calendar_type %> == 1) {
+  $('.calendar').fullCalendar(
+    'renderEvent',
+    $.parseJSON("<%=j render(@event, format: :json).html_safe %>"),
+    true
+  );
+  $('.modal').modal('hide');
+}
+else {
+  $('.my_calendar').fullCalendar(
+    'renderEvent',
+    $.parseJSON("<%=j render(@event, format: :json).html_safe %>"),
+    true
+  );
+  $('.modal').modal('hide');
+}
 
-$('.my_calendar').fullCalendar(
-  'renderEvent',
-  $.parseJSON("<%=j render(@event, format: :json).html_safe %>"),
-  true
-);
-$('.modal').modal('hide');
-
-$('#calendar_board').prepend('<%= j render("event_board") %>');
-$('.cal_<%= @my_calnoti.event_id %> .one_event_timeleft').each(function() {
-  this.textContent = moment(this.textContent).local().startOf('minute').fromNow();
-});
+  $('#calendar_board').prepend('<%= j render("event_board") %>');
+  $('.cal_<%= @my_calnoti.event_id %> .one_event_timeleft').each(function() {
+    this.textContent = moment(this.textContent).local().startOf('minute').fromNow();
+  });

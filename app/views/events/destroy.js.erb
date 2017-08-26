@@ -1,5 +1,8 @@
-$('.calendar').fullCalendar('removeEvents', [<%= @event.id %>])
-$('.modal').modal('hide');
-
-$('.my_calendar').fullCalendar('removeEvents', [<%= @event.id %>])
-$('.modal').modal('hide');
+if (<%= @event.calendar_type %> == 1){
+  $('.calendar').fullCalendar('removeEvents', [<%= @event.id %>])
+  $('.modal').modal('hide');
+}
+else {
+  $('.my_calendar').fullCalendar('removeEvents', [<%= @event.id %>])
+  $('.modal').modal('hide');
+}

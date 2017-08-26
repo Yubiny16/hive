@@ -106,7 +106,7 @@
     </div><!-- leftbar End-->
 
     <!-- Main/Board -->
-    <div class="col-md-10 board">
+    <div class="col-md-8 board" style="padding-right:0px">
       <div class="filter-row">
         <div class="filter-group-label">
           FILTER BY GROUP
@@ -363,28 +363,32 @@
                         <% Option.where(poll_id: all_notification.poll_id).find_each do |o| %>
                           <p class="view_stat_options"><%= o.content %> <span style="color: #DA413D;"><%= o.vote_number %></span></p>
                           <!-- Find the people who voted -->
-                          <% Polluser.where(option_id: o.id).where(voted: true).find_each do |pu| %>
-                            <% User.where(id: pu.user_id).find_each do |voted_user| %>
-                              <div class="view_stat_options_votes">
-                                <%= voted_user.first_name %> <%= voted_user.last_name %>
-                              </div>
+                          <% unless Poll.find(all_notification.poll_id).anonymous == true %>
+                            <% Polluser.where(option_id: o.id).where(voted: true).find_each do |pu| %>
+                              <% User.where(id: pu.user_id).find_each do |voted_user| %>
+                                <div class="view_stat_options_votes">
+                                  <%= voted_user.first_name %> <%= voted_user.last_name %>
+                                </div>
+                              <% end %>
                             <% end %>
                           <% end %>
                         <% end %>
 
                         <!-- Find the people who have not voted -->
-                        <p class="view_stat_options">Not Voted</p>
-                        <% GroupUser.where(group_id: all_notification.group_id).find_each do |gr| %>
-                          <% User.where(id: gr.user_id).find_each do |not_voted_user| %>
-                            <% if !Polluser.where(user_id: not_voted_user.id).where(poll_id: all_notification.poll_id).exists? %>
-                              <div class="view_stat_options_votes">
-                                <%= not_voted_user.first_name %> <%= not_voted_user.last_name %>
-                              </div>
-                            <% end %>
-                            <% if Polluser.where(user_id: not_voted_user.id).where(poll_id: all_notification.poll_id).where(voted: false).exists? %>
-                              <div class="view_stat_options_votes">
-                                <%= not_voted_user.first_name %> <%= not_voted_user.last_name %>
-                              </div>
+                        <% unless Poll.find(all_notification.poll_id).anonymous == true %>
+                          <p class="view_stat_options">Not Voted</p>
+                          <% GroupUser.where(group_id: all_notification.group_id).find_each do |gr| %>
+                            <% User.where(id: gr.user_id).find_each do |not_voted_user| %>
+                              <% if !Polluser.where(user_id: not_voted_user.id).where(poll_id: all_notification.poll_id).exists? %>
+                                <div class="view_stat_options_votes">
+                                  <%= not_voted_user.first_name %> <%= not_voted_user.last_name %>
+                                </div>
+                              <% end %>
+                              <% if Polluser.where(user_id: not_voted_user.id).where(poll_id: all_notification.poll_id).where(voted: false).exists? %>
+                                <div class="view_stat_options_votes">
+                                  <%= not_voted_user.first_name %> <%= not_voted_user.last_name %>
+                                </div>
+                              <% end %>
                             <% end %>
                           <% end %>
                         <% end %>
@@ -409,28 +413,32 @@
                       <% Option.where(poll_id: all_notification.poll_id).find_each do |o| %>
                         <p class="view_stat_options"><%= o.content %> <span style="color: #DA413D;"><%= o.vote_number %></span></p>
                         <!-- Find the people who voted -->
-                        <% Polluser.where(option_id: o.id).where(voted: true).find_each do |pu| %>
-                          <% User.where(id: pu.user_id).find_each do |voted_user| %>
-                            <div class="view_stat_options_votes">
-                              <%= voted_user.first_name %> <%= voted_user.last_name %>
-                            </div>
+                        <% unless Poll.find(all_notification.poll_id).anonymous == true %>
+                          <% Polluser.where(option_id: o.id).where(voted: true).find_each do |pu| %>
+                            <% User.where(id: pu.user_id).find_each do |voted_user| %>
+                              <div class="view_stat_options_votes">
+                                <%= voted_user.first_name %> <%= voted_user.last_name %>
+                              </div>
+                            <% end %>
                           <% end %>
                         <% end %>
                       <% end %>
 
                       <!-- Find the people who have not voted -->
-                      <p class="view_stat_options">Not Voted</p>
-                      <% GroupUser.where(group_id: all_notification.group_id).find_each do |gr| %>
-                        <% User.where(id: gr.user_id).find_each do |not_voted_user| %>
-                          <% if !Polluser.where(user_id: not_voted_user.id).where(poll_id: all_notification.poll_id).exists? %>
-                            <div class="view_stat_options_votes">
-                              <%= not_voted_user.first_name %> <%= not_voted_user.last_name %>
-                            </div>
-                          <% end %>
-                          <% if Polluser.where(user_id: not_voted_user.id).where(poll_id: all_notification.poll_id).where(voted: false).exists? %>
-                            <div class="view_stat_options_votes">
-                              <%= not_voted_user.first_name %> <%= not_voted_user.last_name %>
-                            </div>
+                      <% unless Poll.find(all_notification.poll_id).anonymous == true %>
+                        <p class="view_stat_options">Not Voted</p>
+                        <% GroupUser.where(group_id: all_notification.group_id).find_each do |gr| %>
+                          <% User.where(id: gr.user_id).find_each do |not_voted_user| %>
+                            <% if !Polluser.where(user_id: not_voted_user.id).where(poll_id: all_notification.poll_id).exists? %>
+                              <div class="view_stat_options_votes">
+                                <%= not_voted_user.first_name %> <%= not_voted_user.last_name %>
+                              </div>
+                            <% end %>
+                            <% if Polluser.where(user_id: not_voted_user.id).where(poll_id: all_notification.poll_id).where(voted: false).exists? %>
+                              <div class="view_stat_options_votes">
+                                <%= not_voted_user.first_name %> <%= not_voted_user.last_name %>
+                              </div>
+                            <% end %>
                           <% end %>
                         <% end %>
                       <% end %>
@@ -454,7 +462,28 @@
 
     </div><!--col-md-8-->
 
-    <div class="col-md-2" style="background-color: white;">
+    <div class="col-md-2" style="background-color: white; height: 900px;">
+      <div class="main-page-right-side">
+        <label>Today's Events</label>
+        <hr/>
+        <% Event.where(user_id: current_user.id).each do |today_event| %>
+          <% if Date.strptime(today_event.start.to_s, '%Y-%m-%d') == Date.strptime(Time.current.to_date.to_s, '%Y-%m-%d') %>
+            <div class="one_today_event">
+              <div style="width: 40px; height: 7px; border-radius: 15%; display: inline_block; background-color: <%= today_event.color %>"></div>
+              <p class="today_event_title">
+                <%= today_event.title %>
+              </p>
+              <p class="today_event_timeleft">
+                <%= today_event.start %>
+              </p>
+            </div>
+          <% end %>
+        <% end %>
+
+        <label>New Events</label>
+        <hr/>
+
+      </div><!--right side-->
     </div><!-- row 2-->
 
   </div><!-- row -->
@@ -468,10 +497,14 @@
 <script>
 $('.announcement_list_date').each(function() {
   this.textContent = moment(this.textContent).startOf('minute').fromNow();
-
 });
 $('.poll_list_date').each(function() {
   this.textContent = moment(this.textContent).startOf('minute').fromNow();
+});
+//today's events
+$('.today_event_timeleft').each(function() {
+
+  this.textContent = moment(this.textContent).local().startOf('minute').fromNow();
 
 });
 //for multiple filtering

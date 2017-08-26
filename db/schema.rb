@@ -105,7 +105,7 @@ ActiveRecord::Schema.define(version: 20170723011424) do
     t.string   "image_url",       default: "http://www.niagaracollege.ca/alumni-relations/wp-content/uploads/sites/25/2015/05/Icon-Group.svg"
     t.datetime "created_at",                                                                                                                   null: false
     t.datetime "updated_at",                                                                                                                   null: false
-    t.index ["name"], name: "index_groups_on_name", unique: true
+    t.index ["name"], name: "index_groups_on_name"
   end
 
   create_table "options", force: :cascade do |t|
@@ -176,8 +176,6 @@ ActiveRecord::Schema.define(version: 20170723011424) do
     t.string   "major"
     t.string   "image_url",              default: "https://lh4.googleusercontent.com/-jSJrMg5AJqY/AAAAAAAAAAI/AAAAAAAAAQU/6Ps1RMLKfQE/photo.jpg"
     t.string   "index_first_time",       default: "yes"
-    t.string   "group_first_time",       default: "yes"
-    t.string   "mycalendar_first_time",  default: "yes"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

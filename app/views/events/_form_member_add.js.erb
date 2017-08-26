@@ -1,0 +1,65 @@
+<div id="calendar-group-member-popup">
+  <p class="calendar-member-popup-title">
+    <%= @event.description %>
+  </p>
+  <p class="calendar-member-popup-content">
+    <%= @event.description %>
+  </p>
+  <i class="fa fa-clock-o" aria-hidden="true"></i>
+  <p class="calendar-member-popup-time">
+    <%= @event.start.strftime("%l:%M %p") %> ~ <%= @event.end.strftime("%l:%M %p") %>
+  </p>
+  <p class="calendar-member-popup-timeleft">
+    <%= @event.start %>
+  </p>
+    <% Eventuser.where(event_id: @event.id).each do |attending_members| %>
+      <img src="<%= User.find(attending_members.user_id).image_url %>" alt="profile img" style="border-radius: 50%; margin-bottom: 30px" width="35px" >
+    <% end %>
+  <hr />
+  <% unless Eventuser.where(event_id: @event.id).where(user_id: current_user.id).exists? %>
+    <button type="submit" class="btn add_event_button_<%= @event.id %>" data-dismiss="modal">Add to My Schedule</button>
+  <% else %>
+    <form action="/home/cancel_event" method="get">
+      <input name="event_id" type="hidden" value="<%= @event.id %>"/>
+      <button type="submit" class="btn cancel_event_button_<%= @event.id %>" data-dismiss="modal">Cancel</button>
+    </form>
+  <% end %>
+</div>
+
+<script>
+  $('.calendar-member-popup-timeleft').each(function() {
+    this.textContent = moment(this.textContent).local().startOf('minute').fromNow();
+  });
+
+  $(function() {
+    $('.add_event_button_<%= @event.id %>').click(function(){
+
+      var event_id = <%= @event.id %>;
+
+      $.ajax({
+        method: "GET",
+        url: '/home/add_event_from_group_page',
+        data: { event_id: event_id }
+      }).done(function() {
+         alert("The Event was successfully added to your schedule!");
+      });
+
+    });
+  });
+
+  $(function() {
+    $('.cancel_event_button_<%= @event.id %>').click(function(){
+
+      var event_id = <%= @event.id %>;
+
+      $.ajax({
+        method: "GET",
+        url: '/home/cancel_event_from_group_page',
+        data: { event_id: event_id }
+      }).done(function() {
+         alert("The Event was successfully deleted from your schedule.");
+      });
+
+    });
+  });
+</script>

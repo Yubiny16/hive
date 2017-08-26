@@ -1,42 +1,3 @@
-<!-- Welcome Message -->
-<% if User.find_by_id(current_user.id).group_first_time == "yes" %>
-  <script>
-    jQuery(function(){
-     jQuery('#welcome_message_btn').trigger('click');
-    });
-    var group_first_time = "no"
-
-    $.ajax({
-      method: "GET",
-      url: '/home/group_page/<%= @group.id %>',
-      data: { group_first_time: group_first_time }
-    })
-  </script>
-  <button id="welcome_message_btn" data-toggle="modal" data-target="#welcome_message" class="btn"></button>
-  <div class="modal fade" id="welcome_message" tableindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-          <h4 class="modal-title" style="text-align: center;">This is Your First Group!<i style="margin-left: 5px" class="fa fa-users" aria-hidden="true"></i></h4>
-        </div>
-        <div class="modal-body" style="text-align: center;">
-          This is <%= @group.name %>'s Page. <br />
-          <br />
-          You can view/manage <%= @group.name %>'s activities here. <br />
-          <br />
-
-
-        </div>
-        <div class="modal-footer get-started" style="text-align: center;">
-          <button data-dismiss="modal">Got it!</button>
-        </div>
-      </div>
-    </div>
-  </div>
-<% end %>
 <!-- Header -->
 <nav class="navbar navbar-default navbar-fixed-top" id="navbar-custom">
   <div class="container-fluid">
@@ -284,7 +245,7 @@
                         </div>
                         <!--anonymous checkbox-->
                         <div class="checkbox">
-                          <label><input name=anonymous type="checkbox" value="true">Anonymous?</label>
+                          <label><input name="anonymous" type="checkbox" value="true">Anonymous?</label>
                         </div>
                         <div class="create_poll_btn">
                           <button name="group_id" value="<%= @group.id %>" type="submit" class="btn">Create!</button>
@@ -355,34 +316,38 @@
                           <div class="poll_stat_<%= p.id %>">
                             <% Option.where(poll_id: p.id).find_each do |o| %>
                               <p class="view_stat_options"><%= o.content %> <span style="color: #DA413D;" id="<%= p.id %>_option_<%= o.id %>_count"><%= o.vote_number %></span></p>
-                              <!-- Find the people who voted -->
-                              <div class="view_stat_options_votes" id="<%= p.id %>_option_<%= o.id %>_names">
-                                <% Polluser.where(option_id: o.id).where(voted: true).find_each do |pu| %>
-                                  <% User.where(id: pu.user_id).find_each do |voted_user| %>
-                                    <div id="voter_<%= pu.user_id %>"><%= voted_user.first_name %> <%= voted_user.last_name %></div>
+                              <!-- Find the people who voted if not anonymous-->
+                              <% unless p.anonymous == true %>
+                                <div class="view_stat_options_votes" id="<%= p.id %>_option_<%= o.id %>_names">
+                                  <% Polluser.where(option_id: o.id).where(voted: true).find_each do |pu| %>
+                                    <% User.where(id: pu.user_id).find_each do |voted_user| %>
+                                      <div id="voter_<%= pu.user_id %>"><%= voted_user.first_name %> <%= voted_user.last_name %></div>
+                                    <% end %>
+                                  <% end %>
+                                </div>
+                              <% end %>
+                            <% end %>
+
+                            <!-- Find the people who have not voted -->
+                            <% unless p.anonymous == true %>
+                              <p class="view_stat_options">Not Voted</p>
+                              <div class="view_stat_options_votes" id="not_voted_<%= p.id %>">
+                                <% GroupUser.where(group_id: @group.id).find_each do |gr| %>
+                                  <% User.where(id: gr.user_id).find_each do |not_voted_user| %>
+                                    <% if !Polluser.where(user_id: not_voted_user.id).where(poll_id: p.id).exists? %>
+                                      <div id="not_voted_user_<%= not_voted_user.id %>">
+                                        <%= not_voted_user.first_name %> <%= not_voted_user.last_name %>
+                                      </div>
+                                    <% end %>
+                                    <% if Polluser.where(user_id: not_voted_user.id).where(poll_id: p.id).where(voted: false).exists? %>
+                                      <div id="not_voted_user_<%= not_voted_user.id %>">
+                                        <%= not_voted_user.first_name %> <%= not_voted_user.last_name %>
+                                      </div>
+                                    <% end %>
                                   <% end %>
                                 <% end %>
                               </div>
                             <% end %>
-
-                            <!-- Find the people who have not voted -->
-                            <p class="view_stat_options">Not Voted</p>
-                            <div class="view_stat_options_votes" id="not_voted_<%= p.id %>">
-                              <% GroupUser.where(group_id: @group.id).find_each do |gr| %>
-                                <% User.where(id: gr.user_id).find_each do |not_voted_user| %>
-                                  <% if !Polluser.where(user_id: not_voted_user.id).where(poll_id: p.id).exists? %>
-                                    <div id="not_voted_user_<%= not_voted_user.id %>">
-                                      <%= not_voted_user.first_name %> <%= not_voted_user.last_name %>
-                                    </div>
-                                  <% end %>
-                                  <% if Polluser.where(user_id: not_voted_user.id).where(poll_id: p.id).where(voted: false).exists? %>
-                                    <div id="not_voted_user_<%= not_voted_user.id %>">
-                                      <%= not_voted_user.first_name %> <%= not_voted_user.last_name %>
-                                    </div>
-                                  <% end %>
-                                <% end %>
-                              <% end %>
-                            </div>
                           </div><!-- poll_stat -->
                         </div>
 
@@ -414,33 +379,37 @@
                           <% Option.where(poll_id: p.id).find_each do |o| %>
                             <p class="view_stat_options"><%= o.content %> <span style="color: #DA413D;" id="<%= p.id %>_option_<%= o.id %>_count"><%= o.vote_number %></span></p>
                             <!-- Find the people who voted -->
-                            <div class="view_stat_options_votes" id="<%= p.id %>_option_<%= o.id %>_names">
-                              <% Polluser.where(option_id: o.id).where(voted: true).find_each do |pu| %>
-                                <% User.where(id: pu.user_id).find_each do |voted_user| %>
-                                  <div id="voter_<% pu.user_id %>"><%= voted_user.first_name %> <%= voted_user.last_name %></div>
+                            <% unless p.anonymous == true %>
+                              <div class="view_stat_options_votes" id="<%= p.id %>_option_<%= o.id %>_names">
+                                <% Polluser.where(option_id: o.id).where(voted: true).find_each do |pu| %>
+                                  <% User.where(id: pu.user_id).find_each do |voted_user| %>
+                                    <div id="voter_<% pu.user_id %>"><%= voted_user.first_name %> <%= voted_user.last_name %></div>
+                                  <% end %>
+                                <% end %>
+                              </div>
+                            <% end %>
+                          <% end %>
+
+                          <!-- Find the people who have not voted -->
+                          <% unless p.anonymous == true %>
+                            <p class="view_stat_options">Not Voted</p>
+                            <div class="view_stat_options_votes" id="not_voted_<%= p.id %>">
+                              <% GroupUser.where(group_id: @group.id).find_each do |gr| %>
+                                <% User.where(id: gr.user_id).find_each do |not_voted_user| %>
+                                  <% if !Polluser.where(user_id: not_voted_user.id).where(poll_id: p.id).exists? %>
+                                    <div id="not_voted_user_<%= not_voted_user.id %>">
+                                      <%= not_voted_user.first_name %> <%= not_voted_user.last_name %>
+                                    </div>
+                                  <% end %>
+                                  <% if Polluser.where(user_id: not_voted_user.id).where(poll_id: p.id).where(voted: false).exists? %>
+                                    <div id="not_voted_user_<%= not_voted_user.id %>">
+                                      <%= not_voted_user.first_name %> <%= not_voted_user.last_name %>
+                                    </div>
+                                  <% end %>
                                 <% end %>
                               <% end %>
                             </div>
                           <% end %>
-
-                          <!-- Find the people who have not voted -->
-                          <p class="view_stat_options">Not Voted</p>
-                          <div class="view_stat_options_votes" id="not_voted_<%= p.id %>">
-                            <% GroupUser.where(group_id: @group.id).find_each do |gr| %>
-                              <% User.where(id: gr.user_id).find_each do |not_voted_user| %>
-                                <% if !Polluser.where(user_id: not_voted_user.id).where(poll_id: p.id).exists? %>
-                                  <div id="not_voted_user_<%= not_voted_user.id %>">
-                                    <%= not_voted_user.first_name %> <%= not_voted_user.last_name %>
-                                  </div>
-                                <% end %>
-                                <% if Polluser.where(user_id: not_voted_user.id).where(poll_id: p.id).where(voted: false).exists? %>
-                                  <div id="not_voted_user_<%= not_voted_user.id %>">
-                                    <%= not_voted_user.first_name %> <%= not_voted_user.last_name %>
-                                  </div>
-                                <% end %>
-                              <% end %>
-                            <% end %>
-                          </div>
                         </div><!-- poll_stat -->
                       </div>
                       <% end %><!-- Polluser exists? -->
