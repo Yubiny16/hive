@@ -316,8 +316,10 @@
 
 <script>
 $('.one_event_timeleft').each(function() {
+  var now = moment();
+  var event = this.textContent.substring(0,38);
 
-  this.textContent = moment(this.textContent).local().startOf('minute').fromNow();
+  this.textContent = moment(event).fromNow();
 
 });
 

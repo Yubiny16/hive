@@ -15,6 +15,7 @@
 //= require jquery-ui
 //= require turbolinks
 //= require moment
+//= require moment-timezone
 //= require fullcalendar
 //= require daterangepicker
 //= require bootstrap-datetimepicker

@@ -12,6 +12,7 @@
       data: { index_first_time: index_first_time }
     })
   </script>
+
   <button id="welcome_message_btn" data-toggle="modal" data-target="#welcome_message" class="btn" type="hidden"></button>
   <div class="modal fade" id="welcome_message" tableindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
@@ -466,7 +467,7 @@
       <div class="main-page-right-side">
         <label>Today's Events</label>
         <hr/>
-        <% Event.where(user_id: current_user.id).each do |today_event| %>
+        <% Event.where(user_id: current_user.id).where(calendar_type: 0).each do |today_event| %>
           <% if Date.strptime(today_event.start.to_s, '%Y-%m-%d') == Date.strptime(Time.current.to_date.to_s, '%Y-%m-%d') %>
             <div class="one_today_event">
               <div style="width: 40px; height: 7px; border-radius: 15%; display: inline_block; background-color: <%= today_event.color %>"></div>
@@ -504,8 +505,10 @@ $('.poll_list_date').each(function() {
 //today's events
 $('.today_event_timeleft').each(function() {
 
-  this.textContent = moment(this.textContent).local().startOf('minute').fromNow();
+  var now = moment();
+  var event = this.textContent.substring(0,37);
 
+  this.textContent = moment(event).fromNow();
 });
 //for multiple filtering
 feature_filter_switch = "All";
