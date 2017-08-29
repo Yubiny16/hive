@@ -28,7 +28,10 @@
 
 <script>
   $('.calendar-member-popup-timeleft').each(function() {
-    this.textContent = moment(this.textContent).local().startOf('minute').fromNow();
+    var now = moment();
+    var event = this.textContent.substring(0,38);
+
+    this.textContent = moment(event).fromNow();
   });
 
   $(function() {

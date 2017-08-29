@@ -495,11 +495,12 @@ $(document).on('turbolinks:load', initialize_calendar);
 
 $(function() {
   $('[data-event="add"] .add_event_button').mouseenter(function(){
+
     $('.my_calendar').fullCalendar('renderEvent', {
       id: 'temp',
       title: $(this).siblings('[name="title"]').val(),
-      start: moment($(this).siblings('[name="start"]').val()).format('YYYY-MM-DD HH:mm'),
-      end: moment($(this).siblings('[name="end"]').val()).format('YYYY-MM-DD HH:mm'),
+      start: moment($(this).siblings('[name="start"]').val().substring(0,20)).format('YYYY-MM-DD HH:mm'),
+      end: moment($(this).siblings('[name="end"]').val().substring(0,20)).format('YYYY-MM-DD HH:mm'),
       color: 'gray'
     });
     console.log('add?');
@@ -510,12 +511,6 @@ $(function() {
     $('.my_calendar').fullCalendar('removeEvents', 'temp');
   });
 
-  function get_time_zone_offset( ) {
-    var current_date = new Date();
-    return -current_date.getTimezoneOffset() / 60;
-  }
-
-  alert("The local time zone is: GMT " + get_time_zone_offset());
 });
 
 
