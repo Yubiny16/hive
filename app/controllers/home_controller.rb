@@ -460,13 +460,16 @@ class HomeController < ApplicationController
   def cancel_event_from_group_page
     delete_event = Event.find_by(event_id: params[:event_id], calendar_type: 0, event_type: 1, user_id: current_user.id)
     delete_event.destroy
+    Eventuser.find_by(event_id: params[:event_id], user_id: current_user.id).destroy
   end
 
   def cancel_event
     @calnoti_id = params[:event_id]
-    @event_id = Event.find_by(event_id: params[:event_id], calendar_type: 0, event_type: 1).id
-    Event.where(event_id: params[:event_id]).where(calendar_type: 0).where(user_id: current_user.id).destroy_all()
+
+    @event_id = Event.find_by(event_id: params[:event_id], calendar_type: 0, event_type: 1, user_id: current_user.id).id
+    Event.where(event_id: params[:event_id]).where(calendar_type: 0).where(user_id: current_user.id).where(event_type: 1).destroy_all()
     Eventuser.find_by(event_id: params[:event_id], user_id: current_user.id).destroy
+
 
     respond_to do |format|
       format.html {redirect_to :back}
