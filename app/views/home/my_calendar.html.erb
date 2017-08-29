@@ -186,7 +186,7 @@
                   <%= cal_notification.start %>
                 </p>
 
-                  <form action="/home/add_event" method="post" data-remote="true" id="eventAdd_<%= cal_notification.event_id %>">
+                  <form action="/home/add_event" method="post" data-remote="true" id="eventAdd_<%= cal_notification.event_id %>" data-event="add">
                     <input name="title" type="hidden" value="<%= cal_notification.title %>"/>
                     <input name="start" type="hidden" value="<%= cal_notification.start %>"/>
                     <input name="end" type="hidden" value="<%= cal_notification.end%>"/>
@@ -253,7 +253,7 @@
                     <input name="event_id" type="hidden" value="<%= cal_notification.event_id %>"/>
                     <button type="submit" class="btn add_event_button">Cancel</button>
                   </form>
-                  <form action="/home/add_event" method="post" data-remote="true" id="eventAdd_<%= cal_notification.event_id %>" style="display: none;">
+                  <form action="/home/add_event" method="post" data-remote="true" id="eventAdd_<%= cal_notification.event_id %>" style="display: none;" data-event="add">
                     <input name="title" type="hidden" value="<%= cal_notification.title %>"/>
                     <input name="start" type="hidden" value="<%= cal_notification.start %>"/>
                     <input name="end" type="hidden" value="<%= cal_notification.end%>"/>
@@ -493,6 +493,30 @@ var initialize_calendar;
   };
 $(document).on('turbolinks:load', initialize_calendar);
 
+$(function() {
+  $('[data-event="add"] .add_event_button').mouseenter(function(){
+    $('.my_calendar').fullCalendar('renderEvent', {
+      id: 'temp',
+      title: $(this).siblings('[name="title"]').val(),
+      start: moment($(this).siblings('[name="start"]').val()).format('YYYY-MM-DD HH:mm'),
+      end: moment($(this).siblings('[name="end"]').val()).format('YYYY-MM-DD HH:mm'),
+      color: 'gray'
+    });
+    console.log('add?');
+    console.log($(this).siblings('[name="start"]').val());
+    console.log($(this).siblings('[name="end"]').val());
+  });
+  $('.add_event_button').mouseleave(function(){
+    $('.my_calendar').fullCalendar('removeEvents', 'temp');
+  });
+
+  function get_time_zone_offset( ) {
+    var current_date = new Date();
+    return -current_date.getTimezoneOffset() / 60;
+  }
+
+  alert("The local time zone is: GMT " + get_time_zone_offset());
+});
 
 
 //search suggestions
