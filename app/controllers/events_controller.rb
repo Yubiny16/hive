@@ -27,7 +27,6 @@ class EventsController < ApplicationController
   end
 
   def create
-    @temp_event = Event.new(event_params)
 
     if $type == 1# group
       @event = Event.new(event_params)
@@ -36,67 +35,6 @@ class EventsController < ApplicationController
       @event.calendar_type = $type
       @event.save
 
-    else# user
-
-      #repeat events
-      if params[:repeat] == "yes"
-
-        #dates
-        dates_start = @temp_event.start
-        dates_end = @temp_event.end
-
-        for i in 1..params[:occurences].to_i
-
-          @event = Event.new
-          @event.user_id = current_user.id
-          @event.event_type = 0
-          @event.calendar_type = $type
-          @event.title = @temp_event.title
-          @event.description = @temp_event.description
-          @event.color = @temp_event.color
-          @event.start = dates_start
-          @event.end = dates_end
-          @event.save
-
-          #dates
-          if params[:frequency] == "daily"
-            dates_start = (dates_start + 1.day)
-            dates_end = (dates_end + 1.day)
-          elsif params[:frequency] == "weekly"
-            dates_start = (dates_start + 7.day)
-            dates_end = (dates_end + 7.day)
-          else
-            dates_start = (dates_start + 1.month)
-            dates_end = (dates_end + 1.month)
-          end
-
-        end
-        redirect_to :back
-
-      else #no repeat
-        @event = Event.new(event_params)
-        @event.user_id = current_user.id
-        @event.event_type = 0
-        @event.calendar_type = $type
-        @event.save
-
-        @my_calnoti = Calnoti.new
-        @my_calnoti.event_id = @event.id
-        @my_calnoti.group_id = 0
-        @my_calnoti.sender = current_user.id
-        @my_calnoti.receiver = current_user.id
-        @my_calnoti.title = @event.title
-        @my_calnoti.description = @event.description
-        @my_calnoti.start = @event.start
-        @my_calnoti.end = @event.end
-        @my_calnoti.save
-
-      end
-
-    end
-
-
-    if $type == 1
       GroupUser.where(group_id: $group_id).find_each do |one_member|
 
         #Cal notification
@@ -148,6 +86,26 @@ class EventsController < ApplicationController
         end
 
       end
+
+    else# user
+
+        @event = Event.new(event_params)
+        @event.user_id = current_user.id
+        @event.event_type = 0
+        @event.calendar_type = $type
+        @event.save
+
+        @my_calnoti = Calnoti.new
+        @my_calnoti.event_id = @event.id
+        @my_calnoti.group_id = 0
+        @my_calnoti.sender = current_user.id
+        @my_calnoti.receiver = current_user.id
+        @my_calnoti.title = @event.title
+        @my_calnoti.description = @event.description
+        @my_calnoti.start = @event.start
+        @my_calnoti.end = @event.end
+        @my_calnoti.save  
+
     end
 
   end

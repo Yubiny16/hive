@@ -13,6 +13,7 @@
     <%= @event.start %>
   </p>
     <% Eventuser.where(event_id: @event.id).each do |attending_members| %>
+      <span class="member-hover"><%= User.find(attending_members.user_id).first_name %> <%= User.find(attending_members.user_id).last_name %></span>
       <img src="<%= User.find(attending_members.user_id).image_url %>" alt="profile img" style="border-radius: 50%; margin-bottom: 30px" width="35px" >
     <% end %>
   <hr />
