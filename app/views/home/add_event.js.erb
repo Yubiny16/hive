@@ -1,8 +1,14 @@
+var start = moment('<%= @one_event.start.strftime("%Y-%m-%dT%H:%M:%S") %>');
+var end = moment('<%= @one_event.end.strftime("%Y-%m-%dT%H:%M:%S") %>');
+
+$('.my_calendar').fullCalendar('removeEvents', 'temp');
 $('.my_calendar').fullCalendar('renderEvent', {
   id: '<%= @one_event.id %>',
   title: '<%= @one_event.title %>',
-  start: '<%= @one_event.start.strftime("%Y-%m-%dT%H:%M:%S") %>',
-  end: '<%= @one_event.end.strftime("%Y-%m-%dT%H:%M:%S") %>',
+  start: start.hours() === 0 && start.minutes() === 0 && start.seconds()=== 0 ? start.format('YYYY-MM-DD'):
+     start.format('YYYY-MM-DD HH:mm'),
+  end: end.hours() === 0 && end.minutes() === 0 && end.seconds()=== 0 ? end.format('YYYY-MM-DD'):
+     end.format('YYYY-MM-DD HH:mm'),
   color: '<%= @one_event.color %>',
   event_type: '<%= @one_event.event_type %>',
   calendar_type: '<%= @one_event.calendar_type %>',

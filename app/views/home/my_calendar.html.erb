@@ -496,16 +496,18 @@ $(document).on('turbolinks:load', initialize_calendar);
 $(function() {
   $('[data-event="add"] .add_event_button').mouseenter(function(){
 
+    var start = moment($(this).siblings('[name="start"]').val().substring(0,20));
+    var end = moment($(this).siblings('[name="end"]').val().substring(0,20));
+
     $('.my_calendar').fullCalendar('renderEvent', {
       id: 'temp',
       title: $(this).siblings('[name="title"]').val(),
-      start: moment($(this).siblings('[name="start"]').val().substring(0,20)).format('YYYY-MM-DD HH:mm'),
-      end: moment($(this).siblings('[name="end"]').val().substring(0,20)).format('YYYY-MM-DD HH:mm'),
+      start: start.hours() === 0 && start.minutes() === 0 && start.seconds()=== 0 ? start.format('YYYY-MM-DD'):
+         start.format('YYYY-MM-DD HH:mm'),
+      end: end.hours() === 0 && end.minutes() === 0 && end.seconds()=== 0 ? end.format('YYYY-MM-DD'):
+         end.format('YYYY-MM-DD HH:mm'),
       color: 'gray'
     });
-    console.log('add?');
-    console.log($(this).siblings('[name="start"]').val());
-    console.log($(this).siblings('[name="end"]').val());
   });
   $('.add_event_button').mouseleave(function(){
     $('.my_calendar').fullCalendar('removeEvents', 'temp');
