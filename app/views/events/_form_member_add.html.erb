@@ -12,10 +12,12 @@
   <p class="calendar-member-popup-timeleft">
     <%= @event.start %>
   </p>
+  <div style="position: relative; cursor: pointer;">
     <% Eventuser.where(event_id: @event.id).each do |attending_members| %>
       <span class="member-hover"><%= User.find(attending_members.user_id).first_name %> <%= User.find(attending_members.user_id).last_name %></span>
       <img src="<%= User.find(attending_members.user_id).image_url %>" alt="profile img" style="border-radius: 50%; margin-bottom: 30px" width="35px" >
     <% end %>
+  </div>
   <hr />
   <% unless Eventuser.where(event_id: @event.id).where(user_id: current_user.id).exists? %>
     <button type="submit" class="btn add_event_button_<%= @event.id %>" data-dismiss="modal">Add to My Schedule</button>

@@ -465,8 +465,7 @@
 
     <div class="col-md-2" style="background-color: white; height: 900px;">
       <div class="main-page-right-side">
-        <label>Today's Events</label>
-        <hr/>
+        <p>Upcoming Events</p>
         <% unless Event.where(user_id: current_user.id).where(calendar_type: 0).first == nil %>
           <% Event.where(user_id: current_user.id).where(calendar_type: 0).each do |today_event| %>
             <% if Date.strptime(today_event.start.to_s, '%Y-%m-%d') == Date.strptime(Time.current.to_date.to_s, '%Y-%m-%d') %>

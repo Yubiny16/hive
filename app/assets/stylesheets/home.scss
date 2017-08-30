@@ -228,16 +228,16 @@ nav#navbar-custom .btn-search i {
   margin: auto;
 }
 .leftbar > p {
-  text-align: left0;
+  text-align: left;
   color: black;
-  margin-left: 35px;
+  margin-left: 20px;
   padding: 5px;
   padding-left: 15px;
   padding-right: 20px;
 }
 .leftbar .leftbar-personal li {
   white-space: nowrap;
-  margin-left: 35px;
+  margin-left: 20px;
   padding: 5px;
   padding-left: 15px;
   padding-right: 20px;
@@ -262,7 +262,7 @@ nav#navbar-custom .btn-search i {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  margin-left: 35px;
+  margin-left: 20px;
   padding: 5px;
   padding-left: 15px;
   padding-right: 20px;
@@ -351,30 +351,17 @@ nav#navbar-custom .btn-search i {
 .fa-check {
   color: green;
 }
-.main-page-right-side label{
+.main-page-right-side > p {
   margin-top: 100px;
   font-family: "Source Sans Pro Bold";
   color: #4c4950;
   font-size: 16px;
-}
-.main-page-right-side hr {
-  position: relative;
-  right: 42px;
-  width: 150px;
-  margin-top: 3px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid $main-gray;
+  text-align: center;
 }
 .main-page-right-side .one_today_event {
-  position:relative;
-  display: block;
-  white-space:  nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
   background-color: white;
-  //padding: 10px;
-  //margin: 10px 10px;
-  //border: 1px solid #BCA9CA;
-  //border-radius: 5px;
-  margin-right: 50px;
 }
 .main-page-right-side .one_today_event .today_event_title{
   color: #716e77;
@@ -855,7 +842,6 @@ ul#feature-tabs > li.active > a {
 }
 #calendar-group-member-popup img {
   margin: 15px 10px 0px 10px;
-
 }
 #calendar-group-member-popup .member-hover {
   display: none;
