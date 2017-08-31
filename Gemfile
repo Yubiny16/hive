@@ -11,6 +11,7 @@ gem 'mailgun-ruby'
 gem 'fog-aws'
 gem 'carrierwave'
 gem 'aws-sdk', '~> 2'
+gem 'mysql2'
 
 gem 'simple_form'
 gem 'bootstrap-daterangepicker-rails'
