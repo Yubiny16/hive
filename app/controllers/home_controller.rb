@@ -512,9 +512,9 @@ class HomeController < ApplicationController
     f_key = f_url.partition('syncdataynr/').last
     @file.destroy
 
-    Aws.use_bundled_cert!
-    s3 = Aws::S3::Client.new
-    s3.delete_object(bucket: 'syncdataynr', key: f_key)
+    # Aws.use_bundled_cert!
+    # s3 = Aws::S3::Client.new
+    # s3.delete_object(bucket: 'syncdataynr', key: f_key)
 
     redirect_to :back
   end
